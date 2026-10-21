@@ -1,0 +1,122 @@
+/* Bish's RV Nexus — shadcn/ui theme (Tailwind v4)
+   Drop-in replacement for the globals.css that `npx shadcn init` creates.
+   Light = admin/data surfaces (:root). Dark = portal/ops surfaces (.dark).
+   Gold rule (ratified 2026-10-21): gold has three jobs only — COMMIT fill (--primary, ≤1 per screen),
+   ACTION outline (--gold border), gold-lo wayfinding (--sidebar-accent-foreground, current nav item only). */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.5rem;
+  --background: #F7F6F1;          --foreground: #0A0A09;
+  --card: #FFFFFF;                --card-foreground: #0A0A09;
+  --popover: #FFFFFF;             --popover-foreground: #0A0A09;
+  --primary: #8B752E;             --primary-foreground: #020000;   /* COMMIT fill — near-black text (WCAG) */
+  --secondary: #EFEDE4;           --secondary-foreground: #0A0A09;
+  --muted: #EFEDE4;               --muted-foreground: #767670;
+  --accent: #EFEDE4;              --accent-foreground: #0A0A09;    /* hover surface — never gold */
+  --destructive: #B02525;         --destructive-foreground: #FFFFFF;
+  --border: rgba(0,0,0,0.08);
+  --input: #949494;               /* control edge, 3:1 (WCAG 1.4.11) */
+  --ring: #B89E4A;
+  --chart-1: #8B752E; --chart-2: #1864AB; --chart-3: #1B7A2E; --chart-4: #545750; --chart-5: #C77C00;
+  --sidebar: #EFEDE4;             --sidebar-foreground: #3D3D38;
+  --sidebar-primary: #0A0A09;     --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E7E4D8;      --sidebar-accent-foreground: #5E4F1F; /* current nav item: gold-lo wayfinding */
+  --sidebar-border: rgba(0,0,0,0.08); --sidebar-ring: #B89E4A;
+
+  /* Bish's extensions */
+  --gold: #8B752E; --gold-hi: #B89E4A; --gold-lo: #5E4F1F;
+  --olive: #545750; --cream: #E7DDB4; --ink: #0A0A09;
+  --success: #1B7A2E; --success-tint: #D3F9D8;
+  --warning: #C77C00; --warning-tint: #FFF3BF;
+  --danger: #B02525;  --danger-tint: #FFE3E3;
+  --info: #1864AB;    --info-tint: #D0EBFF;
+  --scrim: rgba(2,0,0,0.6);
+}
+
+.dark {
+  --background: #020000;          --foreground: #FFFFFF;
+  --card: #1C2E2E;                --card-foreground: #E7DDB4;
+  --popover: #243838;             --popover-foreground: #E7DDB4;
+  --primary: #8B752E;             --primary-foreground: #020000;
+  --secondary: #243838;           --secondary-foreground: #E7DDB4;
+  --muted: #111E1E;               --muted-foreground: #A2A59C;
+  --accent: #243838;              --accent-foreground: #FFFFFF;
+  --destructive: #B02525;         --destructive-foreground: #FFFFFF;
+  --border: rgba(255,255,255,0.07);
+  --input: rgba(255,255,255,0.30);
+  --ring: #B89E4A;
+  --chart-1: #B89E4A; --chart-2: #74C0FC; --chart-3: #51CF66; --chart-4: #6E7268; --chart-5: #FFD43B;
+  --sidebar: #0A1414;             --sidebar-foreground: #E7DDB4;
+  --sidebar-primary: #243838;     --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #1C2E2E;      --sidebar-accent-foreground: #B89E4A;
+  --sidebar-border: rgba(255,255,255,0.07); --sidebar-ring: #B89E4A;
+
+  /* On dark, semantic text uses the on-dark tints (WCAG remediation) */
+  --success: #51CF66; --warning: #FFD43B; --danger: #FF8787; --info: #74C0FC;
+  --success-tint: rgba(47,158,68,0.12); --warning-tint: rgba(245,159,0,0.12);
+  --danger-tint: rgba(224,49,49,0.12);  --info-tint: rgba(28,126,214,0.12);
+}
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground);
+  --color-card: var(--card); --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover); --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary); --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent); --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive); --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border); --color-input: var(--input); --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1); --color-chart-2: var(--chart-2); --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4); --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar); --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary); --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent); --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border); --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-gold: var(--gold); --color-gold-hi: var(--gold-hi); --color-gold-lo: var(--gold-lo);
+  --color-olive: var(--olive); --color-cream: var(--cream); --color-ink: var(--ink);
+  --color-success: var(--success); --color-success-tint: var(--success-tint);
+  --color-warning: var(--warning); --color-warning-tint: var(--warning-tint);
+  --color-danger: var(--danger); --color-danger-tint: var(--danger-tint);
+  --color-info: var(--info); --color-info-tint: var(--info-tint);
+  --color-scrim: var(--scrim);
+
+  --font-sans: 'Source Sans 3', system-ui, sans-serif;
+  --font-display: 'Bebas Neue', 'Barlow Condensed', Impact, sans-serif;
+  --font-ui: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 12px; --radius-xl: 16px;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-decelerate: cubic-bezier(0, 0, 0, 1);
+  --ease-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+  /* RF04 posture bands — use @container (RF05) for anything that mounts in a stage or artboard */
+  --breakpoint-tab: 641px;
+  --breakpoint-dt: 1024px;
+  --breakpoint-wide: 1441px;
+  --container-tab: 641px;
+  --container-dt: 1024px;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/50; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: 0.02em; line-height: 1; }
+  a { color: var(--gold-lo); text-decoration: underline; text-underline-offset: 2px; }
+  .dark a { color: var(--gold-hi); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; } }
+}

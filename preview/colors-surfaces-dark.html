@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Colors" name="Dark Surfaces" subtitle="5-level elevation via color progression" viewport="700x140" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#020000 !important;margin:0;padding:20px;}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .sw{border-radius:6px;overflow:hidden;border:1px solid var(--border-ghost);}
+  .sw .color{height:64px;}
+  .sw .meta{background:var(--surface-card);padding:6px 8px;}
+  .name{font-family:var(--font-ui);font-size:11px;font-weight:600;color:#fff;letter-spacing:0.5px;}
+  .hex{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-top:2px;}
+  .role{font-family:var(--font-ui);font-size:9px;color:var(--text-subtle);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+</style></head>
+<body>
+<div class="grid">
+  <div class="sw"><div class="color" style="background:#020000;border:1px solid #111"></div><div class="meta"><div class="name">Page</div><div class="hex">#020000</div><div class="role">Level 0</div></div></div>
+  <div class="sw"><div class="color" style="background:#0A1414"></div><div class="meta"><div class="name">Deep</div><div class="hex">#0A1414</div><div class="role">Below 0</div></div></div>
+  <div class="sw"><div class="color" style="background:#111E1E"></div><div class="meta"><div class="name">Inset</div><div class="hex">#111E1E</div><div class="role">Recessed</div></div></div>
+  <div class="sw"><div class="color" style="background:#1C2E2E"></div><div class="meta"><div class="name">Card</div><div class="hex">#1C2E2E</div><div class="role">Level 1</div></div></div>
+  <div class="sw"><div class="color" style="background:#243838"></div><div class="meta"><div class="name">Raised</div><div class="hex">#243838</div><div class="role">Level 2</div></div></div>
+</div>
+</body></html>

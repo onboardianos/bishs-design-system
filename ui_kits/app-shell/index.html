@@ -1,0 +1,84 @@
+<!-- @dsCard group="Navigation" viewport="1440x900" name="App Shell · required" subtitle="Header · role-driven side panel / drawer / mobile tab bar · Action overlay · Admin › Roles & Navigation" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>App Shell · Bish's OS</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+html,body{margin:0;height:100%;background:var(--surface-deep);}
+a{color:var(--accent-gold-hi);}a:hover{color:var(--accent-gold);}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { AppShell, RolesNavAdmin, NavConfig } = window.BishSRVDesignSystem_26feec || window;
+const WIDTHS = [['Phone', 390], ['Tablet', 834], ['Landscape', 1180], ['Desktop', 1440], ['Fill', null]];
+const devBtn = (on) => ({ minHeight: 32, padding: '0 12px', borderRadius: 6, border: `1px solid ${on ? 'var(--accent-gold-hi)' : 'var(--border-mid)'}`, background: 'transparent', color: on ? 'var(--accent-gold-hi)' : 'var(--text-muted)', fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: 0.5, cursor: 'pointer' });
+
+function Placeholder({ label, theme }) {
+  const dark = theme === 'dark';
+  return (
+    <div style={{ padding: 'clamp(16px, 3vw, 32px)', maxWidth: 960 }}>
+      <div style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: dark ? 'var(--text-muted)' : 'var(--text-light-muted)' }}>Screen canvas</div>
+      <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(32px, 5vw, 48px)', letterSpacing: 1, lineHeight: 1, margin: '6px 0 10px', color: 'inherit' }}>{label}</h1>
+      <p style={{ margin: 0, fontSize: 15, lineHeight: 1.55, color: dark ? 'var(--text-body)' : 'var(--text-light-secondary)', maxWidth: 620 }}>
+        This screen's content mounts here. Open the profile menu to view the shell as another role, or switch to Admin and open Roles &amp; Navigation to change what each role sees.
+      </p>
+    </div>
+  );
+}
+
+function Demo() {
+  const cfg = NavConfig.useConfig();
+  const [role, setRole] = React.useState('admin');
+  const [active, setActive] = React.useState('roles-nav');
+  const [width, setWidth] = React.useState(null);
+  const [theme, setTheme] = React.useState('light');
+  const [phase, setPhase] = React.useState('discovery');
+  const [toast, setToast] = React.useState('');
+  const nav = NavConfig.navFor(cfg, role);
+  const ids = nav.items.map((i) => i.id).concat(['alerts', 'messenger']);
+  const cur = ids.includes(active) ? active : (nav.items[0] ? nav.items[0].id : 'alerts');
+  const item = cfg.catalog.find((i) => i.id === cur);
+  const label = item ? item.label : cur === 'alerts' ? 'Alerts' : 'Messenger';
+  const say = (m) => { setToast(m); clearTimeout(window.__shellToast); window.__shellToast = setTimeout(() => setToast(''), 2200); };
+  const actLabel = (id) => (cfg.actions.find((a) => a.id === id) || { label: id }).label;
+  const phaseLabel = (id) => (cfg.phases.find((p) => p.id === id) || { label: id }).label;
+
+  return (
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flexShrink: 0, display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, padding: '8px 12px', background: 'var(--surface-deep)', borderBottom: '1px solid var(--border-ghost)' }}>
+        <span style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--text-muted)', marginRight: 4 }}>Stage width</span>
+        {WIDTHS.map(([l, v]) => <button key={l} type="button" style={devBtn(width === v)} onClick={() => setWidth(v)}>{l}{v ? ` · ${v}` : ''}</button>)}
+        <span style={{ flex: 1 }} />
+        {['light', 'dark'].map((t) => <button key={t} type="button" style={devBtn(theme === t)} onClick={() => setTheme(t)}>{t === 'light' ? 'Light' : 'Dark'}</button>)}
+      </div>
+      <div style={{ flex: 1, minHeight: 0, display: 'flex', justifyContent: 'center', overflow: 'auto' }}>
+        <div style={{ width: width ? `${width}px` : '100%', maxWidth: '100%', height: '100%', resize: 'horizontal', overflow: 'hidden', borderLeft: width ? '1px solid var(--border-mid)' : 'none', borderRight: width ? '1px solid var(--border-mid)' : 'none', position: 'relative' }}>
+          <AppShell
+            role={role} activeId={cur} onNavigate={setActive} onRoleChange={setRole}
+            onAction={(id) => say(`Action · ${actLabel(id)}`)}
+            onPhase={(id) => { setPhase(id); say(`Moved to ${phaseLabel(id)}`); }}
+            currentPhase={phase} alerts={role === 'outfitter' ? 1 : role === 'admin' ? 12 : 3}
+            logoSrc="../../assets/logo-bishs-os.png" logoSrcDark="../../assets/logo-bishs-os-white.png"
+            theme={theme} height="100%">
+            {cur === 'roles-nav' ? <RolesNavAdmin theme={theme} /> : <Placeholder label={label} theme={theme} />}
+          </AppShell>
+          {toast && <div role="status" style={{ position: 'absolute', left: '50%', top: 76, transform: 'translateX(-50%)', zIndex: 90, padding: '10px 16px', borderRadius: 8, background: 'var(--brand-black)', color: 'var(--brand-white)', fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 600, letterSpacing: 0.5, boxShadow: 'var(--shadow-lg)' }}>{toast}</div>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body>
+</html>

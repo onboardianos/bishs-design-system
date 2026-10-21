@@ -1,0 +1,694 @@
+<!-- @dsCard group="Customer Portal" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bish's RV · Customer Portal — Flow Prototype (S1 → Answers → Tour Board)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --surface-page:#020000; --surface-deep:#0A1414; --surface-inset:#111E1E;
+    --surface-card:#1C2E2E; --surface-raised:#243838;
+    --text-primary:#FFFFFF; --text-body:#E7DDB4; --text-muted:#7A7D76; --text-subtle:#4A4D46;
+    --accent-gold:#8B752E; --accent-gold-hi:#B89E4A; --accent-olive:#545750; --accent-olive-hi:#6E7268;
+    --success:#2F9E44; --warning:#F59F00;
+    --border-ghost:rgba(255,255,255,0.07); --border-mid:rgba(255,255,255,0.13);
+    --border-gold:rgba(139,117,46,0.28); --border-gold-hi:rgba(139,117,46,0.55);
+    --fd:'Bebas Neue',sans-serif; --fu:'Barlow Condensed',sans-serif;
+    --fb:'Source Sans 3',sans-serif; --fm:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{background:#0A0A09;}
+  body{font-family:var(--fb);color:var(--text-primary);-webkit-font-smoothing:antialiased;
+       min-height:100vh;display:flex;flex-direction:column;align-items:center;
+       justify-content:center;padding:28px 16px;gap:14px;}
+  .phone{width:min(400px,100%);height:min(830px,calc(100vh - 90px));min-height:560px;
+         position:relative;background:var(--surface-page);border-radius:26px;
+         border:1px solid rgba(255,255,255,0.10);overflow:hidden;
+         box-shadow:0 24px 70px rgba(0,0,0,.55);display:flex;flex-direction:column;}
+  .scrollarea{flex:1;overflow-y:auto;overscroll-behavior:contain;padding-bottom:100px;
+              scrollbar-width:thin;scrollbar-color:var(--accent-olive) transparent;}
+  .caption{font-family:var(--fu);font-weight:600;font-size:12px;letter-spacing:.22em;
+           text-transform:uppercase;color:#6B6B63;}
+  @media (max-width:430px){
+    body{padding:0;}
+    .phone{width:100%;height:100vh;min-height:100vh;border-radius:0;border:none;box-shadow:none;}
+    .caption{display:none;}
+  }
+  .screen{display:none;flex:1;flex-direction:column;min-height:0;}
+  .screen.active{display:flex;}
+
+  /* ── shared chrome ── */
+  .timeline{background:var(--surface-inset);border-bottom:1px solid var(--border-ghost);padding:14px 16px 12px;}
+  .brandline{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+  .wordmark{font-family:var(--fd);font-size:15px;letter-spacing:.14em;color:var(--text-body);}
+  .wordmark span{color:var(--accent-gold-hi);}
+  .greet{font-family:var(--fu);font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--text-muted);text-transform:uppercase;}
+  .nodes{display:flex;align-items:center;gap:4px;}
+  .node{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1;}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--surface-card);border:1.5px solid var(--text-subtle);}
+  .node.done .dot{background:var(--accent-gold);border-color:var(--accent-gold);}
+  .node.now .dot{background:var(--accent-gold-hi);border-color:var(--accent-gold-hi);animation:pulse 2s ease-in-out infinite;}
+  .node small{font-family:var(--fu);font-weight:600;font-size:9.5px;letter-spacing:.09em;color:var(--text-subtle);text-transform:uppercase;white-space:nowrap;}
+  .node.done small{color:var(--text-muted);} .node.now small{color:var(--accent-gold-hi);}
+  .rail{height:1.5px;flex:.6;background:var(--text-subtle);opacity:.35;margin-bottom:14px;}
+  .rail.lit{background:var(--accent-gold);opacity:.8;}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(184,158,74,.45);}50%{box-shadow:0 0 0 6px rgba(184,158,74,0);}}
+  @media (prefers-reduced-motion:reduce){.node.now .dot,.newdot{animation:none;}}
+
+  .subhead{background:var(--surface-inset);border-bottom:1px solid var(--border-ghost);
+           padding:14px 16px;display:flex;align-items:center;gap:12px;}
+  .back{background:transparent;border:1.5px solid var(--border-mid);border-radius:9px;color:var(--text-body);
+        font-family:var(--fu);font-weight:600;font-size:14px;padding:8px 13px;cursor:pointer;letter-spacing:.06em;}
+  .back:hover{border-color:var(--accent-olive-hi);}
+  .subhead .t{flex:1;min-width:0;}
+  .subhead .t b{display:block;font-family:var(--fu);font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;}
+  .subhead .t em{font-style:normal;font-size:12.5px;color:var(--text-muted);}
+
+  .stack{padding:20px 16px 0;display:flex;flex-direction:column;gap:14px;}
+
+  /* ── S1 pieces ── */
+  .rightnow{background:var(--surface-raised);border:1px solid var(--border-gold);border-radius:14px;
+            padding:20px 18px 18px;cursor:pointer;transition:border-color .15s;}
+  .rightnow:hover{border-color:var(--border-gold-hi);}
+  .eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:14px;}
+  .eyebrow b{font-family:var(--fu);font-weight:600;font-size:13px;letter-spacing:.18em;color:var(--accent-gold-hi);text-transform:uppercase;}
+  .newdot{width:7px;height:7px;border-radius:50%;background:var(--accent-gold-hi);animation:pulse 2s ease-in-out infinite;}
+  .who{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .avatar{width:38px;height:38px;border-radius:50%;background:var(--accent-olive);display:flex;align-items:center;
+          justify-content:center;font-family:var(--fu);font-weight:600;font-size:16px;color:var(--text-primary);
+          border:1.5px solid var(--border-mid);flex-shrink:0;}
+  .who .name{font-family:var(--fu);font-weight:600;font-size:14.5px;letter-spacing:.03em;}
+  .who .role{font-size:12.5px;color:var(--text-muted);}
+  .rn-line{font-size:16px;line-height:1.45;color:var(--text-body);}
+  .rn-line strong{color:var(--text-primary);font-weight:600;}
+  .rn-unit{font-family:var(--fd);font-size:34px;line-height:1.05;letter-spacing:.02em;margin:8px 0 16px;}
+  .cta{display:flex;align-items:center;justify-content:center;width:100%;background:var(--accent-gold);
+       color:#FFF;border:none;border-radius:10px;font-family:var(--fu);font-weight:600;font-size:16.5px;
+       letter-spacing:.12em;text-transform:uppercase;padding:15px 18px;cursor:pointer;transition:background .15s;}
+  .cta:hover{background:var(--accent-gold-hi);}
+  .ctx{background:var(--surface-card);border:1px solid var(--border-ghost);border-radius:14px;
+       padding:16px 18px;cursor:pointer;display:flex;gap:14px;align-items:center;transition:border-color .15s;}
+  .ctx:hover{border-color:var(--border-mid);}
+  .thumb{width:64px;height:52px;border-radius:9px;flex-shrink:0;background:linear-gradient(135deg,#203232,#0A1414);
+         border:1px solid var(--border-ghost);display:flex;align-items:center;justify-content:center;}
+  .thumb span{font-family:var(--fd);font-size:12px;letter-spacing:.08em;color:var(--text-muted);}
+  .ctx-body{flex:1;min-width:0;}
+  .ctx-title{font-family:var(--fu);font-weight:600;font-size:15.5px;letter-spacing:.11em;text-transform:uppercase;margin-bottom:5px;}
+  .ctx-meta{font-size:13.5px;color:var(--text-muted);line-height:1.4;}
+  .ctx-meta .num{font-family:var(--fm);font-size:12.5px;color:var(--text-body);}
+  .fav{color:var(--accent-gold-hi);}
+  .chev{font-family:var(--fu);font-size:20px;color:var(--text-muted);flex-shrink:0;}
+  .minichip{display:inline-flex;align-items:center;gap:6px;margin-top:7px;}
+  .minichip .avatar{width:20px;height:20px;font-size:10px;border-width:1px;}
+  .minichip em{font-style:normal;font-size:12px;color:var(--text-muted);}
+
+  /* Next-step decision card (replaces Picks) */
+  .nextstep{background:var(--surface-card);border:1px solid var(--border-gold);border-radius:14px;padding:18px;}
+  .nextstep .eyebrow b{color:var(--text-muted);}
+  .ns-line{font-size:15px;color:var(--text-body);line-height:1.5;margin-bottom:14px;}
+  .ns-line strong{color:var(--text-primary);}
+  .ns-primary{display:flex;align-items:center;justify-content:center;width:100%;background:transparent;
+              border:1.5px solid var(--border-gold-hi);color:var(--accent-gold-hi);border-radius:10px;
+              font-family:var(--fu);font-weight:600;font-size:15.5px;letter-spacing:.12em;text-transform:uppercase;
+              padding:13px;cursor:pointer;transition:all .15s;margin-bottom:9px;}
+  .ns-primary:hover{background:var(--accent-gold);color:#fff;border-color:var(--accent-gold);}
+  .ns-quiet{display:flex;gap:9px;}
+  .ns-quiet button{flex:1;background:transparent;border:1px solid var(--border-ghost);border-radius:9px;
+                   color:var(--text-muted);font-family:var(--fu);font-weight:500;font-size:13px;
+                   letter-spacing:.07em;text-transform:uppercase;padding:10px 8px;cursor:pointer;}
+  .ns-quiet button:hover{border-color:var(--border-mid);color:var(--text-body);}
+  .slimrow{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px dashed var(--border-ghost);
+           border-radius:11px;cursor:pointer;}
+  .slimrow p{flex:1;font-size:13px;color:var(--text-muted);}
+  .slimrow p .num{font-family:var(--fm);font-size:12px;color:var(--text-body);}
+  .confidence{display:flex;align-items:center;gap:10px;padding:14px 18px;border:1px dashed var(--border-ghost);
+              border-radius:12px;cursor:pointer;}
+  .confidence p{font-size:13.5px;color:var(--text-muted);flex:1;}
+  .confidence .num{font-family:var(--fm);color:var(--success);font-size:13px;}
+  .footer{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--surface-page) 65%,transparent);
+          padding:18px 16px 20px;display:flex;gap:10px;z-index:20;}
+  .ask{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;background:transparent;
+       border:1.5px solid var(--border-mid);border-radius:10px;color:var(--text-body);font-family:var(--fu);
+       font-weight:600;font-size:15px;letter-spacing:.1em;text-transform:uppercase;padding:13px;cursor:pointer;}
+  .ask:hover{border-color:var(--accent-olive-hi);}
+  .ask .avatar{width:22px;height:22px;font-size:11px;border-width:1px;}
+  .more{width:52px;border:1.5px solid var(--border-ghost);border-radius:10px;background:transparent;
+        color:var(--text-muted);font-size:18px;cursor:pointer;}
+
+  /* ── Answers thread (S-Q) ── */
+  .thread{padding:18px 16px 0;display:flex;flex-direction:column;gap:16px;}
+  .ctxmark{display:flex;align-items:center;gap:8px;justify-content:center;}
+  .ctxmark small{font-family:var(--fu);font-weight:500;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-subtle);}
+  .ctxmark::before,.ctxmark::after{content:"";height:1px;flex:1;background:var(--border-ghost);}
+  .q{align-self:flex-end;max-width:85%;background:var(--surface-raised);border:1px solid var(--border-gold);
+     border-radius:14px 14px 4px 14px;padding:13px 15px;}
+  .q p{font-size:14.5px;line-height:1.5;color:var(--text-primary);}
+  .q .qmeta{margin-top:7px;font-family:var(--fu);font-size:11px;letter-spacing:.08em;color:var(--text-muted);text-transform:uppercase;}
+  .a{align-self:flex-start;max-width:88%;display:flex;gap:9px;}
+  .a .avatar{width:30px;height:30px;font-size:13px;margin-top:2px;}
+  .a-body{background:var(--surface-card);border:1px solid var(--border-ghost);border-radius:14px 14px 14px 4px;padding:13px 15px;flex:1;}
+  .a-body p{font-size:14.5px;line-height:1.55;color:var(--text-body);}
+  .a-body p strong{color:var(--text-primary);}
+  .a-body .num{font-family:var(--fm);font-size:13px;color:var(--text-primary);}
+  .a-body .qmeta{margin-top:8px;font-family:var(--fu);font-size:11px;letter-spacing:.08em;color:var(--text-subtle);text-transform:uppercase;}
+  .att-video{margin-top:11px;border-radius:11px;overflow:hidden;border:1px solid var(--border-mid);
+             background:linear-gradient(135deg,#203232,#050d0d);aspect-ratio:16/9;position:relative;cursor:pointer;}
+  .att-video .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+  .att-video .play i{width:52px;height:52px;border-radius:50%;background:rgba(139,117,46,.92);display:flex;
+                     align-items:center;justify-content:center;font-style:normal;color:#fff;font-size:20px;padding-left:4px;}
+  .att-video .dur{position:absolute;right:10px;bottom:9px;font-family:var(--fm);font-size:11px;
+                  background:rgba(0,0,0,.65);padding:3px 7px;border-radius:5px;color:var(--text-body);}
+  .att-video .vlabel{position:absolute;left:10px;top:9px;font-family:var(--fu);font-weight:600;font-size:11px;
+                     letter-spacing:.1em;text-transform:uppercase;color:var(--text-body);background:rgba(0,0,0,.55);
+                     padding:3px 8px;border-radius:5px;}
+  .att-doc{margin-top:11px;display:flex;align-items:center;gap:11px;background:var(--surface-inset);
+           border:1px solid var(--border-mid);border-radius:11px;padding:12px 13px;cursor:pointer;}
+  .att-doc .dicon{width:38px;height:44px;border-radius:6px;background:var(--surface-card);border:1px solid var(--border-mid);
+                  display:flex;align-items:center;justify-content:center;font-family:var(--fu);font-weight:600;
+                  font-size:10px;letter-spacing:.05em;color:var(--accent-gold-hi);}
+  .att-doc b{display:block;font-family:var(--fu);font-weight:600;font-size:13.5px;letter-spacing:.04em;}
+  .att-doc em{font-style:normal;font-family:var(--fm);font-size:11px;color:var(--text-muted);}
+  .att-photos{margin-top:11px;display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .att-photos .ph{aspect-ratio:4/3;border-radius:9px;background:linear-gradient(135deg,#243838,#0A1414);
+                  border:1px solid var(--border-ghost);display:flex;align-items:flex-end;padding:8px;cursor:pointer;}
+  .att-photos .ph span{font-family:var(--fu);font-weight:600;font-size:10.5px;letter-spacing:.09em;
+                       text-transform:uppercase;color:var(--text-muted);}
+  .pending{align-self:flex-end;max-width:85%;}
+  .pending .q{opacity:.85;}
+  .pstate{display:flex;align-items:center;gap:7px;justify-content:flex-end;margin-top:6px;}
+  .pstate i{width:6px;height:6px;border-radius:50%;background:var(--warning);font-style:normal;}
+  .pstate small{font-family:var(--fu);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);}
+  .composer{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,var(--surface-page) 70%,transparent);
+            padding:16px;z-index:20;}
+  .comp-row{display:flex;gap:9px;}
+  .comp-row input{flex:1;background:var(--surface-inset);border:1.5px solid var(--border-mid);border-radius:11px;
+                  color:var(--text-primary);font-family:var(--fb);font-size:14.5px;padding:13px 15px;outline:none;}
+  .comp-row input::placeholder{color:var(--text-subtle);}
+  .comp-row input:focus{border-color:var(--border-gold-hi);}
+  .send{width:52px;border-radius:11px;border:none;background:var(--accent-gold);color:#fff;font-size:17px;cursor:pointer;}
+  .send:hover{background:var(--accent-gold-hi);}
+  .sla{text-align:center;margin-top:8px;font-family:var(--fu);font-size:11px;letter-spacing:.09em;
+       text-transform:uppercase;color:var(--text-subtle);}
+
+  /* ── Tour Board (S4) ── */
+  .lane-label{display:flex;align-items:center;gap:9px;margin-top:6px;}
+  .lane-label b{font-family:var(--fu);font-weight:600;font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);}
+  .lane-label.goldlane b{color:var(--accent-gold-hi);}
+  .lane-label::after{content:"";height:1px;flex:1;background:var(--border-ghost);}
+  .hero{background:var(--surface-raised);border:1.5px solid var(--border-gold-hi);border-radius:16px;overflow:hidden;}
+  .hero-img{aspect-ratio:16/8.5;background:linear-gradient(150deg,#2a4040 0%,#0A1414 85%);position:relative;
+            display:flex;align-items:flex-end;padding:14px;}
+  .badge{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;
+         font-family:var(--fu);font-weight:600;font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+         background:rgba(2,0,0,.72);border:1px solid var(--border-gold-hi);color:var(--accent-gold-hi);
+         padding:6px 11px;border-radius:8px;}
+  .hero-body{padding:16px 18px 18px;}
+  .hero-unit{font-family:var(--fd);font-size:28px;letter-spacing:.02em;line-height:1.05;margin-bottom:10px;}
+  .prosline{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;}
+  .prosline span{font-size:13.5px;color:var(--text-body);line-height:1.45;}
+  .prosline span b{color:var(--success);font-weight:600;margin-right:7px;font-family:var(--fu);}
+  .quote{border-left:2px solid var(--accent-gold);padding:2px 0 2px 12px;margin-bottom:15px;}
+  .quote p{font-size:14px;font-style:italic;color:var(--text-body);line-height:1.5;}
+  .quote small{display:block;margin-top:4px;font-family:var(--fu);font-size:11px;letter-spacing:.1em;
+               text-transform:uppercase;color:var(--text-subtle);font-style:normal;}
+  .hero-actions{display:flex;flex-direction:column;gap:9px;}
+  .hero-quiet{display:flex;gap:9px;}
+  .hero-quiet button{flex:1;background:transparent;border:1px solid var(--border-mid);border-radius:9px;
+                     color:var(--text-body);font-family:var(--fu);font-weight:500;font-size:13px;letter-spacing:.07em;
+                     text-transform:uppercase;padding:11px 8px;cursor:pointer;}
+  .hero-quiet button:hover{border-color:var(--accent-olive-hi);}
+  .maybe{background:var(--surface-card);border:1px solid var(--border-ghost);border-radius:14px;
+         padding:15px 16px;display:flex;gap:13px;align-items:center;}
+  .maybe .thumb{width:70px;height:56px;}
+  .maybe-body{flex:1;min-width:0;}
+  .maybe-body b{display:block;font-family:var(--fu);font-weight:600;font-size:15px;letter-spacing:.05em;margin-bottom:3px;}
+  .maybe-body em{font-style:normal;font-size:12.5px;color:var(--text-muted);line-height:1.4;display:block;}
+  .maybe-cta{background:transparent;border:1px solid var(--border-gold);border-radius:8px;color:var(--accent-gold-hi);
+             font-family:var(--fu);font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+             padding:9px 11px;cursor:pointer;white-space:nowrap;}
+  .maybe-cta:hover{background:var(--accent-gold);color:#fff;}
+  .passedrow{display:flex;align-items:center;gap:10px;padding:13px 16px;border:1px dashed var(--border-ghost);
+             border-radius:11px;cursor:pointer;margin-bottom:6px;}
+  .passedrow p{flex:1;font-size:13px;color:var(--text-subtle);}
+
+  /* ── DESKTOP · decision-support rail architecture ─────────────
+     Same priorities, different posture: center column = the exact
+     mobile hierarchy; right rail = hesitation-answering value.
+     Rail modules each map to a named hesitation (see blueprint §14). */
+  .siderail{display:none;}
+  @media (min-width:1024px){
+    body{padding:26px;}
+    .phone{width:100%;max-width:1340px;height:calc(100vh - 104px);border-radius:20px;}
+    .scrollarea{padding-bottom:48px;}
+    .footer{display:none;}                 /* ask lives in the rail on desktop */
+    .timeline{padding:16px 34px 14px;}
+    .nodes{max-width:640px;}
+    .subhead{padding:16px 34px;}
+    .layout{display:grid;grid-template-columns:minmax(0,1fr) 348px;gap:24px;
+            max-width:1160px;margin:0 auto;padding:28px 34px 40px;align-items:start;}
+    .stack,.thread{padding:0;}
+    .siderail{display:flex;flex-direction:column;gap:14px;position:sticky;top:22px;}
+    .rn-unit{font-size:42px;}
+    .hero-img{aspect-ratio:16/7;}
+    .maybes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+    .maybes-grid .maybe{flex-direction:column;align-items:stretch;gap:10px;}
+    .maybes-grid .maybe .thumb{width:100%;height:96px;}
+    .composer{background:var(--surface-page);border-top:1px solid var(--border-ghost);}
+    .comp-row,.sla{max-width:700px;margin-left:auto;margin-right:auto;}
+    .sla{margin-top:8px;}
+  }
+  /* rail modules */
+  .mod{background:var(--surface-card);border:1px solid var(--border-ghost);border-radius:14px;padding:17px 18px;}
+  .mod.gold{border-color:var(--border-gold);}
+  .mod h4{font-family:var(--fu);font-weight:600;font-size:12.5px;letter-spacing:.16em;
+          text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;}
+  .mod.gold h4{color:var(--accent-gold-hi);}
+  .mod p{font-size:13.5px;color:var(--text-body);line-height:1.5;}
+  .estrow{display:flex;align-items:baseline;gap:8px;margin:10px 0 4px;}
+  .estrow .estnum{font-family:var(--fd);font-size:38px;color:var(--text-primary);letter-spacing:.02em;}
+  .estrow .estper{font-family:var(--fu);font-size:13px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;}
+  .estnote{font-family:var(--fm);font-size:11px;color:var(--text-subtle);margin-bottom:12px;}
+  .modcta{display:flex;align-items:center;justify-content:center;width:100%;background:transparent;
+          border:1.5px solid var(--border-gold-hi);color:var(--accent-gold-hi);border-radius:9px;
+          font-family:var(--fu);font-weight:600;font-size:13.5px;letter-spacing:.1em;text-transform:uppercase;
+          padding:11px;cursor:pointer;transition:all .15s;}
+  .modcta:hover{background:var(--accent-gold);color:#fff;border-color:var(--accent-gold);}
+  .modcta.quiet{border-color:var(--border-mid);color:var(--text-body);}
+  .modcta.quiet:hover{background:transparent;border-color:var(--accent-olive-hi);color:var(--text-primary);}
+  .g-link{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid var(--border-ghost);cursor:pointer;}
+  .g-link:first-of-type{border-top:none;padding-top:2px;}
+  .g-link .gicon{width:34px;height:34px;border-radius:8px;background:var(--surface-inset);border:1px solid var(--border-ghost);
+                 display:flex;align-items:center;justify-content:center;font-family:var(--fu);font-weight:600;
+                 font-size:9.5px;letter-spacing:.05em;color:var(--accent-gold-hi);flex-shrink:0;}
+  .g-link b{display:block;font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.35;}
+  .g-link em{font-style:normal;font-family:var(--fu);font-size:11px;letter-spacing:.07em;
+             text-transform:uppercase;color:var(--text-subtle);}
+  .g-link:hover b{color:var(--accent-gold-hi);}
+  .mod .who{margin-bottom:0;margin-top:2px;}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+<!-- ═══════════ S1 · HOME (revised) ═══════════ -->
+<section class="screen active" id="home">
+  <div class="scrollarea">
+    <header class="timeline">
+      <div class="brandline">
+        <div class="wordmark">BISH'S <span>RV</span></div>
+        <div class="greet">Alex's Journey</div>
+      </div>
+      <div class="nodes">
+        <div class="node done"><div class="dot"></div><small>Visit</small></div>
+        <div class="rail lit"></div>
+        <div class="node now"><div class="dot"></div><small>Reviewing</small></div>
+        <div class="rail"></div>
+        <div class="node"><div class="dot"></div><small>Numbers</small></div>
+        <div class="rail"></div>
+        <div class="node"><div class="dot"></div><small>Commit</small></div>
+        <div class="rail"></div>
+        <div class="node"><div class="dot"></div><small>Delivery</small></div>
+        <div class="rail"></div>
+        <div class="node"><div class="dot"></div><small>Own</small></div>
+      </div>
+    </header>
+    <div class="layout">
+    <main class="stack">
+      <section class="rightnow" data-nav="answers" role="button" tabindex="0">
+        <div class="eyebrow"><span class="newdot"></span><b>Right Now</b></div>
+        <div class="who">
+          <div class="avatar">S</div>
+          <div>
+            <div class="name">Sarah Whitfield</div>
+            <div class="role">Your Outfitter · Meridian</div>
+          </div>
+        </div>
+        <p class="rn-line">Sarah answered your <strong>3 questions</strong> about the</p>
+        <h1 class="rn-unit">2026 BRINKLEY MODEL Z 3515</h1>
+        <button class="cta">See Her Answers &nbsp;▸</button>
+      </section>
+
+      <section class="ctx" data-nav="tour" role="button" tabindex="0">
+        <div class="thumb"><span>MODEL Z</span></div>
+        <div class="ctx-body">
+          <div class="ctx-title">Your Tour — Saturday</div>
+          <div class="ctx-meta"><span class="num">6</span> units toured · <span class="fav">★</span> <span class="num">1</span> favorite · <span class="num">2</span> maybes</div>
+          <div class="minichip"><div class="avatar">S</div><em>walked with Sarah</em></div>
+        </div>
+        <div class="chev">▸</div>
+      </section>
+
+      <!-- REVISED third slot: journey-forward decision, not a label -->
+      <section class="nextstep">
+        <div class="eyebrow"><b>Your Next Step</b></div>
+        <p class="ns-line">You starred the <strong>Model Z</strong> on Saturday. When you're ready, the next step is seeing what it looks like financially — <strong>no commitment, just your real numbers.</strong></p>
+        <button class="ns-primary">See My Numbers on the Model Z &nbsp;▸</button>
+        <div class="ns-quiet">
+          <button>Book a Second Look</button>
+          <button data-nav="tour">Compare My Top 3</button>
+        </div>
+      </section>
+
+      <!-- Mike's picks demoted: only NEW units earn a row -->
+      <section class="slimrow" role="button" tabindex="0">
+        <p>Mike found <span class="num">2</span> more units matched to your answers — ones you haven't seen yet</p>
+        <div class="chev">▸</div>
+      </section>
+
+      <section class="confidence" role="button" tabindex="0">
+        <p>You understand <span class="num">5 of 7</span> things buyers like you want to know</p>
+        <div class="chev">▸</div>
+      </section>
+    </main>
+
+    <!-- DESKTOP RAIL · each module answers a named hesitation (blueprint §14) -->
+    <aside class="siderail">
+      <!-- hesitation: "I don't know what this costs monthly / afraid asking = pressure" -->
+      <div class="mod gold">
+        <h4>No-Pressure Estimate</h4>
+        <p>Ballpark the Model Z yourself — private, instant, nobody gets notified.</p>
+        <div class="estrow"><span class="estnum">$612</span><span class="estper">/ mo est.</span></div>
+        <div class="estnote">est. · 20% down · 240 mo · your rate may differ</div>
+        <button class="modcta">Estimate My Payment ▸</button>
+      </div>
+      <!-- hesitation: "I don't know what my current rig is worth" -->
+      <div class="mod">
+        <h4>Your Trade</h4>
+        <p>Towing a trade into the math? Get a real range on your current rig in about a minute.</p>
+        <div style="height:10px"></div>
+        <button class="modcta quiet">What's My RV Worth ▸</button>
+      </div>
+      <!-- hesitation: "I don't understand the process / what I'd be signing up for" -->
+      <div class="mod">
+        <h4>Learn Before You Decide</h4>
+        <div class="g-link">
+          <div class="gicon">4:10</div>
+          <div><b>How financing works at Bish's</b><em>Video · what happens, step by step</em></div>
+        </div>
+        <div class="g-link">
+          <div class="gicon">READ</div>
+          <div><b>What it really costs to own a fifth wheel</b><em>Guide · insurance, storage, upkeep</em></div>
+        </div>
+        <div class="g-link">
+          <div class="gicon">2:35</div>
+          <div><b>What happens after you say yes</b><em>Video · delivery, walkthrough, first trip</em></div>
+        </div>
+      </div>
+      <!-- hesitation: "I'm not deciding alone" -->
+      <div class="mod">
+        <h4>Deciding Together?</h4>
+        <p>Send your favorite to whoever's deciding with you — they see the RV, never your numbers.</p>
+        <div style="height:10px"></div>
+        <button class="modcta quiet">Share the Model Z ▸</button>
+      </div>
+      <!-- the human channel, always present -->
+      <div class="mod">
+        <h4>Your Outfitter</h4>
+        <div class="who">
+          <div class="avatar">S</div>
+          <div>
+            <div class="name">Sarah Whitfield</div>
+            <div class="role">Replies within 4 business hrs</div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <button class="modcta quiet" data-nav="answers">Ask Sarah Anything ▸</button>
+      </div>
+    </aside>
+    </div><!-- /layout -->
+  </div>
+  <footer class="footer">
+    <button class="ask"><span class="avatar">S</span> Ask Sarah Anything &nbsp;▸</button>
+    <button class="more">···</button>
+  </footer>
+</section>
+
+<!-- ═══════════ S-Q · ANSWERS THREAD ═══════════ -->
+<section class="screen" id="answers">
+  <div class="scrollarea">
+    <header class="subhead">
+      <button class="back" data-nav="home">— Back</button>
+      <div class="t">
+        <b>Your Questions · Model Z 3515</b>
+        <em>with Sarah Whitfield · Your Outfitter</em>
+      </div>
+      <div class="thumb" style="width:52px;height:42px;"><span>Z 3515</span></div>
+    </header>
+    <div class="layout">
+    <div class="thread">
+
+      <div class="ctxmark"><small>Asked during your tour · Saturday 2:41 PM</small></div>
+      <div class="q">
+        <p>Can the garage fit two dirt bikes with the ramp door closed?</p>
+        <div class="qmeta">You · at the unit</div>
+      </div>
+      <div class="a">
+        <div class="avatar">S</div>
+        <div class="a-body">
+          <p><strong>Yes — with room to strap both.</strong> I went back out and measured it for you: the garage is <span class="num">11'6"</span> deep with the ramp closed. I shot a quick video so you can see both bikes' worth of space.</p>
+          <div class="att-video">
+            <span class="vlabel">Video · Garage walkthrough</span>
+            <div class="play"><i>▸</i></div>
+            <span class="dur">0:47</span>
+          </div>
+          <div class="qmeta">Sarah · Monday 9:12 AM</div>
+        </div>
+      </div>
+
+      <div class="ctxmark"><small>Asked during your tour · Saturday 3:05 PM</small></div>
+      <div class="q">
+        <p>What's the real-world tow weight once the water tanks are full?</p>
+        <div class="qmeta">You · at the unit</div>
+      </div>
+      <div class="a">
+        <div class="avatar">S</div>
+        <div class="a-body">
+          <p>Dry weight is <span class="num">12,995 lb</span>. Full fresh water adds about <span class="num">1,000 lb</span>, so plan around <span class="num">~14,600 lb</span> loaded with gear — comfortably inside your F-350's rating. Full spec sheet attached.</p>
+          <div class="att-doc">
+            <div class="dicon">PDF</div>
+            <div>
+              <b>Model Z 3515 — Full Spec Sheet</b>
+              <em>PDF · 2.4 MB</em>
+            </div>
+          </div>
+          <div class="qmeta">Sarah · Monday 9:20 AM</div>
+        </div>
+      </div>
+
+      <div class="ctxmark"><small>Asked from home · Sunday 8:34 PM</small></div>
+      <div class="q">
+        <p>Does the solar package come standard or is that an add-on?</p>
+        <div class="qmeta">You · from the portal</div>
+      </div>
+      <div class="a">
+        <div class="avatar">S</div>
+        <div class="a-body">
+          <p><strong>Standard on this build</strong> — this exact unit has the 400W rooftop package and dual batteries already installed. Here's the roof and the battery bay on your actual unit:</p>
+          <div class="att-photos">
+            <div class="ph"><span>Rooftop · 400W</span></div>
+            <div class="ph"><span>Battery Bay</span></div>
+          </div>
+          <div class="qmeta">Sarah · Monday 9:31 AM</div>
+        </div>
+      </div>
+
+      <div class="ctxmark"><small>Today</small></div>
+      <div class="pending">
+        <div class="q">
+          <p>Perfect — and does the hitch come included or do we source that separately?</p>
+          <div class="qmeta">You · just now</div>
+        </div>
+        <div class="pstate"><i></i><small>Sent · Sarah's on it</small></div>
+      </div>
+
+    </div>
+
+    <!-- DESKTOP RAIL · thread context, keeps the unit + next step in sight -->
+    <aside class="siderail">
+      <div class="mod gold">
+        <h4>★ Your Favorite</h4>
+        <div class="thumb" style="width:100%;height:110px;margin-bottom:11px;"><span>MODEL Z 3515</span></div>
+        <p><strong style="color:var(--text-primary);">2026 Brinkley Model Z 3515</strong><br>
+        <span style="font-family:var(--fm);font-size:12px;color:var(--text-muted);">3 answered · 1 pending</span></p>
+        <div style="height:12px"></div>
+        <button class="modcta">See My Numbers ▸</button>
+      </div>
+      <div class="mod">
+        <h4>Related to Your Questions</h4>
+        <div class="g-link">
+          <div class="gicon">READ</div>
+          <div><b>Towing capacity, explained honestly</b><em>Guide · GVWR, payload, real margins</em></div>
+        </div>
+        <div class="g-link">
+          <div class="gicon">3:20</div>
+          <div><b>Toy hauler garage setups we see most</b><em>Video · bikes, quads, tie-downs</em></div>
+        </div>
+      </div>
+      <div class="mod">
+        <h4>Rather Talk It Through?</h4>
+        <p>Put 15 minutes on Sarah's calendar — phone or video, your pick.</p>
+        <div style="height:10px"></div>
+        <button class="modcta quiet">Schedule a Call ▸</button>
+      </div>
+    </aside>
+    </div><!-- /layout -->
+  </div>
+  <div class="composer">
+    <div class="comp-row">
+      <input type="text" placeholder="Ask a follow-up about the Model Z…">
+      <button class="send">▸</button>
+    </div>
+    <div class="sla">Sarah typically replies within 4 business hours</div>
+  </div>
+</section>
+
+<!-- ═══════════ S4 · TOUR BOARD ═══════════ -->
+<section class="screen" id="tour">
+  <div class="scrollarea">
+    <header class="subhead">
+      <button class="back" data-nav="home">— Back</button>
+      <div class="t">
+        <b>Your Tour — Saturday</b>
+        <em>6 units · walked with Sarah Whitfield</em>
+      </div>
+    </header>
+    <div class="layout">
+    <main class="stack">
+
+      <div class="lane-label goldlane"><b>★ Your Favorite</b></div>
+      <section class="hero">
+        <div class="hero-img">
+          <span class="badge">★ Favorite</span>
+        </div>
+        <div class="hero-body">
+          <h2 class="hero-unit">2026 BRINKLEY MODEL Z 3515</h2>
+          <div class="prosline">
+            <span><b>+</b> Garage fits both bikes — Sarah confirmed 11'6" with door closed</span>
+            <span><b>+</b> Kitchen island "exactly what Jamie wanted"</span>
+            <span><b>+</b> 400W solar standard on this build</span>
+          </div>
+          <div class="quote">
+            <p>"This is the one that felt like home the second we walked in."</p>
+            <small>You said this · documented by Sarah · 2:47 PM</small>
+          </div>
+          <div class="hero-actions">
+            <button class="cta">See My Numbers &nbsp;▸</button>
+            <div class="hero-quiet">
+              <button data-nav="answers">My Notes &amp; Questions</button>
+              <button>Book a Second Look</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="lane-label"><b>◐ Your Maybes</b></div>
+      <div class="maybes-grid">
+      <section class="maybe">
+        <div class="thumb"><span>REFLECTION</span></div>
+        <div class="maybe-body">
+          <b>Grand Design Reflection 337RLS</b>
+          <em>Loved the rear living space · unsure about no garage</em>
+        </div>
+        <button class="maybe-cta">Compare ▸</button>
+      </section>
+      <section class="maybe">
+        <div class="thumb"><span>MONTANA</span></div>
+        <div class="maybe-body">
+          <b>Keystone Montana 3761FL</b>
+          <em>Front living impressed · felt long for your storage spot</em>
+        </div>
+        <button class="maybe-cta">Compare ▸</button>
+      </section>
+      </div>
+
+      <div class="lane-label"><b>The Rest</b></div>
+      <section class="passedrow" role="button" tabindex="0">
+        <p>The 3 you passed on — with why, in your words</p>
+        <div class="chev">▸</div>
+      </section>
+
+    </main>
+
+    <!-- DESKTOP RAIL · tour context: decide-between support -->
+    <aside class="siderail">
+      <div class="mod gold">
+        <h4>Why the Model Z Won Saturday</h4>
+        <p>It hit all three things you told Sarah mattered most: the garage, the kitchen island, and staying under your tow rating.</p>
+        <div style="height:12px"></div>
+        <button class="modcta">See My Numbers ▸</button>
+      </div>
+      <div class="mod">
+        <h4>Still Weighing It?</h4>
+        <div class="g-link">
+          <div class="gicon">VS</div>
+          <div><b>Model Z vs. your two maybes</b><em>Side-by-side · your notes included</em></div>
+        </div>
+        <div class="g-link">
+          <div class="gicon">TOUR</div>
+          <div><b>Book a second look</b><em>Walk it again · bring anyone</em></div>
+        </div>
+        <div class="g-link" data-nav="answers">
+          <div class="gicon">Q&amp;A</div>
+          <div><b>Your questions on the Model Z</b><em>3 answered · 1 pending</em></div>
+        </div>
+      </div>
+      <div class="mod">
+        <h4>Your Outfitter</h4>
+        <div class="who">
+          <div class="avatar">S</div>
+          <div>
+            <div class="name">Sarah Whitfield</div>
+            <div class="role">Walked all 6 with you</div>
+          </div>
+        </div>
+        <div style="height:12px"></div>
+        <button class="modcta quiet" data-nav="answers">Ask Sarah Anything ▸</button>
+      </div>
+    </aside>
+    </div><!-- /layout -->
+  </div>
+  <footer class="footer">
+    <button class="ask"><span class="avatar">S</span> Ask Sarah Anything &nbsp;▸</button>
+    <button class="more">···</button>
+  </footer>
+</section>
+
+</div><!-- /phone -->
+<div class="caption" id="cap">S1 · Portal Home — Visit Recap · tap through the cards</div>
+
+<script>
+  const captions = {
+    home: "S1 · Portal Home — Visit Recap · tap through the cards",
+    answers: "S-Q · Your Questions — the ongoing communication channel",
+    tour: "S4 · Tour Board — verdicts first, actions attached"
+  };
+  document.querySelectorAll('[data-nav]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.stopPropagation();
+      const target = el.getAttribute('data-nav');
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(target).classList.add('active');
+      document.querySelector('#' + target + ' .scrollarea').scrollTop = 0;
+      document.getElementById('cap').textContent = captions[target];
+    });
+  });
+</script>
+<script>
+  // Hash deep-linking so the Canvas/Prototype shell can address screens: #home #answers #tour
+  function __hashNav(){
+    var id = (location.hash || '').replace('#','');
+    if (!id || !document.getElementById(id)) return;
+    document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+    var sa = document.querySelector('#' + id + ' .scrollarea'); if (sa) sa.scrollTop = 0;
+    if (captions[id]) document.getElementById('cap').textContent = captions[id];
+  }
+  window.addEventListener('hashchange', __hashNav);
+  __hashNav();
+</script>
+</body>
+</html>

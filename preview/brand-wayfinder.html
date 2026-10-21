@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="brand-wayfinder" subtitle="Primary emblem — replaces generic chevrons in UI" viewport="900x380" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:24px 28px;}
+  .wrap{display:grid;grid-template-columns:320px 1fr;gap:32px;align-items:start;}
+  .hero{background:#020000;border-radius:8px;padding:28px 24px 20px;display:flex;flex-direction:column;align-items:center;gap:12px;border:1px solid rgba(139,117,46,0.28);}
+  .hero svg{display:block;}
+  .tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#B89E4A;font-weight:600;}
+  .name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1.5px;color:#fff;line-height:1;}
+  .meta{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#7A7D76;letter-spacing:0.3px;}
+  .notes h4{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#5E4F1F;margin:0 0 6px;}
+  .notes p{font-family:'Source Sans 3',sans-serif;font-size:12.5px;color:#3D3D38;line-height:1.55;margin:0 0 14px;max-width:520px;}
+  .notes p b{color:#0A0A09;font-weight:600;}
+  .notes p code{font-family:'JetBrains Mono',monospace;font-size:11px;color:#5E4F1F;background:#EFEDE4;padding:1px 5px;border-radius:3px;}
+  .sizes{display:flex;gap:22px;align-items:flex-end;padding:16px 18px;background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:6px;margin-top:6px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  .sz{display:flex;flex-direction:column;align-items:center;gap:8px;}
+  .sz-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#6B6B63;font-weight:600;}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">Primary Emblem</span>
+    <svg width="180" height="142" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg>
+    <div class="name">The Wayfinder</div>
+    <div class="meta">viewBox 0 0 80 63 · aspect 1.27:1</div>
+  </div>
+  <div class="notes">
+    <h4>Anatomy</h4>
+    <p>Horizontal right-pointing arrowhead with a <b>concave back</b>. Tip apex at <code>x≈77 y≈30.5</code>. The two rear tails carry a soft round to prevent it reading as a generic chevron — it's a <b>mark</b>, not a symbol. Pulled directly from the apostrophe in the Bish's logo. Reads as "go" — the brand's motion-and-direction glyph.</p>
+    <h4>Where it replaces generic UI</h4>
+    <p>Swap in for <code>›</code>, <code>&gt;</code>, or <code>chevron-right</code> wherever directional affordance is needed: section eyebrows, list bullets, breadcrumb separators, empty-state anchors, pagination chevrons.</p>
+    <h4>Token</h4>
+    <p>SVG path exposed as <code>--wf-path</code> (CSS clip-path) and <code>--wf-viewbox</code>. Use inline SVG in most cases; clip-path on shaped divs only.</p>
+    <div class="sizes">
+      <div class="sz"><svg width="16" height="13" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg><div class="sz-lbl">xs · 16</div></div>
+      <div class="sz"><svg width="28" height="22" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg><div class="sz-lbl">sm · 28</div></div>
+      <div class="sz"><svg width="48" height="38" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg><div class="sz-lbl">md · 48</div></div>
+      <div class="sz"><svg width="72" height="57" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg><div class="sz-lbl">lg · 72</div></div>
+    </div>
+  </div>
+</div>
+</body></html>
