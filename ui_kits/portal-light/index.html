@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!-- @dsCard group="UI Kit — Portal Light" name="Portal (Light) · UI Kit" subtitle="Reporting / admin variant — cream page, white cards, shadow elevation" viewport="1200x900" -->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Bish's RV — Nexus Portal (Light)</title>
+  <link rel="stylesheet" href="../../colors_and_type.css">
+  <style>
+    html, body { background: #F7F6F1 !important; margin: 0; padding: 0; color: #0A0A09; font-family: 'Source Sans 3', sans-serif; }
+    .hero { background: linear-gradient(135deg,#FAFAF6 0%,#F2EFE6 55%,#ECE6D4 100%); border-bottom: 2px solid #8B752E; padding: 40px 32px 32px; position: relative; overflow: hidden; }
+    .hero::before, .hero::after { content: ''; position: absolute; border: 1px solid rgba(139,117,46,0.18); border-radius: 50%; pointer-events: none; }
+    .hero::before { top: -80px; right: -80px; width: 320px; height: 320px; }
+    .hero::after { top: -120px; right: -120px; width: 480px; height: 480px; border-color: rgba(139,117,46,0.09); }
+    .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+    .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #5E4F1F; font-weight: 600; margin-bottom: 10px; }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; color: #0A0A09; margin: 0; }
+    .hero h1 span { color: #8B752E; }
+    .meta-row { margin-top: 14px; display: flex; gap: 24px; flex-wrap: wrap; }
+    .meta-row span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #6B6B63; }
+    .meta-row strong { color: #0A0A09; font-weight: 500; }
+
+    .tabs { background: #F7F6F1; border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0 32px; position: sticky; top: 0; z-index: 200; }
+    .tabs-inner { max-width: 1100px; margin: 0 auto; display: flex; overflow-x: auto; }
+    .tab { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; padding: 14px 18px 12px; border: none; cursor: pointer; background: transparent; color: #9C9C94; border-bottom: 2px solid transparent; transition: all 150ms cubic-bezier(0.2,0,0,1); white-space: nowrap; }
+    .tab.active { color: #5E4F1F; font-weight: 600; border-bottom-color: #8B752E; }
+
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 32px; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+    .stat { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 16px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04); }
+    .stat .lab { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #8B752E; font-weight: 600; margin-bottom: 6px; }
+    .stat .val { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 1px; color: #0A0A09; line-height: 1; }
+    .stat .delta { font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 6px; }
+    .delta.up { color: #1B7A2E; } .delta.down { color: #B02525; } .delta.neutral { color: #6B6B63; }
+
+    .two-col { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+    .panel { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04); }
+    .panel-head { background: #FAFAF6; padding: 14px 20px; border-bottom: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: space-between; align-items: center; }
+    .panel-head .title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #0A0A09; letter-spacing: 0.5px; }
+    .panel-head .eb { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #8B752E; font-weight: 600; margin-bottom: 2px; }
+
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid rgba(0,0,0,0.06); cursor: pointer; transition: background 150ms cubic-bezier(0.2,0,0,1); }
+    .row:hover { background: rgba(139,117,46,0.04); }
+    .row:last-child { border-bottom: none; }
+    .row .id { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5E4F1F; margin-right: 20px; flex-shrink: 0; }
+    .row .name { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: #0A0A09; }
+    .row .phase { font-family: 'Source Sans 3', sans-serif; font-size: 12px; color: #6B6B63; margin-top: 2px; }
+
+    .badge { display: inline-flex; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 4px 10px; border-radius: 9999px; }
+    .b-gold { background: rgba(139,117,46,0.12); color: #5E4F1F; border: 1px solid rgba(139,117,46,0.35); }
+    .b-success { background: rgba(27,122,46,0.1); color: #1B7A2E; border: 1px solid rgba(27,122,46,0.3); }
+    .b-warning { background: rgba(199,124,0,0.1); color: #C77C00; border: 1px solid rgba(199,124,0,0.3); }
+    .b-danger { background: rgba(176,37,37,0.08); color: #B02525; border: 1px solid rgba(176,37,37,0.28); }
+    .b-info { background: rgba(24,100,171,0.08); color: #1864AB; border: 1px solid rgba(24,100,171,0.28); }
+
+    .card { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04); }
+    .card .head { background: #FAFAF6; padding: 16px 20px; border-bottom: 1px solid rgba(0,0,0,0.06); }
+    .card .head .t { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: #0A0A09; letter-spacing: 0.5px; }
+    .card .head .s { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: #6B6B63; letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
+    .card .body { padding: 16px 20px; font-size: 13px; color: #3D3D38; line-height: 1.6; }
+    .card .foot { padding: 12px 20px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: flex-end; gap: 8px; }
+
+    .btn { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.5px; font-size: 12px; padding: 6px 12px; height: 32px; border-radius: 8px; cursor: pointer; border: none; transition: all 150ms cubic-bezier(0.2,0,0,1); display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary { background: #8B752E; color: #fff; }
+    .btn-primary:hover { background: #B89E4A; }
+    .btn-secondary { background: #fff; color: #5E4F1F; border: 1px solid rgba(139,117,46,0.45); }
+    .btn-ghost { background: transparent; color: #3D3D38; }
+    .btn-ghost:hover { background: rgba(0,0,0,0.04); }
+
+    .composer { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 12px; }
+    .composer .lab { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 500; color: #0A0A09; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
+    .composer input { font-family: 'Source Sans 3', sans-serif; font-size: 14px; width: 100%; box-sizing: border-box; padding: 10px 12px; background: #FFFFFF; color: #0A0A09; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; outline: none; transition: all 150ms cubic-bezier(0.2,0,0,1); }
+    .composer input:focus { border-color: #8B752E; box-shadow: 0 0 0 3px rgba(139,117,46,0.12); }
+    .helper { font-family: 'Source Sans 3', sans-serif; font-size: 12px; color: #6B6B63; margin-top: 4px; }
+    .err { color: #B02525; }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; padding: 12px 18px; border-radius: 8px; z-index: 500; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1); }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState } = React;
+
+    const UNITS = [
+      { id: "#4821-B", name: "2024 Winnebago Vista", phase: "Phase 3 · Interior Inspection", status: "Active", type: "gold" },
+      { id: "#3190-A", name: "2023 Forest River Sandpiper", phase: "Phase 8 · Final QC", status: "Complete", type: "success" },
+      { id: "#5502-C", name: "2024 Jayco Eagle HT", phase: "Phase 1 · Intake", status: "Pending", type: "warning" },
+      { id: "#2847-D", name: "2022 Grand Design Reflection", phase: "Phase 5 · Awaiting Parts", status: "Overdue", type: "danger" },
+      { id: "#6103-A", name: "2025 Thor Chateau", phase: "Phase 2 · Service Review", status: "In Review", type: "info" },
+    ];
+
+    function App() {
+      const [tab, setTab] = useState("Reports");
+      const [sel, setSel] = useState(UNITS[0]);
+      const [stock, setStock] = useState("");
+      const [vin, setVin] = useState("");
+      const [toast, setToast] = useState(null);
+      const vinError = vin.length > 0 && vin.length !== 17 ? "VIN must be exactly 17 characters" : "";
+
+      function add() {
+        if (!stock || vin.length !== 17) {
+          setToast({ msg: "Fix validation errors before adding", ok: false });
+        } else {
+          setToast({ msg: `Unit ${stock} added to intake queue`, ok: true });
+          setStock(""); setVin("");
+        }
+        setTimeout(() => setToast(null), 3000);
+      }
+
+      return (
+        <div>
+          <header className="hero">
+            <div className="hero-inner">
+              <div>
+                <div className="eyebrow">Nexus Portal · Light · Reporting</div>
+                <h1>Operations <span>Overview</span></h1>
+                <div className="meta-row">
+                  <span><strong>Location</strong> · Coeur d'Alene</span>
+                  <span><strong>Units</strong> · 284</span>
+                  <span><strong>Updated</strong> · 2 min ago</span>
+                </div>
+              </div>
+              <img src="../../assets/logo-tag-gold-black.png" alt="Bish's RV" style={{ height: 64 }} />
+            </div>
+          </header>
+
+          <div className="tabs">
+            <div className="tabs-inner">
+              {["Reports", "Inventory", "Deals", "Protection Ops", "Settings"].map(t => (
+                <button key={t} className={"tab " + (tab === t ? "active" : "")} onClick={() => setTab(t)}>{t}</button>
+              ))}
+            </div>
+          </div>
+
+          <div className="wrap">
+            <div className="stats">
+              <div className="stat"><div className="lab">Active Units</div><div className="val">284</div><div className="delta up">+12 this week</div></div>
+              <div className="stat"><div className="lab">In Protection</div><div className="val">47</div><div className="delta up">+3 today</div></div>
+              <div className="stat"><div className="lab">Overdue</div><div className="val">8</div><div className="delta down">-2 since Mon</div></div>
+              <div className="stat"><div className="lab">Avg Phase Time</div><div className="val">4.2d</div><div className="delta neutral">target: 3.5d</div></div>
+            </div>
+
+            <div className="two-col">
+              <div className="panel">
+                <div className="panel-head">
+                  <div><div className="eb">Active Inventory</div><div className="title">Units in Protection Ops</div></div>
+                  <button className="btn btn-secondary">Export CSV</button>
+                </div>
+                {UNITS.map(u => (
+                  <div key={u.id} className="row" onClick={() => setSel(u)}>
+                    <div style={{ display: "flex", alignItems: "baseline", minWidth: 0 }}>
+                      <span className="id">{u.id}</span>
+                      <div><div className="name">{u.name}</div><div className="phase">{u.phase}</div></div>
+                    </div>
+                    <span className={"badge b-" + u.type}>{u.status}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                <div className="card">
+                  <div className="head"><div className="t">Unit {sel.id}</div><div className="s">{sel.name}</div></div>
+                  <div className="body">
+                    <span className={"badge b-" + sel.type} style={{ marginBottom: 10 }}>{sel.status}</span>
+                    <div style={{ marginTop: 10 }}>{sel.phase}.</div>
+                    <div style={{ marginTop: 8, fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: "#5E4F1F" }}>VIN · 1FBZX2ZM0GKA84720</div>
+                  </div>
+                  <div className="foot"><button className="btn btn-ghost">Details</button><button className="btn btn-primary">Continue</button></div>
+                </div>
+
+                <div className="composer">
+                  <div style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 10, letterSpacing: 3, textTransform: "uppercase", color: "#8B752E", fontWeight: 600 }}>Add to Intake</div>
+                  <div>
+                    <label className="lab">Stock Number</label>
+                    <input value={stock} onChange={e => setStock(e.target.value)} placeholder="RV-2026-001" />
+                    <div className="helper">Auto-generated if blank</div>
+                  </div>
+                  <div>
+                    <label className="lab">VIN</label>
+                    <input value={vin} onChange={e => setVin(e.target.value)} placeholder="17-character VIN" style={vinError ? { borderColor: "#B02525" } : {}} />
+                    <div className={"helper" + (vinError ? " err" : "")}>{vinError || "\u00a0"}</div>
+                  </div>
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                    <button className="btn btn-ghost" onClick={() => { setStock(""); setVin(""); }}>Clear</button>
+                    <button className="btn btn-primary" onClick={add}>Add Unit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {toast && (
+            <div className="toast" style={{
+              background: toast.ok ? "rgba(27,122,46,0.1)" : "rgba(176,37,37,0.08)",
+              color: toast.ok ? "#1B7A2E" : "#B02525",
+              border: `1px solid ${toast.ok ? "rgba(27,122,46,0.3)" : "rgba(176,37,37,0.28)"}`,
+            }}>{toast.msg}</div>
+          )}
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+// Floor Workspace — converted app: state, AppShell mount, responsive content, overlay routing.
+(function () {
+const FW = window.FW, S = window.FWScreen, O = window.FWOverlays;
+const NS = window.BishSRVDesignSystem_26feec;
+
+function useWidth(ref) {
+  const [w, setW] = React.useState(1200);
+  React.useLayoutEffect(() => {
+    const el = ref.current; if (!el) return undefined;
+    setW(el.getBoundingClientRect().width);
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const ro = new ResizeObserver((e) => setW(e[0].contentRect.width)); ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  return w;
+}
+
+function Content({ st, set, open }) {
+  const ref = React.useRef(null);
+  const w = useWidth(ref);
+  const compact = w < 980, single = w < 600;
+  const board = <S.Board cards={st.cards} mode={single ? 'single' : 'columns'} phase={st.phase} setPhase={(p) => set({ phase: p })}
+    onOpenCard={(c, el, direct) => direct === 'assign' ? open({ kind: 'assign', card: c }) : open({ kind: 'case-menu', card: c }, el)}
+    onExpand={(p) => open({ kind: 'phase', phase: p })} onDropCard={(id, ph) => set({ move: { id, phase: ph } })} onCheckIn={() => open({ kind: 'checkin' })} />;
+  const sched = <S.Schedule filter={st.filter} setFilter={(f) => set({ filter: f })} onItem={(a) => open({ kind: 'appt', appt: a })} />;
+  return (
+    <div ref={ref} data-spec-id="sec-floor-workspace" data-bos-level="section" data-bos-section="S03" data-bos-type="content" className="fw"
+      style={{ minHeight: '100%', boxSizing: 'border-box', padding: 'clamp(12px, 2vw, 20px)', display: 'flex', flexDirection: 'column', gap: 12, background: 'var(--surface-light-page)' }}>
+      <S.Rotation rotation={st.rotation} collapsed={st.collapsed} hideBenched={st.hideBenched} unread={st.unread} customers={st.cards.length}
+        onToggleCollapse={() => set({ collapsed: !st.collapsed })} onToggleBenched={() => set({ hideBenched: !st.hideBenched })}
+        onOpenRep={(entry, el) => open({ kind: 'rep-menu', entry }, el)} onReorder={(from, to) => open({ kind: 'rep-move', entry: st.rotation[from], toIndex: to })} />
+      {compact ? (
+        <>
+          <div role="tablist" aria-label="Floor views" data-spec-id="nav-floor-views" style={{ display: 'flex', gap: 4, borderBottom: '1px solid var(--border-light)' }}>
+            {[['board', `Floor traffic · ${st.cards.length}`], ['schedule', "Today's schedule"]].map(([k, l]) => (
+              <button key={k} type="button" role="tab" aria-selected={st.tab === k} data-spec-id={`nav-tab-floor-view#${k}`} data-bos-class="nav" onClick={() => set({ tab: k })} className="fw-phase-tab"
+                style={{ fontSize: 14, color: st.tab === k ? 'var(--accent-gold-lo)' : 'var(--text-light-tertiary)', borderBottomColor: st.tab === k ? 'var(--accent-gold-lo)' : 'transparent' }}>{l}</button>
+            ))}
+          </div>
+          <div style={{ flex: 1, minHeight: 560, display: 'flex' }}>{st.tab === 'schedule' ? <div style={{ flex: 1, display: 'flex' }}>{sched}</div> : <div style={{ flex: 1, display: 'flex', minWidth: 0 }}>{board}</div>}</div>
+        </>
+      ) : (
+        <div style={{ flex: 1, minHeight: 560, display: 'grid', gridTemplateColumns: 'minmax(280px, 340px) minmax(0, 1fr)', gap: 12 }}>{sched}{board}</div>
+      )}
+      <S.StatusFooter />
+    </div>
+  );
+}
+
+function FWApp({ initial = {}, role = 'manager' }) {
+  const RoleCtx = S.RoleCtx;
+  const wrap = React.useRef(null);
+  const ww = useWidth(wrap);
+  const phone = ww <= 640;
+  const [st, setSt] = React.useState(() => ({
+    cards: FW.SEED_CARDS, rotation: FW.ROTATION, exits: FW.SEED_EXITS, unread: { mh: 1 }, filter: 'all', tab: 'board', phase: 'waiting', collapsed: false, hideBenched: false, toast: null, ...(initial.state || {}),
+  }));
+  const [modal, setModal] = React.useState(initial.modal || null);
+  const [anchor, setAnchor] = React.useState(null);
+  const toastTimer = React.useRef(null);
+  const toast = (msg, undo) => { clearTimeout(toastTimer.current); setSt((s) => ({ ...s, toast: { msg, undo } })); toastTimer.current = setTimeout(() => setSt((s) => ({ ...s, toast: null })), 6000); };
+  const rel = (el) => { if (!el || !wrap.current) return null; const a = el.getBoundingClientRect(), b = wrap.current.getBoundingClientRect(); return { top: a.top - b.top, left: a.left - b.left, width: a.width, height: a.height, maxX: b.width, maxY: b.height }; };
+  const open = (m, el) => { setAnchor(rel(el)); setModal(m); };
+  const close = () => setModal(null);
+  React.useEffect(() => {
+    if (!initial.anchorSel) return undefined;
+    const t = setTimeout(() => { const el = wrap.current && wrap.current.querySelector(`[data-spec-id="${initial.anchorSel}"]`); if (el) setAnchor(rel(el)); }, 120);
+    return () => clearTimeout(t);
+  }, []);
+  const phaseLabel = (id) => FW.PHASES.find((p) => p.id === id).label;
+  const moveCard = (id, phase, quiet) => {
+    const prev = st.cards.find((c) => c.id === id); if (!prev || prev.phase === phase) return;
+    setSt((s) => ({ ...s, cards: s.cards.map((c) => (c.id === id ? { ...c, phase, since: '0m' } : c)) }));
+    if (!quiet) toast(`${prev.customer} moved to ${phaseLabel(phase)}`, () => setSt((s) => ({ ...s, cards: s.cards.map((c) => (c.id === id ? prev : c)) })));
+  };
+  const set = (patch) => { if (patch.move) { moveCard(patch.move.id, patch.move.phase); return; } setSt((s) => ({ ...s, ...patch })); };
+  const repState = (oid, patch) => setSt((s) => ({ ...s, rotation: s.rotation.map((r) => (r.outfitter === oid ? { ...r, ...patch } : r)) }));
+  const first = (oid) => FW.OUTFITTER_BY_ID[oid].first;
+
+  let layer = null;
+  const m = modal;
+  if (m) {
+    const p = { phone, onClose: close };
+    if (m.kind === 'case-menu') layer = <O.CaseMenu {...p} card={m.card} anchor={anchor} onAction={(k, card) => {
+      if (k === 'message') return open({ kind: 'chat', outfitterId: card.outfitter });
+      setModal({ kind: k, card });
+    }} />;
+    if (m.kind === 'checkin') layer = <O.CheckIn {...p} rotation={st.rotation} onSubmit={(v) => setSt((s) => ({ ...s, cards: [{ id: `new-${Date.now()}`, phase: 'assigned', customer: v.customer, type: v.type, interest: v.interest, outfitter: v.outfitter, since: '0m', total: '0m' }, ...s.cards] }))} />;
+    if (m.kind === 'assign') layer = <O.Assign {...p} card={m.card} rotation={st.rotation} onAssign={(oid) => { setSt((s) => ({ ...s, cards: s.cards.map((c) => (c.id === m.card.id ? { ...c, outfitter: oid, phase: c.phase === 'waiting' ? 'assigned' : c.phase } : c)) })); close(); toast(`${m.card.customer} assigned to ${first(oid)}. Notification sent.`); }} />;
+    if (m.kind === 'move') layer = <O.Move {...p} card={m.card} onMove={(ph) => { moveCard(m.card.id, ph); close(); }} />;
+    if (m.kind === 'note') layer = <O.NoteD {...p} card={m.card} onSave={() => { close(); toast(`Note saved on ${m.card.customer}`); }} />;
+    if (m.kind === 'left') layer = <O.Left {...p} card={m.card} onComplete={(r, t) => { setSt((s) => ({ ...s, cards: s.cards.filter((c) => c.id !== m.card.id), exits: [...s.exits, { id: m.card.id, phase: m.card.phase, customer: m.card.customer, outfitter: m.card.outfitter || 'mh', note: t || r, when: '12:45 PM' }] })); close(); toast(`${m.card.customer} marked as left · ${r}`); }} />;
+    if (m.kind === 'phase') layer = <O.PhaseDetail {...p} phase={m.phase} cards={st.cards} exits={st.exits} />;
+    if (m.kind === 'rep-menu') layer = <O.RepMenu {...p} entry={m.entry} anchor={anchor} role={role} onPick={(k) => {
+      const e = m.entry;
+      if (k === 'message') { setSt((s) => ({ ...s, unread: { ...s.unread, [e.outfitter]: 0 } })); setModal({ kind: 'chat', outfitterId: e.outfitter }); }
+      else if (k === 'move') setModal({ kind: 'rep-move', entry: e });
+      else setModal({ kind: `rep-${k}`, entry: e });
+    }} />;
+    if (m.kind === 'rep-pause' && FW.can(role, 'rep.pause') === 'approve') layer = <O.Pause {...p} entry={m.entry} onCommit={(r, d) => { close(); toast(`Pause request for ${first(m.entry.outfitter)} sent to the sales manager`); }} />;
+    else if (m.kind === 'rep-pause') layer = <O.Pause {...p} entry={m.entry} onCommit={(r, d) => { repState(m.entry.outfitter, { state: 'paused', deal: FW.PAUSE_REASONS.find((x) => x.id === r).label, pauseReason: FW.PAUSE_REASONS.find((x) => x.id === r).label, pauseDetail: d, pauseReturnsAt: '1:15 PM' }); close(); toast(`${first(m.entry.outfitter)} paused · ${d}`); }} />;
+    if (m.kind === 'rep-unpause') layer = <O.Unpause {...p} entry={m.entry} onCommit={() => { repState(m.entry.outfitter, { state: 'available', deal: 'Standby · ready' }); close(); toast(`${first(m.entry.outfitter)} is back in the rotation`); }} />;
+    if (m.kind === 'rep-bench') layer = <O.Bench {...p} entry={m.entry} onCommit={(r, d) => { repState(m.entry.outfitter, { state: 'benched', deal: 'Not in rotation', mtd: `${r} · ${d}`, benchReason: r }); close(); toast(`${first(m.entry.outfitter)} benched · ${r}`); }} />;
+    if (m.kind === 'rep-unbench') layer = <O.Unbench {...p} entry={m.entry} onCommit={() => { repState(m.entry.outfitter, { state: 'available', deal: 'Standby · ready', mtd: 'MTD · 0 units' }); close(); toast(`${first(m.entry.outfitter)} is back in the rotation`); }} />;
+    if (m.kind === 'rep-move') layer = <O.MoveRep {...p} entry={m.entry} rotation={st.rotation} toIndex={m.toIndex} onCommit={(to) => { setSt((s) => { const r = s.rotation.filter((x) => x !== m.entry); r.splice(to, 0, m.entry); return { ...s, rotation: r }; }); close(); toast(`${first(m.entry.outfitter)} moved to position ${to + 1}`); }} />;
+    if (m.kind === 'chat') layer = <O.Chat {...p} outfitterId={m.outfitterId} />;
+    if (m.kind === 'appt') layer = <O.ApptDetails {...p} appt={m.appt} onMessage={(oid) => setModal({ kind: 'chat', outfitterId: oid })} onCheckIn={(a) => setModal({ kind: 'appt-checkin', appt: a })} />;
+    if (m.kind === 'appt-checkin') layer = <O.ApptCheckIn {...p} appt={m.appt} onConfirm={() => { close(); toast(`${m.appt.customer} checked in · ${first(m.appt.outfitterId)} notified`); }} />;
+  }
+
+  return (
+    <RoleCtx.Provider value={role}>
+    <div ref={wrap} className="fw-app" data-bos-role={role} style={{ position: 'relative', height: '100%', width: '100%', overflow: 'hidden' }}>
+      <NS.AppShell role={role} activeId="floor" theme="light" height="100%" alerts={3} logoSrc="../../assets/logo-bishs-os.png" logoSrcDark="../../assets/logo-bishs-os-white.png" onNavigate={() => {}}>
+        <Content st={st} set={set} open={open} />
+      </NS.AppShell>
+      {layer}
+      {st.toast && (
+        <div role="status" data-spec-id="info-toast" style={{ position: 'absolute', left: '50%', bottom: phone ? 96 : 24, transform: 'translateX(-50%)', zIndex: 95, display: 'flex', alignItems: 'center', gap: 12, maxWidth: 'calc(100% - 32px)', padding: '10px 10px 10px 16px', borderRadius: 10, background: 'var(--brand-black)', color: 'var(--brand-white)', boxShadow: 'var(--shadow-lg)', fontSize: 14, fontWeight: 600 }}>
+          <span>{st.toast.msg}</span>
+          {st.toast.undo && <button type="button" data-spec-id="btn-action-undo" data-bos-class="action" onClick={() => { st.toast.undo(); setSt((s) => ({ ...s, toast: null })); }} className="fw-btn fw-btn--ghost-dark fw-btn--sm">Undo</button>}
+        </div>
+      )}
+    </div>
+    </RoleCtx.Provider>
+  );
+}
+
+// Every reviewable state (Canvas artboard ⇄ Prototype screen, 1:1).
+const C0 = FW.SEED_CARDS[0], R0 = FW.ROTATION[0], RP = FW.ROTATION[3], RB = FW.ROTATION[12], A0 = FW.SCHEDULE[2];
+const STATES = [
+  { id: 'floor', label: 'Floor workspace', key: true, initial: {} },
+  { id: 'case-menu', label: 'Case actions', initial: { modal: { kind: 'case-menu', card: C0 }, anchorSel: `btn-action-case-menu#${C0.id}` } },
+  { id: 'checkin', label: 'New check-in', key: true, initial: { modal: { kind: 'checkin' } } },
+  { id: 'assign', label: 'Assign outfitter', initial: { modal: { kind: 'assign', card: C0 } } },
+  { id: 'move', label: 'Move to phase', initial: { modal: { kind: 'move', card: C0 } } },
+  { id: 'note', label: 'Add note', initial: { modal: { kind: 'note', card: C0 } } },
+  { id: 'left', label: 'Customer left', initial: { modal: { kind: 'left', card: C0 } } },
+  { id: 'phase', label: 'Phase detail', initial: { modal: { kind: 'phase', phase: FW.PHASES[2] } } },
+  { id: 'rep-menu', label: 'Outfitter actions', key: true, initial: { modal: { kind: 'rep-menu', entry: R0 }, anchorSel: `btn-action-rep#${R0.outfitter}` } },
+  { id: 'rep-pause', label: 'Pause outfitter', initial: { modal: { kind: 'rep-pause', entry: FW.ROTATION[1] } } },
+  { id: 'rep-unpause', label: 'Unpause outfitter', initial: { modal: { kind: 'rep-unpause', entry: RP } } },
+  { id: 'rep-bench', label: 'Bench outfitter', initial: { modal: { kind: 'rep-bench', entry: FW.ROTATION[2] } } },
+  { id: 'rep-unbench', label: 'Un-bench outfitter', initial: { modal: { kind: 'rep-unbench', entry: RB } } },
+  { id: 'rep-move', label: 'Move in rotation', initial: { modal: { kind: 'rep-move', entry: FW.ROTATION[4], toIndex: 1 } } },
+  { id: 'chat', label: 'Message outfitter', initial: { modal: { kind: 'chat', outfitterId: 'mh' } } },
+  { id: 'appt', label: 'Schedule item detail', initial: { modal: { kind: 'appt', appt: A0 } } },
+  { id: 'appt-checkin', label: 'Customer arrived', initial: { modal: { kind: 'appt-checkin', appt: A0 } } },
+];
+
+window.FWApp = FWApp;
+window.FW_STATES = STATES;
+})();

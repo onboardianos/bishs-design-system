@@ -1,0 +1,420 @@
+// Floor Workspace — converted overlays. Each overlay is its own frame (data-bos-level="frame") with at most one COMMIT.
+(function () {
+const FW = window.FW, { Icon, OUTFITTER_BY_ID, PHASES, REP_STATE, can, shows, acts } = FW;
+const { Avatar, Chip, useRole, perm } = window.FWScreen;
+
+const sid = (cls, id) => { const [b, i] = String(id).split('#'); return i ? `${cls}-${b}#${i}` : `${cls}#${b}`; };
+function useEsc(onClose) { React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') onClose(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, [onClose]); }
+
+function Frame({ id, label, onClose, children, kind = 'dialog', phone }) {
+  useEsc(onClose);
+  const place = kind === 'sheet' ? (phone ? 'flex-end' : 'stretch') : phone && kind === 'menu' ? 'flex-end' : 'center';
+  return (
+    <div data-spec-id={`frame-${id}`} data-bos-level="frame" role="dialog" aria-modal="true" aria-label={label}
+      onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 90, background: 'rgba(2,0,0,0.55)', display: 'flex', alignItems: place, justifyContent: kind === 'sheet' && !phone ? 'flex-end' : 'center', padding: kind === 'sheet' || (phone && kind !== 'dialog') ? 0 : 16, boxSizing: 'border-box' }}>
+      {children}
+    </div>
+  );
+}
+
+function Head({ eyebrow, title, onClose, closeId }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '18px 20px 12px' }}>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        {eyebrow && <div style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>{eyebrow}</div>}
+        <h2 style={{ margin: '4px 0 0', fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 28, letterSpacing: 0.5, lineHeight: 1, color: 'var(--text-light-primary)' }}>{title}</h2>
+      </div>
+      <button type="button" data-spec-id={closeId} data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn"><Icon name="x" size={20} /></button>
+    </div>
+  );
+}
+
+function Dialog({ id, eyebrow, title, onClose, commit, commitLabel, canCommit = true, cancelLabel = 'Cancel', children, phone, wide, tone }) {
+  return (
+    <Frame id={id} label={title} onClose={onClose} phone={phone}>
+      <div style={{ width: '100%', maxWidth: wide ? 640 : 520, maxHeight: '100%', display: 'flex', flexDirection: 'column', background: 'var(--surface-light-card)', borderRadius: phone ? '16px 16px 0 0' : 14, boxShadow: 'var(--shadow-xl)', overflow: 'hidden', alignSelf: phone ? 'flex-end' : 'center' }}>
+        <Head eyebrow={eyebrow} title={title} onClose={onClose} closeId={sid('btn-action-close', id)} />
+        <div style={{ padding: '0 20px 16px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16, color: 'var(--text-light-secondary)', fontSize: 15, lineHeight: 1.5 }}>{children}</div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, padding: '12px 20px 16px', borderTop: '1px solid var(--border-light)', flexWrap: 'wrap' }}>
+          <button type="button" data-spec-id={sid('btn-action-cancel', id)} data-bos-class="action" onClick={onClose} className="fw-btn fw-btn--quiet">{cancelLabel}</button>
+          {commit && <button type="button" data-spec-id={`btn-commit-${id}`} data-bos-class="commit" disabled={!canCommit} onClick={commit} className={`fw-btn ${tone === 'danger' ? 'fw-btn--danger' : 'fw-btn--commit'}`}>{commitLabel}</button>}
+        </div>
+      </div>
+    </Frame>
+  );
+}
+
+function Sheet({ id, eyebrow, title, onClose, children, footer, phone }) {
+  return (
+    <Frame id={id} label={title} onClose={onClose} kind="sheet" phone={phone}>
+      <aside style={{ width: phone ? '100%' : 'min(440px, 92%)', height: phone ? '86%' : '100%', display: 'flex', flexDirection: 'column', background: 'var(--surface-light-card)', borderRadius: phone ? '16px 16px 0 0' : 0, boxShadow: 'var(--shadow-xl)' }}>
+        <Head eyebrow={eyebrow} title={title} onClose={onClose} closeId={sid('btn-action-close', id)} />
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '0 20px 16px', display: 'flex', flexDirection: 'column', gap: 16, fontSize: 15, lineHeight: 1.5, color: 'var(--text-light-secondary)' }}>{children}</div>
+        {footer && <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, padding: '12px 20px 16px', borderTop: '1px solid var(--border-light)', flexWrap: 'wrap' }}>{footer}</div>}
+      </aside>
+    </Frame>
+  );
+}
+
+const Label = ({ children, req }) => <span style={{ fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 600, color: 'var(--text-light-primary)' }}>{children}{req && <span style={{ color: 'var(--semantic-danger-dark)' }}> · required</span>}</span>;
+function Choices({ name, options, value, onChange, cols = 1 }) {
+  return (
+    <div role="radiogroup" aria-label={name} style={{ display: 'grid', gridTemplateColumns: `repeat(auto-fill, minmax(min(100%, ${cols > 1 ? 180 : 320}px), 1fr))`, gap: 8 }}>
+      {options.map((o) => {
+        const id = typeof o === 'string' ? o : o.id, label = typeof o === 'string' ? o : o.label, sub = typeof o === 'string' ? null : o.sub || o.hint;
+        const on = value === id;
+        return (
+          <button key={id} type="button" role="radio" aria-checked={on} data-spec-id={`input-${window.FWScreen.slug(name)}#${window.FWScreen.slug(id)}`} onClick={() => onChange(id)}
+            style={{ display: 'flex', alignItems: 'center', gap: 10, minHeight: 48, padding: '8px 12px', borderRadius: 8, textAlign: 'left', cursor: 'pointer', background: on ? 'var(--surface-light-inset)' : 'var(--surface-light-card)', border: `1.5px solid ${on ? 'var(--text-light-primary)' : 'var(--border-input-light)'}`, color: 'var(--text-light-primary)' }}>
+            <span aria-hidden="true" style={{ width: 18, height: 18, flex: '0 0 18px', borderRadius: '50%', border: `2px solid ${on ? 'var(--text-light-primary)' : 'var(--border-input-light)'}`, boxShadow: on ? 'inset 0 0 0 3px var(--surface-light-card)' : 'none', background: on ? 'var(--text-light-primary)' : 'transparent' }} />
+            <span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600 }}>{label}</span>{sub && <span style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>{sub}</span>}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+const Text = ({ id, label, value, onChange, placeholder, area, req, type = 'text' }) => (
+  <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+    <Label req={req}>{label}</Label>
+    {area ? <textarea data-spec-id={id} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} rows={3} className="fw-input" style={{ resize: 'vertical' }} />
+      : <input data-spec-id={id} type={type} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} className="fw-input" />}
+  </label>
+);
+const Note = ({ tone = 'info', children }) => (
+  <div role="note" style={{ display: 'flex', gap: 10, padding: '10px 12px', borderRadius: 8, background: `var(--semantic-${tone}-light)`, color: `var(--semantic-${tone}-dark)`, fontSize: 14, fontWeight: 600 }}><Icon name={tone === 'info' ? 'circle-help' : 'triangle-alert'} size={18} />{children}</div>
+);
+
+// ── Case actions (popover on desktop, bottom sheet on phone) ──
+function CaseMenu({ card, anchor, phone, onClose, onAction }) {
+  useEsc(onClose);
+  const role = useRole();
+  const o = card.outfitter ? OUTFITTER_BY_ID[card.outfitter] : null;
+  const items = [
+    ['assign', o ? 'Reassign outfitter' : 'Assign outfitter', 'user-plus', false, 'case.assign'],
+    ['move', 'Move to…', 'arrow-right-left', false, 'case.move'],
+    ['note', 'Add note', 'sticky-note', false, 'case.note'],
+    ['message', o ? `Message ${o.first}` : 'Message outfitter', 'message-square', !o, 'rep.message'],
+    ['left', 'Customer left', 'log-out', false, 'case.close'],
+  ].filter((it) => acts(role, it[4]));
+  const readOnly = can(role, 'case.move') === 'read';
+  const pos = phone || !anchor ? null : { top: Math.min(anchor.top + anchor.height + 6, anchor.maxY - 300), left: Math.max(8, Math.min(anchor.left + anchor.width - 260, anchor.maxX - 268)) };
+  return (
+    <div data-spec-id={`frame-case-menu#${card.id}`} data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 85, background: phone ? 'rgba(2,0,0,0.55)' : 'transparent', display: 'flex', alignItems: 'flex-end' }}>
+      <div role="menu" aria-label={`Actions for ${card.customer}`} style={{ position: phone ? 'relative' : 'absolute', ...(pos || {}), width: phone ? '100%' : 260, background: 'var(--surface-light-card)', borderRadius: phone ? '16px 16px 0 0' : 12, border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-lg)', padding: 6 }}>
+        <div style={{ padding: '10px 12px 8px', fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600, color: 'var(--text-light-primary)' }}>{card.customer}<span style={{ display: 'block', fontFamily: 'var(--font-body)', fontSize: 13, fontWeight: 400, color: 'var(--text-light-tertiary)' }}>{card.interest} · {PHASES.find((p) => p.id === card.phase).label}</span></div>
+        {items.map(([k, label, icon, dis, p]) => (
+          <button key={k} type="button" role="menuitem" disabled={dis || !acts(role, p)} data-spec-id={`menuitem-${k}#${card.id}`} data-bos-class="action" {...perm(role, p)} onClick={() => onAction(k, card)}
+            className="fw-menuitem" style={{ color: k === 'left' ? 'var(--semantic-danger-dark)' : undefined }}><Icon name={icon} size={18} />{label}</button>
+        ))}
+        {readOnly && <div role="note" style={{ padding: '6px 12px 8px', fontSize: 13, color: 'var(--text-light-tertiary)' }}>Only a sales manager can move cases between phases.</div>}
+      </div>
+    </div>
+  );
+}
+
+// ── New check-in (Lookup → Party → Assign → Sent) ──
+function CheckIn({ rotation, phone, onClose, onSubmit }) {
+  const [step, setStep] = React.useState(0);
+  const [by, setBy] = React.useState('phone');
+  const [q, setQ] = React.useState('');
+  const [looked, setLooked] = React.useState(false);
+  const [party, setParty] = React.useState('couple');
+  const [n, setN] = React.useState({ f1: '', l1: '', f2: '', l2: '' });
+  const [unit, setUnit] = React.useState('');
+  const [notes, setNotes] = React.useState('');
+  const up = rotation.find((r) => r.state === 'up_now');
+  const [out, setOut] = React.useState(up ? up.outfitter : null);
+  const [override, setOverride] = React.useState('');
+  const isOverride = out && up && out !== up.outfitter;
+  const match = by === 'phone' && q.replace(/\D/g, '').length >= 10;
+  const STEPS = ['Lookup', 'Party', 'Assign', 'Sent'];
+  const valid = [by === 'walkin' || looked, n.f1.trim() && n.l1.trim() && unit, out && (!isOverride || override), true][step];
+  const name = `${n.l1 || 'New'}${party !== 'single' ? 's' : ''}`;
+  const next = () => {
+    if (step === 0 && by !== 'walkin' && !looked) { setLooked(true); if (match) { setN({ f1: 'Dale', l1: 'McVicker', f2: 'Rhonda', l2: 'McVicker' }); } return; }
+    if (step === 2) onSubmit({ customer: name, type: party, interest: unit, outfitter: out });
+    if (step === 3) return onClose();
+    setStep(step + 1);
+  };
+  const label = step === 0 ? (by !== 'walkin' && !looked ? 'Look up' : 'Continue') : step === 1 ? 'Continue' : step === 2 ? 'Assign & send link' : 'Done';
+  return (
+    <Dialog id="check-in" eyebrow={`New customer check-in · ${step + 1} of 4`} title={STEPS[step]} onClose={onClose} commit={next} commitLabel={label} canCommit={!!valid} cancelLabel={step === 3 ? 'Close' : 'Cancel'} phone={phone} wide>
+      <ol aria-label="Steps" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6, listStyle: 'none', margin: 0, padding: 0 }}>
+        {STEPS.map((s, i) => <li key={s} aria-current={i === step ? 'step' : undefined} style={{ height: 4, borderRadius: 2, background: i <= step ? 'var(--text-light-primary)' : 'var(--border-light-mid)' }} title={s} />)}
+      </ol>
+      {step === 0 && (<>
+        <Choices name="Look up by" cols={3} value={by} onChange={(v) => { setBy(v); setLooked(false); }} options={[{ id: 'phone', label: 'Phone' }, { id: 'email', label: 'Email' }, { id: 'walkin', label: 'Walk-in', sub: 'No record yet' }]} />
+        {by !== 'walkin' && <Text id={`input-lookup-${by}`} label={by === 'phone' ? 'Phone number' : 'Email'} type={by === 'phone' ? 'tel' : 'email'} value={q} onChange={(v) => { setQ(v); setLooked(false); }} placeholder={by === 'phone' ? '(208) 555-0142' : 'name@email.com'} req />}
+        {looked && (match
+          ? <div data-spec-id="card-lookup-match" style={{ display: 'flex', alignItems: 'center', gap: 12, padding: 12, borderRadius: 10, border: '1.5px solid var(--text-light-primary)' }}><Icon name="user-check" size={22} /><span><b style={{ color: 'var(--text-light-primary)' }}>McVicker household</b><span style={{ display: 'block', fontSize: 13 }}>Dale (buyer) · Rhonda (co-buyer) · last visit Mar 2025</span></span></div>
+          : <Note tone="warning">No customer matches that {by}. Try the other lookup, or continue as a walk-in and a new profile is created after intake.</Note>)}
+      </>)}
+      {step === 1 && (<>
+        <Label req>Who’s here today?</Label>
+        <Choices name="Party" cols={3} value={party} onChange={setParty} options={FW.PARTY_TYPES} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+          <Text id="input-buyer-first-name" label="Buyer first name" value={n.f1} onChange={(v) => setN({ ...n, f1: v })} req />
+          <Text id="input-buyer-last-name" label="Buyer last name" value={n.l1} onChange={(v) => setN({ ...n, l1: v })} req />
+          {party !== 'single' && <Text id="input-cobuyer-first-name" label="Co-buyer first name" value={n.f2} onChange={(v) => setN({ ...n, f2: v })} />}
+          {party !== 'single' && <Text id="input-cobuyer-last-name" label="Co-buyer last name" value={n.l2} onChange={(v) => setN({ ...n, l2: v })} />}
+        </div>
+        <Label req>What type of unit are they here to see?</Label>
+        <Choices name="Unit type" cols={3} value={unit} onChange={setUnit} options={FW.UNIT_TYPES} />
+        <Text id="input-check-in-notes" label="Notes" area value={notes} onChange={setNotes} placeholder="What they're wearing, hot buttons, timing" />
+      </>)}
+      {step === 2 && (<>
+        <Label req>Assigned outfitter</Label>
+        <OutfitterPick rotation={rotation} value={out} onChange={setOut} />
+        {isOverride && (<><Note tone="warning">{OUTFITTER_BY_ID[up.outfitter].first} is up now. Skipping the rotation needs a reason.</Note><Choices name="Override reason" value={override} onChange={setOverride} options={FW.OVERRIDE_REASONS} /></>)}
+      </>)}
+      {step === 3 && (
+        <div data-spec-id="info-check-in-sent" style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'var(--semantic-success-dark)', fontWeight: 600 }}><Icon name="check" size={22} stroke={2.5} />Checked in. Welcome link sent to {n.f1 || 'the buyer'}.</div>
+          <div>{OUTFITTER_BY_ID[out].name} has been notified. {name} is on the board in Assigned.</div>
+          {isOverride && <div>Override reason logged: {override}.</div>}
+        </div>
+      )}
+    </Dialog>
+  );
+}
+
+function OutfitterPick({ rotation, value, onChange }) {
+  const opts = rotation.filter((r) => r.state === 'up_now' || r.state === 'available');
+  return (
+    <div role="radiogroup" aria-label="Outfitter" style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+      {opts.map((r, i) => {
+        const o = OUTFITTER_BY_ID[r.outfitter], on = value === r.outfitter;
+        return (
+          <button key={r.outfitter} type="button" role="radio" aria-checked={on} data-spec-id={`input-outfitter#${r.outfitter}`} onClick={() => onChange(r.outfitter)}
+            style={{ display: 'flex', alignItems: 'center', gap: 12, minHeight: 52, padding: '6px 12px', borderRadius: 8, cursor: 'pointer', textAlign: 'left', background: on ? 'var(--surface-light-inset)' : 'var(--surface-light-card)', border: `1.5px solid ${on ? 'var(--text-light-primary)' : 'var(--border-input-light)'}`, color: 'var(--text-light-primary)' }}>
+            <Avatar o={o} size={34} />
+            <span style={{ flex: 1 }}><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600 }}>{o.name}</span><span style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>{r.state === 'up_now' ? 'Up now · recommended' : `Queue ${i}`} · {r.mtd}</span></span>
+            {on && <Icon name="check" size={20} stroke={2.5} />}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+function Assign({ card, rotation, phone, onClose, onAssign }) {
+  const up = rotation.find((r) => r.state === 'up_now');
+  const [out, setOut] = React.useState(card.outfitter || (up && up.outfitter));
+  const [reason, setReason] = React.useState('');
+  const over = up && out !== up.outfitter;
+  return (
+    <Dialog id="assign-outfitter" eyebrow={card.customer} title="Assign outfitter" onClose={onClose} phone={phone} commit={() => onAssign(out, reason)} commitLabel={`Assign ${out ? OUTFITTER_BY_ID[out].first : ''}`} canCommit={!!out && (!over || !!reason)}>
+      <OutfitterPick rotation={rotation} value={out} onChange={setOut} />
+      {over && <Choices name="Override reason" value={reason} onChange={setReason} options={FW.OVERRIDE_REASONS} />}
+    </Dialog>
+  );
+}
+
+function Move({ card, phone, onClose, onMove }) {
+  const [to, setTo] = React.useState('');
+  return (
+    <Dialog id="move-case" eyebrow={card.customer} title="Move to phase" onClose={onClose} phone={phone} commit={() => onMove(to)} commitLabel="Move" canCommit={!!to && to !== card.phase}>
+      <p style={{ margin: 0 }}>Cards usually advance on their own as actions are taken. Use this to correct a phase.</p>
+      <Choices name="Phase" cols={2} value={to} onChange={setTo} options={PHASES.map((p) => ({ id: p.id, label: p.label, sub: p.id === card.phase ? 'Current phase' : null }))} />
+    </Dialog>
+  );
+}
+
+function NoteD({ card, phone, onClose, onSave }) {
+  const [t, setT] = React.useState('');
+  return (
+    <Dialog id="add-note" eyebrow={card.customer} title="Add note" onClose={onClose} phone={phone} commit={() => onSave(t)} commitLabel="Save note" canCommit={!!t.trim()}>
+      <Text id="input-case-note" label="Note" area value={t} onChange={setT} placeholder="Pricing context, hot button, spouse back at 4" req />
+    </Dialog>
+  );
+}
+
+function Left({ card, phone, onClose, onComplete }) {
+  const [r, setR] = React.useState(''); const [t, setT] = React.useState('');
+  return (
+    <Dialog id="customer-left" eyebrow={card.customer} title="Customer left" onClose={onClose} phone={phone} commit={() => onComplete(r, t)} commitLabel="Mark as left" canCommit={!!r}>
+      <Label req>What happened?</Label>
+      <Choices name="Left reason" value={r} onChange={setR} options={FW.LEFT_REASONS} />
+      <Text id="input-left-note" label="Note" area value={t} onChange={setT} placeholder="Anything the next outfitter should know" />
+    </Dialog>
+  );
+}
+
+// ── Rotation: rep actions (popover / bottom sheet) ──
+function RepMenu({ entry, anchor, phone, role, onClose, onPick }) {
+  useEsc(onClose);
+  const o = OUTFITTER_BY_ID[entry.outfitter], st = REP_STATE[entry.state];
+  const [range, setRange] = React.useState('today');
+  const s = FW.REP_STATS[range];
+  const pos = phone || !anchor ? null : { top: anchor.top + anchor.height + 6, left: Math.max(8, Math.min(anchor.left, anchor.maxX - 328)) };
+  const paused = entry.state === 'paused', benched = entry.state === 'benched';
+  const list = [
+    ['message', 'Message', 'message-square', false, 'rep.message'],
+    [paused ? 'unpause' : 'pause', paused ? 'Unpause' : can(role, 'rep.pause') === 'approve' ? 'Request pause' : 'Pause', paused ? 'play' : 'pause', benched, 'rep.pause'],
+    [benched ? 'unbench' : 'bench', benched ? 'Un-bench' : 'Bench', benched ? 'user-check' : 'user-x', false, 'rep.bench'],
+    ['move', 'Move in rotation', 'arrow-right-left', benched, 'rotation.reorder'],
+  ].filter((a) => shows(role, a[4]));
+  const statsOn = shows(role, 'rep.stats');
+  return (
+    <div data-spec-id={`frame-rep-menu#${entry.outfitter}`} data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 85, background: phone ? 'rgba(2,0,0,0.55)' : 'transparent', display: 'flex', alignItems: 'flex-end' }}>
+      <div role="dialog" aria-label={`${o.name} actions`} style={{ position: phone ? 'relative' : 'absolute', ...(pos || {}), width: phone ? '100%' : 320, background: 'var(--surface-light-card)', borderRadius: phone ? '16px 16px 0 0' : 12, border: '1px solid var(--border-light)', boxShadow: 'var(--shadow-lg)', padding: 14, display: 'flex', flexDirection: 'column', gap: 12, color: 'var(--text-light-primary)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Avatar o={o} size={44} />
+          <div style={{ flex: 1 }}><div style={{ fontFamily: 'var(--font-display)', fontSize: 24, lineHeight: 1 }}>{o.name}</div><div style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>{st.label} · {entry.state === 'up_now' ? 'Upfront' : entry.deal}</div></div>
+          <button type="button" data-spec-id={`btn-action-close-rep-menu#${entry.outfitter}`} data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn"><Icon name="x" size={18} /></button>
+        </div>
+        {statsOn && (<><div role="tablist" aria-label="Stats range" style={{ display: 'flex', gap: 4 }}>
+          {['today', 'week', 'month'].map((k) => <button key={k} type="button" role="tab" aria-selected={range === k} data-spec-id={`nav-tab-rep-stats#${k}`} data-bos-class="nav" onClick={() => setRange(k)} className="fw-phase-tab" style={{ color: range === k ? 'var(--accent-gold-lo)' : 'var(--text-light-tertiary)', borderBottomColor: range === k ? 'var(--accent-gold-lo)' : 'transparent' }}>{k[0].toUpperCase() + k.slice(1)}</button>)}
+        </div>
+        <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8 }}>
+          {[['Demos', s.demo], ['Write-ups', s.wup], ['Sold', s.sold], ['Goal', s.goal], ['Gross / unit', s.gross], ['Avg time', s.avg]].map(([k, v]) => (
+            <div key={k} data-spec-id={`metric-rep-${window.FWScreen.slug(k)}`} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>{k}</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 15, fontWeight: 600 }}>{v}</dd></div>
+          ))}
+        </dl></>)}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          {list.map(([k, label, icon, dis, p]) => <button key={k} type="button" disabled={dis || !acts(role, p)} data-spec-id={`btn-action-rep-${k}#${entry.outfitter}`} data-bos-class="action" {...perm(role, p)} onClick={() => onPick(k)} className="fw-btn fw-btn--action"><Icon name={icon} size={16} />{label}</button>)}
+        </div>
+        {can(role, 'rep.bench') === 'disabled' && <div role="note" style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>Only a manager can bench or un-bench.</div>}
+        {can(role, 'rep.pause') === 'approve' && <div role="note" style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>A pause request goes to the sales manager for approval.</div>}
+      </div>
+    </div>
+  );
+}
+
+function Pause({ entry, phone, onClose, onCommit }) {
+  const o = OUTFITTER_BY_ID[entry.outfitter];
+  const [r, setR] = React.useState(''); const [d, setD] = React.useState('30 min'); const [t, setT] = React.useState('');
+  return (
+    <Dialog id="pause-outfitter" eyebrow={`Rotation · ${o.name}`} title={can(useRole(), 'rep.pause') === 'approve' ? 'Request pause' : 'Pause outfitter'} onClose={onClose} phone={phone} commit={() => onCommit(r, d, t)} commitLabel={can(useRole(), 'rep.pause') === 'approve' ? 'Send request' : 'Pause'} canCommit={!!r && (r !== 'other' || !!t.trim())}>
+      <Label req>Reason</Label>
+      <Choices name="Pause reason" value={r} onChange={setR} options={FW.PAUSE_REASONS} />
+      <Label>Duration</Label>
+      <Choices name="Pause duration" cols={3} value={d} onChange={setD} options={['15 min', '30 min', '1 hour', 'Rest of day']} />
+      {r === 'other' && <Text id="input-pause-detail" label="Describe the reason" value={t} onChange={setT} req />}
+    </Dialog>
+  );
+}
+
+function Unpause({ entry, phone, onClose, onCommit }) {
+  const o = OUTFITTER_BY_ID[entry.outfitter]; const [ok, setOk] = React.useState(false);
+  return (
+    <Dialog id="unpause-outfitter" eyebrow={`Rotation · ${o.name}`} title="Unpause outfitter" onClose={onClose} phone={phone} commit={onCommit} commitLabel="Unpause" canCommit={ok}>
+      <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '6px 16px' }}>
+        <dt>Original reason</dt><dd style={{ margin: 0, color: 'var(--text-light-primary)', fontWeight: 600 }}>{entry.pauseReason} · {entry.pauseDetail}</dd>
+        <dt>Paused by</dt><dd style={{ margin: 0, color: 'var(--text-light-primary)' }}>Tyler K. (Manager)</dd>
+        <dt>Back at</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', color: 'var(--text-light-primary)' }}>{entry.pauseReturnsAt}</dd>
+      </dl>
+      <button type="button" role="checkbox" aria-checked={ok} data-spec-id="input-pause-fulfilled" onClick={() => setOk(!ok)} className="fw-check"><span aria-hidden="true" className="fw-check-box">{ok && <Icon name="check" size={14} stroke={3} />}</span>Has {entry.pauseReason.toLowerCase()} been taken?</button>
+    </Dialog>
+  );
+}
+
+function Bench({ entry, phone, onClose, onCommit }) {
+  const o = OUTFITTER_BY_ID[entry.outfitter];
+  const [r, setR] = React.useState(''); const [d, setD] = React.useState('Rest of today'); const [t, setT] = React.useState('');
+  return (
+    <Dialog id="bench-outfitter" eyebrow={`Rotation · ${o.name}`} title="Bench outfitter" onClose={onClose} phone={phone} commit={() => onCommit(r, d, t)} commitLabel="Bench" canCommit={!!r && !!t.trim()} tone="danger">
+      <Note tone="warning">Benching takes {o.first} out of the rotation and moves their customers to Waiting.</Note>
+      <Label req>Reason</Label>
+      <Choices name="Bench reason" cols={2} value={r} onChange={setR} options={FW.BENCH_REASONS} />
+      <Label>Duration</Label>
+      <Choices name="Bench duration" cols={2} value={d} onChange={setD} options={FW.BENCH_DURATIONS} />
+      <Text id="input-coaching-note" label="Coaching note" area value={t} onChange={setT} placeholder="What needs to change, and what's expected going forward" req />
+    </Dialog>
+  );
+}
+
+function Unbench({ entry, phone, onClose, onCommit }) {
+  const o = OUTFITTER_BY_ID[entry.outfitter]; const [t, setT] = React.useState('');
+  return (
+    <Dialog id="unbench-outfitter" eyebrow={`Rotation · ${o.name}`} title="Un-bench outfitter" onClose={onClose} phone={phone} commit={() => onCommit(t)} commitLabel="Un-bench" canCommit={!!t.trim()}>
+      <div><Label>Bench history</Label>
+        <ul style={{ margin: '8px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <li style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}><b style={{ color: 'var(--text-light-primary)' }}>{entry.benchReason}</b> · today · by Todd Bish</li>
+          <li style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}><b style={{ color: 'var(--text-light-primary)' }}>Not prepared</b> · Oct 12 · repeated phone-on-floor</li>
+        </ul>
+      </div>
+      <Text id="input-unbench-note" label="What's been corrected?" area value={t} onChange={setT} req />
+    </Dialog>
+  );
+}
+
+function MoveRep({ entry, rotation, toIndex, phone, onClose, onCommit }) {
+  const o = OUTFITTER_BY_ID[entry.outfitter];
+  const from = rotation.indexOf(entry);
+  const [to, setTo] = React.useState(toIndex != null ? toIndex : Math.max(0, from - 1));
+  const [r, setR] = React.useState(''); const [t, setT] = React.useState('');
+  const ahead = to < from;
+  return (
+    <Dialog id="move-in-rotation" eyebrow={`Rotation · ${o.name}`} title="Move in rotation" onClose={onClose} phone={phone} commit={() => onCommit(to, r)} commitLabel="Move" canCommit={to !== from && !!r && (r !== 'Other' || !!t.trim())}>
+      <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}><Label req>New position</Label>
+        <select data-spec-id="input-rotation-position" value={to} onChange={(e) => setTo(Number(e.target.value))} className="fw-input">
+          {rotation.map((e, i) => <option key={e.outfitter} value={i}>{i + 1}. {i === from ? `${o.first} (current)` : `Before ${OUTFITTER_BY_ID[e.outfitter].first}`}</option>)}
+        </select>
+      </label>
+      <Note tone={ahead ? 'info' : 'warning'}>{o.first} moves {ahead ? 'forward' : 'back'} from position {from + 1} to {to + 1}.</Note>
+      <Label req>Reason</Label>
+      <Choices name="Move reason" value={r} onChange={setR} options={FW.MOVE_REP_REASONS} />
+      {r === 'Other' && <Text id="input-move-rep-detail" label="Describe the reason" value={t} onChange={setT} req />}
+    </Dialog>
+  );
+}
+
+function Chat({ outfitterId, phone, onClose }) {
+  const o = OUTFITTER_BY_ID[outfitterId];
+  const [msgs, setMsgs] = React.useState(FW.CHAT); const [t, setT] = React.useState('');
+  const send = () => { if (!t.trim()) return; setMsgs([...msgs, { from: 'me', text: t.trim(), at: 'Now' }]); setT(''); };
+  return (
+    <Sheet id={`chat#${outfitterId}`} eyebrow="Message" title={o.name} onClose={onClose} phone={phone}
+      footer={<form onSubmit={(e) => { e.preventDefault(); send(); }} style={{ display: 'flex', gap: 8, width: '100%' }}><input data-spec-id={`input-chat#${outfitterId}`} value={t} onChange={(e) => setT(e.target.value)} placeholder={`Message ${o.first}`} aria-label={`Message ${o.first}`} className="fw-input" style={{ flex: 1 }} /><button type="submit" data-spec-id={`btn-action-send-chat#${outfitterId}`} data-bos-class="action" aria-label="Send" disabled={!t.trim()} className="fw-btn fw-btn--action"><Icon name="send" size={18} /></button></form>}>
+      <ol style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {msgs.map((m, i) => <li key={i} style={{ alignSelf: m.from === 'me' ? 'flex-end' : 'flex-start', maxWidth: '82%' }}><div style={{ padding: '10px 12px', borderRadius: 12, background: m.from === 'me' ? 'var(--text-light-primary)' : 'var(--surface-light-inset)', color: m.from === 'me' ? 'var(--brand-white)' : 'var(--text-light-primary)' }}>{m.text}</div><div style={{ fontSize: 12, color: 'var(--text-light-tertiary)', textAlign: m.from === 'me' ? 'right' : 'left', marginTop: 2 }}>{m.at}</div></li>)}
+      </ol>
+    </Sheet>
+  );
+}
+
+function ApptDetails({ appt, phone, onClose, onMessage, onCheckIn }) {
+  const o = OUTFITTER_BY_ID[appt.outfitterId];
+  return (
+    <Sheet id={`schedule-item#${appt.id}`} eyebrow={appt.kind === 'delivery' ? "Today's deliveries" : "Today's appointments"} title={appt.customer} onClose={onClose} phone={phone}
+      footer={<><button type="button" data-spec-id={`btn-action-message-outfitter#${appt.id}`} data-bos-class="action" onClick={() => onMessage(appt.outfitterId)} className="fw-btn fw-btn--action"><Icon name="message-square" size={16} />Message {o.first}</button><button type="button" data-spec-id={`btn-commit-check-in-arrival#${appt.id}`} data-bos-class="commit" onClick={() => onCheckIn(appt)} className="fw-btn fw-btn--commit"><Icon name="calendar-check" size={16} />Customer arrived</button></>}>
+      <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '8px 16px' }}>
+        {[['Scheduled', `${appt.time} ${appt.ampm}`], ['Type', appt.label], ['Outfitter', o.name], ['Unit', appt.unit], ['Status', appt.status]].map(([k, v]) => <React.Fragment key={k}><dt>{k}</dt><dd style={{ margin: 0, color: k === 'Status' && appt.delay ? 'var(--semantic-danger-dark)' : 'var(--text-light-primary)', fontWeight: 600 }}>{v}</dd></React.Fragment>)}
+      </dl>
+      <div><Label>Outstanding to-dos</Label><ul style={{ margin: '6px 0 0', paddingLeft: 18 }}>{appt.todos.map((t) => <li key={t}>{t}</li>)}</ul></div>
+      <div><Label>Last notes</Label>{appt.notes.map((t) => <p key={t} style={{ margin: '6px 0 0' }}>{t}</p>)}</div>
+    </Sheet>
+  );
+}
+
+function ApptCheckIn({ appt, phone, onClose, onConfirm }) {
+  return (
+    <Dialog id="schedule-check-in" eyebrow={appt.kind === 'delivery' ? 'Delivery check-in' : 'Appointment check-in'} title="Customer arrived" onClose={onClose} phone={phone} commit={onConfirm} commitLabel="Check in">
+      <p style={{ margin: 0 }}><b style={{ color: 'var(--text-light-primary)' }}>{appt.customer}</b> is here for their {appt.time} {appt.ampm} {appt.kind === 'delivery' ? 'delivery walk-thru' : 'sales appointment'}. {OUTFITTER_BY_ID[appt.outfitterId].name} is notified and the card goes on the board.</p>
+    </Dialog>
+  );
+}
+
+function PhaseDetail({ phase, cards, exits, phone, onClose }) {
+  const here = cards.filter((c) => c.phase === phase.id), out = exits.filter((e) => e.phase === phase.id);
+  const stats = [['Checked in today', 18], ['Entered phase', here.length + out.length + 4], ['Currently in phase', here.length], ['Conversion', '62%'], ['Exits', out.length], ['Avg time in phase', '21m']];
+  return (
+    <Sheet id={`phase-detail#${phase.id}`} eyebrow="Phase detail · today" title={phase.label} onClose={onClose} phone={phone}>
+      <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: 8 }}>
+        {stats.map(([k, v]) => <div key={k} data-spec-id={`metric-phase-${window.FWScreen.slug(k)}#${phase.id}`} style={{ padding: '10px 12px', borderRadius: 8, background: 'var(--surface-light-inset)' }}><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>{k}</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 18, fontWeight: 600, color: 'var(--text-light-primary)' }}>{v}</dd></div>)}
+      </dl>
+      <div><Label>Left from this phase</Label>
+        {out.length ? <ul style={{ margin: '8px 0 0', padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>{out.map((e) => <li key={e.id} style={{ padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}><b style={{ color: 'var(--text-light-primary)' }}>{e.customer}</b> · {e.when} · {OUTFITTER_BY_ID[e.outfitter].name}<span style={{ display: 'block', fontSize: 13 }}>{e.note}</span></li>)}</ul>
+          : <p style={{ margin: '6px 0 0' }}>No one has left from {phase.label} today.</p>}
+      </div>
+    </Sheet>
+  );
+}
+
+window.FWOverlays = { CaseMenu, CheckIn, Assign, Move, NoteD, Left, RepMenu, Pause, Unpause, Bench, Unbench, MoveRep, Chat, ApptDetails, ApptCheckIn, PhaseDetail };
+})();

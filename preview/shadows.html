@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Spacing" name="Shadows" subtitle="5 elevation levels (light theme)" viewport="700x160" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:24px;}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+  .card{background:#fff;border-radius:8px;height:90px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+  .n{font-family:'JetBrains Mono',monospace;font-size:10px;color:#6B6B63;}
+  .l{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#9C9C94;}
+</style></head>
+<body>
+<div class="grid">
+  <div class="card" style="box-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05)"><div class="n">--shadow-xs</div><div class="l">Level 0</div></div>
+  <div class="card" style="box-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)"><div class="n">--shadow-sm</div><div class="l">Level 1</div></div>
+  <div class="card" style="box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)"><div class="n">--shadow-md</div><div class="l">Level 2</div></div>
+  <div class="card" style="box-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)"><div class="n">--shadow-lg</div><div class="l">Level 3</div></div>
+  <div class="card" style="box-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)"><div class="n">--shadow-xl</div><div class="l">Level 4</div></div>
+</div>
+</body></html>

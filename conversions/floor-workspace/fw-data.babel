@@ -1,0 +1,170 @@
+// Floor Workspace — converted data + Lucide icon set. Source: "Floor Workspace - Full App (standalone).html" (data/workspace).
+(function () {
+const PH = (f) => `photos/${f}`;
+const PHASES = [
+  { id: 'waiting', label: 'Waiting', tone: 'danger' },
+  { id: 'assigned', label: 'Assigned', tone: 'neutral' },
+  { id: 'discovery', label: 'Discovery', tone: 'neutral' },
+  { id: 'mcp', label: 'MCP', tone: 'neutral' },
+  { id: 'lotwalk', label: 'Demo', tone: 'info' },
+  { id: 'worksheet', label: 'Worksheet', tone: 'neutral' },
+  { id: 'twomin', label: '2-Min', tone: 'warning' },
+  { id: 'delivery', label: 'Delivery', tone: 'success' },
+];
+const OUTFITTERS = [
+  { id: 'mh', name: 'Mike H.', first: 'Mike', initials: 'MH', photo: PH('p01.png') },
+  { id: 'sr', name: 'Sarah R.', first: 'Sarah', initials: 'SR', photo: PH('p02.png') },
+  { id: 'jt', name: 'Jake T.', first: 'Jake', initials: 'JT', photo: PH('p09.png') },
+  { id: 'dc', name: 'Dan C.', first: 'Dan', initials: 'DC', photo: PH('p04.png') },
+  { id: 'lm', name: 'Lisa M.', first: 'Lisa', initials: 'LM', photo: PH('p12.png') },
+  { id: 'tv', name: 'Tom V.', first: 'Tom', initials: 'TV', photo: PH('p06.png') },
+  { id: 'ab', name: 'Alan B.', first: 'Alan', initials: 'AB', photo: null },
+  { id: 'kr', name: 'Kyle R.', first: 'Kyle', initials: 'KR', photo: null },
+  { id: 'mp', name: 'Maria P.', first: 'Maria', initials: 'MP', photo: PH('p03.png') },
+  { id: 'rh', name: 'Ryan H.', first: 'Ryan', initials: 'RH', photo: PH('p05.png') },
+  { id: 'ks', name: 'Karen S.', first: 'Karen', initials: 'KS', photo: PH('p07.png') },
+  { id: 'cb', name: 'Carlos B.', first: 'Carlos', initials: 'CB', photo: PH('p08.png') },
+  { id: 'jw', name: 'Jenna W.', first: 'Jenna', initials: 'JW', photo: PH('p10.png') },
+];
+const OUTFITTER_BY_ID = Object.fromEntries(OUTFITTERS.map((o) => [o.id, o]));
+const ROTATION = [
+  { state: 'up_now', outfitter: 'mh', deal: 'Upfront', mtd: 'MTD · 11 units' },
+  { state: 'available', outfitter: 'sr', deal: 'Standby · ready', mtd: 'MTD · 14 units' },
+  { state: 'available', outfitter: 'jt', deal: 'Standby · ready', mtd: 'MTD · 8 units' },
+  { state: 'paused', outfitter: 'dc', deal: 'Lunch', mtd: 'Back 1:30 PM', pauseReason: 'Lunch', pauseDetail: '1 hour', pauseReturnsAt: '1:30 PM' },
+  { state: 'available', outfitter: 'lm', deal: 'Standby · ready', mtd: 'MTD · 6 units' },
+  { state: 'available', outfitter: 'tv', deal: 'Standby · ready', mtd: 'MTD · 9 units', delivery: 'Olsen Fam.' },
+  { state: 'with_customer', outfitter: 'ab', deal: 'Martinez · 12 min', mtd: 'F&I' },
+  { state: 'with_customer', outfitter: 'mp', deal: 'Bakers · 28 min', mtd: 'Walk-up' },
+  { state: 'available', outfitter: 'rh', deal: 'Standby · ready', mtd: 'MTD · 5 units' },
+  { state: 'available', outfitter: 'ks', deal: 'Standby · ready', mtd: 'MTD · 7 units', delivery: 'Ashford' },
+  { state: 'available', outfitter: 'cb', deal: 'Standby · ready', mtd: 'MTD · 4 units' },
+  { state: 'available', outfitter: 'jw', deal: 'Standby · ready', mtd: 'MTD · 8 units' },
+  { state: 'benched', outfitter: 'kr', deal: 'Not in rotation', mtd: 'Training · 1 day', benchReason: 'Training' },
+];
+const REP_STATE = {
+  up_now: { label: 'Up now', tone: 'gold' },
+  available: { label: 'Available', tone: 'neutral' },
+  with_customer: { label: 'With customer', tone: 'info' },
+  paused: { label: 'Paused', tone: 'warning' },
+  benched: { label: 'Benched', tone: 'muted' },
+};
+const SEED_CARDS = [
+  { id: 'jacksons', phase: 'waiting', customer: 'Jacksons', type: 'couple', interest: 'Travel Trailer', outfitter: null, since: '14m 05s', total: '14m' },
+  { id: 'whitmore', phase: 'waiting', customer: 'Whitmore Family', type: 'family', interest: 'Class A', outfitter: null, since: '6m 05s', total: '6m' },
+  { id: 'reyes', phase: 'waiting', customer: 'Reyes', type: 'single', interest: 'Toy Hauler', outfitter: null, since: '2m 05s', total: '2m' },
+  { id: 'bakers', phase: 'discovery', customer: 'Bakers', type: 'family', interest: 'Bunkhouse', outfitter: 'mp', since: '22m 05s', total: '54m' },
+  { id: 'martinez', phase: 'worksheet', customer: 'Martinez', type: 'family', interest: 'Fifth Wheel', outfitter: 'ab', since: '15m 05s', total: '1h 48m' },
+  { id: 'olsen', phase: 'delivery', customer: 'Olsen Fam.', type: 'family', interest: 'Fifth Wheel', outfitter: 'tv', since: '18m', total: '1h 34m' },
+  { id: 'ashford', phase: 'delivery', customer: 'Ashford', type: 'couple', interest: 'Fifth Wheel', outfitter: 'ks', since: '1h', total: '4h 10m' },
+];
+const SEED_EXITS = [
+  { id: 'wilkes', phase: 'discovery', customer: 'Wilkes', outfitter: 'jt', note: 'Just researching, not buying for 6 months', when: '9:14 AM' },
+  { id: 'tanaka', phase: 'mcp', customer: 'Tanaka', outfitter: 'sr', note: 'Budget too low, wants under $15k towable', when: '9:38 AM' },
+  { id: 'hodge', phase: 'lotwalk', customer: 'Hodge', outfitter: 'lm', note: "Spouse couldn't make it, coming back Sat", when: '9:51 AM' },
+  { id: 'brooks', phase: 'worksheet', customer: 'Brooks', outfitter: 'ab', note: 'Trade short by $4k, thinking it over', when: '10:02 AM' },
+  { id: 'pham', phase: 'assigned', customer: 'Pham', outfitter: 'dc', note: 'Walked while waiting on financing pull', when: '10:09 AM' },
+];
+const SCHEDULE = [
+  { id: 'a1', kind: 'sale', time: '9:00', ampm: 'AM', customer: 'Robert Jackson', label: 'Sales Appointment', outfitterId: 'tv', unit: '2024 Grand Design Imagine 2500RL', status: 'Outfitter notified', todos: ['Final paperwork', 'Hitch fitment'], notes: ['Wants WDH demo before signing.'] },
+  { id: 'a2', kind: 'sale', time: '10:30', ampm: 'AM', customer: 'Olsen Family', label: 'Sales Appointment', outfitterId: 'tv', unit: '2024 Grand Design Imagine 2500RL', status: 'Unit ready', todos: ['Walk-thru', 'Sign delivery checklist'], notes: ['Trade-in finalized, awaiting title.'] },
+  { id: 'd1', kind: 'delivery', time: '10:30', ampm: 'AM', customer: 'Olsen Family', label: 'Delivery', outfitterId: 'tv', unit: '#4821-B · Imagine 2500RL', status: 'Walk-thru in 26m', todos: ['Walk-thru briefing', 'Final signatures'], notes: ['Family of 4 + dog. WDH installed.'] },
+  { id: 'a3', kind: 'sale', time: '12:00', ampm: 'PM', customer: 'Randall Family', label: 'Sales Appointment', outfitterId: 'sr', unit: '2024 Jayco Eagle HT 28.5RSTS', status: 'Detailed & staged', todos: ['Demo · Eagle HT'], notes: ['Comparing to Imagine 2500RL.'] },
+  { id: 'd2', kind: 'delivery', time: '12:00', ampm: 'PM', customer: 'Randall Family', label: 'Delivery', outfitterId: 'sr', unit: '#5502-C · Eagle HT', status: 'Detailed', todos: ['Walk-thru briefing'], notes: ['Repeat customer.'] },
+  { id: 'now', kind: 'now', time: '12:45', ampm: 'PM' },
+  { id: 'a4', kind: 'sale', time: '2:00', ampm: 'PM', customer: 'Ashford', label: 'Sales Appointment', outfitterId: 'mh', unit: '2024 Forest River Sabre 37FLH', status: 'In PDI · 85%', todos: ['PDI complete', 'Hitch ball test'], notes: ['First-time RV buyers, extra time on systems.'] },
+  { id: 'd3', kind: 'delivery', time: '2:00', ampm: 'PM', customer: 'Ashford', label: 'Delivery', outfitterId: 'mh', unit: '#6103-A · Sabre 37FLH', status: 'PDI 85%', todos: ['Wait for PDI complete'], notes: ['First RV.'] },
+  { id: 'a5', kind: 'sale', time: '4:30', ampm: 'PM', customer: 'Brennan', label: 'Sales Appointment', outfitterId: 'ab', unit: '2023 Keystone Montana 3761FL', status: 'Hitch issue', delay: true, todos: ['Resolve hitch alignment'], notes: ['Customer aware of delay.'] },
+  { id: 'd4', kind: 'delivery', time: '4:30', ampm: 'PM', customer: 'Brennan', label: 'Delivery', outfitterId: 'ab', unit: '#2847-D · Montana 3761FL', status: 'Hitch issue', delay: true, todos: ['Resolve hitch'], notes: ['Customer aware.'] },
+];
+const LEFT_REASONS = ['Just researching', 'Out of budget', 'No spouse / decision-maker', 'Coming back later', 'Got a call', 'No available outfitter', 'Not sure, no contact before leaving'];
+const PAUSE_REASONS = [
+  { id: 'lunch', label: 'Lunch', hint: 'Needs approval and an estimated return time' },
+  { id: 'checkin', label: 'Manager check-in', hint: 'Scheduled 1:1, needs manager approval' },
+  { id: 'break', label: 'Personal break', hint: 'Restroom or other, reason required' },
+  { id: 'unavailable', label: 'Unavailable', hint: 'Meeting, call or other duty' },
+  { id: 'other', label: 'Other', hint: 'Describe the reason' },
+];
+const BENCH_REASONS = ['Performance review', 'Absence', 'Training', 'Admin work', 'Disciplinary'];
+const BENCH_DURATIONS = ['Rest of today', '1 day', '1 week', 'Indefinite'];
+const MOVE_REP_REASONS = ['Not prepared', 'Not up front', 'Nowhere to be found', 'On their phone / let customer walk by', 'Returning customer', 'Other'];
+const OVERRIDE_REASONS = ['Up outfitter is not up front', 'Customer asked for this outfitter', 'Outfitter taking up out of turn'];
+const UNIT_TYPES = ['Travel Trailer', 'Fifth Wheel', 'Toy Hauler', 'Motorhome', 'Truck Camper', 'Destination'];
+const PARTY_TYPES = [{ id: 'single', label: 'Individual', sub: 'One person' }, { id: 'couple', label: 'Couple', sub: 'Buyer + co-buyer' }, { id: 'family', label: 'Family', sub: 'With children' }];
+const REP_STATS = { today: { demo: 3, wup: 2, sold: 1, goal: '2', gross: '$4.2k', avg: '38m' }, week: { demo: 14, wup: 9, sold: 4, goal: '8', gross: '$4.0k', avg: '41m' }, month: { demo: 52, wup: 31, sold: 11, goal: '24', gross: '$4.4k', avg: '40m' } };
+const CHAT = [
+  { from: 'them', text: 'Customer on lot 3 asking about the Imagine. Can I take them?', at: '12:31 PM' },
+  { from: 'me', text: 'Go ahead, I\u2019ll mark the up.', at: '12:32 PM' },
+];
+
+// Lucide icon geometry (24×24, stroke). Names are Lucide names.
+const P = (d) => ['path', { d }], C = (cx, cy, r) => ['circle', { cx, cy, r }], R = (x, y, w, h, rx) => ['rect', { x, y, width: w, height: h, rx }];
+const ICONS = {
+  plus: [P('M5 12h14'), P('M12 5v14')],
+  'ellipsis-vertical': [C(12, 12, 1), C(12, 5, 1), C(12, 19, 1)],
+  'maximize-2': [P('M15 3h6v6'), P('M9 21H3v-6'), P('M21 3l-7 7'), P('M3 21l7-7')],
+  truck: [P('M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2'), P('M15 18H9'), P('M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14'), C(17, 18, 2), C(7, 18, 2)],
+  handshake: [P('m11 17 2 2a1 1 0 1 0 3-3'), P('m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4'), P('m21 3 1 11h-2'), P('M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3'), P('M3 4h8')],
+  user: [C(12, 7, 4), P('M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2')],
+  users: [P('M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'), C(9, 7, 4), P('M22 21v-2a4 4 0 0 0-3-3.87'), P('M16 3.13a4 4 0 0 1 0 7.75')],
+  'user-plus': [P('M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'), C(9, 7, 4), P('M19 8v6'), P('M22 11h-6')],
+  'user-x': [P('M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'), C(9, 7, 4), P('m17 8 5 5'), P('m22 8-5 5')],
+  'user-check': [P('M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'), C(9, 7, 4), P('m16 11 2 2 4-4')],
+  'message-square': [P('M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z')],
+  'chevron-left': [P('m15 18-6-6 6-6')], 'chevron-right': [P('m9 18 6-6-6-6')],
+  'chevron-up': [P('m18 15-6-6-6 6')], 'chevron-down': [P('m6 9 6 6 6-6')],
+  pause: [R(14, 4, 4, 16, 1), R(6, 4, 4, 16, 1)],
+  play: [P('M6 3l14 9-14 9z')],
+  clock: [C(12, 12, 10), P('M12 6v6l4 2')],
+  x: [P('M18 6 6 18'), P('m6 6 12 12')],
+  check: [P('M20 6 9 17l-5-5')],
+  'arrow-right-left': [P('m16 3 4 4-4 4'), P('M20 7H4'), P('m8 21-4-4 4-4'), P('M4 17h16')],
+  'sticky-note': [P('M16 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8Z'), P('M15 3v4a2 2 0 0 0 2 2h4')],
+  'log-out': [P('M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4'), P('m16 17 5-5-5-5'), P('M21 12H9')],
+  send: [P('M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z'), P('m21.854 2.147-10.94 10.939')],
+  eye: [P('M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0'), C(12, 12, 3)],
+  'eye-off': [P('M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49'), P('M14.084 14.158a3 3 0 0 1-4.242-4.242'), P('M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143'), P('m2 2 20 20')],
+  'calendar-check': [R(3, 4, 18, 18, 2), P('M16 2v4'), P('M8 2v4'), P('M3 10h18'), P('m9 16 2 2 4-4')],
+  'circle-help': [C(12, 12, 10), P('M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3'), P('M12 17h.01')],
+  'refresh-cw': [P('M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8'), P('M21 3v5h-5'), P('M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16'), P('M8 16H3v5')],
+  'grip-vertical': [C(9, 12, 1), C(9, 5, 1), C(9, 19, 1), C(15, 12, 1), C(15, 5, 1), C(15, 19, 1)],
+  search: [C(11, 11, 8), P('m21 21-4.3-4.3')],
+  'triangle-alert': [P('m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'), P('M12 9v4'), P('M12 17h.01')],
+  'chart-column': [P('M3 3v16a2 2 0 0 0 2 2h16'), P('M18 17V9'), P('M13 17V5'), P('M8 17v-3')],
+};
+function Icon({ name, size = 18, stroke = 1.75, color = 'currentColor', label }) {
+  const nodes = ICONS[name] || ICONS['circle-help'];
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden={label ? undefined : 'true'} role={label ? 'img' : undefined} aria-label={label} data-lucide={name} style={{ flex: `0 0 ${size}px`, display: 'block' }}>
+      {nodes.map(([t, a], i) => React.createElement(t, { key: i, ...a }))}
+    </svg>
+  );
+}
+
+
+// Roles & permissions (documents/roles-and-permissions.md). access: act | reason | approve | disabled | read | hidden
+// Roles that REACH this build (Sales Floor is in their NavConfig nav). Outfitters don't: they use Outfitter Mobile.
+const ROLES = { manager: 'Sales manager', receptionist: 'Receptionist' };
+const PERMS = {
+  'case.create':      { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'case.assign':      { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'case.override':    { manager: 'reason', receptionist: 'reason',   outfitter: 'hidden' },
+  'case.move':        { manager: 'act',    receptionist: 'read',     outfitter: 'hidden' },
+  'case.note':        { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'case.close':       { manager: 'reason', receptionist: 'reason',   outfitter: 'hidden' },
+  'case.view_detail': { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'rep.message':      { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'rep.pause':        { manager: 'reason', receptionist: 'approve',  outfitter: 'hidden' },
+  'rep.bench':        { manager: 'reason', receptionist: 'disabled', outfitter: 'hidden' },
+  'rep.stats':        { manager: 'act',    receptionist: 'hidden',   outfitter: 'hidden' },
+  'rotation.reorder': { manager: 'reason', receptionist: 'hidden',   outfitter: 'hidden' },
+  'rotation.view':    { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'schedule.checkin': { manager: 'act',    receptionist: 'act',      outfitter: 'hidden' },
+  'phase.stats':      { manager: 'act',    receptionist: 'read',     outfitter: 'hidden' },
+};
+const can = (role, perm) => (PERMS[perm] && PERMS[perm][role]) || 'hidden';
+const shows = (role, perm) => can(role, perm) !== 'hidden';
+const acts = (role, perm) => ['act', 'reason', 'approve'].includes(can(role, perm));
+window.FW = { ROLES, PERMS, can, shows, acts,  PHASES, OUTFITTERS, OUTFITTER_BY_ID, ROTATION, REP_STATE, SEED_CARDS, SEED_EXITS, SCHEDULE, LEFT_REASONS, PAUSE_REASONS, BENCH_REASONS, BENCH_DURATIONS, MOVE_REP_REASONS, OVERRIDE_REASONS, UNIT_TYPES, PARTY_TYPES, REP_STATS, CHAT, Icon };
+})();

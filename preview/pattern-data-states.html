@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="pattern-data-states" subtitle="Loading · Empty · Error · Partial · Stale · Permission" viewport="900x380" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:22px;}
+  .hd{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#5E4F1F;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .hd::before{content:"";width:10px;height:8px;background:#8B752E;clip-path:var(--wf-path);}
+  .sub{font-family:'Source Sans 3',sans-serif;font-size:12px;color:#3D3D38;margin-bottom:14px;max-width:640px;line-height:1.5;}
+  .g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .c{background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:18px 16px;text-align:center;min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  .c.e{background:#FBEEEE;border-color:rgba(176,37,37,0.25);}
+  .c.i{background:#EDF3F9;border-color:rgba(24,100,171,0.25);}
+  .n{font-family:'Barlow Condensed',sans-serif;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:#6B6B63;font-weight:600;}
+  .c.e .n{color:#B02525;}
+  .c.i .n{color:#1864AB;}
+  .msg{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#0A0A09;letter-spacing:0.5px;}
+  .c.e .msg{color:#B02525;}
+  .c.i .msg{color:#1864AB;}
+  .s{font-family:'Source Sans 3',sans-serif;font-size:11.5px;color:#6B6B63;max-width:240px;line-height:1.5;}
+  .sk{width:100%;border-radius:4px;background:linear-gradient(90deg,#EFEDE4 0%,#E4E1D7 50%,#EFEDE4 100%);background-size:200% 100%;animation:sh 1.5s infinite linear;}
+  .sk1{height:9px;width:38%;}
+  .sk2{height:32px;width:62%;}
+  .sk3{height:9px;width:30%;}
+  @keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+  .btn{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;padding:6px 12px;border-radius:6px;background:#FFFFFF;color:#5E4F1F;border:1px solid rgba(139,117,46,0.45);cursor:pointer;letter-spacing:0.3px;}
+  .stl{background:#FFF5D9;border:1px solid rgba(199,124,0,0.3);border-radius:6px;padding:5px 10px;font-family:'Barlow Condensed',sans-serif;font-size:10.5px;letter-spacing:0.5px;color:#C77C00;font-weight:600;}
+  .bg{background:rgba(139,117,46,0.12);color:#C77C00;border:1px solid rgba(199,124,0,0.3);font-family:'Barlow Condensed',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border-radius:9999px;}
+</style></head>
+<body>
+<div class="hd">Pattern · The Six Data States</div>
+<div class="sub">Every module must handle all six. Missing coverage is a build blocker — not an edge-case.</div>
+<div class="g">
+  <div class="c" style="align-items:stretch;text-align:left;"><div class="n">01 · Loading</div><div class="sk sk1" style="margin-top:6px"></div><div class="sk sk2" style="margin-top:6px"></div><div class="sk sk3" style="margin-top:6px"></div></div>
+  <div class="c"><div class="n">02 · Empty</div><svg width="40" height="32" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E" opacity="0.4"/></svg><div class="msg">No overdue reviews</div><div class="s">You're caught up for now.</div></div>
+  <div class="c e"><div class="n">03 · Error</div><div class="msg">Couldn't load deals</div><div class="s">Lightspeed API returned 503. Try again or contact IT.</div><button class="btn">Retry</button></div>
+  <div class="c"><div class="n">04 · Partial</div><div class="msg">3 of 4 modules loaded</div><div class="s">Approvals queue failed · other data shown normally</div><span class="bg">Module offline</span></div>
+  <div class="c"><div class="n">05 · Stale</div><div class="msg">Last refresh shown</div><div class="s">Users see age of data explicitly.</div><div class="stl">⏱ Last updated 14 min ago</div></div>
+  <div class="c i"><div class="n">06 · Permission</div><div class="msg">Access restricted</div><div class="s">F&amp;I dashboards require Producer or Manager role.</div><button class="btn">Request access</button></div>
+</div>
+</body></html>

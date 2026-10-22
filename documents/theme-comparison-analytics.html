@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics — Light vs Dark</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --font-sans:'Source Sans 3',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --radius-md:6px; --radius-lg:8px;
+    --shadow-card:0 1px 3px rgba(16,24,40,0.08),0 0 0 1px rgba(16,24,40,0.04);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;background:#f1f3f4;}
+  body{
+    font-family:var(--font-sans);
+    color:#1f2329;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    padding:56px 40px 100px;
+  }
+  .doc{max-width:1320px;margin:0 auto;}
+
+  /* ── Masthead ── */
+  .eyebrow{
+    font-size:11px;font-weight:600;letter-spacing:0.06em;
+    text-transform:uppercase;color:#156579;display:flex;align-items:center;gap:10px;margin:0 0 14px;
+  }
+  .eyebrow::before{content:"";width:22px;height:2px;background:#156579;border-radius:2px;flex:none;}
+  h1{font-size:34px;line-height:1.1;letter-spacing:-0.01em;color:#035a70;margin:0 0 16px;font-weight:700;}
+  .lede{font-size:16px;line-height:1.6;color:#4b5563;max-width:80ch;margin:0;}
+  .lede b{color:#1f2329;}
+  .lede code{font-family:var(--font-mono);font-size:14px;color:#1d6a7d;}
+
+  /* ── Usage cards ── */
+  .usage{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:32px 0 8px;}
+  .u-card{background:#fff;border:1px solid rgba(0,0,0,0.09);border-radius:8px;box-shadow:var(--shadow-card);padding:22px 24px;}
+  .u-card .tag{font-size:10px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:4px 12px;border-radius:9999px;display:inline-block;white-space:nowrap;}
+  .u-card.light .tag{background:rgba(13,90,104,0.10);color:#156579;}
+  .u-card.dark .tag{background:#eef1f2;color:#4b5563;}
+  .u-card h3{font-size:18px;font-weight:600;color:#1f2329;margin:14px 0 8px;}
+  .u-card p{font-size:14px;color:#4b5563;margin:0;line-height:1.55;}
+
+  /* ── Section label ── */
+  .sec{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#156579;margin:44px 0 14px;}
+
+  /* ── Token map ── */
+  .map-wrap{background:#fff;border:1px solid rgba(0,0,0,0.09);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-card);}
+  .map{width:100%;border-collapse:collapse;}
+  .map th{font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:#6b7280;text-align:left;padding:12px 22px;border-bottom:1px solid rgba(0,0,0,0.09);}
+  .map td{padding:11px 22px;border-bottom:1px solid rgba(0,0,0,0.06);vertical-align:middle;}
+  .map tr:last-child td{border-bottom:none;}
+  .map .role{font-size:14px;color:#1f2329;}
+  .swatch{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;color:#4b5563;}
+  .sw{width:22px;height:22px;border-radius:5px;border:1px solid rgba(0,0,0,0.18);flex:none;}
+
+  /* ── Comparison panes ── */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:18px;align-items:start;}
+  .pane-label{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .pane-label .dot{width:13px;height:13px;border-radius:50%;flex:none;}
+  .pane-label .t{font-size:13px;font-weight:700;color:#1f2329;}
+  .pane-label .sub{font-size:13px;color:#6b7280;}
+  .frame{border-radius:10px;overflow:hidden;box-shadow:0 12px 28px -10px rgba(16,24,40,0.28);}
+
+  /* ════ THEME SCOPES — identical markup, theme-driven by CSS vars ════ */
+  .pane.light{
+    --bg-page:#f1f3f4; --bg-card:#ffffff; --bg-inset:#eef1f2;
+    --border:rgba(0,0,0,0.09);
+    --text-1:#1f2329; --text-2:#4b5563; --text-3:#6b7280; --text-muted:#9ca3a8;
+    --heading:#035a70; --accent:#156579; --link:#1d6a7d;
+    --panel-header-bg:#0e5a68; --panel-header-text:#ffffff;
+    --success:#16a34a; --warning:#f59f00; --danger:#d92d20; --info:#1c7ed6;
+    --success-bg:#dcfce7; --warning-bg:#fff3bf; --danger-bg:#fbe4e2; --info-bg:#d0ebff;
+    --pane-shadow:var(--shadow-card);
+  }
+  .pane.dark{
+    --bg-page:#191919; --bg-card:#232323; --bg-inset:#1f1f1f;
+    --border:rgba(255,255,255,0.08);
+    --text-1:#e8e8e8; --text-2:#b6b6b6; --text-3:#8a8a8a; --text-muted:#6c6c6c;
+    --heading:#16a6c4; --accent:#2a93ad; --link:#16a6c4;
+    --panel-header-bg:#0e5a68; --panel-header-text:#ffffff;
+    --success:#3fbf6e; --warning:#f5b740; --danger:#e8857a; --info:#5aa9e8;
+    --success-bg:rgba(22,163,74,0.18); --warning-bg:rgba(245,159,0,0.18); --danger-bg:rgba(217,45,32,0.20); --info-bg:rgba(28,126,214,0.20);
+    --pane-shadow:none;
+  }
+
+  @media (max-width:980px){
+    .usage,.compare{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="eyebrow">Theme System · Analytics Direction</div>
+  <h1>Two themes, one set of tokens</h1>
+  <p class="lede">The Bish's RV <b>Analytics</b> palette, type, and components — re-skinned across the surface / text / border token tiers. This is the alternate direction to <b>Nexus</b>: cooler, light-first, humanist sans, teal accents. The dashboard below is rendered from <b>one set of markup</b>, themed entirely by flipping the <code>data-theme</code> attribute. Both directions clear WCAG&nbsp;2.2&nbsp;AA.</p>
+
+  <div class="usage">
+    <div class="u-card light">
+      <span class="tag">Light · Default</span>
+      <h3>Everyday reporting</h3>
+      <p>Data-dense recipe and ops reports for daily use. Cool-gray page, white cards, soft Material-style shadows for elevation, teal accents.</p>
+    </div>
+    <div class="u-card dark">
+      <span class="tag">Dark · Parallel</span>
+      <h3>Long-session, focused</h3>
+      <p>Task-focused dashboards for extended stretches. Charcoal surfaces with elevation built from surface-color steps; titles brighten to cyan-teal.</p>
+    </div>
+  </div>
+
+  <div class="sec">Token mapping — same role, two themes</div>
+  <div class="map-wrap">
+    <table class="map">
+      <thead>
+        <tr><th style="width:26%">Role</th><th>Light</th><th>Dark</th></tr>
+      </thead>
+      <tbody id="map-body"></tbody>
+    </table>
+  </div>
+
+  <div class="sec">The same screen, themed both ways</div>
+  <div class="compare">
+    <div>
+      <div class="pane-label"><span class="dot" style="background:#156579;box-shadow:inset 0 0 0 2px #f1f3f4;border:2px solid #156579;"></span><span class="t">Light</span><span class="sub">Reporting · default</span></div>
+      <div class="frame"><div class="pane light"><div class="screen" id="screen-light"></div></div></div>
+    </div>
+    <div>
+      <div class="pane-label"><span class="dot" style="background:#232323;border:2px solid rgba(0,0,0,0.16);"></span><span class="t">Dark</span><span class="sub">Focused · parallel</span></div>
+      <div class="frame"><div class="pane dark"><div class="screen" id="screen-dark"></div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // ── token-mapping table rows ──
+  const rows = [
+    ["Page surface",    "#F1F3F4", "#191919"],
+    ["Sidebar / nav",   "#FFFFFF", "#161616"],
+    ["Card surface",    "#FFFFFF", "#232323"],
+    ["Inset / toolbar", "#EEF1F2", "#1F1F1F"],
+    ["Primary text",    "#1F2329", "#E8E8E8"],
+    ["Secondary text",  "#4B5563", "#B6B6B6"],
+    ["Muted text",      "#9CA3A8", "#8A8A8A"],
+    ["Heading · teal",  "#035A70", "#16A6C4"],
+    ["Accent · teal",   "#156579", "#2A93AD"],
+    ["Panel header",    "#0E5A68", "#0E5A68"],
+    ["Link / ID",       "#1D6A7D", "#16A6C4"],
+  ];
+  document.getElementById('map-body').innerHTML = rows.map(([role,l,d]) => `
+    <tr>
+      <td class="role">${role}</td>
+      <td><span class="swatch"><span class="sw" style="background:${l}"></span>${l}</span></td>
+      <td><span class="swatch"><span class="sw" style="background:${d}"></span>${d}</span></td>
+    </tr>`).join('') + `
+    <tr>
+      <td class="role">Hairline border</td>
+      <td><span class="swatch"><span class="sw" style="background:#fff;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.09)"></span>black 9%</span></td>
+      <td><span class="swatch"><span class="sw" style="background:#232323;border-color:rgba(255,255,255,0.18)"></span>white 8%</span></td>
+    </tr>`;
+
+  // ── the dashboard screen — one markup, themed by the .pane wrapper ──
+  const screenHTML = `
+    <div style="background:var(--bg-page);color:var(--text-1);font-family:var(--font-sans);">
+      <div style="background:var(--bg-card);border-bottom:1px solid var(--border);padding:20px 24px;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);">Bish's RV Analytics · Dealer Ops</div>
+        <div style="font-size:22px;font-weight:700;letter-spacing:-0.01em;color:var(--heading);margin-top:3px;">Inventory Dashboard</div>
+        <div style="display:flex;gap:20px;margin-top:10px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-3);">
+          <span><span style="color:var(--text-muted);">LOCATION</span> · Coeur d'Alene</span>
+          <span><span style="color:var(--text-muted);">UNITS</span> · 284</span>
+          <span><span style="color:var(--text-muted);">UPDATED</span> · 2 min ago</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:24px;padding:0 24px;background:var(--bg-card);border-bottom:1px solid var(--border);">
+        <div style="font-size:14px;font-weight:700;color:var(--heading);padding:11px 0;border-bottom:2px solid var(--accent);margin-bottom:-1px;">Inventory</div>
+        <div style="font-size:14px;font-weight:500;color:var(--text-2);padding:11px 0;">Deals</div>
+        <div style="font-size:14px;font-weight:500;color:var(--text-2);padding:11px 0;">Protection Ops</div>
+      </div>
+      <div style="padding:18px 24px 24px;display:flex;flex-direction:column;gap:16px;background:var(--bg-page);">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;box-shadow:var(--pane-shadow);padding:16px 18px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);">Active Units</div>
+            <div style="font-size:34px;font-weight:700;line-height:1;margin:8px 0 6px;color:var(--text-1);">284</div>
+            <div style="font-family:var(--font-mono);font-size:12px;color:var(--success);">+12 this week</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;box-shadow:var(--pane-shadow);padding:16px 18px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);">In Protection</div>
+            <div style="font-size:34px;font-weight:700;line-height:1;margin:8px 0 6px;color:var(--text-1);">47</div>
+            <div style="font-family:var(--font-mono);font-size:12px;color:var(--success);">+3 today</div>
+          </div>
+          <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;box-shadow:var(--pane-shadow);padding:16px 18px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);">Overdue</div>
+            <div style="font-size:34px;font-weight:700;line-height:1;margin:8px 0 6px;color:var(--text-1);">8</div>
+            <div style="font-family:var(--font-mono);font-size:12px;color:var(--danger);">-2 since Mon</div>
+          </div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--pane-shadow);">
+          <div style="display:flex;align-items:center;justify-content:space-between;background:var(--panel-header-bg);color:var(--panel-header-text);padding:10px 16px;">
+            <span style="font-size:14px;font-weight:700;letter-spacing:0.01em;">Units in Protection Ops</span>
+            <span style="font-size:12px;font-weight:600;border:1px solid rgba(255,255,255,0.45);border-radius:6px;padding:5px 12px;">Export CSV</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--link);width:66px;">#4821-B</div>
+            <div style="flex:1;"><div style="font-size:14px;color:var(--text-1);">2024 Winnebago Vista</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Phase 3 · Interior Inspection</div></div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.02em;padding:3px 10px;border-radius:9999px;background:var(--info-bg);color:var(--info);">Active</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--link);width:66px;">#3190-A</div>
+            <div style="flex:1;"><div style="font-size:14px;color:var(--text-1);">2023 Forest River Sandpiper</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Phase 8 · Final QC</div></div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.02em;padding:3px 10px;border-radius:9999px;background:var(--success-bg);color:var(--success);">Complete</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border);">
+            <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--link);width:66px;">#5502-C</div>
+            <div style="flex:1;"><div style="font-size:14px;color:var(--text-1);">2024 Jayco Eagle HT</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Phase 1 · Intake</div></div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.02em;padding:3px 10px;border-radius:9999px;background:var(--warning-bg);color:var(--warning);">Pending</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;">
+            <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--link);width:66px;">#2847-D</div>
+            <div style="flex:1;"><div style="font-size:14px;color:var(--text-1);">2022 Grand Design Reflection</div><div style="font-size:12px;color:var(--text-3);margin-top:2px;">Phase 5 · Awaiting Parts</div></div>
+            <span style="font-size:11px;font-weight:600;letter-spacing:0.02em;padding:3px 10px;border-radius:9999px;background:var(--danger-bg);color:var(--danger);">Overdue</span>
+          </div>
+        </div>
+        <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:8px;box-shadow:var(--pane-shadow);padding:18px 20px;">
+          <div style="font-size:18px;font-weight:700;color:var(--heading);">Unit #4821-B</div>
+          <div style="font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-3);margin-top:3px;">2024 Winnebago Vista</div>
+          <div style="margin-top:14px;"><span style="font-size:11px;font-weight:600;padding:3px 10px;border-radius:9999px;background:var(--info-bg);color:var(--info);">Active</span></div>
+          <div style="margin-top:14px;font-size:14px;color:var(--text-2);line-height:1.6;">Phase 3 · Interior Inspection.</div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('screen-light').innerHTML = screenHTML;
+  document.getElementById('screen-dark').innerHTML = screenHTML;
+</script>
+</body>
+</html>

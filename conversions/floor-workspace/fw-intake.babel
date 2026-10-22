@@ -1,0 +1,40 @@
+// Floor Workspace — business intake (rules with sources) + rule → family links + open questions.
+// Human-readable copy: handoff/intake.md. Feeds SpecLint.tickets(manifest, FW_REQ, { intake, ruleMap, precedents, questions }).
+(function () {
+const SRC = 'Source app: Floor Workspace - Full App (standalone).html';
+const rules = {
+  'BR-01': { text: 'The up-now outfitter is preselected for every new customer; picking anyone else requires an override reason (not up front · customer asked · out of turn).', source: `${SRC} › Modals (override reasons)` },
+  'BR-02': { text: 'A customer who leaves must have a reason from the fixed list; the exit is logged against the phase they left from.', source: `${SRC} › Modals (Customer Left) + data/workspace SEED_EXITS` },
+  'BR-03': { text: 'Cases move through 8 phases in order: Waiting, Assigned, Discovery, MCP, Demo, Worksheet, 2-Min, Delivery. Cards usually advance automatically; a manual move is an override.', source: `${SRC} › data/workspace PHASES + Manual Move copy` },
+  'BR-04': { text: 'Only a sales manager can bench or un-bench an outfitter; benching requires a reason and a coaching note.', source: `${SRC} › RepActions ("Receptionists cannot bench")` },
+  'BR-05': { text: 'Lunch and manager check-in pauses need manager or receptionist approval and an estimated return time.', source: `${SRC} › RepActions (pause reasons)` },
+  'BR-06': { text: 'Unpausing requires confirming the pause reason was fulfilled (e.g. "Has lunch been taken?").', source: `${SRC} › RepActions (Unpause fulfilment check)` },
+  'BR-07': { text: 'Moving an outfitter in the rotation requires a reason; a returning customer is applied automatically when an owned customer checks in.', source: `${SRC} › RepActions (Move in rotation reasons)` },
+  'BR-08': { text: 'Check-in looks up the customer by phone or email first; a walk-in creates a new profile after intake.', source: `${SRC} › Modals (Lookup / Match / Walk-in)` },
+  'BR-09': { text: 'Assigning an outfitter sends them a notification and sends the customer a welcome link.', source: `${SRC} › Modals ("Welcome link sent", "Outfitter notification queued")` },
+  'BR-10': { text: 'When an outfitter is benched, their active customers return to Waiting.', source: 'Zach, 2026-10-22 (conversion review)' },
+  'BR-11': { text: 'Receptionists view case phases but cannot move cases between phases.', source: 'Proposed in conversion. Confirm (D-09)' },
+};
+const ruleMap = {
+  'btn-commit-new-check-in': ['BR-08', 'BR-09'], 'frame-check-in': ['BR-08'], 'btn-commit-check-in': ['BR-01', 'BR-09'],
+  'input-override-reason#{instance}': ['BR-01'], 'input-outfitter#{instance}': ['BR-01'],
+  'frame-assign-outfitter': ['BR-01'], 'btn-commit-assign-outfitter': ['BR-01', 'BR-09'],
+  'frame-customer-left': ['BR-02'], 'btn-commit-customer-left': ['BR-02'], 'input-left-reason#{instance}': ['BR-02'],
+  'list-phase#{instance}': ['BR-03'], 'frame-move-case': ['BR-03', 'BR-11'], 'btn-commit-move-case': ['BR-03'], 'menuitem-move#{instance}': ['BR-11'],
+  'frame-bench-outfitter': ['BR-04', 'BR-10'], 'btn-commit-bench-outfitter': ['BR-04', 'BR-10'], 'frame-unbench-outfitter': ['BR-04'], 'btn-action-rep-bench#{instance}': ['BR-04'],
+  'frame-pause-outfitter': ['BR-05'], 'btn-commit-pause-outfitter': ['BR-05'],
+  'frame-unpause-outfitter': ['BR-06'], 'input-pause-fulfilled': ['BR-06'],
+  'frame-move-in-rotation': ['BR-07'], 'btn-commit-move-in-rotation': ['BR-07'],
+};
+const questions = [
+  { id: 'Q-D01', text: 'Ratify the phase colour tones (GB12)' },
+  { id: 'Q-D03', text: 'Build loading / error / partial / stale states for every module (G8)' },
+  { id: 'Q-D04', text: 'Restore multi-match buyer / co-buyer pick in check-in (AF score, DOB)' },
+  { id: 'Q-D06', text: 'Confirm the source system for each entity (DMS, CRM, HR directory)' },
+  { id: 'Q-D08', text: "Build the manager's pause-approval queue" },
+  { id: 'Q-D09', text: 'Confirm whether receptionists can move cases (BR-11)' },
+  { id: 'Q-D10', text: "Link the receptionist's Check-In and Up Queue screens to this build, or keep them separate" },
+  { id: 'Q-D11', text: 'Confirm which nav destination screens already exist (Desking, Pipeline, Reports, Messenger …)' },
+];
+window.FW_INTAKE = { rules, ruleMap, questions };
+})();

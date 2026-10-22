@@ -1,0 +1,269 @@
+// Floor Workspace — converted screen (renders inside AppShell's canvas). Container-driven (RF05): see .fw rules in index.html.
+(function () {
+const { PHASES, OUTFITTER_BY_ID, REP_STATE, SCHEDULE, Icon, can, shows, acts } = window.FW;
+const RoleCtx = React.createContext('manager');
+const useRole = () => React.useContext(RoleCtx);
+const perm = (role, p) => ({ 'data-bos-perm': p, 'data-bos-access': can(role, p) });
+const PHASE_TONE = { danger: 'var(--semantic-danger-dark)', warning: 'var(--semantic-warning-dark)', success: 'var(--semantic-success-dark)', info: 'var(--semantic-info-dark)', neutral: 'var(--accent-olive)' };
+const PARTY_ICON = { single: 'user', couple: 'users', family: 'users' };
+const slug = (s) => String(s).toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+function Avatar({ o, size = 36, ring }) {
+  if (!o) return null;
+  const st = { width: size, height: size, flex: `0 0 ${size}px`, borderRadius: '50%', overflow: 'hidden', boxShadow: ring ? `0 0 0 2px ${ring}` : 'none' };
+  return o.photo
+    ? <img src={o.photo} alt="" style={{ ...st, objectFit: 'cover', display: 'block' }} />
+    : <span aria-hidden="true" style={{ ...st, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--text-light-primary)', color: 'var(--brand-white)', fontFamily: 'var(--font-ui)', fontWeight: 700, fontSize: Math.round(size * 0.36) }}>{o.initials}</span>;
+}
+
+function Chip({ tone = 'neutral', dark, children }) {
+  const map = dark
+    ? { neutral: ['rgba(255,255,255,0.08)', 'var(--text-body)', 'var(--border-mid)'], warning: ['rgba(255,212,59,0.12)', 'var(--semantic-warning)', 'rgba(255,212,59,0.35)'], info: ['rgba(116,192,252,0.12)', 'var(--semantic-info)', 'rgba(116,192,252,0.35)'], muted: ['transparent', 'var(--text-muted)', 'var(--border-mid)'], ink: ['var(--brand-black)', 'var(--brand-white)', 'var(--border-mid)'] }
+    : { neutral: ['var(--surface-light-inset)', 'var(--text-light-secondary)', 'var(--border-light)'], danger: ['var(--semantic-danger-light)', 'var(--semantic-danger-dark)', 'rgba(176,37,37,0.3)'], warning: ['var(--semantic-warning-light)', '#7A4C00', 'rgba(199,124,0,0.3)'], info: ['var(--semantic-info-light)', 'var(--semantic-info-dark)', 'rgba(24,100,171,0.3)'], success: ['var(--semantic-success-light)', 'var(--semantic-success-dark)', 'rgba(27,122,46,0.3)'] };
+  const [bg, fg, bd] = map[tone] || map.neutral;
+  return <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '3px 10px', borderRadius: 999, background: bg, color: fg, border: `1px solid ${bd}`, fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', whiteSpace: 'nowrap' }}>{children}</span>;
+}
+
+function Hex({ label }) {
+  return (
+    <span role="img" aria-label={label} title={label} style={{ position: 'relative', width: 30, height: 34, flex: '0 0 30px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <svg width="30" height="34" viewBox="0 0 30 34" aria-hidden="true" style={{ position: 'absolute', inset: 0 }}><path d="M15 1 29 9v16l-14 8L1 25V9z" fill="var(--brand-black)" stroke="var(--border-mid)" /></svg>
+      <span style={{ position: 'relative', fontFamily: 'var(--font-display)', fontSize: 18, color: 'var(--brand-white)', lineHeight: 1 }}>D</span>
+    </span>
+  );
+}
+
+// ── S10 · Ups rotation ─────────────────────────────────────────
+function RepCard({ entry, unread, onOpen, onDragStart, onDragOver, onDrop, dragOver }) {
+  const role = useRole();
+  const canOpen = shows(role, 'rep.message') || shows(role, 'rep.pause') || shows(role, 'rep.stats');
+  const canDrag = acts(role, 'rotation.reorder');
+  const o = OUTFITTER_BY_ID[entry.outfitter];
+  const st = REP_STATE[entry.state];
+  const up = entry.state === 'up_now';
+  const dim = entry.state === 'benched';
+  const chip = up ? <Chip dark tone="ink">Upfront</Chip> : entry.state === 'paused' ? <Chip dark tone="warning">{entry.deal}</Chip> : entry.state === 'with_customer' ? <Chip dark tone="info">{entry.deal}</Chip> : dim ? <Chip dark tone="muted">{entry.mtd}</Chip> : <Chip dark>{entry.deal}</Chip>;
+  return (
+    <li className="fw-rep" style={{ listStyle: 'none', flex: '0 0 auto', opacity: dim ? 0.72 : 1 }} onDragOver={onDragOver} onDrop={onDrop}>
+      <button type="button" data-spec-id={`btn-action-rep#${entry.outfitter}`} data-bos-class={canOpen ? 'action' : 'info'} {...perm(role, canOpen ? 'rotation.view' : 'rotation.view')} draggable={canDrag} onDragStart={canDrag ? onDragStart : undefined} disabled={!canOpen} onClick={(e) => canOpen && onOpen(e.currentTarget)}
+        aria-label={`${o.name}, ${st.label}${unread ? `, ${unread} unread message` : ''}${canOpen ? '. Open actions' : ''}`}
+        style={{ position: 'relative', width: 208, minHeight: 120, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: 12, padding: up ? '14px 14px 14px 18px' : 14, textAlign: 'left', cursor: 'pointer', borderRadius: 10, background: up ? 'var(--brand-black)' : 'var(--surface-card)', border: `1px solid ${dragOver ? 'var(--accent-gold-hi)' : 'var(--border-ghost)'}`, color: 'var(--text-primary)', overflow: 'hidden' }}>
+        {up && <span aria-hidden="true" style={{ position: 'absolute', left: 0, top: 0, bottom: 0, width: 4, background: 'var(--accent-gold-hi)' }} />}
+        <span style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ position: 'relative' }}>
+            <Avatar o={o} size={44} />
+            {unread > 0 && <span style={{ position: 'absolute', top: -4, right: -6, minWidth: 18, height: 18, borderRadius: 9, background: 'var(--semantic-danger-dark)', color: 'var(--brand-white)', fontFamily: 'var(--font-mono)', fontSize: 11, lineHeight: '18px', textAlign: 'center', border: '2px solid var(--surface-card)' }}>{unread}</span>}
+          </span>
+          <span style={{ minWidth: 0 }}>
+            <span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', color: up ? 'var(--accent-gold-hi)' : 'var(--text-muted)' }}>{st.label}</span>
+            <span style={{ display: 'block', fontFamily: 'var(--font-display)', fontSize: 22, letterSpacing: 0.5, lineHeight: 1.05, color: 'var(--text-primary)' }}>{o.first}</span>
+            {up && <span style={{ display: 'block', fontSize: 12, color: 'var(--text-body)' }}>{entry.mtd}</span>}
+          </span>
+        </span>
+        <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+          {chip}
+          {entry.delivery && <Hex label={`Delivery today: ${entry.delivery}`} />}
+        </span>
+      </button>
+    </li>
+  );
+}
+
+function Rotation({ rotation, collapsed, hideBenched, unread, customers, onToggleCollapse, onToggleBenched, onOpenRep, onReorder }) {
+  const role = useRole();
+  if (!shows(role, 'rotation.view')) return null;
+  const [drag, setDrag] = React.useState(null);
+  const [over, setOver] = React.useState(null);
+  const list = rotation.filter((r) => !(hideBenched && r.state === 'benched'));
+  const benched = rotation.filter((r) => r.state === 'benched').length;
+  return (
+    <section data-spec-id="sec-ups-rotation" data-bos-level="section" data-bos-section="S10" data-bos-type="status" aria-label="Ups rotation"
+      style={{ background: 'var(--surface-page)', color: 'var(--text-primary)', borderRadius: 12, padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: 12, minWidth: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+        <h2 style={{ margin: 0, fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--accent-gold-hi)' }}>Ups rotation</h2>
+        <span style={{ fontSize: 13, color: 'var(--text-body)' }}>{customers} customers on the floor</span>
+        <span style={{ flex: 1 }} />
+        <button type="button" data-spec-id="btn-action-toggle-benched" data-bos-class="action" aria-pressed={hideBenched} onClick={onToggleBenched} className="fw-btn fw-btn--action-dark">
+          <Icon name={hideBenched ? 'eye' : 'eye-off'} size={16} />{hideBenched ? `Show benched · ${benched}` : `Hide benched · ${benched}`}
+        </button>
+        <button type="button" data-spec-id="btn-action-collapse-rotation" data-bos-class="action" aria-expanded={!collapsed} onClick={onToggleCollapse} className="fw-btn fw-btn--ghost-dark">
+          <Icon name={collapsed ? 'chevron-down' : 'chevron-up'} size={16} />{collapsed ? 'Expand' : 'Collapse'}
+        </button>
+      </div>
+      {!collapsed && (
+        <ul data-spec-id="list-rotation" data-bos-level="layer" data-bos-layer="L01" className="fw-scroll-x" style={{ display: 'flex', gap: 10, margin: 0, padding: '0 0 6px', overflowX: 'auto' }}>
+          {list.map((r) => {
+            const idx = rotation.indexOf(r);
+            return (
+              <RepCard key={r.outfitter} entry={r} unread={unread[r.outfitter] || 0} dragOver={over === idx}
+                onOpen={(el) => onOpenRep(r, el)}
+                onDragStart={(e) => { setDrag(idx); e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', String(idx)); }}
+                onDragOver={(e) => { e.preventDefault(); setOver(idx); }}
+                onDrop={(e) => { e.preventDefault(); const from = drag; setDrag(null); setOver(null); if (from !== null && from !== idx) onReorder(from, idx); }} />
+            );
+          })}
+        </ul>
+      )}
+    </section>
+  );
+}
+
+// ── S11 · Today's schedule ─────────────────────────────────────
+function Schedule({ filter, setFilter, onItem }) {
+  const role = useRole();
+  const items = SCHEDULE.filter((s) => s.kind === 'now' || filter === 'all' || s.kind === filter);
+  const nDel = SCHEDULE.filter((s) => s.kind === 'delivery').length, nSale = SCHEDULE.filter((s) => s.kind === 'sale').length;
+  const fb = (id, label, icon, n) => (
+    <button type="button" data-spec-id={`btn-action-filter-schedule#${id}`} data-bos-class="action" aria-pressed={filter === id} onClick={() => setFilter(filter === id ? 'all' : id)} className={`fw-btn ${filter === id ? 'fw-btn--action' : 'fw-btn--quiet'}`}>
+      <Icon name={icon} size={16} />{n} {label}
+    </button>
+  );
+  return (
+    <section data-spec-id="sec-todays-schedule" data-bos-level="section" data-bos-section="S11" data-bos-type="list" aria-label="Today's schedule" className="fw-panel" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0 }}>
+      <div style={{ padding: '16px 16px 12px', borderBottom: '1px solid var(--border-light)', display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div>
+          <h2 style={{ margin: 0, fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 26, letterSpacing: 0.5, lineHeight: 1, color: 'var(--text-light-primary)' }}>Today’s schedule</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-light-tertiary)' }}>Current time 12:45 PM</p>
+        </div>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>{fb('delivery', 'Deliveries', 'truck', nDel)}{fb('sale', 'Sales', 'handshake', nSale)}</div>
+      </div>
+      <ol data-spec-id="list-schedule" data-bos-level="layer" data-bos-layer="L01" style={{ listStyle: 'none', margin: 0, padding: '8px 12px 12px', overflowY: 'auto', flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        {items.map((s) => s.kind === 'now' ? (
+          <li key="now" data-spec-id="info-now-indicator" style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '4px 0' }}>
+            <span aria-hidden="true" style={{ width: 10, height: 10, borderRadius: '50%', border: '2px solid var(--semantic-info-dark)' }} />
+            <span aria-hidden="true" style={{ flex: 1, height: 2, background: 'var(--semantic-info-dark)' }} />
+            <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, color: 'var(--brand-white)', background: 'var(--semantic-info-dark)', borderRadius: 999, padding: '3px 10px' }}>Now · 12:45 PM</span>
+          </li>
+        ) : (
+          <li key={s.id}>
+            <button type="button" data-spec-id={`btn-action-open-schedule-item#${s.id}`} data-bos-class="action" {...perm(role, 'case.view_detail')} onClick={() => onItem(s)} className="fw-sched"
+              style={{ width: '100%', display: 'grid', gridTemplateColumns: '36px minmax(0,1fr) auto', alignItems: 'center', gap: 10, padding: '10px 10px 10px 12px', borderRadius: 8, border: '1px solid var(--border-light)', borderLeft: `3px solid ${s.kind === 'delivery' ? 'var(--semantic-info-dark)' : 'var(--accent-olive)'}`, background: 'var(--surface-light-card)', cursor: 'pointer', textAlign: 'left' }}>
+              <span style={{ width: 36, height: 36, borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-light-inset)', color: s.kind === 'delivery' ? 'var(--semantic-info-dark)' : 'var(--text-light-secondary)' }}><Icon name={s.kind === 'delivery' ? 'truck' : 'handshake'} size={18} /></span>
+              <span style={{ minWidth: 0 }}>
+                <span style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-light-primary)' }}>{s.time} {s.ampm}</span>
+                  <span style={{ fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600, color: 'var(--text-light-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{s.customer}</span>
+                </span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: s.delay ? 'var(--semantic-danger-dark)' : 'var(--text-light-tertiary)' }}>{s.delay && <Icon name="triangle-alert" size={13} />}{s.label} · {s.status}</span>
+              </span>
+              <Avatar o={OUTFITTER_BY_ID[s.outfitterId]} size={30} />
+            </button>
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
+// ── S12 · Floor traffic board ──────────────────────────────────
+function CaseCard({ c, onOpen }) {
+  const role = useRole();
+  const canDrag = acts(role, 'case.move');
+  const o = c.outfitter ? OUTFITTER_BY_ID[c.outfitter] : null;
+  return (
+    <li style={{ listStyle: 'none' }}>
+      <div data-spec-id={`card-case#${c.id}`} data-bos-level="component" draggable={canDrag} onDragStart={canDrag ? (e) => { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', c.id); } : undefined}
+        style={{ position: 'relative', background: 'var(--surface-light-card)', border: '1px solid var(--border-light)', borderLeft: o ? '1px solid var(--border-light)' : '3px solid var(--semantic-danger-dark)', borderRadius: 10, boxShadow: 'var(--shadow-sm)', padding: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ width: 34, height: 34, flex: '0 0 34px', borderRadius: 8, background: 'var(--text-light-primary)', color: 'var(--brand-white)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name={PARTY_ICON[c.type]} size={18} /></span>
+          <span style={{ minWidth: 0, flex: 1 }}>
+            <span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 16, fontWeight: 600, color: 'var(--text-light-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.customer}</span>
+            <span style={{ display: 'block', fontSize: 12, color: 'var(--text-light-tertiary)' }}>{c.interest}</span>
+          </span>
+          <button type="button" data-spec-id={`btn-action-case-menu#${c.id}`} data-bos-class="action" {...perm(role, 'case.view_detail')} aria-label={`Actions for ${c.customer}`} aria-haspopup="menu" onClick={(e) => onOpen(c, e.currentTarget)} className="fw-icon-btn"><Icon name="ellipsis-vertical" size={18} /></button>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, padding: '8px 0', borderTop: '1px solid var(--border-light)' }}>
+          {o ? (
+            <><span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 600, color: 'var(--text-light-primary)' }}>{o.name}</span><span style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>Assigned outfitter</span></span><Avatar o={o} size={30} /></>
+          ) : (
+            <><span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 700, color: 'var(--semantic-danger-dark)' }}>Unassigned</span><span style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>Awaiting outfitter</span></span>
+              {shows(role, 'case.assign') && <button type="button" data-spec-id={`btn-action-assign#${c.id}`} data-bos-class="action" {...perm(role, 'case.assign')} onClick={(e) => onOpen(c, e.currentTarget, 'assign')} className="fw-btn fw-btn--action fw-btn--sm"><Icon name="user-plus" size={15} />Assign</button>}</>
+          )}
+        </div>
+        <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}>
+          <div><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>In phase</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-light-primary)' }}>{c.since}</dd></div>
+          <div style={{ textAlign: 'right' }}><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>On floor</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-light-primary)' }}>{c.total}</dd></div>
+        </dl>
+      </div>
+    </li>
+  );
+}
+
+function Column({ phase, cards, onOpenCard, onExpand, onDropCard, hideHead }) {
+  const role = useRole();
+  const canDrop = acts(role, 'case.move');
+  const [over, setOver] = React.useState(false);
+  return (
+    <section data-spec-id={`list-phase#${phase.id}`} data-bos-level="layer" aria-label={`${phase.label}, ${cards.length} customers`} className="fw-col"
+      onDragOver={canDrop ? (e) => { e.preventDefault(); setOver(true); } : undefined} onDragLeave={() => setOver(false)} onDrop={canDrop ? (e) => { e.preventDefault(); setOver(false); onDropCard(e.dataTransfer.getData('text/plain'), phase.id); } : undefined}
+      style={{ display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: 0, background: over ? 'var(--surface-light-raised)' : 'var(--surface-light-inset)', borderRadius: 10, outline: over ? '2px dashed var(--accent-gold-hi)' : 'none' }}>
+      {!hideHead && (
+        <header style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 8px 10px 12px', borderBottom: '1px solid var(--border-light)' }}>
+          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 2, transform: 'rotate(45deg)', background: PHASE_TONE[phase.tone] }} />
+          <h3 style={{ margin: 0, flex: 1, fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 700, letterSpacing: 2.5, textTransform: 'uppercase', color: 'var(--text-light-primary)' }}>{phase.label}</h3>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, minWidth: 24, textAlign: 'center', padding: '2px 8px', borderRadius: 999, background: 'var(--surface-light-card)', border: '1px solid var(--border-light)', color: 'var(--text-light-primary)' }}>{cards.length}</span>
+          {shows(role, 'phase.stats') && <button type="button" data-spec-id={`btn-action-phase-detail#${phase.id}`} data-bos-class="action" {...perm(role, 'phase.stats')} aria-label={`${phase.label} phase detail`} onClick={() => onExpand(phase)} className="fw-icon-btn"><Icon name="maximize-2" size={16} /></button>}
+        </header>
+      )}
+      <ul style={{ margin: 0, padding: 10, display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto', flex: 1, minHeight: 0 }}>
+        {cards.length ? cards.map((c) => <CaseCard key={c.id} c={c} onOpen={onOpenCard} />) : (
+          <li style={{ listStyle: 'none', padding: '20px 8px', textAlign: 'center', fontSize: 13, color: 'var(--text-light-tertiary)' }}>No customers in {phase.label}</li>
+        )}
+      </ul>
+    </section>
+  );
+}
+
+function Board({ cards, mode, phase, setPhase, onOpenCard, onExpand, onDropCard, onCheckIn }) {
+  const role = useRole();
+  const byPhase = (id) => cards.filter((c) => c.phase === id);
+  const cur = PHASES.find((p) => p.id === phase) || PHASES[0];
+  return (
+    <section data-spec-id="sec-floor-traffic" data-bos-level="section" data-bos-section="S12" data-bos-type="list" aria-label="Floor traffic" className="fw-panel" style={{ display: 'flex', flexDirection: 'column', minHeight: 0, minWidth: 0 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', borderBottom: '1px solid var(--border-light)', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 200px', minWidth: 0 }}>
+          <h2 style={{ margin: 0, fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 26, letterSpacing: 0.5, lineHeight: 1, color: 'var(--text-light-primary)' }}>Floor traffic</h2>
+          <p style={{ margin: '4px 0 0', fontSize: 13, color: 'var(--text-light-tertiary)' }}>{cards.length} customers on the floor</p>
+        </div>
+        {shows(role, 'case.create') && <button type="button" data-spec-id="btn-commit-new-check-in" data-bos-class="commit" {...perm(role, 'case.create')} onClick={onCheckIn} className="fw-btn fw-btn--commit"><Icon name="plus" size={18} stroke={2.25} />New check-in</button>}
+      </div>
+      {mode === 'single' ? (
+        <>
+          <div role="tablist" aria-label="Phases" data-spec-id="nav-phase-tabs" className="fw-scroll-x" style={{ display: 'flex', gap: 6, padding: '10px 12px', overflowX: 'auto', borderBottom: '1px solid var(--border-light)' }}>
+            {PHASES.map((p) => (
+              <button key={p.id} type="button" role="tab" aria-selected={p.id === cur.id} data-spec-id={`nav-tab-phase#${p.id}`} data-bos-class="nav" onClick={() => setPhase(p.id)}
+                className="fw-phase-tab" style={{ color: p.id === cur.id ? 'var(--accent-gold-lo)' : 'var(--text-light-tertiary)', borderBottomColor: p.id === cur.id ? 'var(--accent-gold-lo)' : 'transparent' }}>
+                {p.label}<span style={{ fontFamily: 'var(--font-mono)', fontSize: 12 }}>{byPhase(p.id).length}</span>
+              </button>
+            ))}
+          </div>
+          <div style={{ flex: 1, minHeight: 0, display: 'flex', padding: 10 }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
+                {shows(role, 'phase.stats') && <button type="button" data-spec-id={`btn-action-phase-detail#${cur.id}`} data-bos-class="action" {...perm(role, 'phase.stats')} onClick={() => onExpand(cur)} className="fw-btn fw-btn--quiet fw-btn--sm"><Icon name="chart-column" size={15} />{cur.label} detail</button>}
+              </div>
+              <Column phase={cur} cards={byPhase(cur.id)} onOpenCard={onOpenCard} onExpand={onExpand} onDropCard={onDropCard} hideHead />
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="fw-scroll-x" data-spec-id="list-board" style={{ flex: 1, minHeight: 0, display: 'grid', gridAutoFlow: 'column', gridAutoColumns: 'minmax(244px, 1fr)', gap: 10, padding: 12, overflowX: 'auto' }}>
+          {PHASES.map((p) => <Column key={p.id} phase={p} cards={byPhase(p.id)} onOpenCard={onOpenCard} onExpand={onExpand} onDropCard={onDropCard} />)}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function StatusFooter() {
+  return (
+    <footer data-spec-id="sec-status" data-bos-level="section" data-bos-section="S13" data-bos-type="status" style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap', padding: '8px 4px 0', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--text-light-tertiary)' }}>
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: 'var(--semantic-success-dark)' }}><span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--semantic-success-dark)' }} />Synced</span>
+      <span>v2.4.1 · Twin Falls</span>
+      <span>Last refresh 12:44:12</span>
+    </footer>
+  );
+}
+
+window.FWScreen = { Avatar, Chip, Rotation, Schedule, Board, StatusFooter, slug, PHASE_TONE, RoleCtx, useRole, perm };
+})();

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Type" name="type-substitutions" subtitle="Sucrose→Bebas, Geogrotesque→Barlow, Source Sans Pro→3 — and why" viewport="900x640" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:22px;}
+  .hd{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#5E4F1F;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .hd::before{content:"";width:10px;height:8px;background:#8B752E;clip-path:var(--wf-path);}
+  .lede{font-family:'Source Sans 3',sans-serif;font-size:13px;color:#3D3D38;max-width:720px;line-height:1.55;margin-bottom:18px;}
+  .lede b{color:#0A0A09;font-weight:600;}
+  .g{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+  .c{background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:10px;}
+  .role{font-family:'Barlow Condensed',sans-serif;font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:#5E4F1F;font-weight:700;}
+  .swap{display:flex;align-items:center;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:14px;color:#3D3D38;}
+  .from{color:#B02525;text-decoration:line-through;text-decoration-color:rgba(176,37,37,0.4);}
+  .arr{color:#8B752E;font-size:16px;}
+  .to{color:#1B7A2E;font-weight:600;}
+  .sample{padding:12px 0;border-top:1px dashed rgba(139,117,46,0.3);border-bottom:1px dashed rgba(139,117,46,0.3);text-align:center;}
+  .note{font-family:'Source Sans 3',sans-serif;font-size:11.5px;color:#3D3D38;line-height:1.5;}
+  .note b{color:#0A0A09;font-weight:600;}
+  .meta{display:flex;gap:6px;flex-wrap:wrap;}
+  .pill{font-family:'Barlow Condensed',sans-serif;font-size:9.5px;letter-spacing:1.2px;text-transform:uppercase;padding:2px 8px;border-radius:4px;font-weight:600;}
+  .pill.free{background:rgba(27,122,46,0.12);color:#1B7A2E;}
+  .pill.paid{background:rgba(176,37,37,0.12);color:#B02525;}
+  .pill.kept{background:rgba(24,100,171,0.12);color:#1864AB;}
+  .why{background:#F0ECDD;border:1px solid rgba(139,117,46,0.2);border-radius:8px;padding:14px 18px;}
+  .why-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#5E4F1F;margin-bottom:10px;}
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .why-item{font-family:'Source Sans 3',sans-serif;font-size:11.5px;color:#3D3D38;line-height:1.55;}
+  .why-item b{font-family:'Bebas Neue',sans-serif;font-size:15px;color:#0A0A09;letter-spacing:0.5px;display:block;margin-bottom:4px;}
+</style></head>
+<body>
+<div class="hd">Type · Font Substitutions &amp; Rationale</div>
+<div class="lede">The 2022 brand guide specifies paid, commercially-licensed faces. Nexus substitutes <b>open-licensed, web-ready alternatives</b> that preserve the visual personality — not perfect matches, but compositionally equivalent at UI sizes.</div>
+
+<div class="g">
+  <div class="c">
+    <span class="role">Display Face</span>
+    <div class="swap"><span class="from">Sucrose</span><span class="arr">→</span><span class="to">Bebas Neue</span></div>
+    <div class="sample" style="font-family:'Bebas Neue',sans-serif;font-size:38px;color:#0A0A09;letter-spacing:1px;line-height:1;">DEALER OS</div>
+    <div class="note">Brand-guide Sucrose is an Adobe Fonts stencil-unicase face used in the Bish's logo itself. <b>Bebas preserves</b> the condensed all-caps geometry, tall x-height, and utilitarian-stencil character. Not a perfect match — Sucrose has broken stencil strokes; Bebas is clean — but it holds the same compositional weight at UI sizes.</div>
+    <div class="meta"><span class="pill paid">Sucrose · Paid</span><span class="pill free">Bebas · Free</span></div>
+  </div>
+
+  <div class="c">
+    <span class="role">UI Face</span>
+    <div class="swap"><span class="from">Geogrotesque</span><span class="arr">→</span><span class="to">Barlow Condensed</span></div>
+    <div class="sample" style="font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:20px;color:#0A0A09;letter-spacing:0.5px;line-height:1.2;">WAYFINDER · OPERATIONS QUEUE</div>
+    <div class="note">Geogrotesque is a premium geometric-condensed sans for subheads and chrome. <b>Barlow Condensed</b> is the closest open-source face — clean letterforms at small sizes, geometric-condensed personality, and the full <b>300–700</b> weight range Nexus needs.</div>
+    <div class="meta"><span class="pill paid">Geogrotesque · Paid</span><span class="pill free">Barlow · Free</span></div>
+  </div>
+
+  <div class="c">
+    <span class="role">Body Face</span>
+    <div class="swap"><span class="from" style="text-decoration:none;color:#6B6B63;">Source Sans Pro</span><span class="arr">→</span><span class="to">Source Sans 3</span></div>
+    <div class="sample" style="font-family:'Source Sans 3',sans-serif;font-size:14px;color:#0A0A09;line-height:1.5;">Aligned — not substituted.<br/>Same designer. Same visual intent.<br/>Variable-font version.</div>
+    <div class="note"><b>Not really a substitution.</b> Source Sans 3 is Adobe's updated variable-font version of Source Sans Pro — same family, same designer, modern format. This one is <b>aligned</b> with the brand guide, not replaced.</div>
+    <div class="meta"><span class="pill kept">Aligned · Free (both)</span></div>
+  </div>
+</div>
+
+<div class="why">
+  <div class="why-title">Why substitute rather than license the real faces?</div>
+  <div class="why-grid">
+    <div class="why-item"><b>Cost at scale</b>Sucrose and Geogrotesque are paid per-site or per-pageview. Across Dealer OS, the portal, and admin tools — thousands of employees and tens of thousands of customer-facing pageviews — license cost compounds. Bebas and Barlow are free, forever.</div>
+    <div class="why-item"><b>Performance</b>Google Fonts' Bebas and Barlow are CDN-cached and compressed; they load faster than foundry-delivered fonts, and the browser cache is reused across any other site the user visits that also serves them.</div>
+    <div class="why-item"><b>Fallback safety</b>Free Google fonts have guaranteed long-term availability. Paid foundry fonts can hit license disputes, acquisition drama, or CDN changes that break production overnight.</div>
+  </div>
+</div>
+</body></html>

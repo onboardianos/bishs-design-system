@@ -1,0 +1,147 @@
+// Floor Workspace — requirement text keyed by element family. Fed to SpecLint.requirements(manifest, FW_REQ)
+// so the generated requirements.md has no TODOs. Keep in sync with handoff/requirements.md.
+(function () {
+const r = (purpose, behaviour, acceptance, extra) => ({ purpose, behaviour, acceptance, ...(extra || {}) });
+const close = r('Close the overlay without changing anything', 'Click, Enter or Escape closes it; focus returns to the trigger', 'When clicked, the overlay closes and no data changes');
+const cancel = r('Abandon the form', 'Closes the dialog with no change', 'When clicked, the dialog closes and nothing is saved');
+const choice = (what, list) => r(`Pick the ${what}`, `Single-select radio cards (role=radio, 48px). Options: ${list}`, `Exactly one option can be selected; the dialog's commit enables only once one is`);
+const LEFT = 'Just researching · Out of budget · No spouse / decision-maker · Coming back later · Got a call · No available outfitter · Not sure, no contact before leaving';
+const UNITS = 'Travel Trailer · Fifth Wheel · Toy Hauler · Motorhome · Truck Camper · Destination';
+const OVERRIDE = 'Up outfitter is not up front · Customer asked for this outfitter · Outfitter taking up out of turn';
+const BENCHR = 'Performance review · Absence · Training · Admin work · Disciplinary';
+const BENCHD = 'Rest of today · 1 day · 1 week · Indefinite';
+const MOVER = 'Not prepared · Not up front · Nowhere to be found · On their phone / let customer walk by · Returning customer · Other';
+const PAUSER = 'Lunch · Manager check-in · Personal break · Unavailable · Other';
+const PHASES = 'Waiting · Assigned · Discovery · MCP · Demo · Worksheet · 2-Min · Delivery';
+const metric = (what) => r(`Show ${what}`, 'Read-only value, monospace', `Shows ${what} for the selected range or phase`);
+
+const REQ = {
+  // S03 screen
+  'canvas': r('Content area of the shell where the Floor Workspace mounts', 'Scrolls vertically; never horizontally', 'At 390px there is no page-level horizontal scroll'),
+  'sec-floor-workspace': r('Floor Workspace screen: rotation, schedule and board', 'Container-query layout: rail + board at ≥980px content width, view tabs below 980, single phase below 600', 'Drag 1440 → 375: it recomposes with no broken width and the commit stays reachable'),
+  'nav-floor-views': r('Switch between board and schedule when both don\'t fit', 'Tablist of two tabs', 'Given content under 980px, both views are reachable and nothing is cut'),
+  'nav-tab-floor-view#{instance}': r('Select one view (board or schedule)', 'Click or Enter selects it; aria-selected follows', 'The selected tab shows gold-lo text + bar and only that view renders'),
+  // S10 rotation
+  'sec-ups-rotation': r('Live rotation order for the store', 'Dark elevated band; header with count, Hide benched, Collapse', 'Given 13 outfitters, they show in rotation order with Mike (up now) first'),
+  'btn-action-toggle-benched': r('Hide or show benched outfitters', 'Toggles the filter; aria-pressed; label swaps', 'When pressed, benched outfitters disappear and the label reads "Show benched · n"'),
+  'btn-action-collapse-rotation': r('Collapse the rotation band', 'Toggles the card list; aria-expanded', 'When collapsed, cards hide and the header stays'),
+  'list-rotation': r('Scrollable row of outfitter cards', 'Scrolls horizontally inside its own region; drop target for reorder (manager)', 'Scrolling the row never scrolls the page'),
+  'btn-action-rep#{instance}': r('One outfitter in the rotation', 'Click or Enter opens the rep menu (popover; bottom sheet on phone). Manager can drag to reorder (dnd-kit)', 'The up-now card is ink with a gold-hi edge (not a gold fill); state chip matches state', { target: 'frame-rep-menu#{instance}' }),
+  // S11 schedule
+  'sec-todays-schedule': r("Today's appointments and deliveries", 'Panel with filters and a time-ordered list', 'Items show in time order with the now-line at 12:45 PM'),
+  'btn-action-filter-schedule#{instance}': r('Filter the schedule by kind (delivery or sale)', 'Toggle; a second click clears it', 'When Deliveries is pressed, only deliveries and the now-line show'),
+  'list-schedule': r('Time-ordered schedule items', 'Scrolls vertically inside the panel', 'The list scrolls without moving the board'),
+  'info-now-indicator': r('Show the current time in the schedule', 'Static marker between items', 'Always visible regardless of filter'),
+  'btn-action-open-schedule-item#{instance}': r('Open one appointment or delivery', 'Click opens the schedule item sheet', 'The detail sheet opens with time, type, outfitter, unit, status, to-dos and notes', { target: 'frame-schedule-item#{instance}' }),
+  // S12 board
+  'sec-floor-traffic': r('Customers on the floor by phase', 'Panel header with count and New check-in; board below', 'Count equals the number of cases on the board'),
+  'btn-commit-new-check-in': r('Start a customer check-in', 'Opens the 4-step check-in dialog', 'It is the only gold fill on the screen; near-black text; opens at step 1 (Lookup)', { target: 'frame-check-in', event: 'case.created (on completion)' }),
+  'list-board': r('All 8 phase columns', 'Columns scroll horizontally inside the board (SVAR React Kanban in production)', 'At 834px the columns scroll inside the board, not the page'),
+  'list-phase#{instance}': r('One phase column', `Drop target for cases (manager). Phases: ${PHASES}`, 'Dropping Bakers on MCP moves it and shows "Bakers moved to MCP" with Undo', { event: 'case.moved' }),
+  'btn-action-phase-detail#{instance}': r("Open a phase's stats for today", 'Opens the phase detail sheet', 'The sheet shows checked in, entered, current, conversion, exits and avg time', { target: 'frame-phase-detail#{instance}' }),
+  'card-case#{instance}': r('One customer on the floor', 'Draggable for managers; shows party icon, customer, interest, outfitter or Unassigned, in-phase and on-floor time', 'An unassigned case shows a 3px danger left edge and an Assign button'),
+  'btn-action-case-menu#{instance}': r('Open the case actions', 'Opens the case menu (popover; bottom sheet on phone); Escape closes', 'The menu lists only actions the role can take', { target: 'frame-case-menu#{instance}' }),
+  'btn-action-assign#{instance}': r('Quick-assign an unassigned case', 'Opens Assign outfitter directly', 'Clicking skips the case menu and opens Assign', { target: 'frame-assign-outfitter' }),
+  'nav-phase-tabs': r('One phase at a time on narrow widths', 'Tablist of the 8 phases with counts', 'Given content under 600px, one column shows with phase tabs'),
+  'nav-tab-phase#{instance}': r('Select a phase to view', 'Click selects; aria-selected follows', 'The selected phase shows gold-lo text + bar and its cards'),
+  // S13 + feedback
+  'sec-status': r('Sync state, version, store, last refresh', 'Static footer', 'Shows "Synced" with a success dot'),
+  'info-toast': r('Confirm the result of an action', 'role=status; auto-dismisses after 6s; sits above the tab bar on phone', 'Every commit shows a toast naming what changed'),
+  'btn-action-undo': r('Reverse the last case move', 'Restores the previous phase and timer', 'Clicking Undo within 6s restores the card exactly', { event: 'case.moved (revert)' }),
+  // Case menu
+  'frame-case-menu#{instance}': r('Actions for one case', 'Popover anchored to the trigger; bottom sheet on phone; Escape or scrim closes', 'Lists only actions the role can act on; read-only roles see a note saying who can'),
+  'menuitem-assign#{instance}': r('Assign or reassign the outfitter', 'Opens Assign outfitter', 'Opens with the up-now outfitter preselected', { target: 'frame-assign-outfitter' }),
+  'menuitem-move#{instance}': r('Move the case to another phase without dragging', 'Opens Move to phase (the drag alternative)', 'Available to managers; hidden for receptionists with a note', { target: 'frame-move-case' }),
+  'menuitem-note#{instance}': r('Add a note to the case', 'Opens Add note', 'Opens with an empty note field', { target: 'frame-add-note' }),
+  'menuitem-message#{instance}': r("Message the case's outfitter", 'Opens the chat sheet; disabled when unassigned', 'Disabled with no outfitter; otherwise opens the chat', { target: 'frame-chat#{instance}' }),
+  'menuitem-left#{instance}': r('Record that the customer left', 'Opens Customer left; danger text', 'Opens with no reason selected', { target: 'frame-customer-left' }),
+  // Check-in
+  'frame-check-in': r('Check in a new customer in 4 steps: Lookup, Party, Assign, Sent', 'Dialog (bottom sheet on phone); step progress bar; commit label changes per step', 'Commit is disabled until the current step is valid'),
+  'btn-commit-check-in': r('Advance check-in', 'Look up → Continue → Assign & send link → Done', 'On "Assign & send link" the case appears in Assigned with the chosen outfitter', { event: 'case.created' }),
+  'input-look-up-by#{instance}': choice('lookup method', 'Phone · Email · Walk-in'),
+  'input-lookup-phone': r('Phone number to find an existing customer', 'tel input, 16px', 'A 10-digit number returns the McVicker match'),
+  'input-lookup-email': r('Email to find an existing customer', 'email input, 16px', 'No match shows a warning with walk-in as the fallback'),
+  'card-lookup-match': r('Show the matched household', 'Read-only card; prefills buyer names', 'Shows buyer, co-buyer and last visit'),
+  'input-party#{instance}': choice('party type', 'Individual · Couple · Family'),
+  'input-buyer-first-name': r('Buyer first name', 'Text, required', 'Empty keeps Continue disabled'),
+  'input-buyer-last-name': r('Buyer last name', 'Text, required; drives the case display name', 'Empty keeps Continue disabled'),
+  'input-cobuyer-first-name': r('Co-buyer first name', 'Text, optional; shown for couple or family', 'Hidden for an individual'),
+  'input-cobuyer-last-name': r('Co-buyer last name', 'Text, optional; shown for couple or family', 'Hidden for an individual'),
+  'input-unit-type#{instance}': choice('unit type of interest', UNITS),
+  'input-check-in-notes': r('Free-text intake notes', 'Textarea, optional', 'Saved to the case notes'),
+  'input-outfitter#{instance}': r('Choose the outfitter', 'Radio list of up-now and available outfitters with queue meta', 'Up-now is preselected and marked recommended'),
+  'input-override-reason#{instance}': choice('reason for skipping the rotation', OVERRIDE),
+  'info-check-in-sent': r('Confirm the check-in', 'Success summary', 'Names the buyer, the notified outfitter and the override reason if any'),
+  // Case dialogs
+  'frame-assign-outfitter': r('Assign an outfitter to a case', 'Dialog; override reason when not the up-now outfitter', 'Commit disabled until valid'),
+  'btn-commit-assign-outfitter': r('Assign', 'Sets the outfitter; Waiting → Assigned; notifies the outfitter', 'Assigning Mike to Jacksons moves the card to Assigned with a toast', { event: 'case.assigned' }),
+  'frame-move-case': r('Move a case to a phase (drag alternative)', 'Dialog listing all phases; current marked', 'The current phase cannot be committed'),
+  'input-phase#{instance}': choice('target phase', PHASES),
+  'btn-commit-move-case': r('Move', 'Moves the case; Undo toast', 'The card appears in the new phase', { event: 'case.moved' }),
+  'frame-add-note': r('Add a note to a case', 'Dialog with one textarea', 'Save disabled while empty'),
+  'input-case-note': r('Note text', 'Textarea, required', 'Empty keeps Save disabled'),
+  'btn-commit-add-note': r('Save note', 'Saves and closes; toast', 'Toast reads "Note saved on {customer}"', { event: 'case.note_added' }),
+  'frame-customer-left': r('Record why a customer left', 'Dialog with reason + note', 'Commit disabled until a reason is chosen'),
+  'input-left-reason#{instance}': choice('reason the customer left', LEFT),
+  'input-left-note': r('Optional context for the next outfitter', 'Textarea', 'Saved on the exit'),
+  'btn-commit-customer-left': r('Mark as left', 'Removes the card; logs an exit for the phase', 'The exit appears in that phase\'s detail', { event: 'case.left' }),
+  'frame-phase-detail#{instance}': r("Today's stats and exits for one phase", 'Right sheet (bottom sheet on phone); inspect-and-return', 'Shows 6 stats and the exits list, or an empty message'),
+  'metric-phase-checked-in-today#{instance}': metric('customers checked in today'),
+  'metric-phase-entered-phase#{instance}': metric('customers who entered the phase today'),
+  'metric-phase-currently-in-phase#{instance}': metric('customers in the phase now'),
+  'metric-phase-conversion#{instance}': metric('the share that advanced from this phase'),
+  'metric-phase-exits#{instance}': metric('exits from this phase today'),
+  'metric-phase-avg-time-in-phase#{instance}': metric('average time in this phase'),
+  // Rep menu + rep dialogs
+  'frame-rep-menu#{instance}': r('Actions and stats for one outfitter', 'Popover anchored to the card; bottom sheet on phone', 'Shows only the actions the role can take; stats for managers only'),
+  'nav-tab-rep-stats#{instance}': r('Choose the stats range (today, week, month)', 'Tablist', 'Switching range updates all six metrics'),
+  'metric-rep-demos': metric('demos'), 'metric-rep-write-ups': metric('write-ups'), 'metric-rep-sold': metric('units sold'),
+  'metric-rep-goal': metric('the unit goal'), 'metric-rep-gross-unit': metric('gross per unit'), 'metric-rep-avg-time': metric('average time with a customer'),
+  'btn-action-rep-message#{instance}': r('Message the outfitter', 'Opens the chat sheet and clears unread', 'Unread badge clears on open', { target: 'frame-chat#{instance}' }),
+  'btn-action-rep-pause#{instance}': r('Pause the outfitter (manager) or request a pause (receptionist)', 'Opens Pause / Request pause', 'Receptionist label reads "Request pause"', { target: 'frame-pause-outfitter' }),
+  'btn-action-rep-unpause#{instance}': r('Return a paused outfitter to the rotation', 'Opens Unpause', 'Shown only when paused', { target: 'frame-unpause-outfitter' }),
+  'btn-action-rep-bench#{instance}': r('Bench the outfitter (manager only)', 'Opens Bench; disabled with a note for receptionists', 'Receptionists see "Only a manager can bench or un-bench."', { target: 'frame-bench-outfitter' }),
+  'btn-action-rep-unbench#{instance}': r('Un-bench the outfitter (manager only)', 'Opens Un-bench', 'Shown only when benched', { target: 'frame-unbench-outfitter' }),
+  'btn-action-rep-move#{instance}': r('Move the outfitter in the rotation (drag alternative)', 'Opens Move in rotation; manager only', 'Hidden for receptionists', { target: 'frame-move-in-rotation' }),
+  'btn-action-close-rep-menu#{instance}': close,
+  'frame-pause-outfitter': r('Pause an outfitter or request a pause', 'Dialog: reason, duration, detail for Other', 'Commit disabled until a reason is chosen (and detail for Other)'),
+  'input-pause-reason#{instance}': choice('pause reason', PAUSER),
+  'input-pause-duration#{instance}': choice('pause duration', '15 min · 30 min · 1 hour · Rest of day'),
+  'input-pause-detail': r('Describe an "Other" pause reason', 'Text, required for Other', 'Empty keeps commit disabled when Other is chosen'),
+  'btn-commit-pause-outfitter': r('Pause (manager) or Send request (receptionist)', 'Manager: state → paused. Receptionist: sends an approval request; outfitter stays available', 'Manager sees a warning chip with the reason; receptionist sees "request sent"', { event: 'rep.paused / rep.pause_requested' }),
+  'frame-unpause-outfitter': r('Return a paused outfitter', 'Dialog with original reason, who paused, return time and a fulfilment check', 'Commit disabled until the check is ticked'),
+  'input-pause-fulfilled': r('Confirm the pause reason is fulfilled', 'Checkbox', 'Unchecked keeps Unpause disabled'),
+  'btn-commit-unpause-outfitter': r('Unpause', 'State → available', 'The card shows "Standby · ready"', { event: 'rep.unpaused' }),
+  'frame-bench-outfitter': r('Bench an outfitter (manager only)', 'Dialog with warning, reason, duration, coaching note; danger commit', 'Commit disabled until reason and coaching note are filled'),
+  'input-bench-reason#{instance}': choice('bench reason', BENCHR),
+  'input-bench-duration#{instance}': choice('bench duration', BENCHD),
+  'input-coaching-note': r('Coaching note for the benched outfitter', 'Textarea, required; visible to managers, GMs and admins only', 'Empty keeps Bench disabled'),
+  'btn-commit-bench-outfitter': r('Bench', 'State → benched; active customers move to Waiting', 'The card dims and shows the bench reason', { event: 'rep.benched' }),
+  'frame-unbench-outfitter': r('Un-bench an outfitter (manager only)', 'Dialog with bench history and a required note', 'Commit disabled until the note is filled'),
+  'input-unbench-note': r("What's been corrected", 'Textarea, required', 'Empty keeps Un-bench disabled'),
+  'btn-commit-unbench-outfitter': r('Un-bench', 'State → available', 'The outfitter returns to the rotation', { event: 'rep.unbenched' }),
+  'frame-move-in-rotation': r('Reorder an outfitter (manager only)', 'Dialog: new position, reason, detail for Other; opened by drag (prefilled) or the rep menu', 'Commit disabled until the position changes and a reason is chosen'),
+  'input-rotation-position': r('New rotation position', 'Select listing every position', 'The forward/back note updates as the position changes'),
+  'input-move-reason#{instance}': choice('reason for the move', MOVER),
+  'input-move-rep-detail': r('Describe an "Other" move reason', 'Text, required for Other', 'Empty keeps commit disabled when Other is chosen'),
+  'btn-commit-move-in-rotation': r('Move', 'Reorders the rotation', 'The outfitter appears at the new position', { event: 'rotation.reordered' }),
+  'frame-chat#{instance}': r('Message thread with one outfitter', 'Right sheet (bottom on phone); messages + composer', 'Opening it clears that outfitter\'s unread badge'),
+  'input-chat#{instance}': r('Compose a message', 'Text input; Enter sends', 'Empty keeps Send disabled'),
+  'btn-action-send-chat#{instance}': r('Send the message', 'Appends to the thread', 'The message appears on the right with "Now"', { event: 'chat.sent' }),
+  // Schedule overlays
+  'frame-schedule-item#{instance}': r('Detail for one appointment or delivery', 'Right sheet; inspect-and-return', 'Shows scheduled time, type, outfitter, unit, status, to-dos and notes'),
+  'btn-action-message-outfitter#{instance}': r("Message the item's outfitter", 'Opens the chat sheet', 'The chat opens for that outfitter', { target: 'frame-chat#{instance}' }),
+  'btn-commit-check-in-arrival#{instance}': r('Mark the customer as arrived', 'Opens the arrival check-in', 'Opens the Customer arrived dialog', { target: 'frame-schedule-check-in' }),
+  'frame-schedule-check-in': r('Confirm a scheduled customer has arrived', 'Dialog with a summary', 'Shows customer, time and outfitter'),
+  'btn-commit-schedule-check-in': r('Check in', 'Notifies the outfitter; adds the card to the board', 'Toast names the customer and the outfitter', { event: 'schedule.arrived' }),
+};
+// Shared close/cancel families across every dialog and sheet
+['check-in', 'assign-outfitter', 'move-case', 'add-note', 'customer-left', 'pause-outfitter', 'unpause-outfitter', 'bench-outfitter', 'unbench-outfitter', 'move-in-rotation', 'schedule-check-in'].forEach(() => {});
+REQ['btn-action-close#{instance}'] = close;
+REQ['btn-action-cancel#{instance}'] = cancel;
+['phase-detail', 'chat', 'schedule-item'].forEach((b) => { REQ[`btn-action-close-${b}#{instance}`] = close; REQ[`btn-action-cancel-${b}#{instance}`] = cancel; });
+// Frames that carry the main view
+REQ['frame-app-shell'] = r('Shared navigation shell (AppShell). Recorded once, not per screen.', 'See design-system AppShell + NavConfig docs.', 'Covered by AppShell acceptance.');
+
+window.FW_REQ = REQ;
+})();

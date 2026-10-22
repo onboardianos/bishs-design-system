@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="pattern-disclosure" subtitle="Tabs · Accordion · Drawer · Modal — when to use which" viewport="900x260" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:22px;}
+  .hd{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#5E4F1F;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .hd::before{content:"";width:10px;height:8px;background:#8B752E;clip-path:var(--wf-path);}
+  .sub{font-family:'Source Sans 3',sans-serif;font-size:12px;color:#3D3D38;margin-bottom:14px;max-width:720px;line-height:1.5;}
+  .g{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  .c{background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,0.04);display:flex;flex-direction:column;gap:8px;}
+  .lb{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:#5E4F1F;font-weight:700;}
+  .tl{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#0A0A09;letter-spacing:0.5px;line-height:1;}
+  .u{font-family:'Source Sans 3',sans-serif;font-size:11.5px;color:#3D3D38;line-height:1.55;}
+  .rl{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:#6B6B63;text-transform:uppercase;letter-spacing:1px;padding-top:8px;border-top:1px dashed rgba(139,117,46,0.3);margin-top:auto;}
+  .rl b{color:#5E4F1F;}
+</style></head>
+<body>
+<div class="hd">Pattern · Progressive Disclosure</div>
+<div class="sub">Four containers, four roles. Choose by user intent — not by convenience.</div>
+<div class="g">
+  <div class="c"><span class="lb">Tabs</span><div class="tl">Peer Categories</div><div class="u">Switch between equal-weight views of the same dataset. All options always visible; state persists per user.</div><div class="rl"><b>Use when:</b> 2–5 peer filters</div></div>
+  <div class="c"><span class="lb">Accordion</span><div class="tl">Optional Detail</div><div class="u">Secondary info most users skip. Collapsed by default; one or many open at once.</div><div class="rl"><b>Use when:</b> detail is opt-in</div></div>
+  <div class="c"><span class="lb">Drawer</span><div class="tl">Inspect &amp; Return</div><div class="u">Peek at a record without losing list context. Three ways out: Esc, backdrop, X. Action-first for ICs.</div><div class="rl"><b>Use when:</b> user will inspect &gt;1</div></div>
+  <div class="c"><span class="lb">Modal</span><div class="tl">Interrupt Worthy</div><div class="u">Confirmation, destructive action, required form. Narrow only. If it scrolls, it's a page.</div><div class="rl"><b>Use when:</b> can't proceed without</div></div>
+</div>
+</body></html>

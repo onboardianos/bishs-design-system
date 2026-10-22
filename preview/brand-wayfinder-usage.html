@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Brand" name="brand-wayfinder-usage" subtitle="6 canonical uses: eyebrow, bullet, breadcrumb, CTA, badge, empty state" viewport="900x380" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#F7F6F1 !important;margin:0;padding:24px;}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .cell{background:#FFFFFF;border:1px solid rgba(0,0,0,0.06);border-radius:8px;padding:16px 18px;box-shadow:0 1px 3px rgba(0,0,0,0.04);}
+  .hd{font-family:'Barlow Condensed',sans-serif;font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#5E4F1F;margin-bottom:10px;}
+  .wf-bullet{display:inline-block;width:12px;height:10px;background:#8B752E;clip-path:var(--wf-path);margin-right:8px;vertical-align:1px;}
+  .wf-bullet.sm{width:10px;height:8px;margin-right:6px;}
+  /* 1 — Section eyebrow */
+  .c1 .eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5E4F1F;font-weight:700;display:flex;align-items:center;}
+  .c1 .title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:#0A0A09;line-height:1;margin-top:4px;}
+  /* 2 — List bullets */
+  .c2 ul{list-style:none;margin:0;padding:0;font-family:'Source Sans 3',sans-serif;font-size:13px;color:#3D3D38;line-height:1.9;}
+  /* 3 — Breadcrumb */
+  .c3 .bc{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6B6B63;display:flex;align-items:center;gap:8px;}
+  .c3 .bc b{color:#5E4F1F;font-weight:600;}
+  .c3 .bc svg{opacity:0.55;}
+  /* 4 — CTA link */
+  .c4 .cta{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#5E4F1F;display:inline-flex;align-items:center;gap:8px;cursor:pointer;}
+  /* 5 — Badge indicator */
+  .c5 .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(139,117,46,0.12);border:1px solid rgba(139,117,46,0.35);color:#5E4F1F;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:9999px;}
+  /* 6 — Empty state anchor */
+  .c6{text-align:center;padding:20px 16px;}
+  .c6 .msg{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:0.8px;color:#0A0A09;margin-top:10px;}
+  .c6 .sub{font-family:'Source Sans 3',sans-serif;font-size:11.5px;color:#6B6B63;margin-top:3px;}
+</style></head>
+<body>
+<div class="grid">
+  <div class="cell c1">
+    <div class="hd">01 · Section eyebrow</div>
+    <div class="eyebrow"><span class="wf-bullet sm"></span>Foundation · Colors</div>
+    <div class="title">Color Tokens</div>
+  </div>
+  <div class="cell c2">
+    <div class="hd">02 · List bullets</div>
+    <ul>
+      <li><span class="wf-bullet sm"></span>Approve aged deal</li>
+      <li><span class="wf-bullet sm"></span>Review producer PVR</li>
+      <li><span class="wf-bullet sm"></span>Sign delivery packet</li>
+    </ul>
+  </div>
+  <div class="cell c3">
+    <div class="hd">03 · Breadcrumb separator</div>
+    <div class="bc">Meridian <svg width="10" height="8" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg> Sales Desk <svg width="10" height="8" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E"/></svg> <b>Approvals</b></div>
+  </div>
+  <div class="cell c4">
+    <div class="hd">04 · CTA link</div>
+    <span class="cta">Open full deal <svg width="14" height="11" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#5E4F1F"/></svg></span>
+  </div>
+  <div class="cell c5">
+    <div class="hd">05 · Badge / pill marker</div>
+    <span class="badge"><svg width="10" height="8" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#5E4F1F"/></svg>Go Play</span>
+  </div>
+  <div class="cell c6">
+    <div class="hd">06 · Empty-state anchor</div>
+    <svg width="44" height="34" viewBox="0 0 80 63"><path d="M73.5 35.5C73.5 35.5 11.5 58.7 7 61C2.5 63.3 0 57.5 2.5 55C5 52.5 15.5 41.3 15.5 30.5C15.5 19.7 4.7 10.7 3.25 9C0.4 5.8 2 0.3 7 2C12 3.7 61 22 71.5 26C77 28.1 80 31.7 73.5 35.5Z" fill="#8B752E" opacity="0.4"/></svg>
+    <div class="msg">No overdue deals</div>
+    <div class="sub">You're caught up.</div>
+  </div>
+</div>
+</body></html>

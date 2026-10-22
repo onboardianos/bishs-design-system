@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<!-- @dsCard group="Spacing" name="Border Radii" subtitle="sm 4 · md 8 · lg 12 · xl 16 · full" viewport="700x140" -->
+<html><head><meta charset="UTF-8"><link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{background:#020000 !important;margin:0;padding:20px;}
+  .row{display:flex;gap:20px;align-items:flex-end;}
+  .item{text-align:center;}
+  .box{width:72px;height:72px;background:var(--surface-raised);border:2px solid var(--accent-gold);margin-bottom:8px;}
+  .n{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);}
+  .v{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-subtle);}
+</style></head>
+<body>
+<div class="row">
+  <div class="item"><div class="box" style="border-radius:0"></div><div class="n">none</div><div class="v">0px</div></div>
+  <div class="item"><div class="box" style="border-radius:4px"></div><div class="n">sm</div><div class="v">4px</div></div>
+  <div class="item"><div class="box" style="border-radius:8px"></div><div class="n">md</div><div class="v">8px</div></div>
+  <div class="item"><div class="box" style="border-radius:12px"></div><div class="n">lg</div><div class="v">12px</div></div>
+  <div class="item"><div class="box" style="border-radius:16px"></div><div class="n">xl</div><div class="v">16px</div></div>
+  <div class="item"><div class="box" style="border-radius:9999px"></div><div class="n">full</div><div class="v">9999px</div></div>
+</div>
+</body></html>

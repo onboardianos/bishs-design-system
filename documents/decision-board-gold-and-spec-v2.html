@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Decision Board · Gold rule + spec-ready v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#F7F6F1;color:#0A0A09;font-family:'Source Sans 3',sans-serif}
+a{color:#5E4F1F;text-decoration:underline}a:hover{color:#8B752E}
+.wrap{max-width:1240px;margin:0 auto;padding:40px clamp(16px,4vw,48px) 80px}
+.ov{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#5E4F1F}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,6vw,64px);letter-spacing:1px;line-height:.95;margin:6px 0 10px}
+h2{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.5px;margin:0;line-height:1}
+.lede{font-size:15px;line-height:1.55;color:#3D3D38;max-width:760px;margin:0}
+.dec{margin-top:48px;padding-top:24px;border-top:1px solid rgba(139,117,46,.35)}
+.dh{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;margin-bottom:6px}
+.tag{font-family:'JetBrains Mono',monospace;font-size:12px;color:#fff;background:#0A0A09;padding:3px 8px;border-radius:4px}
+.q{font-size:14px;color:#3D3D38;line-height:1.55;max-width:780px;margin:6px 0 20px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.opt{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.opt-h{padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.opt-l{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.pill{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.rec{background:#E6F4E6;color:#1B7A2E;border:1px solid rgba(27,122,46,.3)}
+.warn{background:#FFF3BF;color:#8A5A00;border:1px solid rgba(199,124,0,.35)}
+.bad{background:#FFE3E3;color:#B02525;border:1px solid rgba(176,37,37,.3)}
+.stage{background:#EFEDE4;padding:20px 16px;display:flex;justify-content:center;align-items:center;min-height:150px}
+.notes{padding:12px 16px 16px;font-size:13px;line-height:1.5;color:#3D3D38;margin-top:auto}
+.notes b{color:#0A0A09}
+/* tab bar */
+.tb{width:100%;max-width:330px;background:#F7F6F1;border-radius:14px;display:grid;grid-template-columns:repeat(5,1fr);align-items:end;padding:22px 6px 10px;box-shadow:0 1px 3px rgba(0,0,0,.06);position:relative}
+.ti{display:flex;flex-direction:column;align-items:center;gap:4px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#767670;min-height:44px;justify-content:flex-end}
+.ti svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.act{position:relative}
+.act .fab{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);width:54px;height:54px;border-radius:50%;background:#020000;border:4px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center}
+.act .fab svg{stroke:#B89E4A;width:22px;height:22px}
+.act span{color:#0A0A09;font-weight:700}
+.on-ink{color:#0A0A09}.on-ink .bar{background:#0A0A09}
+.on-gold{color:#8B752E}
+.on-goldlo{color:#5E4F1F}
+.bar{width:22px;height:3px;border-radius:2px;margin-top:2px}
+.on-goldlo .bar{background:#5E4F1F}
+.cmp{font-family:'JetBrains Mono',monospace;font-size:11px;color:#3D3D38;margin-top:6px}
+/* hero */
+.hero{width:100%;max-width:330px;border-radius:14px;padding:16px 18px}
+.hero .k{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+.hero .t{font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;letter-spacing:.5px;margin:6px 0}
+.hero .s{font-size:13px;line-height:1.45}
+/* avatar */
+.avrow{display:flex;gap:10px;align-items:center;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:999px;padding:5px 5px 5px 14px}
+.avrow .up{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:#5E4F1F}
+.avrow .nm{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px}
+/* code */
+.code{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;background:#0A0A09;color:#E7DDB4;border-radius:8px;padding:12px 14px;width:100%;overflow-x:auto;white-space:pre}
+.code .k{color:#74C0FC}.code .v{color:#FFD43B}.code .x{color:#FF8787;text-decoration:line-through}.code .g{color:#51CF66}
+.mini{display:flex;flex-direction:column;gap:6px;width:100%}
+.sec{border:1px dashed #1864AB;border-radius:8px;padding:8px 10px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#1864AB;display:flex;justify-content:space-between;background:#fff}
+.sec.nav{border-color:#545750;color:#545750}
+.file{background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:6px;padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:11.5px;display:flex;gap:8px;align-items:center}
+.file b{color:#5E4F1F;font-weight:500}
+.sum{margin-top:56px;background:#020000;color:#E7DDB4;border-radius:14px;padding:24px clamp(16px,3vw,32px)}
+.sum h2{color:#fff;margin-bottom:12px}
+.sum table{width:100%;border-collapse:collapse;font-size:14px}
+.sum td,.sum th{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.12);text-align:left;vertical-align:top}
+.sum th{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#A2A59C;font-weight:600}
+.sum td:first-child{font-family:'JetBrains Mono',monospace;color:#B89E4A;white-space:nowrap}
+.sum a{color:#B89E4A}
+</style></head><body><div class="wrap">
+
+<div class="ov">Decision board · 2026-10-21</div>
+<h1>What you're deciding</h1>
+<p class="lede">Seven calls, shown visually. Three (A–C) settle whether the gold rule is <b>strict</b> or <b>split</b>. Four (D1–D4 below them, numbered as in <a href="spec-ready-v2-proposal.md">spec-ready-v2-proposal.md</a>) shape the stamping contract. Each has a recommendation marked; none is built yet.</p>
+
+<!-- ============ A · ACTIVE NAV ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">A · D1</span><h2>Active tab colour on the nav bar</h2></div>
+  <p class="q">Your Figma shows the selected tab (UPQ) in gold. The strict gold rule says nav is never gold, so that gold is saved for COMMIT/ACTION. This also decides the desktop side panel's active item.</p>
+  <div class="opts">
+    <div class="opt">
+      <div class="opt-h"><span class="opt-l">(a) Strict: ink</span><span class="pill warn">Purest rule</span></div>
+      <div class="stage"><div class="tb">
+        <div class="ti on-ink"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>UPQ<span class="bar"></span></div>
+        <div class="ti"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>Cases</div>
+        <div class="ti act"><div class="fab"><svg viewBox="0 0 24 24"><path d="M12 11V4m0 7l-3 3m3-3l3 3M7 4h.01M17 4h.01"/></svg></div><span>Action</span></div>
+        <div class="ti"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 10-12 0c0 5-2 6-2 6h16s-2-1-2-6M10.5 20a2 2 0 003 0"/></svg>Alerts</div>
+        <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.8 7L4 20l1-4.5A8 8 0 1121 12z"/></svg>Messenger</div>
+      </div></div>
+      <div class="notes"><b>Pro:</b> gold always means "do something" and can be checked by lint.<br><b>Con:</b> loses the brand warmth in your design, and the active state is weaker.</div>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><span class="opt-l">(b) Split: gold-lo wayfinding</span><span class="pill rec">Recommended</span></div>
+      <div class="stage"><div class="tb">
+        <div class="ti on-goldlo"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>UPQ<span class="bar"></span></div>
+        <div class="ti"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>Cases</div>
+        <div class="ti act"><div class="fab"><svg viewBox="0 0 24 24"><path d="M12 11V4m0 7l-3 3m3-3l3 3M7 4h.01M17 4h.01"/></svg></div><span>Action</span></div>
+        <div class="ti"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 10-12 0c0 5-2 6-2 6h16s-2-1-2-6M10.5 20a2 2 0 003 0"/></svg>Alerts</div>
+        <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.8 7L4 20l1-4.5A8 8 0 1121 12z"/></svg>Messenger</div>
+      </div></div>
+      <div class="notes"><b>Rule:</b> an active nav item may use <code>--accent-gold-lo</code> for its text, icon and indicator bar, <b>never as a fill</b>. Contrast on cream is 7.0:1.<br><b>Pro:</b> keeps your look and stays lint-checkable ("gold-lo allowed only on <code>nav[aria-current]</code>").</div>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><span class="opt-l">(c) As drawn: bright gold</span><span class="pill bad">Fails AA</span></div>
+      <div class="stage"><div class="tb">
+        <div class="ti on-gold"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>UPQ</div>
+        <div class="ti" style="color:#A6A6A0"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a1 1 0 011-1h4a1 1 0 011 1v2"/></svg>Cases</div>
+        <div class="ti act"><div class="fab"><svg viewBox="0 0 24 24"><path d="M12 11V4m0 7l-3 3m3-3l3 3M7 4h.01M17 4h.01"/></svg></div><span>Action</span></div>
+        <div class="ti" style="color:#A6A6A0"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 10-12 0c0 5-2 6-2 6h16s-2-1-2-6M10.5 20a2 2 0 003 0"/></svg>Alerts</div>
+        <div class="ti" style="color:#A6A6A0"><svg viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.8 7L4 20l1-4.5A8 8 0 1121 12z"/></svg>Messenger</div>
+      </div></div>
+      <div class="notes"><b>Con:</b> <code>#8B752E</code> on cream is 4.0:1, and the inactive grey is about 2.4:1. Both fail WCAG AA for 11 px labels. Gold would mean both "you are here" and "commit".</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ B · HERO FILL ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">B</span><h2>Gold as a card fill: the "Up next" hero</h2></div>
+  <p class="q">Canon says gold is never a background fill. Your design uses a gold-gradient hero for "Next walk-in is yours". Is that a ratified exception, or does it change?</p>
+  <div class="opts">
+    <div class="opt">
+      <div class="opt-h"><span class="opt-l">(a) As drawn: gold fill</span><span class="pill warn">Exception needed</span></div>
+      <div class="stage"><div class="hero" style="background:linear-gradient(135deg,#B89E4A,#8B752E)">
+        <div class="k" style="color:#020000">● You're up next · Position 1</div><div class="t" style="color:#020000">Next walk-in is yours</div>
+        <div class="s" style="color:#020000">When a walk-in checks in, you'll have <b>1:30</b> to acknowledge.</div></div></div>
+      <div class="notes">Allowed as a single named exception, <b>"Up-now hero"</b>, with near-black text only. Your red "1:30" on gold fails contrast, so it's shown here in ink. At most one per screen.</div>
+    </div>
+    <div class="opt">
+      <div class="opt-h"><span class="opt-l">(b) Strict: ink card + gold edge</span><span class="pill rec">Recommended</span></div>
+      <div class="stage"><div class="hero" style="background:#020000;border-left:4px solid #B89E4A">
+        <div class="k" style="color:#B89E4A">● You're up next · Position 1</div><div class="t" style="color:#fff">Next walk-in is yours</div>
+        <div class="s" style="color:#E7DDB4">When a walk-in checks in, you'll have <b style="color:#FFD43B">1:30</b> to acknowledge.</div></div></div>
+      <div class="notes">Just as high-salience (the darkest thing on a cream page) with no fill exception. The timer uses the warning token and passes contrast. Gold stays an accent.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C · AVATAR ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">C</span><h2>Avatar fill in the mobile header pill</h2></div>
+  <p class="q">This follows from B. If B is strict, the avatar shouldn't be the one gold fill on screen.</p>
+  <div class="opts">
+    <div class="opt"><div class="opt-h"><span class="opt-l">(a) As drawn: gold</span><span class="pill warn">Exception needed</span></div>
+      <div class="stage"><div class="avrow"><span class="up">UP</span><span class="nm">Sarah A.</span><span class="av" style="background:#8B752E;color:#020000">SA</span></div></div>
+      <div class="notes">Reads as "your status is gold". Conflicts with the commit-only rule.</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">(b) Gold-lo fill, cream initials</span><span class="pill rec">Recommended with B(b)</span></div>
+      <div class="stage"><div class="avrow"><span class="up">UP</span><span class="nm">Sarah A.</span><span class="av" style="background:#5E4F1F;color:#E7DDB4">SA</span></div></div>
+      <div class="notes">Gold-lo as an <b>identity</b> fill (avatars only), at 7.0:1. It keeps the warmth without competing with the COMMIT button.</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">(c) Ink</span><span class="pill warn">Most neutral</span></div>
+      <div class="stage"><div class="avrow"><span class="up">UP</span><span class="nm">Sarah A.</span><span class="av" style="background:#0A0A09;color:#fff">SA</span></div></div>
+      <div class="notes">Clean, but the header loses its brand warmth.</div></div>
+  </div>
+</section>
+
+<!-- ============ D · ADDRESS ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">D3</span><h2>What goes in an element's ID</h2></div>
+  <p class="q">BOS v0 put the breakpoint and grid position <i>inside</i> the ID, so the same button changed identity when you resized. v2 keeps one stable ID and moves structure into attributes. The remaining choice is the ID prefix.</p>
+  <div class="opts">
+    <div class="opt"><div class="opt-h"><span class="opt-l">BOS v0: ID changes per width</span><span class="pill bad">Breaks RF01</span></div>
+      <div class="stage"><div class="code">1440px  SM-FLOOR-001.<span class="x">dt</span>/S99/btn-commit-checkin<span class="x">@c9-12r93-99</span>
+ 390px  SM-FLOOR-001.<span class="x">ph</span>/S99/btn-commit-checkin<span class="x">@c1-4r104-110</span></div></div>
+      <div class="notes">Two different IDs for one button. The manifest, the align stage and the spec board all lose track of it.</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">v2 (a) Class as prefix</span><span class="pill rec">Recommended</span></div>
+      <div class="stage"><div class="code"><span class="k">data-spec-id</span>=<span class="g">"btn-commit-check-in"</span>
+<span class="k">data-bos-class</span>=<span class="v">"commit"</span>
+<span class="k">data-bos-section</span>=<span class="v">"S99"</span>
+<span class="k">data-bos-grid</span>=<span class="v">"c9-12r93-99"</span>  ← live, not ID</div></div>
+      <div class="notes">One ID at every width. The class is readable in the ID itself, and spoken-label matching still works ("check in").</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">v2 (b) Keep v1 prefixes only</span><span class="pill warn">Less legible</span></div>
+      <div class="stage"><div class="code"><span class="k">data-spec-id</span>=<span class="g">"btn-check-in"</span>
+<span class="k">data-bos-class</span>=<span class="v">"commit"</span></div></div>
+      <div class="notes">Shorter IDs, but you can't tell COMMIT from ACTION without reading a second attribute.</div></div>
+  </div>
+</section>
+
+<!-- ============ D2 · NAV SECTION TYPE ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">D2</span><h2>A new section type: <code>nav</code></h2></div>
+  <p class="q">The BOS spec's fixed section types don't include navigation. The shell (side panel, drawer, mobile tab bar) needs one.</p>
+  <div class="opts">
+    <div class="opt"><div class="opt-h"><span class="opt-l">Ratify <code>nav</code></span><span class="pill rec">Recommended</span></div>
+      <div class="stage"><div class="mini"><div class="sec">S01 · header</div><div class="sec nav">S02 · nav · side panel</div><div class="sec nav">S04 · nav · mobile tab bar</div></div></div>
+      <div class="notes">Shell sections are typed honestly, and the lint can apply nav rules (no COMMIT inside, gold-lo only on the current item).</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">Reject: type them <code>content</code></span><span class="pill warn">Loses meaning</span></div>
+      <div class="stage"><div class="mini"><div class="sec">S01 · header</div><div class="sec">S02 · content</div><div class="sec">S04 · content</div></div></div>
+      <div class="notes">No nav-specific lint. The spec board can't group navigation requirements.</div></div>
+  </div>
+</section>
+
+<!-- ============ D4 · MANIFEST SCOPE ============ -->
+<section class="dec">
+  <div class="dh"><span class="tag">D4</span><h2>Manifest: one per screen, or one per build</h2></div>
+  <div class="opts">
+    <div class="opt"><div class="opt-h"><span class="opt-l">Per screen</span><span class="pill warn">More files</span></div>
+      <div class="stage"><div class="mini"><div class="file"><b>SM-FLOOR-001</b>.manifest.json</div><div class="file"><b>SM-DESK-001</b>.manifest.json</div><div class="file"><b>BOS-SHELL-001</b>.manifest.json</div></div></div>
+      <div class="notes">Smaller diffs, but the shell is duplicated in every handoff and versions drift apart.</div></div>
+    <div class="opt"><div class="opt-h"><span class="opt-l">Per build</span><span class="pill rec">Recommended</span></div>
+      <div class="stage"><div class="mini"><div class="file"><b>dealer-os</b>.manifest.json → BOS-SHELL-001::…, SM-FLOOR-001::…, SM-DESK-001::…</div></div></div>
+      <div class="notes">One version and one sha travel together, and the shell appears once. IDs stay scoped as <code>SCREEN::id</code>.</div></div>
+  </div>
+</section>
+
+<div class="sum">
+  <h2>Recommended set</h2>
+  <table>
+    <tr><th>Decision</th><th>Pick</th><th>Resulting rule</th></tr>
+    <tr><td>A · D1</td><td>(b) split</td><td>Gold-lo is allowed for the current nav item's text, icon and bar. Never as a nav fill.</td></tr>
+    <tr><td>B</td><td>(b) strict</td><td>No gold card fills. High-priority cards use an ink fill plus a gold accent edge.</td></tr>
+    <tr><td>C</td><td>(b) gold-lo</td><td>Gold-lo may fill avatars (identity) only.</td></tr>
+    <tr><td>D3</td><td>(a)</td><td><code>data-spec-id = class-slug</code>. Breakpoint and grid are attributes, never part of the ID.</td></tr>
+    <tr><td>D2</td><td>ratify</td><td>Section type <code>nav</code> exists, and shell nav sections use it.</td></tr>
+    <tr><td>D4</td><td>per build</td><td>One manifest per build, with IDs scoped <code>SCREEN::id</code>.</td></tr>
+  </table>
+  <p style="margin:16px 0 0;font-size:14px">With this set, gold has exactly three legal jobs: <b>COMMIT fill</b>, <b>ACTION outline</b>, and <b>gold-lo wayfinding and identity</b>. Every one can be checked by lint.</p>
+</div>
+
+</div></body></html>

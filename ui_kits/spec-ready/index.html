@@ -1,0 +1,102 @@
+<!-- @dsCard group="Navigation" viewport="1280x820" name="Spec-ready · stamp coverage" subtitle="SpecLint run live on AppShell + portal components — every interactive element must be stamped" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spec-ready · stamp coverage</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+html,body{margin:0;height:100%;background:var(--surface-light-page);}
+a{color:var(--accent-gold-lo);}a:hover{color:var(--accent-gold);}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const NS = window.BishSRVDesignSystem_26feec || window;
+const { AppShell, Button, Badge, StatTile, UnitRow, Input, SpecLint } = NS;
+
+function Screen() {
+  return (
+    <div data-spec-id="sec-desk-queue" data-bos-level="section" data-bos-section="S02" data-bos-type="list"
+      style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 16, background: 'var(--surface-page)', minHeight: '100%', boxSizing: 'border-box' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+        <StatTile label="Units in stock" value="214" delta="+6 wk" deltaType="up" />
+        <StatTile label="Deals in desk" value="18" delta="+3 wk" deltaType="up" />
+        <StatTile label="Close rate" value="31%" delta="+2 pts" deltaType="up" />
+      </div>
+      <div style={{ background: 'var(--surface-card)', borderRadius: 8, overflow: 'hidden' }}>
+        <UnitRow id="#5107-A" title="2025 Grand Design Reflection" phase="Lender response expected in 24 hours" status="Waiting" statusType="warning" onClick={() => {}} />
+        <UnitRow id="#4655-D" title="2024 Keystone Montana" phase="Trade appraisal complete" status="Ready" statusType="success" onClick={() => {}} />
+      </div>
+      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 240px' }}><Input label="VIN" placeholder="17-character VIN" /></div>
+        <Button variant="secondary">Assign rep</Button>
+        <Button variant="primary">Send to lender</Button>
+      </div>
+    </div>
+  );
+}
+
+function Report({ r }) {
+  if (!r) return null;
+  if (r.missing) return (
+    <aside data-spec-lint-ignore="" style={{ width: 300, flexShrink: 0, padding: 20, background: 'var(--surface-light-card)', borderLeft: '1px solid var(--border-light)', color: 'var(--semantic-danger-dark)', fontFamily: 'var(--font-body)', fontSize: 14, fontWeight: 600 }}>
+      SpecLint isn't loaded. The design-system bundle predates ui_kits/spec-ready. Recompile, then reload.
+    </aside>
+  );
+  const row = (label, n, ok) => (
+    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, padding: '6px 0', borderBottom: '1px solid var(--border-light)' }}>
+      <span>{label}</span><b style={{ fontFamily: 'var(--font-mono)', color: ok ? 'var(--semantic-success-dark)' : 'var(--semantic-danger-dark)' }}>{n}</b>
+    </div>
+  );
+  return (
+    <aside data-spec-lint-ignore="" style={{ width: 300, flexShrink: 0, padding: 20, background: 'var(--surface-light-card)', borderLeft: '1px solid var(--border-light)', overflowY: 'auto', color: 'var(--text-light-primary)', fontFamily: 'var(--font-body)', fontSize: 14 }}>
+      <div style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--text-light-muted)' }}>SpecLint · live</div>
+      <div style={{ fontFamily: 'var(--font-display)', fontSize: 40, lineHeight: 1, margin: '8px 0 4px' }}>{Math.round(r.coverage * 100)}%</div>
+      <div style={{ fontWeight: 600, color: r.pass ? 'var(--semantic-success-dark)' : 'var(--semantic-danger-dark)', marginBottom: 12 }}>{r.pass ? 'Pass: ready to ship' : 'Fail: fix before shipping'}</div>
+      {row('Interactive elements', r.interactive, true)}
+      {row('Stamped nodes', r.stamped, true)}
+      {row('Unstamped', r.unstamped.length, !r.unstamped.length)}
+      {row('Duplicate IDs', r.duplicates.length, !r.duplicates.length)}
+      {row('Invalid IDs', r.invalid.length, !r.invalid.length)}
+      {row('Frames with >1 commit', r.commitViolations, !r.commitViolations)}
+      {row('Nested layers', r.nestedLayers, !r.nestedLayers)}
+      {r.unstamped.length > 0 && (
+        <div style={{ marginTop: 12 }}>
+          <div style={{ fontFamily: 'var(--font-ui)', fontWeight: 600, marginBottom: 6 }}>Unstamped, with suggested IDs</div>
+          {r.unstamped.slice(0, 12).map((u, i) => <div key={i} style={{ fontFamily: 'var(--font-mono)', fontSize: 12, padding: '3px 0' }}>{u.tag} “{u.text}” → {u.suggested}</div>)}
+        </div>
+      )}
+    </aside>
+  );
+}
+
+function App() {
+  const ref = React.useRef(null);
+  const [report, setReport] = React.useState(null);
+  React.useEffect(() => {
+    const t = setTimeout(() => setReport(SpecLint ? SpecLint.run(ref.current) : { missing: true }), 500);
+    return () => clearTimeout(t);
+  }, []);
+  return (
+    <div style={{ height: '100vh', display: 'flex' }}>
+      <div ref={ref} style={{ flex: 1, minWidth: 0, height: '100%' }}>
+        <AppShell role="manager" activeId="desking" theme="dark" height="100%" alerts={5}
+          logoSrc="../../assets/logo-bishs-os.png" logoSrcDark="../../assets/logo-bishs-os-white.png">
+          <Screen />
+        </AppShell>
+      </div>
+      <Report r={report} />
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
