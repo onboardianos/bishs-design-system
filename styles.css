@@ -1,7 +1,0 @@
-/* ═══════════════════════════════════════════════════════════════
-   BISH'S RV — NEXUS DESIGN SYSTEM · ENTRY
-   One file for consumers to link. Pulls in the Nexus tokens
-   (gold / cream / dark-green, dark-first) + element styles.
-   ═══════════════════════════════════════════════════════════════ */
-
-@import url('./colors_and_type.css');

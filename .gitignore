@@ -1,6 +1,0 @@
-# Not part of the design system: user uploads, scratch builds, generated exports
-uploads/
-standalone-src/
-Nexus Design System Viewer.html
-.DS_Store
-node_modules/
