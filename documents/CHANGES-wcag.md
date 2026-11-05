@@ -59,5 +59,5 @@ The `-light` (tinted bg) and `-dark` (white-text fill / light-theme text) varian
 
 - `--accent-gold` `#8B752E → #8A742D` (brand-gold `#8B752E` unchanged, raw palette only). 4.55:1 with white.
 - **Primary / COMMIT**: rest `#8A742D`, hover + pressed `#5E4F1F` (gold-lo, 8.0:1), label `#FFFFFF` in both themes. Supersedes the 2026-10-23 flip above; the near-black label and gold-hi resting fill are retired.
-- Same accent in Input focus border, TabBar indicator, Header rule + title accent, CustomerCard gold flag, PhaseAlert COMMIT, `.fw-btn--commit`, `preview/components-buttons*.html`, `ui_kits/portal-light/index.html`.
-- `_ds_bundle.js` must be rebuilt from the kits after merge (not rebuilt in this change).
+- Same accent in Input focus border, TabBar indicator, Header rule + title accent, CustomerCard gold flag, PhaseAlert COMMIT, `preview/components-buttons*.html`, `ui_kits/portal-light/index.html`.
+- Follow-ups not in this change: rebuild `_ds_bundle.js` from the kits; `conversions/floor-workspace/index.html` `.fw-btn--commit` → `background:var(--accent-gold);color:var(--brand-white)` and `:hover` → `var(--accent-gold-lo)`.
