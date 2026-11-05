@@ -18,7 +18,7 @@
 
 ## `ui_kits/portal-dark/` components
 
-- **Button.jsx** — primary variant text `#FFFFFF → #020000` (black-on-gold passes rest 4.68:1 and hover 8.0:1; white failed both). Disabled text → `#A2A59C`.
+- **Button.jsx** — primary variant text `#FFFFFF → #020000` (black-on-gold passes rest 4.68:1 and hover 8.0:1; white failed both). Disabled text → `#A2A59C`. **Superseded Nov 2026:** primary label is `#FFFFFF` on `#8A742D` (4.55:1) by decision; hover `#5E4F1F`. Near-black retired.
 - **Badge.jsx** — status text → on-dark tints (success `#51CF66`, warning `#FFD43B`, danger `#FF8787`, info `#74C0FC`, neutral `#A2A59C`); text size `10px → 11px`.
 - **Input.jsx** — resting border `rgba(255,255,255,0.13) → rgba(255,255,255,0.30)` (perceptible field edge); helper/error text → `#A2A59C` / `#FF8787`.
 - **Card.jsx** — subtitle, stat-tile neutral delta, and unit-row phase text → `#A2A59C`; stat-tile label → gold-hi `#B89E4A` at 11px; delta up/down → `#51CF66` / `#FF8787`.
@@ -53,3 +53,11 @@ The `-light` (tinted bg) and `-dark` (white-text fill / light-theme text) varian
 - Why: since primary text became near-black, the content-colored overlay rule means hover should darken, not lighten. Flipping keeps both states above 4.5:1 (rest 8.0:1, hover 4.68:1); darkening from `#8B752E` instead would land near 4.1:1 and fail.
 - Tradeoff, accepted by Zach: the resting fill is the gold-hi accent; brand gold `#8B752E` appears on hover.
 - Updated: `README.md` hover rule, `ui_kits/portal-dark/Button.jsx`, `ui_kits/portal-light/index.html`, `preview/components-buttons*.html`, `conversions/floor-workspace` `.fw-btn--commit`.
+
+
+## 2026-11-05 · Decision 7 — COMMIT gold is `#8A742D` with a white label
+
+- `--accent-gold` `#8B752E → #8A742D` (brand-gold `#8B752E` unchanged, raw palette only). 4.55:1 with white.
+- **Primary / COMMIT**: rest `#8A742D`, hover + pressed `#5E4F1F` (gold-lo, 8.0:1), label `#FFFFFF` in both themes. Supersedes the 2026-10-23 flip above; the near-black label and gold-hi resting fill are retired.
+- Same accent in Input focus border, TabBar indicator, Header rule + title accent, CustomerCard gold flag, PhaseAlert COMMIT, `.fw-btn--commit`, `preview/components-buttons*.html`, `ui_kits/portal-light/index.html`.
+- `_ds_bundle.js` must be rebuilt from the kits after merge (not rebuilt in this change).

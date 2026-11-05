@@ -47,7 +47,7 @@
   --text-light-muted:     #767670;
 
   /* ── ACCENT ── */
-  --accent-gold:     #8B752E;
+  --accent-gold:     #8A742D; /* COMMIT fill; brand-gold stays #8B752E. 4.55:1 with white. */
   --accent-gold-hi:  #B89E4A;
   --accent-gold-lo:  #5E4F1F;
   --accent-olive:    #545750;
