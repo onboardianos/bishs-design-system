@@ -84,7 +84,7 @@ Six-color brand palette: **Black, Dark Green, Gold, Cream, Olive, White**. Role-
 - **Black / Dark Green** → surfaces only
 - **Cream** → text only (never a background fill)
 - **Gold** → exactly three legal jobs, all lint-checkable (ratified 2026-10-21, see `documents/decisions-2026-10-21.md`):
-  1. **COMMIT fill** — `--accent-gold`, near-black text, max one per screen
+  1. **COMMIT fill** — `--accent-gold` (`#8A742D`), white label, hover/pressed `--accent-gold-lo`, max one per screen
   2. **ACTION outline** — gold border + gold-lo text, any number
   3. **Gold-lo wayfinding** — `--accent-gold-lo` (7.0:1 on cream) for the *current* nav item's text/icon/indicator bar only. Never a nav fill. Avatars contrast with their surface: **ink on light, white on dark** (`Avatar theme`); gold only for the signed-in user.
   Gold is never a card/surface fill — high-salience cards use ink fill + a gold accent edge.
@@ -121,7 +121,7 @@ Every interactive element carries a **content-colored overlay**:
 - Pressed: 12% opacity
 - Disabled: 38% opacity on content, no overlay
 
-Primary buttons rest on `#B89E4A` (gold-hi) and hover **darker** to `#8B752E` (gold), with near-black `#020000` text in both states (8.0:1 rest, 4.68:1 hover). Dark text means a darkening hover, per the content-colored overlay rule above. Ghost buttons hover with a 6% white overlay. No scale-on-press shrink — state is carried by color, not geometry.
+Primary buttons rest on `#8A742D` (`--accent-gold`) and hover **darker** to `#5E4F1F` (gold-lo), with white `#FFFFFF` text in both states (4.55:1 rest, 8.0:1 hover; decided Nov 2026, see `documents/CHANGES-wcag.md`). Light text means a darkening hover, per the content-colored overlay rule above. Ghost buttons hover with a 6% white overlay. No scale-on-press shrink — state is carried by color, not geometry.
 
 ### Borders
 Hairline borders, never decorative: `rgba(255,255,255,0.07)` ghost, `rgba(255,255,255,0.13)` mid. Gold borders `rgba(139,117,46,0.28)` or `0.55` for emphasis. Borders on light theme are `rgba(0,0,0,0.08)` / `0.15`.

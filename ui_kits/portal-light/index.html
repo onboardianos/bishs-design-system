@@ -7,14 +7,14 @@
   <link rel="stylesheet" href="../../colors_and_type.css">
   <style>
     html, body { background: #F7F6F1 !important; margin: 0; padding: 0; color: #0A0A09; font-family: 'Source Sans 3', sans-serif; }
-    .hero { background: linear-gradient(135deg,#FAFAF6 0%,#F2EFE6 55%,#ECE6D4 100%); border-bottom: 2px solid #8B752E; padding: 40px 32px 32px; position: relative; overflow: hidden; }
+    .hero { background: linear-gradient(135deg,#FAFAF6 0%,#F2EFE6 55%,#ECE6D4 100%); border-bottom: 2px solid #8A742D; padding: 40px 32px 32px; position: relative; overflow: hidden; }
     .hero::before, .hero::after { content: ''; position: absolute; border: 1px solid rgba(139,117,46,0.18); border-radius: 50%; pointer-events: none; }
     .hero::before { top: -80px; right: -80px; width: 320px; height: 320px; }
     .hero::after { top: -120px; right: -120px; width: 480px; height: 480px; border-color: rgba(139,117,46,0.09); }
     .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
     .eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #5E4F1F; font-weight: 600; margin-bottom: 10px; }
     .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; line-height: 1; color: #0A0A09; margin: 0; }
-    .hero h1 span { color: #8B752E; }
+    .hero h1 span { color: #8A742D; }
     .meta-row { margin-top: 14px; display: flex; gap: 24px; flex-wrap: wrap; }
     .meta-row span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #6B6B63; }
     .meta-row strong { color: #0A0A09; font-weight: 500; }
@@ -22,7 +22,7 @@
     .tabs { background: #F7F6F1; border-bottom: 1px solid rgba(0,0,0,0.08); padding: 0 32px; position: sticky; top: 0; z-index: 200; }
     .tabs-inner { max-width: 1100px; margin: 0 auto; display: flex; overflow-x: auto; }
     .tab { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 1.5px; text-transform: uppercase; padding: 14px 18px 12px; border: none; cursor: pointer; background: transparent; color: #9C9C94; border-bottom: 2px solid transparent; transition: all 150ms cubic-bezier(0.2,0,0,1); white-space: nowrap; }
-    .tab.active { color: #5E4F1F; font-weight: 600; border-bottom-color: #8B752E; }
+    .tab.active { color: #5E4F1F; font-weight: 600; border-bottom-color: #8A742D; }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 32px; }
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
@@ -60,8 +60,8 @@
     .card .foot { padding: 12px 20px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; justify-content: flex-end; gap: 8px; }
 
     .btn { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; letter-spacing: 0.5px; font-size: 12px; padding: 6px 12px; height: 32px; border-radius: 8px; cursor: pointer; border: none; transition: all 150ms cubic-bezier(0.2,0,0,1); display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: #B89E4A; color: #020000; }
-    .btn-primary:hover { background: #8B752E; }
+    .btn-primary { background: #8A742D; color: #FFFFFF; }
+    .btn-primary:hover { background: #5E4F1F; }
     .btn-secondary { background: #fff; color: #5E4F1F; border: 1px solid rgba(139,117,46,0.45); }
     .btn-ghost { background: transparent; color: #3D3D38; }
     .btn-ghost:hover { background: rgba(0,0,0,0.04); }
@@ -69,7 +69,7 @@
     .composer { background: #FFFFFF; border: 1px solid rgba(0,0,0,0.08); border-radius: 8px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px -1px rgba(0,0,0,0.04); display: flex; flex-direction: column; gap: 12px; }
     .composer .lab { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 500; color: #0A0A09; letter-spacing: 0.5px; margin-bottom: 4px; display: block; }
     .composer input { font-family: 'Source Sans 3', sans-serif; font-size: 14px; width: 100%; box-sizing: border-box; padding: 10px 12px; background: #FFFFFF; color: #0A0A09; border: 1px solid rgba(0,0,0,0.15); border-radius: 8px; outline: none; transition: all 150ms cubic-bezier(0.2,0,0,1); }
-    .composer input:focus { border-color: #8B752E; box-shadow: 0 0 0 3px rgba(139,117,46,0.12); }
+    .composer input:focus { border-color: #8A742D; box-shadow: 0 0 0 3px rgba(139,117,46,0.12); }
     .helper { font-family: 'Source Sans 3', sans-serif; font-size: 12px; color: #6B6B63; margin-top: 4px; }
     .err { color: #B02525; }
 
@@ -182,7 +182,7 @@
                   <div>
                     <label className="lab">VIN</label>
                     <input value={vin} onChange={e => setVin(e.target.value)} placeholder="17-character VIN" style={vinError ? { borderColor: "#B02525" } : {}} />
-                    <div className={"helper" + (vinError ? " err" : "")}>{vinError || "\u00a0"}</div>
+                    <div className={"helper" + (vinError ? " err" : "")}>{vinError || " "}</div>
                   </div>
                   <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
                     <button className="btn btn-ghost" onClick={() => { setStock(""); setVin(""); }}>Clear</button>
