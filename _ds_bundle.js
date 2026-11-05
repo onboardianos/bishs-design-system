@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"BishSRVDesignSystem_26feec","components":[{"name":"ActionOverlay","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"AppShell","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"NAV_ICONS","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"UI_ICONS","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"ICON_ALIASES","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"SHELL_THEME","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"NavIcon","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"NavConfig","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"RolesNavAdmin","sourcePath":"ui_kits/app-shell/RolesNavAdmin.jsx"},{"name":"Badge","sourcePath":"ui_kits/portal-dark/Badge.jsx"},{"name":"Button","sourcePath":"ui_kits/portal-dark/Button.jsx"},{"name":"Card","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"StatTile","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"UnitRow","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"Header","sourcePath":"ui_kits/portal-dark/Header.jsx"},{"name":"Input","sourcePath":"ui_kits/portal-dark/Input.jsx"},{"name":"TabBar","sourcePath":"ui_kits/portal-dark/TabBar.jsx"},{"name":"SpecLint","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"}],"sourceHashes":{"ui_kits/app-shell/AppShell.jsx":"9d7541ff7bcf","ui_kits/app-shell/NavConfig.jsx":"33af27cfff46","ui_kits/app-shell/RolesNavAdmin.jsx":"e9de07efd3ef","ui_kits/portal-dark/Badge.jsx":"fed499103dd6","ui_kits/portal-dark/Button.jsx":"7b58d34a3f56","ui_kits/portal-dark/Card.jsx":"c1e568829999","ui_kits/portal-dark/Header.jsx":"3055117c2ad8","ui_kits/portal-dark/Input.jsx":"778247197f00","ui_kits/portal-dark/TabBar.jsx":"c914da019093","ui_kits/spec-ready/SpecLint.jsx":"b77760bf8d6f"},"inlinedExternals":[],"unexposedExports":[{"name":"makeSpecId","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"BishSRVDesignSystem_26feec","components":[{"name":"ActionOverlay","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"AppShell","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"NavIcon","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"NavConfig","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"RolesNavAdmin","sourcePath":"ui_kits/app-shell/RolesNavAdmin.jsx"},{"name":"ChoiceChip","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceGroup","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"QuestionCard","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceTile","sourcePath":"ui_kits/floor/ChoiceTile.jsx"},{"name":"CustomerCard","sourcePath":"ui_kits/floor/CustomerCard.jsx"},{"name":"PhaseAlert","sourcePath":"ui_kits/floor/PhaseAlert.jsx"},{"name":"Avatar","sourcePath":"ui_kits/portal-dark/Avatar.jsx"},{"name":"Badge","sourcePath":"ui_kits/portal-dark/Badge.jsx"},{"name":"Button","sourcePath":"ui_kits/portal-dark/Button.jsx"},{"name":"Card","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"StatTile","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"UnitRow","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"Header","sourcePath":"ui_kits/portal-dark/Header.jsx"},{"name":"Input","sourcePath":"ui_kits/portal-dark/Input.jsx"},{"name":"TabBar","sourcePath":"ui_kits/portal-dark/TabBar.jsx"},{"name":"SpecLint","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"}],"sourceHashes":{"conversions/outfitter-discovery/data/engine.js":"68fba665ea00","conversions/wayfinder/data/engine.js":"68fba665ea00","conversions/wayfinder/data/tow-vehicles.js":"0f3fffa00f7f","ui_kits/app-shell/AppShell.jsx":"ba25d24549c1","ui_kits/app-shell/NavConfig.jsx":"2f6891f69793","ui_kits/app-shell/RolesNavAdmin.jsx":"3427b4c9753d","ui_kits/floor/ChoiceChip.jsx":"436e1d6c567b","ui_kits/floor/ChoiceTile.jsx":"195661ffffd6","ui_kits/floor/CustomerCard.jsx":"a28ac9349e93","ui_kits/floor/PhaseAlert.jsx":"07f617624726","ui_kits/portal-dark/Avatar.jsx":"54a9c5594c65","ui_kits/portal-dark/Badge.jsx":"ad2a32ae6037","ui_kits/portal-dark/Button.jsx":"4b0ac21e0a48","ui_kits/portal-dark/Card.jsx":"41f0387853c2","ui_kits/portal-dark/Header.jsx":"b939727491db","ui_kits/portal-dark/Input.jsx":"e9c9bb12c467","ui_kits/portal-dark/TabBar.jsx":"7d5e19c42232","ui_kits/spec-ready/SpecLint.jsx":"b77760bf8d6f"},"inlinedExternals":[],"unexposedExports":[{"name":"iconAliases","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"makeSpecId","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"},{"name":"navIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"shellTheme","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"uiIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"}]} */
 
 (() => {
 
@@ -7,6 +7,2280 @@ const __ds_ns = (window.BishSRVDesignSystem_26feec = window.BishSRVDesignSystem_
 const __ds_scope = {};
 
 (__ds_ns.__errors = __ds_ns.__errors || []);
+
+// conversions/outfitter-discovery/data/engine.js
+try { (() => {
+// Source: wayfinder_v2_connected_configurator.html — decision engine (spec v1.1). Carried over unchanged: business logic, not UI.
+/*
+ * Bish RV Adaptive Discovery Configurator - decision engine.
+ * Implements handoff spec v1.1: hard gates (s9), candidate-aware option evaluation (s8),
+ * rank groups + scoring (s11), payment/budget math (s10), zero-result recovery (s16).
+ *
+ * Plain script, no dependencies. Works in the browser (window.Engine) and in Node
+ * (module.exports) so the same rules can be unit-tested and later hosted server-side
+ * behind the s18 endpoints.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();else root.Engine = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const QUESTIONNAIRE_VERSION = '1.1.0';
+  const SCORING_VERSION = '1.1.0';
+
+  // ------------------------------------------------------------------ characteristic ids
+  const IDS = {
+    DISH: 1,
+    WASH: 2,
+    DOUBLE_BATH: 3,
+    DUAL_VANITY: 4,
+    FRONT_BATH: 5,
+    REAR_BATH: 6,
+    WALK_THRU: 7,
+    WETBATH: 8,
+    DUAL_QUEEN: 9,
+    EAST_WEST: 10,
+    LOFT: 11,
+    MURPHY: 12,
+    TWIN_CONV: 13,
+    TENT: 14,
+    PRIVATE_MASTER: 15,
+    TOY_SINGLE: 17,
+    TOY_DOUBLE: 18,
+    DOUBLE_BUNKS: 19,
+    MID_BUNK: 20,
+    PRIVATE_BUNK_ROOM: 21,
+    QUAD_BUNKS: 22,
+    SINGLE_BUNKS: 23,
+    TRIPLE_BUNKS: 24,
+    BATH_ENTRY: 25,
+    DUAL_ENTRY: 26,
+    CARGO_DOOR: 27,
+    RAMP: 28,
+    FRONT_KITCHEN: 29,
+    REAR_KITCHEN: 30,
+    L_KITCHEN: 31,
+    ISLAND_KITCHEN: 32,
+    U_KITCHEN: 33,
+    FRONT_LIVING: 34,
+    REAR_DINETTE: 35,
+    REAR_LIVING: 36,
+    REAR_ENT: 37,
+    PRIVATE_OFFICE: 38,
+    OUTSIDE_KITCHEN: 39,
+    FRONT_CAP_WINDOW: 40,
+    SIDE_PATIO: 41,
+    REAR_PATIO: 42,
+    BED_SLIDE: 43,
+    WARDROBE_SLIDE: 44,
+    FULL_WALL: 45,
+    SUPER_SLIDE: 46,
+    EXTENDED_SLIDE: 47,
+    STANDARD_SLIDE: 48,
+    TEARDROP: 49,
+    AFRAME: 50
+  };
+  const BUNK_IDS = [19, 20, 21, 22, 23, 24];
+  const SLIDE_IDS = [43, 44, 45, 46, 47, 48];
+  const TOY_BED_IDS = [17, 18];
+  const MOTORHOME_CLASSES = ['AD', 'AG', 'B', 'C', 'CD'];
+  const TOWABLE_CLASSES = ['TT', 'FW', 'TTTH', 'FWTH', 'HTT', 'FD', 'AT', 'TC', 'DT'];
+  const TOY_CLASSES = ['TTTH', 'FWTH'];
+  const COMPACT_CLASSES = ['TC', 'B', 'FD', 'HTT', 'AT'];
+  const SIDEWALL_CLASSES = ['TT', 'FW', 'TTTH', 'FWTH', 'TC', 'DT', 'HTT', 'FD', 'AT'];
+
+  // Spec s11.1 weights.
+  const PREF_WEIGHT = {
+    strongly: 12,
+    prefer: 8,
+    nice: 4,
+    flexible: 6
+  };
+  const MISS_PENALTY = {
+    strongly: 6,
+    prefer: 4,
+    nice: 2,
+    flexible: 2
+  };
+  const AVOID_PENALTY = {
+    avoid: 6,
+    strong: 10
+  };
+  const BASE_SCORE = {
+    VERIFIED_AVAILABLE: 50,
+    VERIFIED_L_STOCK_EXAMPLE: 45,
+    PROBABLE_NEW: 40,
+    PROBABLE_L: 35
+  };
+  const RANK_ORDER = {
+    VERIFIED_AVAILABLE: 1,
+    VERIFIED_L_STOCK_EXAMPLE: 2,
+    PROBABLE_NEEDS_VERIFICATION: 3,
+    INELIGIBLE: 9
+  };
+
+  // Spec s16.2 step 7 fixed precedence (lower = relax first).
+  const GATE_PRECEDENCE = ['gvwrMax', 'lengthMaxFt', 'priceMax', 'sleepsMin', 'slidesMin', 'bunks', 'privateMaster', 'outsideKitchen', 'sidewall', 'classes'];
+  const SAFETY_GATES = ['gvwrMax'];
+  const PAYMENT_GATES = ['priceMax', 'priceMin'];
+
+  // Spec s10.2.
+  const APR_BY_TIER = {
+    fair: 12.0,
+    good: 9.0,
+    veryGood: 6.99
+  };
+  const TERM_BANDS = [{
+    lo: 5000,
+    hi: 20000,
+    months: 120
+  }, {
+    lo: 20000,
+    hi: 25000,
+    months: 144
+  }, {
+    lo: 25000,
+    hi: 60000,
+    months: 180
+  }, {
+    lo: 60000,
+    hi: Infinity,
+    months: 240
+  }];
+  const FALLBACK_TAX = 0.06;
+
+  // ------------------------------------------------------------------ helpers
+  const hasAny = (unit, ids) => {
+    const ch = unit.characteristicTypeIds;
+    if (!ch || !ch.length) return false;
+    for (let i = 0; i < ids.length; i++) if (ch.indexOf(ids[i]) !== -1) return true;
+    return false;
+  };
+  const hasAll = (unit, ids) => ids.every(id => unit.characteristicTypeIds && unit.characteristicTypeIds.indexOf(id) !== -1);
+  const hasFlag = (unit, f) => unit.qaFlags && unit.qaFlags.indexOf(f) !== -1;
+  const hasBunks = unit => hasAny(unit, BUNK_IDS);
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const round2 = v => Math.round(v * 100) / 100;
+  function lengthDisplay(inches) {
+    if (inches == null) return null;
+    const ft = Math.floor(inches / 12);
+    const rem = Math.round(inches - ft * 12);
+    return rem ? `${ft} ft ${rem} in` : `${ft} ft`;
+  }
+  function money(v) {
+    return v == null ? null : '$' + Math.round(v).toLocaleString('en-US');
+  }
+  function emptyGates() {
+    return {
+      classes: [],
+      // shopper-facing class codes; empty = no type gate
+      priceMax: null,
+      priceMin: null,
+      gvwrMax: null,
+      gvwrMin: null,
+      lengthMaxFt: null,
+      lengthMinFt: null,
+      sleepsMin: null,
+      sleepsMax: null,
+      slidesMin: null,
+      slidesMax: null,
+      requiredChars: [],
+      // every id required (AND)
+      requiredAnyOf: [],
+      // array of id arrays; unit must have at least one id from each array
+      forbiddenChars: [],
+      sidewall: null,
+      // 'LAMINATE' | 'STT'
+      lStock: 'include',
+      // 'include' | 'exclude' | 'only' (refinement only)
+      keyword: null,
+      locations: []
+    };
+  }
+  function newSession(snapshot) {
+    return {
+      sessionId: 'S-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8),
+      inventorySnapshotId: snapshot && snapshot.meta ? snapshot.meta.inventorySnapshotId : null,
+      questionnaireVersion: QUESTIONNAIRE_VERSION,
+      scoringVersion: SCORING_VERSION,
+      createdAt: new Date().toISOString(),
+      branch: null,
+      // resolved branch path (s5)
+      gates: emptyGates(),
+      gateSources: {},
+      // gateKey -> questionId that set it
+      prefs: [],
+      // {key, concept, label, ids, strength}
+      avoids: [],
+      // {key, concept, label, ids, strength}
+      numericPriorities: {},
+      // value, lightweight, compact, sleepFlex, space, simple
+      sidewallPref: null,
+      // 'laminate' | 'value' | null
+      lifestylePaths: [],
+      // family, couple, extended, toy, compact, outdoor
+      sleepers: {
+        adults: null,
+        children: null
+      },
+      tow: {
+        applies: null,
+        rating: null,
+        mode: 'derived'
+      },
+      budget: {
+        mode: null,
+        priceCeiling: null,
+        taxRate: FALLBACK_TAX,
+        taxIsFallback: true,
+        detail: null
+      },
+      store: null,
+      answers: {},
+      // questionId -> raw answer
+      refine: emptyGates(),
+      // s15.3 refinement layer, stored separately from answers
+      refineActive: false
+    };
+  }
+
+  // ------------------------------------------------------------------ gates (s9)
+  // Returns {status: 'pass'|'fail'|'unknown', failed: [...], unknown: [...]}
+  function evalGates(unit, g) {
+    const failed = [],
+      unknown = [];
+    if (g.lStock === 'exclude' && unit.isLStock) failed.push('lStock');
+    if (g.lStock === 'only' && !unit.isLStock) failed.push('lStock');
+    if (g.classes && g.classes.length) {
+      if (!unit.class || hasFlag(unit, 'UNKNOWN_CLASS')) failed.push('classes');else if (g.classes.indexOf(unit.class) === -1) failed.push('classes');
+    }
+    if (g.locations && g.locations.length && g.locations.indexOf(unit.location) === -1) failed.push('locations');
+    if (g.priceMax != null || g.priceMin != null) {
+      if (unit.price == null) unknown.push('price');else if (g.priceMax != null && unit.price > g.priceMax) failed.push('priceMax');else if (g.priceMin != null && unit.price < g.priceMin) failed.push('priceMin');
+    }
+    if (g.gvwrMax != null || g.gvwrMin != null) {
+      if (unit.gvwr == null) unknown.push('gvwr');else if (g.gvwrMax != null && unit.gvwr > g.gvwrMax) failed.push('gvwrMax');else if (g.gvwrMin != null && unit.gvwr < g.gvwrMin) failed.push('gvwrMin');
+    }
+    if (g.lengthMaxFt != null || g.lengthMinFt != null) {
+      if (unit.lengthIn == null) unknown.push('length');else if (g.lengthMaxFt != null && unit.lengthIn > g.lengthMaxFt * 12) failed.push('lengthMaxFt');else if (g.lengthMinFt != null && unit.lengthIn < g.lengthMinFt * 12) failed.push('lengthMinFt');
+    }
+    if (g.sleepsMin != null || g.sleepsMax != null) {
+      if (unit.sleeps == null) unknown.push('sleeps');else if (g.sleepsMin != null && unit.sleeps < g.sleepsMin) failed.push('sleepsMin');else if (g.sleepsMax != null && unit.sleeps > g.sleepsMax) failed.push('sleepsMax');
+    }
+    if (g.slidesMin != null || g.slidesMax != null) {
+      if (unit.slides == null) unknown.push('slides');else if (g.slidesMin != null && unit.slides < g.slidesMin) failed.push('slidesMin');else if (g.slidesMax != null && unit.slides > g.slidesMax) failed.push('slidesMax');
+    }
+    const noCharData = hasFlag(unit, 'MISSING_CHARACTERISTICS');
+    if (g.requiredChars && g.requiredChars.length) {
+      if (noCharData) unknown.push('requiredChars');else if (!hasAll(unit, g.requiredChars)) failed.push('requiredChars');
+    }
+    if (g.requiredAnyOf && g.requiredAnyOf.length) {
+      for (let i = 0; i < g.requiredAnyOf.length; i++) {
+        if (noCharData) {
+          unknown.push('requiredAnyOf');
+          break;
+        }
+        if (!hasAny(unit, g.requiredAnyOf[i])) {
+          failed.push('requiredAnyOf');
+          break;
+        }
+      }
+    }
+    if (g.forbiddenChars && g.forbiddenChars.length && hasAny(unit, g.forbiddenChars)) failed.push('forbiddenChars');
+    if (g.sidewall) {
+      if (!unit.sidewallConstruction || unit.sidewallConstruction === 'UNKNOWN') unknown.push('sidewall');else if (unit.sidewallConstruction !== g.sidewall) failed.push('sidewall');
+    }
+    if (g.keyword) {
+      const k = g.keyword.toLowerCase();
+      const text = [unit.stocknumber, unit.manufacturer, unit.make, unit.model, unit.location, unit.year].join(' ').toLowerCase();
+      if (text.indexOf(k) === -1) failed.push('keyword');
+    }
+    return {
+      status: failed.length ? 'fail' : unknown.length ? 'unknown' : 'pass',
+      failed,
+      unknown
+    };
+  }
+  function rankGroupFor(unit, gateResult) {
+    if (gateResult.status === 'fail') return 'INELIGIBLE';
+    if (gateResult.status === 'unknown') return 'PROBABLE_NEEDS_VERIFICATION';
+    return unit.isLStock ? 'VERIFIED_L_STOCK_EXAMPLE' : 'VERIFIED_AVAILABLE';
+  }
+
+  // Merge the questionnaire gates with the refinement layer (refinement never rewrites answers).
+  function effectiveGates(session) {
+    if (!session.refineActive) return session.gates;
+    const g = clone(session.gates),
+      r = session.refine;
+    const tighterMax = (a, b) => a == null ? b : b == null ? a : Math.min(a, b);
+    const tighterMin = (a, b) => a == null ? b : b == null ? a : Math.max(a, b);
+    if (r.classes && r.classes.length) g.classes = g.classes.length ? g.classes.filter(c => r.classes.indexOf(c) !== -1) : r.classes.slice();
+    g.priceMax = tighterMax(g.priceMax, r.priceMax);
+    g.priceMin = tighterMin(g.priceMin, r.priceMin);
+    g.gvwrMax = tighterMax(g.gvwrMax, r.gvwrMax);
+    g.gvwrMin = tighterMin(g.gvwrMin, r.gvwrMin);
+    g.lengthMaxFt = tighterMax(g.lengthMaxFt, r.lengthMaxFt);
+    g.lengthMinFt = tighterMin(g.lengthMinFt, r.lengthMinFt);
+    g.sleepsMin = tighterMin(g.sleepsMin, r.sleepsMin);
+    g.sleepsMax = tighterMax(g.sleepsMax, r.sleepsMax);
+    g.slidesMin = tighterMin(g.slidesMin, r.slidesMin);
+    g.slidesMax = tighterMax(g.slidesMax, r.slidesMax);
+    g.requiredChars = g.requiredChars.concat(r.requiredChars.filter(id => g.requiredChars.indexOf(id) === -1));
+    g.requiredAnyOf = g.requiredAnyOf.concat(r.requiredAnyOf);
+    g.forbiddenChars = g.forbiddenChars.concat(r.forbiddenChars.filter(id => g.forbiddenChars.indexOf(id) === -1));
+    if (r.sidewall) g.sidewall = r.sidewall;
+    if (r.lStock && r.lStock !== 'include') g.lStock = r.lStock;
+    if (r.keyword) g.keyword = r.keyword;
+    if (r.locations && r.locations.length) g.locations = r.locations.slice();
+    return g;
+  }
+
+  // Split a unit list into verified / probable / ineligible under a gate set.
+  function candidates(units, gates) {
+    const verified = [],
+      probable = [];
+    let ineligible = 0;
+    for (let i = 0; i < units.length; i++) {
+      const u = units[i];
+      const r = evalGates(u, gates);
+      if (r.status === 'fail') ineligible++;else if (r.status === 'unknown') probable.push(u);else verified.push(u);
+    }
+    return {
+      verified,
+      probable,
+      ineligible
+    };
+  }
+  function counts(units, gates) {
+    let verified = 0,
+      probable = 0;
+    const fps = new Set();
+    for (let i = 0; i < units.length; i++) {
+      const r = evalGates(units[i], gates);
+      if (r.status === 'fail') continue;
+      if (r.status === 'unknown') probable++;else verified++;
+      if (units[i].floorplanId != null) fps.add(units[i].floorplanId);
+    }
+    return {
+      verified,
+      probable,
+      total: verified + probable,
+      floorplans: fps.size
+    };
+  }
+
+  // Candidate-aware preview of a gate patch (s8.1 steps 1-4).
+  function previewGate(units, gates, patch) {
+    const g = clone(gates);
+    Object.keys(patch || {}).forEach(k => {
+      if (k === 'requiredChars') g.requiredChars = g.requiredChars.concat(patch[k].filter(id => g.requiredChars.indexOf(id) === -1));else if (k === 'requiredAnyOf') g.requiredAnyOf = g.requiredAnyOf.concat(patch[k]);else if (k === 'forbiddenChars') g.forbiddenChars = g.forbiddenChars.concat(patch[k]);else g[k] = patch[k];
+    });
+    return {
+      gates: g,
+      counts: counts(units, g)
+    };
+  }
+
+  // Ranking-only preview (s8.1 step 5) - how many current candidates would be boosted.
+  function previewBoost(candidateUnits, ids) {
+    let n = 0;
+    for (let i = 0; i < candidateUnits.length; i++) if (hasAny(candidateUnits[i], ids)) n++;
+    return n;
+  }
+
+  // ------------------------------------------------------------------ lifestyle defaults (s11.1)
+  // Fallback ranking concepts for questions the shopper skipped; an explicit answer for the
+  // same concept always wins (no double counting).
+  const LIFESTYLE_CONCEPTS = {
+    family: [{
+      concept: 'child_sleep',
+      ids: BUNK_IDS,
+      w: 4,
+      label: 'Bunks for kids'
+    }, {
+      concept: 'adult_privacy',
+      ids: [IDS.PRIVATE_MASTER],
+      w: 3,
+      label: 'Private master'
+    }, {
+      concept: 'bath',
+      ids: [IDS.DOUBLE_BATH],
+      w: 3,
+      label: 'Second bathroom'
+    }, {
+      concept: 'outdoor',
+      ids: [IDS.OUTSIDE_KITCHEN],
+      w: 2,
+      label: 'Outside kitchen'
+    }],
+    couple: [{
+      concept: 'adult_privacy',
+      ids: [IDS.PRIVATE_MASTER],
+      w: 4,
+      label: 'Private master'
+    }, {
+      concept: 'living',
+      ids: [IDS.REAR_LIVING],
+      w: 4,
+      label: 'Rear living'
+    }, {
+      concept: 'slide_bed',
+      ids: [IDS.BED_SLIDE],
+      w: 2,
+      label: 'Bed slide'
+    }, {
+      concept: 'kitchen',
+      ids: [IDS.ISLAND_KITCHEN, IDS.L_KITCHEN],
+      w: 2,
+      label: 'Island / L kitchen'
+    }],
+    extended: [{
+      concept: 'amenity_wd',
+      ids: [IDS.WASH],
+      w: 4,
+      label: 'Washer/dryer prep'
+    }, {
+      concept: 'kitchen',
+      ids: [IDS.ISLAND_KITCHEN],
+      w: 3,
+      label: 'Island kitchen'
+    }, {
+      concept: 'amenity_dw',
+      ids: [IDS.DISH],
+      w: 2,
+      label: 'Dishwasher prep'
+    }, {
+      concept: 'slide_wardrobe',
+      ids: [IDS.WARDROBE_SLIDE],
+      w: 3,
+      label: 'Wardrobe slide'
+    }],
+    toy: [{
+      concept: 'garage_sleep',
+      ids: TOY_BED_IDS,
+      w: 4,
+      label: 'Garage sleeping'
+    }, {
+      concept: 'loft',
+      ids: [IDS.LOFT],
+      w: 3,
+      label: 'Loft'
+    }, {
+      concept: 'outdoor_patio',
+      ids: [IDS.REAR_PATIO],
+      w: 3,
+      label: 'Rear patio'
+    }, {
+      concept: 'ramp',
+      ids: [IDS.RAMP],
+      w: 2,
+      label: 'Ramp door'
+    }],
+    compact: [{
+      concept: 'bath',
+      ids: [IDS.WETBATH],
+      w: 4,
+      label: 'Wetbath'
+    }, {
+      concept: 'adult_bed',
+      ids: [IDS.MURPHY, IDS.EAST_WEST],
+      w: 4,
+      label: 'Space-saving bed'
+    }, {
+      concept: 'type',
+      ids: [IDS.TEARDROP, IDS.TENT, IDS.AFRAME],
+      w: 4,
+      label: 'Compact body style'
+    }],
+    outdoor: [{
+      concept: 'outdoor',
+      ids: [IDS.OUTSIDE_KITCHEN],
+      w: 4,
+      label: 'Outside kitchen'
+    }, {
+      concept: 'traffic',
+      ids: [IDS.DUAL_ENTRY],
+      w: 4,
+      label: 'Dual entry'
+    }, {
+      concept: 'bath_entry',
+      ids: [IDS.BATH_ENTRY],
+      w: 4,
+      label: 'Outside bath entry'
+    }]
+  };
+  function activeLifestyleConcepts(session) {
+    const explicit = new Set();
+    session.prefs.forEach(p => explicit.add(p.concept));
+    session.avoids.forEach(p => explicit.add(p.concept));
+    Object.keys(session.gateSources || {}).forEach(k => {
+      const c = session.gateSources[k] && session.gateSources[k].concept;
+      if (c) explicit.add(c);
+    });
+    const seen = new Set(),
+      out = [];
+    (session.lifestylePaths || []).forEach(path => {
+      (LIFESTYLE_CONCEPTS[path] || []).forEach(c => {
+        if (explicit.has(c.concept) || seen.has(c.concept)) return;
+        seen.add(c.concept);
+        out.push(c);
+      });
+    });
+    return out;
+  }
+
+  // ------------------------------------------------------------------ QA severity (s11.1 / s19)
+  function qaPenalty(flag, g) {
+    switch (flag) {
+      case 'DUPLICATE_STOCKNUMBER':
+        return 5;
+      case 'UNKNOWN_CLASS':
+      case 'MISSING_CLASS_ID':
+        return 5;
+      case 'UNKNOWN_CONDITION':
+        return 5;
+      case 'MISSING_MAKE_ID':
+      case 'MISSING_MANUFACTURER_ID':
+      case 'MISSING_FLOORPLAN_ID':
+      case 'MISSING_CHARACTERISTICS':
+        return 3;
+      case 'UNKNOWN_CHARACTERISTIC_ID':
+        return 3;
+      case 'MISSING_PRICE':
+        return g.priceMax != null || g.priceMin != null ? 3 : 1;
+      case 'MISSING_GVWR':
+        return g.gvwrMax != null || g.gvwrMin != null ? 5 : 1;
+      case 'MISSING_LENGTH':
+        return g.lengthMaxFt != null || g.lengthMinFt != null ? 3 : 1;
+      case 'MISSING_SLEEP_COUNT':
+        return g.sleepsMin != null || g.sleepsMax != null ? 3 : 1;
+      case 'SUSPECT_LENGTH_UNIT':
+        return 3;
+      case 'IMPLAUSIBLE_PRICE':
+        return 3;
+      case 'UNKNOWN_LOCATION':
+      case 'UNKNOWN_SIDEWALL':
+      case 'LOCATION_CMF_MISMATCH':
+      case 'MANUFACTURER_MISMATCH':
+        return 1;
+      default:
+        return 1;
+    }
+  }
+
+  // ------------------------------------------------------------------ scoring (s11)
+  // ctx is built once per results run by buildScoringContext().
+  function buildScoringContext(session, candidateUnits) {
+    const g = effectiveGates(session);
+    const known = f => candidateUnits.map(u => u[f]).filter(v => v != null);
+    const range = arr => arr.length ? {
+      min: Math.min.apply(null, arr),
+      max: Math.max.apply(null, arr)
+    } : null;
+    const observedFlags = new Set();
+    candidateUnits.forEach(u => (u.qaFlags || []).forEach(f => observedFlags.add(f)));
+    let maxQA = 0;
+    observedFlags.forEach(f => {
+      maxQA += qaPenalty(f, g);
+    });
+    const prefs = session.prefs,
+      avoids = session.avoids;
+    const totalPrefPoints = prefs.reduce((s, p) => s + PREF_WEIGHT[p.strength], 0);
+    const totalMissAbs = prefs.reduce((s, p) => s + MISS_PENALTY[p.strength], 0) + avoids.reduce((s, a) => s + AVOID_PENALTY[a.strength], 0);
+    const lifestyle = activeLifestyleConcepts(session);
+    const totalLifestyle = lifestyle.reduce((s, c) => s + c.w, 0);
+    const requiredSleep = (session.sleepers.adults || 0) + (session.sleepers.children || 0);
+    return {
+      gates: g,
+      price: range(known('price')),
+      gvwr: range(known('gvwr')),
+      length: range(known('lengthIn')),
+      maxQA,
+      totalPrefPoints,
+      totalMissAbs,
+      lifestyle,
+      totalLifestyle,
+      requiredSleep,
+      minSlides: g.slidesMin || 0
+    };
+  }
+  function scoreUnit(unit, session, ctx) {
+    const g = ctx.gates;
+    const gateResult = evalGates(unit, g);
+    const rankGroup = rankGroupFor(unit, gateResult);
+    const reasons = [];
+    const comp = {};
+
+    // Base eligibility
+    if (rankGroup === 'INELIGIBLE') comp.base = 0;else if (rankGroup === 'PROBABLE_NEEDS_VERIFICATION') comp.base = unit.isLStock ? BASE_SCORE.PROBABLE_L : BASE_SCORE.PROBABLE_NEW;else comp.base = BASE_SCORE[rankGroup];
+    if (rankGroup === 'PROBABLE_NEEDS_VERIFICATION') reasons.push('Needs verification: missing ' + gateResult.unknown.join(', ') + ' data');
+    if (unit.isLStock) reasons.push('Floorplan example (L-stock), not a physical unit');
+
+    // Explicit preferences (normalized to 30)
+    let earned = 0,
+      missAbs = 0;
+    const hits = [],
+      misses = [];
+    session.prefs.forEach(p => {
+      if (hasAny(unit, p.ids)) {
+        earned += PREF_WEIGHT[p.strength];
+        hits.push(p.label);
+      } else {
+        missAbs += MISS_PENALTY[p.strength];
+        misses.push(p.label);
+      }
+    });
+    const avoided = [];
+    session.avoids.forEach(a => {
+      if (hasAny(unit, a.ids)) {
+        missAbs += AVOID_PENALTY[a.strength];
+        avoided.push(a.label);
+      }
+    });
+    comp.explicit = ctx.totalPrefPoints ? round2(30 * earned / ctx.totalPrefPoints) : 0;
+    if (hits.length) reasons.push('Matches: ' + hits.join(', '));
+    if (misses.length) reasons.push('Missing: ' + misses.join(', '));
+    if (avoided.length) reasons.push('Has avoided feature: ' + avoided.join(', '));
+
+    // Lifestyle defaults (normalized to 12)
+    let lEarned = 0;
+    const lHits = [];
+    ctx.lifestyle.forEach(c => {
+      if (hasAny(unit, c.ids)) {
+        lEarned += c.w;
+        lHits.push(c.label);
+      }
+    });
+    comp.lifestyle = ctx.totalLifestyle ? round2(12 * lEarned / ctx.totalLifestyle) : 0;
+    if (lHits.length) reasons.push('Lifestyle fit: ' + lHits.join(', '));
+
+    // Value / construction (max 8)
+    comp.construction = 0;
+    const sw = unit.sidewallConstruction;
+    if (session.sidewallPref === 'laminate') comp.construction = sw === 'LAMINATE' ? 8 : 0;else if (session.sidewallPref === 'value') comp.construction = sw === 'STT' ? 8 : sw === 'LAMINATE' ? 3 : 0;
+    if (comp.construction) reasons.push((sw === 'LAMINATE' ? 'Laminate' : 'STT') + ' construction matches your priority');
+
+    // Numeric priority (cap 7) - only when the shopper asked for it
+    let np = 0;
+    const npr = [];
+    const P = session.numericPriorities || {};
+    const rel = (v, r, invert) => {
+      if (v == null || !r || r.max === r.min) return 0;
+      const t = (v - r.min) / (r.max - r.min);
+      return invert ? 1 - t : t;
+    };
+    if (P.value && unit.price != null) {
+      const pts = 3 * rel(unit.price, ctx.price, true);
+      np += pts;
+      if (pts > 1.5) npr.push('lower price');
+    }
+    if (P.lightweight && unit.gvwr != null) {
+      const pts = 3 * rel(unit.gvwr, ctx.gvwr, true);
+      np += pts;
+      if (pts > 1.5) npr.push('lighter weight');
+    }
+    if (P.compact && unit.lengthIn != null) {
+      const pts = 3 * rel(unit.lengthIn, ctx.length, true);
+      np += pts;
+      if (pts > 1.5) npr.push('shorter length');
+    }
+    if (P.sleepFlex && unit.sleeps != null) {
+      const extra = Math.max(0, unit.sleeps - ctx.requiredSleep);
+      const pts = 2 * Math.min(1, extra / 4);
+      np += pts;
+      if (pts > 0) npr.push('extra sleeping');
+    }
+    if (P.space && unit.slides != null) {
+      const extra = Math.max(0, unit.slides - ctx.minSlides);
+      const pts = 2 * Math.min(1, extra / 2);
+      np += pts;
+      if (pts > 0) npr.push('more slide space');
+    }
+    if (P.simple && unit.slides != null) {
+      const pts = unit.slides === 0 ? 2 : unit.slides === 1 ? 1 : 0;
+      np += pts;
+      if (pts > 0) npr.push('simpler setup');
+    }
+    comp.numeric = round2(Math.min(7, np));
+    if (npr.length) reasons.push('Priority fit: ' + npr.join(', '));
+
+    // Miss adjustment (normalized to -12)
+    comp.miss = ctx.totalMissAbs ? round2(-12 * missAbs / ctx.totalMissAbs) : 0;
+
+    // QA adjustment (normalized to -8 against the flags observed in the candidate set)
+    let qa = 0;
+    (unit.qaFlags || []).forEach(f => {
+      qa += qaPenalty(f, g);
+    });
+    comp.qa = ctx.maxQA ? round2(-8 * qa / ctx.maxQA) : 0;
+    if (unit.qaFlags && unit.qaFlags.length) reasons.push('Data quality: ' + unit.qaFlags.map(f => f.toLowerCase().replace(/_/g, ' ')).join(', '));
+    const final = round2(comp.base + comp.explicit + comp.lifestyle + comp.construction + comp.numeric + comp.miss + comp.qa);
+    return {
+      rankGroup,
+      gateResult,
+      final,
+      display: Math.max(0, Math.min(100, Math.round(final))),
+      components: comp,
+      reasons,
+      hits,
+      misses,
+      avoided
+    };
+  }
+  function sortScored(a, b, session) {
+    const P = session.numericPriorities || {};
+    let d = RANK_ORDER[a.score.rankGroup] - RANK_ORDER[b.score.rankGroup];
+    if (d) return d;
+    d = b.score.final - a.score.final;
+    if (d) return d;
+    d = b.score.components.explicit - a.score.components.explicit;
+    if (d) return d;
+    d = b.score.components.lifestyle - a.score.components.lifestyle;
+    if (d) return d;
+    d = b.score.components.construction - a.score.components.construction;
+    if (d) return d;
+    d = b.score.components.numeric - a.score.components.numeric;
+    if (d) return d;
+    if (P.value) {
+      d = (a.unit.price == null) - (b.unit.price == null) || a.unit.price - b.unit.price;
+      if (d) return d;
+    }
+    if (P.lightweight) {
+      d = (a.unit.gvwr == null) - (b.unit.gvwr == null) || a.unit.gvwr - b.unit.gvwr;
+      if (d) return d;
+    }
+    if (P.compact) {
+      d = (a.unit.lengthIn == null) - (b.unit.lengthIn == null) || a.unit.lengthIn - b.unit.lengthIn;
+      if (d) return d;
+    }
+    return String(a.unit.stocknumber).localeCompare(String(b.unit.stocknumber));
+  }
+  function rankResults(units, session) {
+    const g = effectiveGates(session);
+    const c = candidates(units, g);
+    const pool = c.verified.concat(c.probable);
+    const ctx = buildScoringContext(session, pool);
+    const scored = pool.map(u => ({
+      unit: u,
+      score: scoreUnit(u, session, ctx)
+    }));
+    scored.sort((a, b) => sortScored(a, b, session));
+    const groups = {
+      VERIFIED_AVAILABLE: [],
+      VERIFIED_L_STOCK_EXAMPLE: [],
+      PROBABLE_NEEDS_VERIFICATION: []
+    };
+    scored.forEach(s => groups[s.score.rankGroup].push(s));
+    return {
+      groups,
+      all: scored,
+      ineligible: c.ineligible,
+      ctx,
+      gates: g
+    };
+  }
+
+  // ------------------------------------------------------------------ payment / budget (s10)
+  function principalFromPayment(payment, apr, months) {
+    if (!apr) return payment * months;
+    const r = apr / 100 / 12;
+    return payment * (1 - Math.pow(1 + r, -months)) / r;
+  }
+  function roundTo500(v) {
+    return Math.round(v / 500) * 500;
+  }
+
+  // Returns {valid, apr, termMonths, principal, ceiling, taxRate, taxIsFallback, message}
+  function solveFinanceCeiling(opts) {
+    const payment = Number(opts.monthlyPayment) || 0;
+    const down = Number(opts.downPayment) || 0;
+    const apr = APR_BY_TIER[opts.creditTier] != null ? APR_BY_TIER[opts.creditTier] : APR_BY_TIER.good;
+    const taxRate = opts.taxRate != null ? opts.taxRate : FALLBACK_TAX;
+    if (payment <= 0) return {
+      valid: false,
+      message: 'Enter a monthly payment to estimate a buying range.'
+    };
+    let best = null;
+    TERM_BANDS.forEach(b => {
+      const p = principalFromPayment(payment, apr, b.months);
+      const inBand = p >= b.lo && (b.hi === Infinity ? true : p < b.hi);
+      if (inBand && (!best || p > best.principal)) best = {
+        principal: p,
+        months: b.months
+      };
+    });
+    if (!best) {
+      return {
+        valid: false,
+        apr,
+        taxRate,
+        message: 'That payment is too low to finance an RV in our term bands. Budget will not be applied as a filter.'
+      };
+    }
+    const ceiling = roundTo500((best.principal + down) / (1 + taxRate));
+    return {
+      valid: ceiling > 0,
+      apr,
+      termMonths: best.months,
+      principal: Math.round(best.principal),
+      downPayment: down,
+      taxRate,
+      taxIsFallback: opts.taxRate == null,
+      ceiling,
+      message: opts.taxRate == null ? 'Estimated using 6% tax until a store is selected. Final buying range may update based on store tax rate.' : null
+    };
+  }
+  function cashCeiling(maxSpend) {
+    const v = Number(maxSpend);
+    return v > 0 ? {
+      valid: true,
+      ceiling: roundTo500(v)
+    } : {
+      valid: false,
+      message: 'Enter a maximum spend.'
+    };
+  }
+
+  // Recompute the finance ceiling when a store becomes known (s10.3).
+  function applyStoreTax(session, snapshot) {
+    const b = session.budget;
+    if (!session.store || !snapshot.lookups || !snapshot.lookups.rooftops) return false;
+    const r = snapshot.lookups.rooftops[session.store];
+    if (!r || r.salesTaxRate == null) return false;
+    b.taxRate = r.salesTaxRate;
+    b.taxIsFallback = false;
+    if (b.mode === 'finance' && b.detail) {
+      const res = solveFinanceCeiling(Object.assign({}, b.detail, {
+        taxRate: r.salesTaxRate
+      }));
+      if (res.valid) {
+        b.priceCeiling = res.ceiling;
+        session.gates.priceMax = res.ceiling;
+        b.solved = res;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // ------------------------------------------------------------------ zero-result recovery (s16)
+  function gateLabel(key, session) {
+    const g = session.gates;
+    switch (key) {
+      case 'gvwrMax':
+        return 'Max GVWR ' + Math.round(g.gvwrMax).toLocaleString('en-US') + ' lbs';
+      case 'lengthMaxFt':
+        return 'Max length ' + g.lengthMaxFt + ' ft';
+      case 'priceMax':
+        return 'Max price ' + money(g.priceMax);
+      case 'sleepsMin':
+        return 'Sleeps at least ' + g.sleepsMin;
+      case 'slidesMin':
+        return 'At least ' + g.slidesMin + ' slides';
+      case 'sidewall':
+        return g.sidewall + ' sidewall required';
+      case 'classes':
+        return 'Type: ' + g.classes.join('/');
+      default:
+        return key;
+    }
+  }
+  function relaxationCandidates(units, session, snapshot) {
+    const g = session.gates;
+    const out = [];
+    // Relaxations use REPLACE semantics (a list gate is replaced, not appended to).
+    const relaxed = patch => counts(units, applyRelaxation(g, {
+      patch
+    }));
+    const tryPatch = (key, label, patch, delta, opts) => {
+      const c = relaxed(patch);
+      out.push(Object.assign({
+        key,
+        label,
+        patch,
+        delta,
+        unlocked: c.total,
+        verified: c.verified,
+        floorplans: c.floorplans
+      }, opts || {}));
+    };
+    if (g.gvwrMax != null) {
+      for (let step = 500; step <= 6000; step += 500) {
+        if (relaxed({
+          gvwrMax: g.gvwrMax + step
+        }).total > 0) {
+          tryPatch('gvwrMax', 'Increase max GVWR to ' + Math.round(g.gvwrMax + step).toLocaleString('en-US') + ' lbs', {
+            gvwrMax: g.gvwrMax + step
+          }, step / 500, {
+            safety: true,
+            numeric: true
+          });
+          break;
+        }
+      }
+      tryPatch('gvwrMax', 'Remove the tow-weight limit', {
+        gvwrMax: null
+      }, 99, {
+        safety: true,
+        numeric: true
+      });
+    }
+    if (g.lengthMaxFt != null) {
+      for (let step = 1; step <= 12; step++) {
+        if (relaxed({
+          lengthMaxFt: g.lengthMaxFt + step
+        }).total > 0) {
+          tryPatch('lengthMaxFt', 'Increase max length to ' + (g.lengthMaxFt + step) + ' ft', {
+            lengthMaxFt: g.lengthMaxFt + step
+          }, step, {
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.priceMax != null) {
+      for (let step = 1; step <= 20; step++) {
+        const v = g.priceMax + step * 1000;
+        if (relaxed({
+          priceMax: v
+        }).total > 0) {
+          tryPatch('priceMax', 'Increase max price to ' + money(v), {
+            priceMax: v
+          }, step, {
+            payment: true,
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.sleepsMin != null && g.sleepsMin > 1) {
+      for (let step = 1; step < g.sleepsMin; step++) {
+        if (relaxed({
+          sleepsMin: g.sleepsMin - step
+        }).total > 0) {
+          tryPatch('sleepsMin', 'Lower minimum sleep count to ' + (g.sleepsMin - step), {
+            sleepsMin: g.sleepsMin - step
+          }, step, {
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.slidesMin != null && g.slidesMin > 0) tryPatch('slidesMin', 'Drop the minimum slide count', {
+      slidesMin: null
+    }, 1, {
+      numeric: true
+    });
+    (g.requiredAnyOf || []).forEach((set, i) => {
+      const rest = g.requiredAnyOf.filter((_, j) => j !== i);
+      const key = set === BUNK_IDS || set.join() === BUNK_IDS.join() ? 'bunks' : 'requiredAnyOf';
+      tryPatch(key, 'Make "' + (key === 'bunks' ? 'bunks' : 'that feature') + '" a preference instead of a must-have', {
+        requiredAnyOf: rest
+      }, 1, {
+        replaceKey: 'requiredAnyOf'
+      });
+    });
+    (g.requiredChars || []).forEach(id => {
+      const rest = g.requiredChars.filter(x => x !== id);
+      const name = snapshot && snapshot.lookups.characteristicTypes[String(id)] ? snapshot.lookups.characteristicTypes[String(id)].name : 'feature ' + id;
+      const key = id === IDS.PRIVATE_MASTER ? 'privateMaster' : id === IDS.OUTSIDE_KITCHEN ? 'outsideKitchen' : 'requiredChars';
+      tryPatch(key, 'Make "' + name + '" flexible instead of required', {
+        requiredChars: rest
+      }, 1, {
+        replaceKey: 'requiredChars'
+      });
+    });
+    if (g.sidewall) tryPatch('sidewall', 'Open sidewall construction to either type', {
+      sidewall: null
+    }, 1);
+    if (g.classes && g.classes.length) tryPatch('classes', 'Widen the RV type', {
+      classes: []
+    }, 1, {
+      type: true
+    });
+    return out;
+  }
+
+  // Apply a relaxation patch to a gate object (replace semantics for list gates).
+  function applyRelaxation(gates, action) {
+    const g = clone(gates);
+    Object.keys(action.patch).forEach(k => {
+      g[k] = action.patch[k];
+    });
+    return g;
+  }
+  function compareRelaxations(a, b) {
+    if (b.unlocked !== a.unlocked) return b.unlocked - a.unlocked; // most inventory unlocked
+    if (!!a.safety !== !!b.safety) return a.safety ? 1 : -1; // non-safety before safety
+    if (!!a.payment !== !!b.payment) return a.payment ? 1 : -1; // shopper gates before payment
+    if (!!a.numeric !== !!b.numeric) return a.numeric ? -1 : 1; // numeric before type/class
+    if (!!a.type !== !!b.type) return a.type ? 1 : -1;
+    if ((a.delta || 0) !== (b.delta || 0)) return (a.delta || 0) - (b.delta || 0); // smallest change
+    if (b.floorplans !== a.floorplans) return b.floorplans - a.floorplans; // more floorplans
+    return GATE_PRECEDENCE.indexOf(a.key) - GATE_PRECEDENCE.indexOf(b.key);
+  }
+
+  // Returns exactly two actions (or fewer if the gate set has nothing to relax).
+  function zeroResultRecovery(units, session, snapshot) {
+    const singles = relaxationCandidates(units, session, snapshot);
+    let cands = singles.filter(c => c.unlocked > 0);
+    // s16.1 step 3: fall back to gate pairs when singles cannot supply two distinct actions.
+    const distinctSingleKeys = new Set(cands.map(c => c.key));
+    if (distinctSingleKeys.size < 2) {
+      for (let i = 0; i < singles.length; i++) for (let j = i + 1; j < singles.length; j++) {
+        if (singles[i].key === singles[j].key) continue;
+        const g1 = applyRelaxation(session.gates, singles[i]);
+        const g2 = applyRelaxation(g1, singles[j]);
+        const c = counts(units, g2);
+        if (c.total > 0) cands.push({
+          key: singles[i].key + '+' + singles[j].key,
+          label: singles[i].label + ' and ' + singles[j].label.charAt(0).toLowerCase() + singles[j].label.slice(1),
+          patch: Object.assign({}, singles[i].patch, singles[j].patch),
+          delta: (singles[i].delta || 0) + (singles[j].delta || 0),
+          unlocked: c.total,
+          verified: c.verified,
+          floorplans: c.floorplans,
+          safety: singles[i].safety || singles[j].safety,
+          payment: singles[i].payment || singles[j].payment,
+          numeric: singles[i].numeric && singles[j].numeric,
+          type: singles[i].type || singles[j].type
+        });
+      }
+    }
+    // Singles are the primary paths (s16.1 steps 1-2); pairs only fill remaining slots (step 3).
+    const singlesOnly = cands.filter(c => c.key.indexOf('+') === -1).sort(compareRelaxations);
+    const pairsOnly = cands.filter(c => c.key.indexOf('+') !== -1).sort(compareRelaxations);
+    cands = singlesOnly.concat(pairsOnly);
+    // de-duplicate by primary key so the two actions are genuinely different paths
+    const seen = new Set(),
+      picked = [];
+    for (let i = 0; i < cands.length && picked.length < 2; i++) {
+      const k = cands[i].key.split('+')[0];
+      if (seen.has(k)) continue;
+      seen.add(k);
+      picked.push(cands[i]);
+    }
+    picked.forEach(p => {
+      if (p.safety) p.qualifier = 'Requires advisor/tow verification.';
+    });
+    return picked;
+  }
+  function limitingCombination(session, snapshot) {
+    const g = session.gates,
+      parts = [];
+    if (g.classes.length) parts.push(g.classes.map(c => (snapshot.lookups.classes[c] || {}).description || c).join('/'));
+    if (g.priceMax != null) parts.push('max ' + money(g.priceMax));
+    if (g.gvwrMax != null) parts.push('max GVWR ' + Math.round(g.gvwrMax).toLocaleString('en-US'));
+    if (g.lengthMaxFt != null) parts.push('max ' + g.lengthMaxFt + ' ft');
+    if (g.sleepsMin != null) parts.push('sleeps ' + g.sleepsMin + '+');
+    (g.requiredAnyOf || []).forEach(s => parts.push(s.join() === BUNK_IDS.join() ? 'bunks required' : 'feature required'));
+    (g.requiredChars || []).forEach(id => parts.push((snapshot.lookups.characteristicTypes[String(id)] || {
+      name: id
+    }).name + ' required'));
+    if (g.sidewall) parts.push(g.sidewall + ' sidewall');
+    return parts.join(' + ');
+  }
+  return {
+    QUESTIONNAIRE_VERSION,
+    SCORING_VERSION,
+    IDS,
+    BUNK_IDS,
+    SLIDE_IDS,
+    TOY_BED_IDS,
+    MOTORHOME_CLASSES,
+    TOWABLE_CLASSES,
+    TOY_CLASSES,
+    COMPACT_CLASSES,
+    SIDEWALL_CLASSES,
+    PREF_WEIGHT,
+    MISS_PENALTY,
+    AVOID_PENALTY,
+    BASE_SCORE,
+    RANK_ORDER,
+    APR_BY_TIER,
+    TERM_BANDS,
+    FALLBACK_TAX,
+    LIFESTYLE_CONCEPTS,
+    SAFETY_GATES,
+    PAYMENT_GATES,
+    hasAny,
+    hasAll,
+    hasFlag,
+    hasBunks,
+    clone,
+    lengthDisplay,
+    money,
+    emptyGates,
+    newSession,
+    evalGates,
+    rankGroupFor,
+    effectiveGates,
+    candidates,
+    counts,
+    previewGate,
+    previewBoost,
+    activeLifestyleConcepts,
+    qaPenalty,
+    buildScoringContext,
+    scoreUnit,
+    rankResults,
+    principalFromPayment,
+    solveFinanceCeiling,
+    cashCeiling,
+    applyStoreTax,
+    roundTo500,
+    relaxationCandidates,
+    zeroResultRecovery,
+    limitingCombination,
+    gateLabel
+  };
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "conversions/outfitter-discovery/data/engine.js", error: String((e && e.message) || e) }); }
+
+// conversions/wayfinder/data/engine.js
+try { (() => {
+// Source: wayfinder_v2_connected_configurator.html — decision engine (spec v1.1). Carried over unchanged: business logic, not UI.
+/*
+ * Bish RV Adaptive Discovery Configurator - decision engine.
+ * Implements handoff spec v1.1: hard gates (s9), candidate-aware option evaluation (s8),
+ * rank groups + scoring (s11), payment/budget math (s10), zero-result recovery (s16).
+ *
+ * Plain script, no dependencies. Works in the browser (window.Engine) and in Node
+ * (module.exports) so the same rules can be unit-tested and later hosted server-side
+ * behind the s18 endpoints.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();else root.Engine = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  const QUESTIONNAIRE_VERSION = '1.1.0';
+  const SCORING_VERSION = '1.1.0';
+
+  // ------------------------------------------------------------------ characteristic ids
+  const IDS = {
+    DISH: 1,
+    WASH: 2,
+    DOUBLE_BATH: 3,
+    DUAL_VANITY: 4,
+    FRONT_BATH: 5,
+    REAR_BATH: 6,
+    WALK_THRU: 7,
+    WETBATH: 8,
+    DUAL_QUEEN: 9,
+    EAST_WEST: 10,
+    LOFT: 11,
+    MURPHY: 12,
+    TWIN_CONV: 13,
+    TENT: 14,
+    PRIVATE_MASTER: 15,
+    TOY_SINGLE: 17,
+    TOY_DOUBLE: 18,
+    DOUBLE_BUNKS: 19,
+    MID_BUNK: 20,
+    PRIVATE_BUNK_ROOM: 21,
+    QUAD_BUNKS: 22,
+    SINGLE_BUNKS: 23,
+    TRIPLE_BUNKS: 24,
+    BATH_ENTRY: 25,
+    DUAL_ENTRY: 26,
+    CARGO_DOOR: 27,
+    RAMP: 28,
+    FRONT_KITCHEN: 29,
+    REAR_KITCHEN: 30,
+    L_KITCHEN: 31,
+    ISLAND_KITCHEN: 32,
+    U_KITCHEN: 33,
+    FRONT_LIVING: 34,
+    REAR_DINETTE: 35,
+    REAR_LIVING: 36,
+    REAR_ENT: 37,
+    PRIVATE_OFFICE: 38,
+    OUTSIDE_KITCHEN: 39,
+    FRONT_CAP_WINDOW: 40,
+    SIDE_PATIO: 41,
+    REAR_PATIO: 42,
+    BED_SLIDE: 43,
+    WARDROBE_SLIDE: 44,
+    FULL_WALL: 45,
+    SUPER_SLIDE: 46,
+    EXTENDED_SLIDE: 47,
+    STANDARD_SLIDE: 48,
+    TEARDROP: 49,
+    AFRAME: 50
+  };
+  const BUNK_IDS = [19, 20, 21, 22, 23, 24];
+  const SLIDE_IDS = [43, 44, 45, 46, 47, 48];
+  const TOY_BED_IDS = [17, 18];
+  const MOTORHOME_CLASSES = ['AD', 'AG', 'B', 'C', 'CD'];
+  const TOWABLE_CLASSES = ['TT', 'FW', 'TTTH', 'FWTH', 'HTT', 'FD', 'AT', 'TC', 'DT'];
+  const TOY_CLASSES = ['TTTH', 'FWTH'];
+  const COMPACT_CLASSES = ['TC', 'B', 'FD', 'HTT', 'AT'];
+  const SIDEWALL_CLASSES = ['TT', 'FW', 'TTTH', 'FWTH', 'TC', 'DT', 'HTT', 'FD', 'AT'];
+
+  // Spec s11.1 weights.
+  const PREF_WEIGHT = {
+    strongly: 12,
+    prefer: 8,
+    nice: 4,
+    flexible: 6
+  };
+  const MISS_PENALTY = {
+    strongly: 6,
+    prefer: 4,
+    nice: 2,
+    flexible: 2
+  };
+  const AVOID_PENALTY = {
+    avoid: 6,
+    strong: 10
+  };
+  const BASE_SCORE = {
+    VERIFIED_AVAILABLE: 50,
+    VERIFIED_L_STOCK_EXAMPLE: 45,
+    PROBABLE_NEW: 40,
+    PROBABLE_L: 35
+  };
+  const RANK_ORDER = {
+    VERIFIED_AVAILABLE: 1,
+    VERIFIED_L_STOCK_EXAMPLE: 2,
+    PROBABLE_NEEDS_VERIFICATION: 3,
+    INELIGIBLE: 9
+  };
+
+  // Spec s16.2 step 7 fixed precedence (lower = relax first).
+  const GATE_PRECEDENCE = ['gvwrMax', 'lengthMaxFt', 'priceMax', 'sleepsMin', 'slidesMin', 'bunks', 'privateMaster', 'outsideKitchen', 'sidewall', 'classes'];
+  const SAFETY_GATES = ['gvwrMax'];
+  const PAYMENT_GATES = ['priceMax', 'priceMin'];
+
+  // Spec s10.2.
+  const APR_BY_TIER = {
+    fair: 12.0,
+    good: 9.0,
+    veryGood: 6.99
+  };
+  const TERM_BANDS = [{
+    lo: 5000,
+    hi: 20000,
+    months: 120
+  }, {
+    lo: 20000,
+    hi: 25000,
+    months: 144
+  }, {
+    lo: 25000,
+    hi: 60000,
+    months: 180
+  }, {
+    lo: 60000,
+    hi: Infinity,
+    months: 240
+  }];
+  const FALLBACK_TAX = 0.06;
+
+  // ------------------------------------------------------------------ helpers
+  const hasAny = (unit, ids) => {
+    const ch = unit.characteristicTypeIds;
+    if (!ch || !ch.length) return false;
+    for (let i = 0; i < ids.length; i++) if (ch.indexOf(ids[i]) !== -1) return true;
+    return false;
+  };
+  const hasAll = (unit, ids) => ids.every(id => unit.characteristicTypeIds && unit.characteristicTypeIds.indexOf(id) !== -1);
+  const hasFlag = (unit, f) => unit.qaFlags && unit.qaFlags.indexOf(f) !== -1;
+  const hasBunks = unit => hasAny(unit, BUNK_IDS);
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const round2 = v => Math.round(v * 100) / 100;
+  function lengthDisplay(inches) {
+    if (inches == null) return null;
+    const ft = Math.floor(inches / 12);
+    const rem = Math.round(inches - ft * 12);
+    return rem ? `${ft} ft ${rem} in` : `${ft} ft`;
+  }
+  function money(v) {
+    return v == null ? null : '$' + Math.round(v).toLocaleString('en-US');
+  }
+  function emptyGates() {
+    return {
+      classes: [],
+      // shopper-facing class codes; empty = no type gate
+      priceMax: null,
+      priceMin: null,
+      gvwrMax: null,
+      gvwrMin: null,
+      lengthMaxFt: null,
+      lengthMinFt: null,
+      sleepsMin: null,
+      sleepsMax: null,
+      slidesMin: null,
+      slidesMax: null,
+      requiredChars: [],
+      // every id required (AND)
+      requiredAnyOf: [],
+      // array of id arrays; unit must have at least one id from each array
+      forbiddenChars: [],
+      sidewall: null,
+      // 'LAMINATE' | 'STT'
+      lStock: 'include',
+      // 'include' | 'exclude' | 'only' (refinement only)
+      keyword: null,
+      locations: []
+    };
+  }
+  function newSession(snapshot) {
+    return {
+      sessionId: 'S-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 8),
+      inventorySnapshotId: snapshot && snapshot.meta ? snapshot.meta.inventorySnapshotId : null,
+      questionnaireVersion: QUESTIONNAIRE_VERSION,
+      scoringVersion: SCORING_VERSION,
+      createdAt: new Date().toISOString(),
+      branch: null,
+      // resolved branch path (s5)
+      gates: emptyGates(),
+      gateSources: {},
+      // gateKey -> questionId that set it
+      prefs: [],
+      // {key, concept, label, ids, strength}
+      avoids: [],
+      // {key, concept, label, ids, strength}
+      numericPriorities: {},
+      // value, lightweight, compact, sleepFlex, space, simple
+      sidewallPref: null,
+      // 'laminate' | 'value' | null
+      lifestylePaths: [],
+      // family, couple, extended, toy, compact, outdoor
+      sleepers: {
+        adults: null,
+        children: null
+      },
+      tow: {
+        applies: null,
+        rating: null,
+        mode: 'derived'
+      },
+      budget: {
+        mode: null,
+        priceCeiling: null,
+        taxRate: FALLBACK_TAX,
+        taxIsFallback: true,
+        detail: null
+      },
+      store: null,
+      answers: {},
+      // questionId -> raw answer
+      refine: emptyGates(),
+      // s15.3 refinement layer, stored separately from answers
+      refineActive: false
+    };
+  }
+
+  // ------------------------------------------------------------------ gates (s9)
+  // Returns {status: 'pass'|'fail'|'unknown', failed: [...], unknown: [...]}
+  function evalGates(unit, g) {
+    const failed = [],
+      unknown = [];
+    if (g.lStock === 'exclude' && unit.isLStock) failed.push('lStock');
+    if (g.lStock === 'only' && !unit.isLStock) failed.push('lStock');
+    if (g.classes && g.classes.length) {
+      if (!unit.class || hasFlag(unit, 'UNKNOWN_CLASS')) failed.push('classes');else if (g.classes.indexOf(unit.class) === -1) failed.push('classes');
+    }
+    if (g.locations && g.locations.length && g.locations.indexOf(unit.location) === -1) failed.push('locations');
+    if (g.priceMax != null || g.priceMin != null) {
+      if (unit.price == null) unknown.push('price');else if (g.priceMax != null && unit.price > g.priceMax) failed.push('priceMax');else if (g.priceMin != null && unit.price < g.priceMin) failed.push('priceMin');
+    }
+    if (g.gvwrMax != null || g.gvwrMin != null) {
+      if (unit.gvwr == null) unknown.push('gvwr');else if (g.gvwrMax != null && unit.gvwr > g.gvwrMax) failed.push('gvwrMax');else if (g.gvwrMin != null && unit.gvwr < g.gvwrMin) failed.push('gvwrMin');
+    }
+    if (g.lengthMaxFt != null || g.lengthMinFt != null) {
+      if (unit.lengthIn == null) unknown.push('length');else if (g.lengthMaxFt != null && unit.lengthIn > g.lengthMaxFt * 12) failed.push('lengthMaxFt');else if (g.lengthMinFt != null && unit.lengthIn < g.lengthMinFt * 12) failed.push('lengthMinFt');
+    }
+    if (g.sleepsMin != null || g.sleepsMax != null) {
+      if (unit.sleeps == null) unknown.push('sleeps');else if (g.sleepsMin != null && unit.sleeps < g.sleepsMin) failed.push('sleepsMin');else if (g.sleepsMax != null && unit.sleeps > g.sleepsMax) failed.push('sleepsMax');
+    }
+    if (g.slidesMin != null || g.slidesMax != null) {
+      if (unit.slides == null) unknown.push('slides');else if (g.slidesMin != null && unit.slides < g.slidesMin) failed.push('slidesMin');else if (g.slidesMax != null && unit.slides > g.slidesMax) failed.push('slidesMax');
+    }
+    const noCharData = hasFlag(unit, 'MISSING_CHARACTERISTICS');
+    if (g.requiredChars && g.requiredChars.length) {
+      if (noCharData) unknown.push('requiredChars');else if (!hasAll(unit, g.requiredChars)) failed.push('requiredChars');
+    }
+    if (g.requiredAnyOf && g.requiredAnyOf.length) {
+      for (let i = 0; i < g.requiredAnyOf.length; i++) {
+        if (noCharData) {
+          unknown.push('requiredAnyOf');
+          break;
+        }
+        if (!hasAny(unit, g.requiredAnyOf[i])) {
+          failed.push('requiredAnyOf');
+          break;
+        }
+      }
+    }
+    if (g.forbiddenChars && g.forbiddenChars.length && hasAny(unit, g.forbiddenChars)) failed.push('forbiddenChars');
+    if (g.sidewall) {
+      if (!unit.sidewallConstruction || unit.sidewallConstruction === 'UNKNOWN') unknown.push('sidewall');else if (unit.sidewallConstruction !== g.sidewall) failed.push('sidewall');
+    }
+    if (g.keyword) {
+      const k = g.keyword.toLowerCase();
+      const text = [unit.stocknumber, unit.manufacturer, unit.make, unit.model, unit.location, unit.year].join(' ').toLowerCase();
+      if (text.indexOf(k) === -1) failed.push('keyword');
+    }
+    return {
+      status: failed.length ? 'fail' : unknown.length ? 'unknown' : 'pass',
+      failed,
+      unknown
+    };
+  }
+  function rankGroupFor(unit, gateResult) {
+    if (gateResult.status === 'fail') return 'INELIGIBLE';
+    if (gateResult.status === 'unknown') return 'PROBABLE_NEEDS_VERIFICATION';
+    return unit.isLStock ? 'VERIFIED_L_STOCK_EXAMPLE' : 'VERIFIED_AVAILABLE';
+  }
+
+  // Merge the questionnaire gates with the refinement layer (refinement never rewrites answers).
+  function effectiveGates(session) {
+    if (!session.refineActive) return session.gates;
+    const g = clone(session.gates),
+      r = session.refine;
+    const tighterMax = (a, b) => a == null ? b : b == null ? a : Math.min(a, b);
+    const tighterMin = (a, b) => a == null ? b : b == null ? a : Math.max(a, b);
+    if (r.classes && r.classes.length) g.classes = g.classes.length ? g.classes.filter(c => r.classes.indexOf(c) !== -1) : r.classes.slice();
+    g.priceMax = tighterMax(g.priceMax, r.priceMax);
+    g.priceMin = tighterMin(g.priceMin, r.priceMin);
+    g.gvwrMax = tighterMax(g.gvwrMax, r.gvwrMax);
+    g.gvwrMin = tighterMin(g.gvwrMin, r.gvwrMin);
+    g.lengthMaxFt = tighterMax(g.lengthMaxFt, r.lengthMaxFt);
+    g.lengthMinFt = tighterMin(g.lengthMinFt, r.lengthMinFt);
+    g.sleepsMin = tighterMin(g.sleepsMin, r.sleepsMin);
+    g.sleepsMax = tighterMax(g.sleepsMax, r.sleepsMax);
+    g.slidesMin = tighterMin(g.slidesMin, r.slidesMin);
+    g.slidesMax = tighterMax(g.slidesMax, r.slidesMax);
+    g.requiredChars = g.requiredChars.concat(r.requiredChars.filter(id => g.requiredChars.indexOf(id) === -1));
+    g.requiredAnyOf = g.requiredAnyOf.concat(r.requiredAnyOf);
+    g.forbiddenChars = g.forbiddenChars.concat(r.forbiddenChars.filter(id => g.forbiddenChars.indexOf(id) === -1));
+    if (r.sidewall) g.sidewall = r.sidewall;
+    if (r.lStock && r.lStock !== 'include') g.lStock = r.lStock;
+    if (r.keyword) g.keyword = r.keyword;
+    if (r.locations && r.locations.length) g.locations = r.locations.slice();
+    return g;
+  }
+
+  // Split a unit list into verified / probable / ineligible under a gate set.
+  function candidates(units, gates) {
+    const verified = [],
+      probable = [];
+    let ineligible = 0;
+    for (let i = 0; i < units.length; i++) {
+      const u = units[i];
+      const r = evalGates(u, gates);
+      if (r.status === 'fail') ineligible++;else if (r.status === 'unknown') probable.push(u);else verified.push(u);
+    }
+    return {
+      verified,
+      probable,
+      ineligible
+    };
+  }
+  function counts(units, gates) {
+    let verified = 0,
+      probable = 0;
+    const fps = new Set();
+    for (let i = 0; i < units.length; i++) {
+      const r = evalGates(units[i], gates);
+      if (r.status === 'fail') continue;
+      if (r.status === 'unknown') probable++;else verified++;
+      if (units[i].floorplanId != null) fps.add(units[i].floorplanId);
+    }
+    return {
+      verified,
+      probable,
+      total: verified + probable,
+      floorplans: fps.size
+    };
+  }
+
+  // Candidate-aware preview of a gate patch (s8.1 steps 1-4).
+  function previewGate(units, gates, patch) {
+    const g = clone(gates);
+    Object.keys(patch || {}).forEach(k => {
+      if (k === 'requiredChars') g.requiredChars = g.requiredChars.concat(patch[k].filter(id => g.requiredChars.indexOf(id) === -1));else if (k === 'requiredAnyOf') g.requiredAnyOf = g.requiredAnyOf.concat(patch[k]);else if (k === 'forbiddenChars') g.forbiddenChars = g.forbiddenChars.concat(patch[k]);else g[k] = patch[k];
+    });
+    return {
+      gates: g,
+      counts: counts(units, g)
+    };
+  }
+
+  // Ranking-only preview (s8.1 step 5) - how many current candidates would be boosted.
+  function previewBoost(candidateUnits, ids) {
+    let n = 0;
+    for (let i = 0; i < candidateUnits.length; i++) if (hasAny(candidateUnits[i], ids)) n++;
+    return n;
+  }
+
+  // ------------------------------------------------------------------ lifestyle defaults (s11.1)
+  // Fallback ranking concepts for questions the shopper skipped; an explicit answer for the
+  // same concept always wins (no double counting).
+  const LIFESTYLE_CONCEPTS = {
+    family: [{
+      concept: 'child_sleep',
+      ids: BUNK_IDS,
+      w: 4,
+      label: 'Bunks for kids'
+    }, {
+      concept: 'adult_privacy',
+      ids: [IDS.PRIVATE_MASTER],
+      w: 3,
+      label: 'Private master'
+    }, {
+      concept: 'bath',
+      ids: [IDS.DOUBLE_BATH],
+      w: 3,
+      label: 'Second bathroom'
+    }, {
+      concept: 'outdoor',
+      ids: [IDS.OUTSIDE_KITCHEN],
+      w: 2,
+      label: 'Outside kitchen'
+    }],
+    couple: [{
+      concept: 'adult_privacy',
+      ids: [IDS.PRIVATE_MASTER],
+      w: 4,
+      label: 'Private master'
+    }, {
+      concept: 'living',
+      ids: [IDS.REAR_LIVING],
+      w: 4,
+      label: 'Rear living'
+    }, {
+      concept: 'slide_bed',
+      ids: [IDS.BED_SLIDE],
+      w: 2,
+      label: 'Bed slide'
+    }, {
+      concept: 'kitchen',
+      ids: [IDS.ISLAND_KITCHEN, IDS.L_KITCHEN],
+      w: 2,
+      label: 'Island / L kitchen'
+    }],
+    extended: [{
+      concept: 'amenity_wd',
+      ids: [IDS.WASH],
+      w: 4,
+      label: 'Washer/dryer prep'
+    }, {
+      concept: 'kitchen',
+      ids: [IDS.ISLAND_KITCHEN],
+      w: 3,
+      label: 'Island kitchen'
+    }, {
+      concept: 'amenity_dw',
+      ids: [IDS.DISH],
+      w: 2,
+      label: 'Dishwasher prep'
+    }, {
+      concept: 'slide_wardrobe',
+      ids: [IDS.WARDROBE_SLIDE],
+      w: 3,
+      label: 'Wardrobe slide'
+    }],
+    toy: [{
+      concept: 'garage_sleep',
+      ids: TOY_BED_IDS,
+      w: 4,
+      label: 'Garage sleeping'
+    }, {
+      concept: 'loft',
+      ids: [IDS.LOFT],
+      w: 3,
+      label: 'Loft'
+    }, {
+      concept: 'outdoor_patio',
+      ids: [IDS.REAR_PATIO],
+      w: 3,
+      label: 'Rear patio'
+    }, {
+      concept: 'ramp',
+      ids: [IDS.RAMP],
+      w: 2,
+      label: 'Ramp door'
+    }],
+    compact: [{
+      concept: 'bath',
+      ids: [IDS.WETBATH],
+      w: 4,
+      label: 'Wetbath'
+    }, {
+      concept: 'adult_bed',
+      ids: [IDS.MURPHY, IDS.EAST_WEST],
+      w: 4,
+      label: 'Space-saving bed'
+    }, {
+      concept: 'type',
+      ids: [IDS.TEARDROP, IDS.TENT, IDS.AFRAME],
+      w: 4,
+      label: 'Compact body style'
+    }],
+    outdoor: [{
+      concept: 'outdoor',
+      ids: [IDS.OUTSIDE_KITCHEN],
+      w: 4,
+      label: 'Outside kitchen'
+    }, {
+      concept: 'traffic',
+      ids: [IDS.DUAL_ENTRY],
+      w: 4,
+      label: 'Dual entry'
+    }, {
+      concept: 'bath_entry',
+      ids: [IDS.BATH_ENTRY],
+      w: 4,
+      label: 'Outside bath entry'
+    }]
+  };
+  function activeLifestyleConcepts(session) {
+    const explicit = new Set();
+    session.prefs.forEach(p => explicit.add(p.concept));
+    session.avoids.forEach(p => explicit.add(p.concept));
+    Object.keys(session.gateSources || {}).forEach(k => {
+      const c = session.gateSources[k] && session.gateSources[k].concept;
+      if (c) explicit.add(c);
+    });
+    const seen = new Set(),
+      out = [];
+    (session.lifestylePaths || []).forEach(path => {
+      (LIFESTYLE_CONCEPTS[path] || []).forEach(c => {
+        if (explicit.has(c.concept) || seen.has(c.concept)) return;
+        seen.add(c.concept);
+        out.push(c);
+      });
+    });
+    return out;
+  }
+
+  // ------------------------------------------------------------------ QA severity (s11.1 / s19)
+  function qaPenalty(flag, g) {
+    switch (flag) {
+      case 'DUPLICATE_STOCKNUMBER':
+        return 5;
+      case 'UNKNOWN_CLASS':
+      case 'MISSING_CLASS_ID':
+        return 5;
+      case 'UNKNOWN_CONDITION':
+        return 5;
+      case 'MISSING_MAKE_ID':
+      case 'MISSING_MANUFACTURER_ID':
+      case 'MISSING_FLOORPLAN_ID':
+      case 'MISSING_CHARACTERISTICS':
+        return 3;
+      case 'UNKNOWN_CHARACTERISTIC_ID':
+        return 3;
+      case 'MISSING_PRICE':
+        return g.priceMax != null || g.priceMin != null ? 3 : 1;
+      case 'MISSING_GVWR':
+        return g.gvwrMax != null || g.gvwrMin != null ? 5 : 1;
+      case 'MISSING_LENGTH':
+        return g.lengthMaxFt != null || g.lengthMinFt != null ? 3 : 1;
+      case 'MISSING_SLEEP_COUNT':
+        return g.sleepsMin != null || g.sleepsMax != null ? 3 : 1;
+      case 'SUSPECT_LENGTH_UNIT':
+        return 3;
+      case 'IMPLAUSIBLE_PRICE':
+        return 3;
+      case 'UNKNOWN_LOCATION':
+      case 'UNKNOWN_SIDEWALL':
+      case 'LOCATION_CMF_MISMATCH':
+      case 'MANUFACTURER_MISMATCH':
+        return 1;
+      default:
+        return 1;
+    }
+  }
+
+  // ------------------------------------------------------------------ scoring (s11)
+  // ctx is built once per results run by buildScoringContext().
+  function buildScoringContext(session, candidateUnits) {
+    const g = effectiveGates(session);
+    const known = f => candidateUnits.map(u => u[f]).filter(v => v != null);
+    const range = arr => arr.length ? {
+      min: Math.min.apply(null, arr),
+      max: Math.max.apply(null, arr)
+    } : null;
+    const observedFlags = new Set();
+    candidateUnits.forEach(u => (u.qaFlags || []).forEach(f => observedFlags.add(f)));
+    let maxQA = 0;
+    observedFlags.forEach(f => {
+      maxQA += qaPenalty(f, g);
+    });
+    const prefs = session.prefs,
+      avoids = session.avoids;
+    const totalPrefPoints = prefs.reduce((s, p) => s + PREF_WEIGHT[p.strength], 0);
+    const totalMissAbs = prefs.reduce((s, p) => s + MISS_PENALTY[p.strength], 0) + avoids.reduce((s, a) => s + AVOID_PENALTY[a.strength], 0);
+    const lifestyle = activeLifestyleConcepts(session);
+    const totalLifestyle = lifestyle.reduce((s, c) => s + c.w, 0);
+    const requiredSleep = (session.sleepers.adults || 0) + (session.sleepers.children || 0);
+    return {
+      gates: g,
+      price: range(known('price')),
+      gvwr: range(known('gvwr')),
+      length: range(known('lengthIn')),
+      maxQA,
+      totalPrefPoints,
+      totalMissAbs,
+      lifestyle,
+      totalLifestyle,
+      requiredSleep,
+      minSlides: g.slidesMin || 0
+    };
+  }
+  function scoreUnit(unit, session, ctx) {
+    const g = ctx.gates;
+    const gateResult = evalGates(unit, g);
+    const rankGroup = rankGroupFor(unit, gateResult);
+    const reasons = [];
+    const comp = {};
+
+    // Base eligibility
+    if (rankGroup === 'INELIGIBLE') comp.base = 0;else if (rankGroup === 'PROBABLE_NEEDS_VERIFICATION') comp.base = unit.isLStock ? BASE_SCORE.PROBABLE_L : BASE_SCORE.PROBABLE_NEW;else comp.base = BASE_SCORE[rankGroup];
+    if (rankGroup === 'PROBABLE_NEEDS_VERIFICATION') reasons.push('Needs verification: missing ' + gateResult.unknown.join(', ') + ' data');
+    if (unit.isLStock) reasons.push('Floorplan example (L-stock), not a physical unit');
+
+    // Explicit preferences (normalized to 30)
+    let earned = 0,
+      missAbs = 0;
+    const hits = [],
+      misses = [];
+    session.prefs.forEach(p => {
+      if (hasAny(unit, p.ids)) {
+        earned += PREF_WEIGHT[p.strength];
+        hits.push(p.label);
+      } else {
+        missAbs += MISS_PENALTY[p.strength];
+        misses.push(p.label);
+      }
+    });
+    const avoided = [];
+    session.avoids.forEach(a => {
+      if (hasAny(unit, a.ids)) {
+        missAbs += AVOID_PENALTY[a.strength];
+        avoided.push(a.label);
+      }
+    });
+    comp.explicit = ctx.totalPrefPoints ? round2(30 * earned / ctx.totalPrefPoints) : 0;
+    if (hits.length) reasons.push('Matches: ' + hits.join(', '));
+    if (misses.length) reasons.push('Missing: ' + misses.join(', '));
+    if (avoided.length) reasons.push('Has avoided feature: ' + avoided.join(', '));
+
+    // Lifestyle defaults (normalized to 12)
+    let lEarned = 0;
+    const lHits = [];
+    ctx.lifestyle.forEach(c => {
+      if (hasAny(unit, c.ids)) {
+        lEarned += c.w;
+        lHits.push(c.label);
+      }
+    });
+    comp.lifestyle = ctx.totalLifestyle ? round2(12 * lEarned / ctx.totalLifestyle) : 0;
+    if (lHits.length) reasons.push('Lifestyle fit: ' + lHits.join(', '));
+
+    // Value / construction (max 8)
+    comp.construction = 0;
+    const sw = unit.sidewallConstruction;
+    if (session.sidewallPref === 'laminate') comp.construction = sw === 'LAMINATE' ? 8 : 0;else if (session.sidewallPref === 'value') comp.construction = sw === 'STT' ? 8 : sw === 'LAMINATE' ? 3 : 0;
+    if (comp.construction) reasons.push((sw === 'LAMINATE' ? 'Laminate' : 'STT') + ' construction matches your priority');
+
+    // Numeric priority (cap 7) - only when the shopper asked for it
+    let np = 0;
+    const npr = [];
+    const P = session.numericPriorities || {};
+    const rel = (v, r, invert) => {
+      if (v == null || !r || r.max === r.min) return 0;
+      const t = (v - r.min) / (r.max - r.min);
+      return invert ? 1 - t : t;
+    };
+    if (P.value && unit.price != null) {
+      const pts = 3 * rel(unit.price, ctx.price, true);
+      np += pts;
+      if (pts > 1.5) npr.push('lower price');
+    }
+    if (P.lightweight && unit.gvwr != null) {
+      const pts = 3 * rel(unit.gvwr, ctx.gvwr, true);
+      np += pts;
+      if (pts > 1.5) npr.push('lighter weight');
+    }
+    if (P.compact && unit.lengthIn != null) {
+      const pts = 3 * rel(unit.lengthIn, ctx.length, true);
+      np += pts;
+      if (pts > 1.5) npr.push('shorter length');
+    }
+    if (P.sleepFlex && unit.sleeps != null) {
+      const extra = Math.max(0, unit.sleeps - ctx.requiredSleep);
+      const pts = 2 * Math.min(1, extra / 4);
+      np += pts;
+      if (pts > 0) npr.push('extra sleeping');
+    }
+    if (P.space && unit.slides != null) {
+      const extra = Math.max(0, unit.slides - ctx.minSlides);
+      const pts = 2 * Math.min(1, extra / 2);
+      np += pts;
+      if (pts > 0) npr.push('more slide space');
+    }
+    if (P.simple && unit.slides != null) {
+      const pts = unit.slides === 0 ? 2 : unit.slides === 1 ? 1 : 0;
+      np += pts;
+      if (pts > 0) npr.push('simpler setup');
+    }
+    comp.numeric = round2(Math.min(7, np));
+    if (npr.length) reasons.push('Priority fit: ' + npr.join(', '));
+
+    // Miss adjustment (normalized to -12)
+    comp.miss = ctx.totalMissAbs ? round2(-12 * missAbs / ctx.totalMissAbs) : 0;
+
+    // QA adjustment (normalized to -8 against the flags observed in the candidate set)
+    let qa = 0;
+    (unit.qaFlags || []).forEach(f => {
+      qa += qaPenalty(f, g);
+    });
+    comp.qa = ctx.maxQA ? round2(-8 * qa / ctx.maxQA) : 0;
+    if (unit.qaFlags && unit.qaFlags.length) reasons.push('Data quality: ' + unit.qaFlags.map(f => f.toLowerCase().replace(/_/g, ' ')).join(', '));
+    const final = round2(comp.base + comp.explicit + comp.lifestyle + comp.construction + comp.numeric + comp.miss + comp.qa);
+    return {
+      rankGroup,
+      gateResult,
+      final,
+      display: Math.max(0, Math.min(100, Math.round(final))),
+      components: comp,
+      reasons,
+      hits,
+      misses,
+      avoided
+    };
+  }
+  function sortScored(a, b, session) {
+    const P = session.numericPriorities || {};
+    let d = RANK_ORDER[a.score.rankGroup] - RANK_ORDER[b.score.rankGroup];
+    if (d) return d;
+    d = b.score.final - a.score.final;
+    if (d) return d;
+    d = b.score.components.explicit - a.score.components.explicit;
+    if (d) return d;
+    d = b.score.components.lifestyle - a.score.components.lifestyle;
+    if (d) return d;
+    d = b.score.components.construction - a.score.components.construction;
+    if (d) return d;
+    d = b.score.components.numeric - a.score.components.numeric;
+    if (d) return d;
+    if (P.value) {
+      d = (a.unit.price == null) - (b.unit.price == null) || a.unit.price - b.unit.price;
+      if (d) return d;
+    }
+    if (P.lightweight) {
+      d = (a.unit.gvwr == null) - (b.unit.gvwr == null) || a.unit.gvwr - b.unit.gvwr;
+      if (d) return d;
+    }
+    if (P.compact) {
+      d = (a.unit.lengthIn == null) - (b.unit.lengthIn == null) || a.unit.lengthIn - b.unit.lengthIn;
+      if (d) return d;
+    }
+    return String(a.unit.stocknumber).localeCompare(String(b.unit.stocknumber));
+  }
+  function rankResults(units, session) {
+    const g = effectiveGates(session);
+    const c = candidates(units, g);
+    const pool = c.verified.concat(c.probable);
+    const ctx = buildScoringContext(session, pool);
+    const scored = pool.map(u => ({
+      unit: u,
+      score: scoreUnit(u, session, ctx)
+    }));
+    scored.sort((a, b) => sortScored(a, b, session));
+    const groups = {
+      VERIFIED_AVAILABLE: [],
+      VERIFIED_L_STOCK_EXAMPLE: [],
+      PROBABLE_NEEDS_VERIFICATION: []
+    };
+    scored.forEach(s => groups[s.score.rankGroup].push(s));
+    return {
+      groups,
+      all: scored,
+      ineligible: c.ineligible,
+      ctx,
+      gates: g
+    };
+  }
+
+  // ------------------------------------------------------------------ payment / budget (s10)
+  function principalFromPayment(payment, apr, months) {
+    if (!apr) return payment * months;
+    const r = apr / 100 / 12;
+    return payment * (1 - Math.pow(1 + r, -months)) / r;
+  }
+  function roundTo500(v) {
+    return Math.round(v / 500) * 500;
+  }
+
+  // Returns {valid, apr, termMonths, principal, ceiling, taxRate, taxIsFallback, message}
+  function solveFinanceCeiling(opts) {
+    const payment = Number(opts.monthlyPayment) || 0;
+    const down = Number(opts.downPayment) || 0;
+    const apr = APR_BY_TIER[opts.creditTier] != null ? APR_BY_TIER[opts.creditTier] : APR_BY_TIER.good;
+    const taxRate = opts.taxRate != null ? opts.taxRate : FALLBACK_TAX;
+    if (payment <= 0) return {
+      valid: false,
+      message: 'Enter a monthly payment to estimate a buying range.'
+    };
+    let best = null;
+    TERM_BANDS.forEach(b => {
+      const p = principalFromPayment(payment, apr, b.months);
+      const inBand = p >= b.lo && (b.hi === Infinity ? true : p < b.hi);
+      if (inBand && (!best || p > best.principal)) best = {
+        principal: p,
+        months: b.months
+      };
+    });
+    if (!best) {
+      return {
+        valid: false,
+        apr,
+        taxRate,
+        message: 'That payment is too low to finance an RV in our term bands. Budget will not be applied as a filter.'
+      };
+    }
+    const ceiling = roundTo500((best.principal + down) / (1 + taxRate));
+    return {
+      valid: ceiling > 0,
+      apr,
+      termMonths: best.months,
+      principal: Math.round(best.principal),
+      downPayment: down,
+      taxRate,
+      taxIsFallback: opts.taxRate == null,
+      ceiling,
+      message: opts.taxRate == null ? 'Estimated using 6% tax until a store is selected. Final buying range may update based on store tax rate.' : null
+    };
+  }
+  function cashCeiling(maxSpend) {
+    const v = Number(maxSpend);
+    return v > 0 ? {
+      valid: true,
+      ceiling: roundTo500(v)
+    } : {
+      valid: false,
+      message: 'Enter a maximum spend.'
+    };
+  }
+
+  // Recompute the finance ceiling when a store becomes known (s10.3).
+  function applyStoreTax(session, snapshot) {
+    const b = session.budget;
+    if (!session.store || !snapshot.lookups || !snapshot.lookups.rooftops) return false;
+    const r = snapshot.lookups.rooftops[session.store];
+    if (!r || r.salesTaxRate == null) return false;
+    b.taxRate = r.salesTaxRate;
+    b.taxIsFallback = false;
+    if (b.mode === 'finance' && b.detail) {
+      const res = solveFinanceCeiling(Object.assign({}, b.detail, {
+        taxRate: r.salesTaxRate
+      }));
+      if (res.valid) {
+        b.priceCeiling = res.ceiling;
+        session.gates.priceMax = res.ceiling;
+        b.solved = res;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // ------------------------------------------------------------------ zero-result recovery (s16)
+  function gateLabel(key, session) {
+    const g = session.gates;
+    switch (key) {
+      case 'gvwrMax':
+        return 'Max GVWR ' + Math.round(g.gvwrMax).toLocaleString('en-US') + ' lbs';
+      case 'lengthMaxFt':
+        return 'Max length ' + g.lengthMaxFt + ' ft';
+      case 'priceMax':
+        return 'Max price ' + money(g.priceMax);
+      case 'sleepsMin':
+        return 'Sleeps at least ' + g.sleepsMin;
+      case 'slidesMin':
+        return 'At least ' + g.slidesMin + ' slides';
+      case 'sidewall':
+        return g.sidewall + ' sidewall required';
+      case 'classes':
+        return 'Type: ' + g.classes.join('/');
+      default:
+        return key;
+    }
+  }
+  function relaxationCandidates(units, session, snapshot) {
+    const g = session.gates;
+    const out = [];
+    // Relaxations use REPLACE semantics (a list gate is replaced, not appended to).
+    const relaxed = patch => counts(units, applyRelaxation(g, {
+      patch
+    }));
+    const tryPatch = (key, label, patch, delta, opts) => {
+      const c = relaxed(patch);
+      out.push(Object.assign({
+        key,
+        label,
+        patch,
+        delta,
+        unlocked: c.total,
+        verified: c.verified,
+        floorplans: c.floorplans
+      }, opts || {}));
+    };
+    if (g.gvwrMax != null) {
+      for (let step = 500; step <= 6000; step += 500) {
+        if (relaxed({
+          gvwrMax: g.gvwrMax + step
+        }).total > 0) {
+          tryPatch('gvwrMax', 'Increase max GVWR to ' + Math.round(g.gvwrMax + step).toLocaleString('en-US') + ' lbs', {
+            gvwrMax: g.gvwrMax + step
+          }, step / 500, {
+            safety: true,
+            numeric: true
+          });
+          break;
+        }
+      }
+      tryPatch('gvwrMax', 'Remove the tow-weight limit', {
+        gvwrMax: null
+      }, 99, {
+        safety: true,
+        numeric: true
+      });
+    }
+    if (g.lengthMaxFt != null) {
+      for (let step = 1; step <= 12; step++) {
+        if (relaxed({
+          lengthMaxFt: g.lengthMaxFt + step
+        }).total > 0) {
+          tryPatch('lengthMaxFt', 'Increase max length to ' + (g.lengthMaxFt + step) + ' ft', {
+            lengthMaxFt: g.lengthMaxFt + step
+          }, step, {
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.priceMax != null) {
+      for (let step = 1; step <= 20; step++) {
+        const v = g.priceMax + step * 1000;
+        if (relaxed({
+          priceMax: v
+        }).total > 0) {
+          tryPatch('priceMax', 'Increase max price to ' + money(v), {
+            priceMax: v
+          }, step, {
+            payment: true,
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.sleepsMin != null && g.sleepsMin > 1) {
+      for (let step = 1; step < g.sleepsMin; step++) {
+        if (relaxed({
+          sleepsMin: g.sleepsMin - step
+        }).total > 0) {
+          tryPatch('sleepsMin', 'Lower minimum sleep count to ' + (g.sleepsMin - step), {
+            sleepsMin: g.sleepsMin - step
+          }, step, {
+            numeric: true
+          });
+          break;
+        }
+      }
+    }
+    if (g.slidesMin != null && g.slidesMin > 0) tryPatch('slidesMin', 'Drop the minimum slide count', {
+      slidesMin: null
+    }, 1, {
+      numeric: true
+    });
+    (g.requiredAnyOf || []).forEach((set, i) => {
+      const rest = g.requiredAnyOf.filter((_, j) => j !== i);
+      const key = set === BUNK_IDS || set.join() === BUNK_IDS.join() ? 'bunks' : 'requiredAnyOf';
+      tryPatch(key, 'Make "' + (key === 'bunks' ? 'bunks' : 'that feature') + '" a preference instead of a must-have', {
+        requiredAnyOf: rest
+      }, 1, {
+        replaceKey: 'requiredAnyOf'
+      });
+    });
+    (g.requiredChars || []).forEach(id => {
+      const rest = g.requiredChars.filter(x => x !== id);
+      const name = snapshot && snapshot.lookups.characteristicTypes[String(id)] ? snapshot.lookups.characteristicTypes[String(id)].name : 'feature ' + id;
+      const key = id === IDS.PRIVATE_MASTER ? 'privateMaster' : id === IDS.OUTSIDE_KITCHEN ? 'outsideKitchen' : 'requiredChars';
+      tryPatch(key, 'Make "' + name + '" flexible instead of required', {
+        requiredChars: rest
+      }, 1, {
+        replaceKey: 'requiredChars'
+      });
+    });
+    if (g.sidewall) tryPatch('sidewall', 'Open sidewall construction to either type', {
+      sidewall: null
+    }, 1);
+    if (g.classes && g.classes.length) tryPatch('classes', 'Widen the RV type', {
+      classes: []
+    }, 1, {
+      type: true
+    });
+    return out;
+  }
+
+  // Apply a relaxation patch to a gate object (replace semantics for list gates).
+  function applyRelaxation(gates, action) {
+    const g = clone(gates);
+    Object.keys(action.patch).forEach(k => {
+      g[k] = action.patch[k];
+    });
+    return g;
+  }
+  function compareRelaxations(a, b) {
+    if (b.unlocked !== a.unlocked) return b.unlocked - a.unlocked; // most inventory unlocked
+    if (!!a.safety !== !!b.safety) return a.safety ? 1 : -1; // non-safety before safety
+    if (!!a.payment !== !!b.payment) return a.payment ? 1 : -1; // shopper gates before payment
+    if (!!a.numeric !== !!b.numeric) return a.numeric ? -1 : 1; // numeric before type/class
+    if (!!a.type !== !!b.type) return a.type ? 1 : -1;
+    if ((a.delta || 0) !== (b.delta || 0)) return (a.delta || 0) - (b.delta || 0); // smallest change
+    if (b.floorplans !== a.floorplans) return b.floorplans - a.floorplans; // more floorplans
+    return GATE_PRECEDENCE.indexOf(a.key) - GATE_PRECEDENCE.indexOf(b.key);
+  }
+
+  // Returns exactly two actions (or fewer if the gate set has nothing to relax).
+  function zeroResultRecovery(units, session, snapshot) {
+    const singles = relaxationCandidates(units, session, snapshot);
+    let cands = singles.filter(c => c.unlocked > 0);
+    // s16.1 step 3: fall back to gate pairs when singles cannot supply two distinct actions.
+    const distinctSingleKeys = new Set(cands.map(c => c.key));
+    if (distinctSingleKeys.size < 2) {
+      for (let i = 0; i < singles.length; i++) for (let j = i + 1; j < singles.length; j++) {
+        if (singles[i].key === singles[j].key) continue;
+        const g1 = applyRelaxation(session.gates, singles[i]);
+        const g2 = applyRelaxation(g1, singles[j]);
+        const c = counts(units, g2);
+        if (c.total > 0) cands.push({
+          key: singles[i].key + '+' + singles[j].key,
+          label: singles[i].label + ' and ' + singles[j].label.charAt(0).toLowerCase() + singles[j].label.slice(1),
+          patch: Object.assign({}, singles[i].patch, singles[j].patch),
+          delta: (singles[i].delta || 0) + (singles[j].delta || 0),
+          unlocked: c.total,
+          verified: c.verified,
+          floorplans: c.floorplans,
+          safety: singles[i].safety || singles[j].safety,
+          payment: singles[i].payment || singles[j].payment,
+          numeric: singles[i].numeric && singles[j].numeric,
+          type: singles[i].type || singles[j].type
+        });
+      }
+    }
+    // Singles are the primary paths (s16.1 steps 1-2); pairs only fill remaining slots (step 3).
+    const singlesOnly = cands.filter(c => c.key.indexOf('+') === -1).sort(compareRelaxations);
+    const pairsOnly = cands.filter(c => c.key.indexOf('+') !== -1).sort(compareRelaxations);
+    cands = singlesOnly.concat(pairsOnly);
+    // de-duplicate by primary key so the two actions are genuinely different paths
+    const seen = new Set(),
+      picked = [];
+    for (let i = 0; i < cands.length && picked.length < 2; i++) {
+      const k = cands[i].key.split('+')[0];
+      if (seen.has(k)) continue;
+      seen.add(k);
+      picked.push(cands[i]);
+    }
+    picked.forEach(p => {
+      if (p.safety) p.qualifier = 'Requires advisor/tow verification.';
+    });
+    return picked;
+  }
+  function limitingCombination(session, snapshot) {
+    const g = session.gates,
+      parts = [];
+    if (g.classes.length) parts.push(g.classes.map(c => (snapshot.lookups.classes[c] || {}).description || c).join('/'));
+    if (g.priceMax != null) parts.push('max ' + money(g.priceMax));
+    if (g.gvwrMax != null) parts.push('max GVWR ' + Math.round(g.gvwrMax).toLocaleString('en-US'));
+    if (g.lengthMaxFt != null) parts.push('max ' + g.lengthMaxFt + ' ft');
+    if (g.sleepsMin != null) parts.push('sleeps ' + g.sleepsMin + '+');
+    (g.requiredAnyOf || []).forEach(s => parts.push(s.join() === BUNK_IDS.join() ? 'bunks required' : 'feature required'));
+    (g.requiredChars || []).forEach(id => parts.push((snapshot.lookups.characteristicTypes[String(id)] || {
+      name: id
+    }).name + ' required'));
+    if (g.sidewall) parts.push(g.sidewall + ' sidewall');
+    return parts.join(' + ');
+  }
+  return {
+    QUESTIONNAIRE_VERSION,
+    SCORING_VERSION,
+    IDS,
+    BUNK_IDS,
+    SLIDE_IDS,
+    TOY_BED_IDS,
+    MOTORHOME_CLASSES,
+    TOWABLE_CLASSES,
+    TOY_CLASSES,
+    COMPACT_CLASSES,
+    SIDEWALL_CLASSES,
+    PREF_WEIGHT,
+    MISS_PENALTY,
+    AVOID_PENALTY,
+    BASE_SCORE,
+    RANK_ORDER,
+    APR_BY_TIER,
+    TERM_BANDS,
+    FALLBACK_TAX,
+    LIFESTYLE_CONCEPTS,
+    SAFETY_GATES,
+    PAYMENT_GATES,
+    hasAny,
+    hasAll,
+    hasFlag,
+    hasBunks,
+    clone,
+    lengthDisplay,
+    money,
+    emptyGates,
+    newSession,
+    evalGates,
+    rankGroupFor,
+    effectiveGates,
+    candidates,
+    counts,
+    previewGate,
+    previewBoost,
+    activeLifestyleConcepts,
+    qaPenalty,
+    buildScoringContext,
+    scoreUnit,
+    rankResults,
+    principalFromPayment,
+    solveFinanceCeiling,
+    cashCeiling,
+    applyStoreTax,
+    roundTo500,
+    relaxationCandidates,
+    zeroResultRecovery,
+    limitingCombination,
+    gateLabel
+  };
+});
+})(); } catch (e) { __ds_ns.__errors.push({ path: "conversions/wayfinder/data/engine.js", error: String((e && e.message) || e) }); }
+
+// conversions/wayfinder/data/tow-vehicles.js
+try { (() => {
+// RV LIFE 2026 Trailer Towing Guide (2026 MY). Prefills the tow rating only. Source: wayfinder v2.1.
+window.WF_TOW_VEH = {
+  modelYear: 2026,
+  source: "RV LIFE 2026 Trailer Towing Guide",
+  rows: [["Acura", "MDX", "3.5L V-6", 3500, "requires tow/HD package"], ["Acura", "MDX SH-AWD", "3.5L V-6", 5000, "requires tow/HD package"], ["Acura", "ZDX", "Electric", 3500, ""], ["Audi", "Q4 e-tron, Sportback", "Electric (HO)", 2650, ""], ["Audi", "Q5", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["Audi", "Q5", "Hybrid", 2000, "requires tow/HD package"], ["Audi", "Q6", "Electric", 4400, "requires tow/HD package"], ["Audi", "Q7", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["Audi", "Q7", "3.0L V-6 TC", 7700, "requires tow/HD package"], ["Audi", "Q8/SQ8", "3.0L V-6 TC", 7700, "requires tow/HD package"], ["Audi", "RS Q8", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["Audi", "SQ5", "3.0L V-6 TC", 4400, "requires tow/HD package"], ["Audi", "SQ7", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["BMW", "X1", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X2", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X3", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X3", "3.0L I-6 TC", 4850, "requires tow/HD package"], ["BMW", "X4", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X4", "3.0L I-6 TC", 5700, "requires tow/HD package"], ["BMW", "X5", "3.0L I-6 TC", 7200, "requires tow/HD package"], ["BMW", "X5", "3.0L I-6 TC Hybrid", 5952, "requires tow/HD package"], ["BMW", "X5", "4.4L V-8 TC", 7200, "requires tow/HD package"], ["BMW", "X6", "All", 7200, "requires tow/HD package"], ["BMW", "X7", "All", 7500, "requires tow/HD package"], ["BMW", "iX", "Electric", 3500, "requires tow/HD package"], ["Bentley", "Bentayga", "3.0L V-6 TC Hybrid", 3500, "requires tow/HD package"], ["Bentley", "Bentayga", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["Buick", "Enclave", "3.6L V-6", 5000, "requires tow/HD package"], ["Cadillac", "Escalade 2WD", "6.2L V-8", 8100, ""], ["Cadillac", "Escalade 4WD", "6.2L V-8", 8000, ""], ["Cadillac", "Escalade ESV 2WD", "6.2L V-8", 8000, ""], ["Cadillac", "Escalade ESV 4WD", "6.2L V-8", 7900, ""], ["Cadillac", "Escalade IQ", "Electric", 8000, ""], ["Cadillac", "Escalade IQL", "Electric", 7500, ""], ["Cadillac", "Escalade-V AWD", "6.2L V-8", 7000, ""], ["Cadillac", "Lyriq AWD", "Electric", 3500, "requires tow/HD package"], ["Cadillac", "Vistiq", "Electric", 5000, "requires tow/HD package"], ["Cadillac", "XT4 AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Cadillac", "XT5", "3.6L V-6", 3500, "requires tow/HD package"], ["Cadillac", "XT6", "3.6L V-6", 4000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "3.0L I-6 TD", 9300, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "3.0L I-6 TD", 13300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "5.3L V-8", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "3.0L I-6 TD", 9000, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "3.0L I-6 TD", 13000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "5.3L V-8", 9300, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "6.2L V-8", 9200, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "6.2L V-8", 13200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD ZR2", "6.2L V-8", 8800, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "5.3L V-8", 11200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "3.0L I-6 TD", 9000, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "3.0L I-6 TD", 12900, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "5.3L V-8", 9200, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "6.2L V-8", 9100, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "6.2L V-8", 13200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "3.0L I-6 TD", 9400, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "3.0L I-6 TD", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "5.3L V-8", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "3.0L I-6 TD", 9100, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "3.0L I-6 TD", 13000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 4WD", "5.3L V-8", 9300, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Reg Cab LB 2WD", "2.7L I-4 TC", 9500, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 2WD", "5.3L V-8", 9900, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 4WD", "2.7L I-4 TC", 9300, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 4WD", "5.3L V-8", 9600, ""], ["Chevrolet/GMC", "1500 Reg Cab Std Bed 2WD", "2.7L I-4 TC", 9100, ""], ["Chevrolet/GMC", "1500 Reg Cab Std Bed 4WD", "2.7L I-4 TC", 8900, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8 TD", 22070, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8", 18370, ""], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8 TD", 21600, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8 TD", 17900, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8 TD", 18000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8", 18000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8 TD", 17600, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8 TD", 17700, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8 TD", 18200, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8", 18200, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8 TD", 17900, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8", 18700, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8 TD", 22430, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8 TD", 22050, "requires tow/HD package"], ["Chevrolet/GMC", "2X Pickup 4WD", "Electric", 12100, "requires tow/HD package"], ["Chevrolet/GMC", "2X SUV", "Electric", 12000, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8", 18200, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8", 18240, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8 TD", 31450, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8", 17800, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8", 17800, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8 TD", 31000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8", 18510, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8 TD", 22070, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8", 18230, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 2WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 2WD", "6.6L V-8 TD", 31580, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 4WD", "6.6L V-8", 17990, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 4WD", "6.6L V-8 TD", 31280, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 18620, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 18650, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 21900, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 21900, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 18310, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 21590, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 21600, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD DC LB DRW 2WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 4WD", "6.6L V-8", 18000, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8", 18760, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8 TD", 36000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8", 18380, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8 TD", 31500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8", 19080, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8 TD", 22430, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8", 18700, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8 TD", 22050, ""], ["Chevrolet/GMC", "3X Pickup", "Electric", 10600, "requires tow/HD package"], ["Chevrolet/GMC", "3X SUV", "Electric", 8500, "requires tow/HD package"], ["Chevrolet/GMC", "Blazer FWD/AWD", "2.0L I-4 TC", 3250, "requires tow/HD package"], ["Chevrolet/GMC", "Blazer FWD/AWD", "3.6L V-6", 4500, "requires tow/HD package"], ["Chevrolet/GMC", "Canyon AT4X Edition 1", "2.7L I-4 TC", 5500, ""], ["Chevrolet/GMC", "Chevy Traverse/GMC Acadia", "2.5L I-4 TC", 5000, "requires tow/HD package"], ["Chevrolet/GMC", "Colorado WT, LT", "2.7L I-4 TC", 3500, ""], ["Chevrolet/GMC", "Colorado Z71, Trail Boss/Canyon Elevation, AT4, Denali", "2.7L I-4 TC", 7700, ""], ["Chevrolet/GMC", "Colorado ZR2/Canyon AT4X", "2.7L I-4 TC", 6000, ""], ["Chevrolet/GMC", "Express/Savana 2500 LWB CV", "4.3L V-6", 7100, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 LWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB CV", "4.3L V-6", 7400, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB PV", "4.3-L V-6", 6700, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB CV", "4.3L V-6", 7200, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB PV", "4.3L V-6", 6300, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB CV", "4.3L V-6", 7400, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB PV", "4.3L V-6", 6700, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Silverado EV", "Electric", 12500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "3.0 I-6 TD", 7800, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "5.3L V-8", 7700, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "5.3L V-8", 8200, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "6.2L V-8", 7500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "6.2L V-8", 8000, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "3.0 I-6 TD", 7800, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "5.3L V-8", 7500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "5.3L V-8", 8000, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "6.2L V-8", 7400, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "6.2L V-8", 7900, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "3.0 I-6 TD", 8200, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "5.3L V-8", 7900, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "5.3L V-8", 8400, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "6.2L V-8", 7800, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "6.2L V-8", 8300, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "3.0 I-6 TD", 8100, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "5.3L V-8", 7700, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "5.3L V-8", 8200, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "6.2L V-8", 7600, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "6.2L V-8", 8100, "requires tow/HD package"], ["Chrysler", "Pacifica", "3.6L V-6", 3600, ""], ["Chrysler", "Voyager", "3.6L V-6", 3600, ""], ["Dodge", "Dodge Hornet", "2.0L TC, Hybrid", 2000, ""], ["Dodge", "Durango", "3.6 V-6", 6200, "requires tow/HD package"], ["Dodge", "Durango", "5.7 V-8", 7400, "requires tow/HD package"], ["Dodge", "Durango", "6.4L V-8", 8700, "requires tow/HD package"], ["Ford", "Bronco Raptor", "3.0L V-6 TC", 4500, ""], ["Ford", "Bronco Sport", "1.5L I-3 TC", 2200, "requires tow/HD package"], ["Ford", "Bronco Sport", "2.0L I-4 TC", 2700, "requires tow/HD package"], ["Ford", "Edge AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Ford", "Edge ST", "2.7L V-6 TC", 3500, "requires tow/HD package"], ["Ford", "Escape FWD/AWD", "1.5L I-3", 2000, ""], ["Ford", "Escape FWD/AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Ford", "Expedition 2WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "Expedition 2WD", "3.5L V-6 TC", 9300, "requires tow/HD package"], ["Ford", "Expedition 4WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "Expedition 4WD", "3.5L V-6 TC", 9200, "requires tow/HD package"], ["Ford", "Expedition Max 2WD", "3.5L V-6 TC", 6300, ""], ["Ford", "Expedition Max 2WD", "3.5L V-6 TC", 9000, "requires tow/HD package"], ["Ford", "Expedition Max 4WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "Expedition Max 4WD", "3.5L V-6 TC", 9000, "requires tow/HD package"], ["Ford", "Explorer", "All", 5000, "requires tow/HD package"], ["Ford", "F-150 Lightning Extended Range", "Dual Motor Electric", 10000, "requires tow/HD package"], ["Ford", "F-150 Lightning Standard Range", "Dual Motor Electric", 7700, "requires tow/HD package"], ["Ford", "F-150 Reg Cab LB 2WD", "5.0L V-8", 10100, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 2WD", "5.0L V-8", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 9500, "final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 9600, "final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 7300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 8300, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 8400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "3.5L V-6 TC", 10900, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "3.5L V-6 TC", 13500, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "5.0L V-8", 8300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "5.0L V-8", 8800, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 8100, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "3.5L V-6 TC", 10300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "3.5L V-6 TC", 11000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "5.0L V-8", 8400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "5.0L V-8", 9400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 9600, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 9400, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 12200, "requires tow/HD package"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "3.5L V-6 TC", 8500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "3.5L V-6 TC", 10800, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 9600, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 8000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "3.5L V-6 TC", 8300, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "3.5L V-6 TC", 10600, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 8300, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 9200, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 10400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 13500, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 7000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 10800, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 11000, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 9100, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 9200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 12800, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 8200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 10100, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 10600, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 12800, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 11600, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 7200, "final-drive ratio 3.15:1; final-drive ratio 3.55:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 8000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 7900, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 8800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 10400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 13100, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 13500, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC Hybrid", 7100, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC Hybrid", 11200, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 9200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 9300, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 12900, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed Raptor 4WD", "3.5L V-6 TC H.O", 8200, "final-drive ratio 4.10:1"], ["Ford", "F-150 SuperCrew Cab Std Bed Raptor R 4WD", "5.2L V-8 SC", 8700, "final-drive ratio 4.10:1"], ["Ford", "F-150 SuperCrew Std Bed 2WD", "2.7L V-6 TC", 7600, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Std Bed 2WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD", 21200, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD HO", 21200, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 2WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.8L V-8", 16700, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 2WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "7.3L V-8", 19200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 15400, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 15500, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 20400, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD HO", 20800, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD HO", 22000, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 13700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 13800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 16200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 16300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 16400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 17400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 17500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 18800, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 19500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.8L V-8", 16800, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "7.3L V-8", 17900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 22000, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "7.3L V-8", 16700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "7.3L V-8", 17800, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 4WD Tremor", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD", 16100, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD HO", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "7.3L V-8", 19400, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD", 15800, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD", 21500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD HO", 21500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "7.3L V-8", 17700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "7.3L V-8", 19100, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box Tremor 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 16500, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 16600, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 18200, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 22900, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD HO", 21600, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 14800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 14800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1; final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 18400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 16100, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 16200, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 20000, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 22500, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD HO", 22700, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 16900, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 16900, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18000, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 19400, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 2WD", "6.7L V-8 TD HO", 21900, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 2WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 15700, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD HO", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.8L V-8", 16500, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 4WD", "7.3L V-8", 17600, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 4WD", "7.3L V-8", 19000, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.7L V-8 TD", 16200, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.7L V-8 TD", 19500, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.8L V-8", 14500, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.8L V-8", 17000, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.7L V-8 TD", 18500, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.7L V-8 TD", 22000, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 16600, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 17700, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 27000, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 31800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 35700, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 27000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 28000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 32300, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "7.3L V-8", 22500, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 27000, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 31400, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 35300, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 27000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 28000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 31800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 35900, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.8L V-8", 17600, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 17900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 21600, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD HO", 24000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD, HO", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 16700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 17500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 18100, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD", 22800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD", 22900, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23500, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 26600, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 13700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 13800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 17000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 17200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 17700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 21500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 17800, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD HO", 23500, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD HO", 23800, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.8L V-8", 13900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 21000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD Tremor", "6.7L V-8 TD HO", 23000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 23800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 32600, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 36500, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 24600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 25800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 32900, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 38000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD, HO", 20000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 14600, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 14700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18900, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1; final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18600, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 22400, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 22500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 32000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 35900, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 24200, "final-drive ratio 3.31:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 27600, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 32500, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 37600, "final-drive ratio 4.10:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD, HO", 20000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 17800, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18300, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 22200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 2WD", "6.7L V-8 TD, HO", 24800, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Regular Cab 2WD", "6.8L V-8", 18700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 2WD", "7.3L V-8", 18900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Regular Cab 2WD", "7.3L V-8", 22000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 4WD", "6.7L V-8 TD, HO", 24800, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Regular Cab 4WD", "6.8L V-8", 18300, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 4WD", "7.3L V-8", 18500, "final-drive ratio 3.73:1"], ["Ford", "F-350 Regular Cab 4WD", "7.3L V-8", 22000, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD HO", 25900, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD, HO", 23000, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23700, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23800, "final-drive ratio 3.31:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23900, "final-drive ratio 3.31:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 27200, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 13900, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 17400, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 18300, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 2WD", "6.7L V-8 TD, HO", 30000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 2WD", "6.7L V-8 TD, HO", 37400, "final-drive ratio 4.10:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD", 33000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD HO", 32900, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD, HO", 30000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 2WD", "6.7L V-8 TD", 38600, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 2WD", "6.7L V-8 TD HO", 40000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 4WD", "6.7L V-8 TD", 37200, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 4WD", "6.7L V-8 TD HO", 37100, "final-drive ratio 4.30:1"], ["Ford", "F-450 Regular Cab 2WD", "6.7L V-8 TD", 25000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Regular Cab 4WD", "6.7L V-8 TD", 25000, "final-drive ratio 4.30:1"], ["Ford", "Maverick SuperCrew Cab", "2.5L I-4 Hybrid", 2000, ""], ["Ford", "Maverick SuperCrew Cab AWD", "2.0L I-4", 2000, ""], ["Ford", "Maverick SuperCrew Cab AWD", "2.0L I-4", 4000, "requires tow/HD package"], ["Ford", "Maverick SuperCrew Cab AWD", "2.5L I-4 Hybrid", 4000, "requires tow/HD package"], ["Ford", "Most Models", "2.3L I-4 TC, 2.7L V-6 TC", 3500, "requires tow/HD package"], ["Ford", "SuperCrew 2WD, 4WD", "2.3L I-4 TC", 7500, "requires tow/HD package"], ["Ford", "SuperCrew 4WD", "2.7L V-6 TC", 7500, "requires tow/HD package"], ["Ford", "SuperCrew Raptor 4WD Auto", "3.0L V-6 TC", 5510, "requires tow/HD package"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6", 4700, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR Ext AWD", "3.5L V-6", 5600, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6 TC", 6100, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6", 4900, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 HR Ext AWD", "3.5L V-6 TC", 3400, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 HR Ext RWD", "3.5L V-6", 3700, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 HR Ext RWD", "3.5L V-6 TC", 3600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 LWB HR AWD", "3.5L V-6 TC", 3900, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR AWD", "3.5L V-6", 3700, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR AWD", "3.5L V-6", 4000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6", 3900, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6", 4200, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6 TC", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6", 4000, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6", 4300, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6 TC", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6", 4500, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6 TC", 4400, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6", 3900, "requires tow/HD package"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6", 4200, "requires tow/HD package"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6 TC", 4100, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6", 4100, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6", 4400, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6 TC", 4300, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR 2WD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR 2WD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR AWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR AWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext 2WD DRW", "3.5L V-6", 5600, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext 2WD DRW", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext AWD", "3.5L V-6", 5500, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext AWD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext AWD DRW", "3.5L V-6", 5300, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext AWD DRW", "3.5L V-6 TC", 6200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext RWD", "3.5L V-6", 5700, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext RWD", "3.5L V-6 TC", 6700, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB LR AWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB LR AWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB LR RWD", "3.5L V-6", 6200, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB LR RWD", "3.5L V-6 TC", 6800, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB MR 2WD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB MR 2WD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB MR AWD", "3.5L V-6", 5900, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB MR AWD", "3.5L V-6 TC", 6400, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6", 4900, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6", 5100, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6", 6200, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6 TC", 6800, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6", 4800, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6", 5900, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6 TC", 6400, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6", 5000, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6", 5000, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6 TC", 6700, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6", 5200, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6", 6300, "final-drive ratio 4.10:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6 TC", 6900, "final-drive ratio 3.73:1"], ["Genesis", "GV60", "Electric", 2000, "requires tow/HD package"], ["Genesis", "GV70", "All", 3500, "requires tow/HD package"], ["Genesis", "GV80", "All", 6000, "requires tow/HD package"], ["Honda", "Odyssey", "3.5L V-6", 3500, "requires tow/HD package"], ["Honda", "Passport", "3.5L V-6", 5000, "requires tow/HD package"], ["Honda", "Pilot 2WD", "3.5L V-6", 3500, "requires tow/HD package"], ["Honda", "Pilot AWD", "3.5L V-6", 5000, "requires tow/HD package"], ["Honda", "Ridgeline", "3.5L V-6", 5000, "requires tow/HD package"], ["Hyundai", "Palisade", "3.5L V-6", 5000, "requires tow/HD package"], ["Hyundai", "Palisade Hybrid", "2.5L I-4 TC", 4000, "requires tow/HD package"], ["Hyundai", "Santa Cruz AWD", "2.5L I-4 TC", 5000, "requires tow/HD package"], ["Hyundai", "Santa Cruz FWD", "2.5L I-4", 3500, ""], ["Hyundai", "Santa Fe", "2.5L I-4 TC", 3500, ""], ["Hyundai", "Santa Fe Hybrid", "1.6L I-4 HEV TC", 2000, "requires tow/HD package"], ["Hyundai", "Santa Fe XRT AWD", "2.5L I-4 TC", 4500, ""], ["Hyundai", "Tucson", "2.5L I-4 TC", 2750, "requires tow/HD package"], ["Hyundai", "Tucson", "Hybrid", 2000, ""], ["Infiniti", "QX50", "2.0L I-4 TC", 3000, "requires tow/HD package"], ["Infiniti", "QX60", "3.5L V-6", 6000, "requires tow/HD package"], ["Infiniti", "QX80", "5.6L V-8", 8500, "requires tow/HD package"], ["Jaguar", "E-Pace", "2.0L I-4", 3968, "requires tow/HD package"], ["Jaguar", "F-Pace", "All", 5291, "requires tow/HD package"], ["Jeep", "Compass 4WD", "2.0L I-4", 2000, ""], ["Jeep", "Gladiator Big Bear, Nighthawk, Sport, Willys", "3.6L V-6", 6000, ""], ["Jeep", "Gladiator Mojave, Rubicon", "3.6L V-6", 7000, ""], ["Jeep", "Grand Cherokee 2WD/4WD", "3.6L V-6", 6200, ""], ["Jeep", "Grand Cherokee 4xe 4WD", "2.0L I-4 TC Hybrid", 6000, ""], ["Jeep", "Grand Wagoneer/Wagoneer 4WD", "3.0L I-6 TC", 10000, ""], ["Jeep", "Wagoneer 2WD", "3.0L I-6 TC", 5890, ""], ["Jeep", "Wagoneer 4WD", "3.0L I-6 TC", 6120, ""], ["Jeep", "Wagoneer S", "Electric", 3400, ""], ["Jeep", "Wrangler 2-door", "3.6L V-6", 2000, ""], ["Jeep", "Wrangler 4-door", "2.0L I-4 TC, 3.6L V-6", 3500, ""], ["Kia", "Carnival", "1.6L I-4 TC Hybrid", 2500, "requires tow/HD package"], ["Kia", "Carnival", "3.5L V-6", 3500, "requires tow/HD package"], ["Kia", "EV9 Land/GT-Line/GT", "Electric", 5000, "requires tow/HD package"], ["Kia", "Sorento AWD", "2.5L TC", 4500, "requires tow/HD package"], ["Kia", "Sportage FWD/AWD", "2.5L I-4", 2500, "requires tow/HD package"], ["Kia", "Sportage Hybrid/PHEV", "1.6L I-4 TC", 2000, ""], ["Kia", "Telluride", "3.8L V-6", 5000, ""], ["Lamborghini", "Urus", "4.0L V-8 TC", 7000, ""], ["Land Rover/Range Rover", "Land Rover Defender", "2.0L I-4 TC", 7716, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Defender", "3.0L I-6, 5.0L V-8 SC", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Discovery", "2.0L I-4 TC", 5952, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Discovery", "3.0L I-6", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Evoque", "2.0L I-4 TC", 3968, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Sport Autobiography, SV", "4.4L V-8 TC", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Sport SE", "3.0L I-6 TC", 7716, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Velar", "2.0L I-4 TC", 5291, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Velar", "3.0L V-6 SC", 5511, "requires tow/HD package"], ["Lexus", "GX 550", "3.4L V-6 TC", 9096, "requires tow/HD package"], ["Lexus", "LX 600", "3.4L V-6 TC", 8000, ""], ["Lexus", "NX", "2.4L I-4 TC", 2000, "requires tow/HD package"], ["Lexus", "RX 350", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Lexus", "RX 350h/500h/450h+ AWD", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Lexus", "TX 350", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Lexus", "TX 500h Hybrid/Plug-In Hybrid", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Lincoln", "Aviator", "3.0L V-6 TC", 5000, "requires tow/HD package"], ["Lincoln", "Corsair", "All", 3000, "requires tow/HD package"], ["Lincoln", "Navigator", "3.5L V-6 TC", 8700, "requires tow/HD package"], ["Lucid", "Gravity", "Electric", 6000, ""], ["Mazda", "CX-5", "2.5L I-4", 2000, ""], ["Mazda", "CX-50", "2.5L I-4", 2000, ""], ["Mazda", "CX-50", "2.5L I-4 TC", 3500, ""], ["Mazda", "CX-70", "2.5L I-4 PHEV", 3500, "requires tow/HD package"], ["Mazda", "CX-70", "3.3L I-6 TC", 5000, "requires tow/HD package"], ["Mazda", "CX-90", "2.5L I-4 PHEV", 3500, "requires tow/HD package"], ["Mazda", "CX-90", "3.3L I-6 TC MHEV", 5000, "requires tow/HD package"], ["Mercedes-Benz", "G-Class SUV", "All", 7716, ""], ["Mercedes-Benz", "GLC", "All", 3500, ""], ["Mercedes-Benz", "GLE", "All", 7700, ""], ["Mercedes-Benz", "GLS", "All", 7700, ""], ["Mercedes-Benz", "Sprinter", "2.0L TDI", 5000, ""], ["Mercedes-Benz", "Sprinter", "2.0L TDI HO", 7500, ""], ["Mitsubishi", "Outlander 2WD/4WD", "2.5L I-4", 2000, ""], ["Nissan", "Armada", "3.5L V-6 TC", 8500, ""], ["Nissan", "Frontier Pro-4X CC 2WD", "3.8L V-6", 6910, ""], ["Nissan", "Frontier Pro-4X CC 4WD", "3.8L V-6", 6680, ""], ["Nissan", "Frontier Pro-4X CC 4WD LWB", "3.8L V-6", 6310, ""], ["Nissan", "Frontier S CC 2WD", "3.8L V-6", 7070, ""], ["Nissan", "Frontier S CC 4WD", "3.8L V-6", 6390, ""], ["Nissan", "Frontier S KC 2WD", "3.8L V-6", 7150, ""], ["Nissan", "Frontier S KC 4WD", "3.8L V-6", 7000, ""], ["Nissan", "Frontier SL CC 2WD", "3.8L V-6", 6920, ""], ["Nissan", "Frontier SL CC 2WD LWB", "3.8L V-6", 7150, ""], ["Nissan", "Frontier SL CC 4WD", "3.8L V-6", 6810, ""], ["Nissan", "Frontier SL CC 4WD LWB", "3.8L V-6", 6710, ""], ["Nissan", "Frontier SV CC 2WD", "3.8L V-6", 7000, ""], ["Nissan", "Frontier SV CC 4WD", "3.8L V-6", 6880, ""], ["Nissan", "Frontier SV CC LWB 2WD", "3.8L V-6", 6930, ""], ["Nissan", "Frontier SV CC LWB 4WD", "3.8L V-6", 6760, ""], ["Nissan", "Frontier SV KC 2WD", "3.8L V-6", 7130, ""], ["Nissan", "Frontier SV KC 4WD", "3.8L V-6", 7000, ""], ["Nissan", "Pathfinder", "3.5L V-6", 6000, ""], ["Polestar", "Polestar 2", "Electric", 2000, ""], ["Polestar", "Polestar 3", "Electric", 3500, ""], ["Polestar", "Polestar 4", "Electric", 3500, ""], ["Porsche", "Cayenne", "4.0L V-8 TC, Hybrid", 7716, ""], ["Porsche", "Cayenne", "Electric", 7716, ""], ["Porsche", "Cayenne Turbo E-Hybrid", "Hybrid", 6614, ""], ["Porsche", "Macan", "2.0L I-4 TC", 4409, ""], ["Porsche", "Macan", "Turbo Electric", 5512, ""], ["Ram", "1500 CC SB 2WD", "3.0L I-6", 8410, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 2WD", "3.0L I-6", 11510, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 2WD", "3.6L V-6", 6580, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 2WD", "3.6L V-6", 7580, "final-drive ratio 3.55:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6", 8240, "final-drive ratio 3.55:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6", 11340, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6 HO", 9340, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 4WD", "3.6L V-6", 6370, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 4WD", "3.6L V-6", 7370, "final-drive ratio 3.55:1"], ["Ram", "1500 CC Std Bed 2WD", "3.0L I-6", 8380, "final-drive ratio 3.21:1"], ["Ram", "1500 CC Std Bed 2WD", "3.0L I-6", 11480, "final-drive ratio 3.92:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6", 8160, "final-drive ratio 3.55:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6", 11260, "final-drive ratio 3.92:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6 HO", 9920, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.0L I-6", 8480, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.0L I-6", 11610, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.6L V-6", 6720, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.6L V-6", 8110, "final-drive ratio 3.55:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.0L I-6", 8350, "final-drive ratio 3.55:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.0L I-6", 11450, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.6L V-6", 6480, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.6L V-6", 7480, "final-drive ratio 3.55:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.4L V-8", 15080, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.4L V-8", 17280, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.7L I-6 TD", 20000, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.4L V-8", 14730, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.4L V-8", 16930, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.7L I-6 TD", 18230, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.4L V-8", 15220, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.4L V-8", 17420, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.7L I-6 TD", 19960, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.4L V-8", 14930, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.4L V-8", 17130, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.7L I-6 TD", 19970, "final-drive ratio 3.31:1"], ["Ram", "2500 Mega Cab 4WD", "6.7L I-6 TD", 15680, "final-drive ratio 3.31:1"], ["Ram", "2500 Power Wagon Crew Cab SB 4WD", "6.4L V-8", 10530, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 2WD", "6.4L V-8", 15500, "final-drive ratio 3.73:1"], ["Ram", "2500 Reg Cab 2WD", "6.4L V-8", 17750, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 4WD", "6.4L V-8", 15240, "final-drive ratio 3.73:1"], ["Ram", "2500 Reg Cab 4WD", "6.4L V-8", 17440, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 4WD", "6.7L I-6 TD", 19900, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB DRW 2WD", "6.4L V-8", 15150, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB DRW 2WD", "6.4L V-8", 17550, "final-drive ratio 4.10:1"], ["Ram", "3500 Crew Cab LB DRW 4WD", "6.4L V-8", 14800, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB DRW 4WD", "6.7L I-6 TD", 33890, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.4L V-8", 14930, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.4L V-8", 17170, "final-drive ratio 4.10:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.7L I-6 TD", 25490, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB SRW 4WD", "6.4L V-8", 14560, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB SRW 4WD", "6.4L V-8", 16800, "final-drive ratio 4.10:1"], ["Ram", "3500 Mega Cab DRW 4WD", "6.7L I-6 TD", 32880, "final-drive ratio 3.31:1"], ["Ram", "3500 Mega Cab SRW 4WD", "6.7L I-6 TD", 24080, "final-drive ratio 3.31:1"], ["Ram", "3500 Regular Cab DRW 2WD", "6.4L V-8", 15750, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab DRW 2WD", "6.4L V-8", 18110, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.4L V-8", 15360, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.4L V-8", 17760, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.7L I-6 TD", 36610, "final-drive ratio 3.31:1"], ["Ram", "3500 Regular Cab SRW 2WD", "6.4L V-8", 15490, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab SRW 2WD", "6.4L V-8", 17730, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.4L V-8", 15100, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.4L V-8", 17330, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.7L I-6 TD", 26080, "final-drive ratio 3.31:1"], ["Ram", "ProMaster (all)", "3.6L V-6", 6910, "requires tow/HD package"], ["Ram", "ProMaster City Cargo", "2.4L I-4", 2000, ""], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.4L V-8", 15100, "final-drive ratio 3.73:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.4L V-8", 17340, "final-drive ratio 4.10:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.7L I-6 TD", 23950, "final-drive ratio 3.31:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.4L V-8", 14770, "final-drive ratio 3.73:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.4L V-8", 17010, "final-drive ratio 4.10:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.7L I-6 TD", 23550, "final-drive ratio 3.31:1"], ["Rivian", "R1S", "All", 7700, "requires tow/HD package"], ["Rivian", "R1T", "Dual-Motor", 7700, "requires tow/HD package"], ["Rivian", "R1T", "Dual-Motor Max, Tri-Motor", 11000, "requires tow/HD package"], ["Rolls-Royce", "Cullinan", "6.7L V-12 TC", 5952, ""], ["Subaru", "Ascent", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Subaru", "Forester Wilderness", "2.5L I-4", 3500, "requires tow/HD package"], ["Subaru", "Outback", "2.5L I-4", 2700, "requires tow/HD package"], ["Subaru", "Outback XT, Wilderness", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Tesla", "Cybertruck AWD, Cyberbeast", "Dual Motor", 11000, ""], ["Tesla", "Cybertruck RWD", "Single Motor", 7500, ""], ["Toyota", "4Runner (all)", "2.4L I-4 TC", 6000, ""], ["Toyota", "Grand Highlander Hybrid", "2.5L I-4", 3500, ""], ["Toyota", "Grand Highlander Hybrid Max", "2.4L I-4 TC", 5000, ""], ["Toyota", "Highlander", "2.4L I-4 TC", 5000, ""], ["Toyota", "Highlander Hybrid", "2.5L I-4", 3500, ""], ["Toyota", "Land Cruiser", "2.4L I-4 TC", 6000, ""], ["Toyota", "Sequoia 1794 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sequoia Capstone 4WD", "3.5L V-6 TC", 9280, ""], ["Toyota", "Sequoia Limited 2WD", "3.5L V-6 TC", 9300, ""], ["Toyota", "Sequoia Limited 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sequoia Platinum 2WD", "3.5L V-6 TC", 9310, ""], ["Toyota", "Sequoia Platinum 4WD", "3.5L V-6 TC", 9010, ""], ["Toyota", "Sequoia SR5 2WD", "3.5L V-6 TC", 9520, ""], ["Toyota", "Sequoia SR5 4WD", "3.5L V-6 TC", 9120, ""], ["Toyota", "Sequoia TRD Pro 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sienna", "2.5L I-4 Hybrid", 3500, "requires tow/HD package"], ["Toyota", "Tacoma Double Cab 2WD", "2.4L I-4 TC", 6400, ""], ["Toyota", "Tacoma Double Cab 4WD", "2.4L I-4 TC", 6400, ""], ["Toyota", "Tacoma Double Cab 4WD", "2.4L I-4 TC Hybrid", 6000, ""], ["Toyota", "Tacoma XtraCab 2WD", "2.4L I-4 TC", 6500, ""], ["Toyota", "Tacoma XtraCab 4WD", "2.4L I-4 TC", 6500, ""], ["Toyota", "Tundra CrewMax 2WD", "3.4L V-6 TC", 12000, "requires tow/HD package"], ["Toyota", "Tundra CrewMax 2WD", "3.4L V-6 TC Hybrid", 11380, ""], ["Toyota", "Tundra CrewMax 4WD", "3.4L V-6 TC", 11170, ""], ["Toyota", "Tundra CrewMax 4WD", "3.4L V-6 TC Hybrid", 11175, ""], ["Toyota", "Tundra Double Cab 2WD", "3.4L V-6 TC", 12000, "requires tow/HD package"], ["Toyota", "Tundra Double Cab 4WD", "3.4L V-6 TC", 11200, ""], ["VinFast", "VF8", "Electric", 3968, "requires tow/HD package"], ["VinFast", "VF9", "Electric", 3968, "requires tow/HD package"], ["Volkswagen", "Atlas AWD, FWD", "2.0L I-4 TC", 5000, "requires tow/HD package"], ["Volkswagen", "ID.4 AWD", "Electric", 2700, "requires tow/HD package"], ["Volkswagen", "ID.4 RWD", "Electric", 2200, "requires tow/HD package"], ["Volkswagen", "ID.Buzz AWD", "Electric", 3500, "requires tow/HD package"], ["Volkswagen", "ID.Buzz RWD", "Electric", 2600, "requires tow/HD package"], ["Volvo", "EX30 AWD", "Twin Motor", 2000, "requires tow/HD package"], ["Volvo", "EX30 RWD", "Single Motor", 2000, "requires tow/HD package"], ["Volvo", "EX40 AWD", "Twin Motor", 2000, "requires tow/HD package"], ["Volvo", "EX40 RWD", "Single Motor", 2000, "requires tow/HD package"], ["Volvo", "EX90", "Twin Motor", 4850, "requires tow/HD package"], ["Volvo", "S60", "All", 2000, "requires tow/HD package"], ["Volvo", "S90 T8 AWD", "2.0L I-4 TC/SC Hybrid", 4850, "requires tow/HD package"], ["Volvo", "V60", "All", 2000, "requires tow/HD package"], ["Volvo", "V90 B6 AWD", "2.0L I-4 TC/SC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC60 B5 AWD", "2.0L I-4 TC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC60 T8", "2.0L I-4 TC/SC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC90 AWD", "All", 5000, "requires tow/HD package"]]
+};
+})(); } catch (e) { __ds_ns.__errors.push({ path: "conversions/wayfinder/data/tow-vehicles.js", error: String((e && e.message) || e) }); }
 
 // ui_kits/app-shell/NavConfig.jsx
 try { (() => {
@@ -17,7 +2291,7 @@ const NAV_KEY = 'bishs.navconfig.v1';
 // Lucide is the ONLY icon set (README › Iconography). Keys are Lucide icon names, so the code library
 // renders the same name with lucide-react: <Store />, <LayoutDashboard />, … Node data is Lucide's own
 // 24×24 geometry (stroke 1.5 default here; 2 in lucide-react). Do not add non-Lucide glyphs.
-const NAV_ICONS = {
+const navIcons = {
   "layout-dashboard": [["rect", {
     "x": 3,
     "y": 3,
@@ -277,7 +2551,7 @@ const NAV_ICONS = {
     "d": "M10.3 21a1.94 1.94 0 0 0 3.4 0"
   }]]
 };
-const UI_ICONS = {
+const uiIcons = {
   "search": [["circle", {
     "cx": 11,
     "cy": 11,
@@ -337,7 +2611,7 @@ const UI_ICONS = {
 };
 
 // Pre-Lucide keys from NavConfig v1 (saved configs may still use them).
-const ICON_ALIASES = {
+const iconAliases = {
   "dashboard": "layout-dashboard",
   "floor": "store",
   "checkin": "clipboard-check",
@@ -359,7 +2633,7 @@ const ICON_ALIASES = {
 
 // Theme by surface role: the same shell, remapped onto DS tokens.
 // `current` is the ONLY gold the nav may use (gold-lo wayfinding, decision D1 2026-10-21).
-const SHELL_THEME = {
+const shellTheme = {
   light: {
     page: 'var(--surface-light-page)',
     panel: 'var(--surface-light-inset)',
@@ -399,8 +2673,8 @@ function NavIcon({
   color = 'currentColor',
   stroke = 1.5
 }) {
-  const key = ICON_ALIASES[name] || name;
-  const nodes = NAV_ICONS[key] || UI_ICONS[key] || NAV_ICONS['layout-dashboard'];
+  const key = iconAliases[name] || name;
+  const nodes = navIcons[key] || uiIcons[key] || navIcons['layout-dashboard'];
   return /*#__PURE__*/React.createElement("svg", {
     width: size,
     height: size,
@@ -798,15 +3072,17 @@ const NavConfig = {
   uniqueId,
   slug
 };
+
+// Legacy window globals kept for pages that read them directly; bundle exports are camelCase (internal data, not components).
 Object.assign(window, {
   NavConfig,
   NavIcon,
-  NAV_ICONS,
-  UI_ICONS,
-  ICON_ALIASES,
-  SHELL_THEME
+  NAV_ICONS: navIcons,
+  UI_ICONS: uiIcons,
+  ICON_ALIASES: iconAliases,
+  SHELL_THEME: shellTheme
 });
-Object.assign(__ds_scope, { NAV_ICONS, UI_ICONS, ICON_ALIASES, SHELL_THEME, NavIcon, NavConfig });
+Object.assign(__ds_scope, { navIcons, uiIcons, iconAliases, shellTheme, NavIcon, NavConfig });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/app-shell/NavConfig.jsx", error: String((e && e.message) || e) }); }
 
 // ui_kits/app-shell/RolesNavAdmin.jsx
@@ -1032,7 +3308,7 @@ function RemoveBtn({
 function RolesNavAdmin({
   theme = 'light'
 }) {
-  const T = __ds_scope.SHELL_THEME[theme] || __ds_scope.SHELL_THEME.light;
+  const T = __ds_scope.shellTheme[theme] || __ds_scope.shellTheme.light;
   const live = __ds_scope.NavConfig.useConfig();
   const [draft, setDraft] = React.useState(() => clone(live));
   const [navForm, setNavForm] = React.useState({
@@ -1454,7 +3730,7 @@ function RolesNavAdmin({
       icon: e.target.value
     }),
     style: ctl
-  }, Object.keys(__ds_scope.NAV_ICONS).map(k => /*#__PURE__*/React.createElement("option", {
+  }, Object.keys(__ds_scope.navIcons).map(k => /*#__PURE__*/React.createElement("option", {
     key: k,
     value: k
   }, k))))), /*#__PURE__*/React.createElement(Field, {
@@ -2898,9 +5174,11 @@ function AppShell({
   logoSrcDark,
   theme = 'light',
   height = '100vh',
-  children
+  children,
+  onSearch,
+  onSearchSubmit
 }) {
-  const T = __ds_scope.SHELL_THEME[theme] || __ds_scope.SHELL_THEME.light;
+  const T = __ds_scope.shellTheme[theme] || __ds_scope.shellTheme.light;
   const cfg = __ds_scope.NavConfig.useConfig();
   const nav = __ds_scope.NavConfig.navFor(cfg, role);
   const r = nav.role;
@@ -3047,7 +5325,17 @@ function AppShell({
     "data-spec-id": "input-search",
     type: "search",
     value: q,
-    onChange: e => setQ(e.target.value),
+    onChange: e => {
+      setQ(e.target.value);
+      if (onSearch) onSearch(e.target.value);
+    },
+    onKeyDown: e => {
+      if (e.key === 'Enter' && onSearchSubmit) onSearchSubmit(q);
+      if (e.key === 'Escape') {
+        setQ('');
+        if (onSearch) onSearch('');
+      }
+    },
     onFocus: () => setQFocus(true),
     onBlur: () => setQFocus(false),
     placeholder: "Search",
@@ -3177,7 +5465,17 @@ function AppShell({
     "data-spec-id": "input-search",
     type: "search",
     value: q,
-    onChange: e => setQ(e.target.value),
+    onChange: e => {
+      setQ(e.target.value);
+      if (onSearch) onSearch(e.target.value);
+    },
+    onKeyDown: e => {
+      if (e.key === 'Enter' && onSearchSubmit) onSearchSubmit(q);
+      if (e.key === 'Escape') {
+        setQ('');
+        if (onSearch) onSearch('');
+      }
+    },
     onFocus: () => setQFocus(true),
     onBlur: () => setQFocus(false),
     placeholder: r.search || 'Search',
@@ -3576,46 +5874,1302 @@ Object.assign(window, {
 Object.assign(__ds_scope, { ActionOverlay, AppShell });
 })(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/app-shell/AppShell.jsx", error: String((e && e.message) || e) }); }
 
+// ui_kits/floor/ChoiceChip.jsx
+try { (() => {
+// ChoiceChip — pill pickers for discovery / intake questions (light reference: Payment method, Camping type).
+// Unselected: outlined pill. Selected: ink fill + check. Never gold — selection is state, not a COMMIT.
+// QuestionCard — the white question surface: gold-lo overline (STEP n · TOPIC) · Bebas question · hint · body.
+const T = {
+  light: {
+    bg: '#FFFFFF',
+    line: 'rgba(0,0,0,0.28)',
+    lineHi: '#0A0A09',
+    fg: '#0A0A09',
+    onSel: '#FFFFFF',
+    sel: '#0A0A09',
+    hover: 'rgba(0,0,0,0.03)',
+    card: '#FFFFFF',
+    cardLine: 'rgba(0,0,0,0.08)',
+    over: '#5E4F1F',
+    hint: '#3D3D38',
+    shadow: '0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.05)'
+  },
+  dark: {
+    bg: 'transparent',
+    line: 'rgba(255,255,255,0.28)',
+    lineHi: '#E7DDB4',
+    fg: '#FFFFFF',
+    onSel: '#0A0A09',
+    sel: '#E7DDB4',
+    hover: 'rgba(255,255,255,0.05)',
+    card: '#1C2E2E',
+    cardLine: 'rgba(255,255,255,0.07)',
+    over: '#C9B26A',
+    hint: '#E7DDB4',
+    shadow: 'none'
+  }
+};
+const CHECK = 'M20 6 9 17l-5-5';
+function ChoiceChip({
+  label,
+  selected = false,
+  multi = false,
+  disabled = false,
+  size = 'lg',
+  onClick,
+  theme = 'light',
+  instance,
+  specId
+}) {
+  const c = T[theme] || T.light;
+  const [hov, setHov] = React.useState(false);
+  return /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: multi ? 'checkbox' : 'radio',
+    "aria-checked": selected,
+    disabled: disabled,
+    "data-spec-id": specId || __ds_scope.makeSpecId('input-choice', label, instance),
+    onClick: onClick,
+    onMouseEnter: () => setHov(true),
+    onMouseLeave: () => setHov(false),
+    style: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: size === 'md' ? 8 : 10,
+      minHeight: size === 'md' ? 44 : 56,
+      padding: size === 'md' ? '0 18px' : '0 28px',
+      borderRadius: 9999,
+      boxSizing: 'border-box',
+      textAlign: 'left',
+      border: `1.5px solid ${selected ? c.sel : hov ? c.lineHi : c.line}`,
+      background: selected ? c.sel : hov ? c.hover : c.bg,
+      color: selected ? c.onSel : c.fg,
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: size === 'md' ? 15 : 'clamp(16px, 1.6vw, 20px)',
+      fontWeight: 400,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      opacity: disabled ? 0.45 : 1,
+      transition: 'background 150ms cubic-bezier(0.2,0,0,1), border-color 150ms'
+    }
+  }, selected && /*#__PURE__*/React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: CHECK
+  })), label);
+}
+function ChoiceGroup({
+  label,
+  children,
+  theme = 'light',
+  multi = false,
+  density = 'comfortable'
+}) {
+  const c = T[theme] || T.light;
+  const k = density === 'compact';
+  return /*#__PURE__*/React.createElement("div", {
+    role: "group",
+    "aria-label": label,
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: k ? 8 : 16
+    }
+  }, label && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: k ? 13 : 15,
+      fontWeight: 700,
+      letterSpacing: k ? 2 : 4,
+      textTransform: 'uppercase',
+      color: c.over
+    }
+  }, label), /*#__PURE__*/React.createElement("div", {
+    role: multi ? undefined : 'radiogroup',
+    "aria-label": label,
+    style: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      gap: k ? 8 : 16
+    }
+  }, children));
+}
+
+// density="compact": for screens where every option must be visible at once (configurators, in-app steps).
+function QuestionCard({
+  overline,
+  title,
+  hint,
+  children,
+  theme = 'light',
+  specId,
+  density = 'comfortable'
+}) {
+  const c = T[theme] || T.light;
+  const k = density === 'compact';
+  return /*#__PURE__*/React.createElement("section", {
+    "data-spec-id": specId || __ds_scope.makeSpecId('card-question', title),
+    "data-bos-level": "section",
+    "aria-label": title,
+    style: {
+      background: c.card,
+      border: `1px solid ${c.cardLine}`,
+      borderRadius: k ? 12 : 16,
+      boxShadow: c.shadow,
+      padding: k ? 'clamp(14px, 2vw, 20px)' : 'clamp(20px, 3vw, 32px)',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: k ? 14 : 20
+    }
+  }, /*#__PURE__*/React.createElement("div", null, overline && /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: k ? 13 : 15,
+      fontWeight: 700,
+      letterSpacing: k ? 2.5 : 4,
+      textTransform: 'uppercase',
+      color: c.over
+    }
+  }, overline), /*#__PURE__*/React.createElement("h2", {
+    style: {
+      margin: overline ? k ? '6px 0 0' : '14px 0 0' : 0,
+      fontFamily: "'Bebas Neue', sans-serif",
+      fontWeight: 400,
+      fontSize: k ? 'clamp(26px, 2.6vw, 34px)' : 'clamp(32px, 4.4vw, 60px)',
+      lineHeight: 1,
+      letterSpacing: 0.5,
+      color: c.fg,
+      textWrap: 'pretty'
+    }
+  }, title), hint && /*#__PURE__*/React.createElement("p", {
+    style: {
+      margin: k ? '6px 0 0' : '14px 0 0',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: k ? 15 : 'clamp(15px, 1.6vw, 20px)',
+      color: c.hint
+    }
+  }, hint)), children);
+}
+Object.assign(window, {
+  ChoiceChip,
+  ChoiceGroup,
+  QuestionCard
+});
+Object.assign(__ds_scope, { ChoiceChip, ChoiceGroup, QuestionCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/floor/ChoiceChip.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/floor/ChoiceTile.jsx
+try { (() => {
+// ChoiceTile — a photo (or icon) answer card with a live hint line. Promoted from the Floor Workspace check-in
+// and the Outfitter Discovery configurator (second build → promotion, component-selection-guide §6).
+// Unselected: hairline border. Selected: 2px ink border + ink check. Never gold — selection is state, not a COMMIT.
+// `footer` renders OUTSIDE the button (e.g. a "Required" checkbox) so no control is nested inside another.
+const T = {
+  light: {
+    card: '#FFFFFF',
+    line: 'rgba(0,0,0,0.12)',
+    lineHi: 'rgba(0,0,0,0.32)',
+    sel: '#0A0A09',
+    onSel: '#FFFFFF',
+    fg: '#0A0A09',
+    media: '#F1EFE8',
+    mediaFg: '#3D3D38',
+    shadow: '0 1px 2px rgba(0,0,0,0.04)',
+    shadowHi: '0 10px 22px rgba(0,0,0,0.08)',
+    tone: {
+      neutral: '#5E5E57',
+      gate: '#7A4C00',
+      rank: '#1B7A2E',
+      avoid: '#B02525'
+    }
+  },
+  dark: {
+    card: '#1C2E2E',
+    line: 'rgba(255,255,255,0.12)',
+    lineHi: 'rgba(255,255,255,0.32)',
+    sel: '#E7DDB4',
+    onSel: '#0A0A09',
+    fg: '#FFFFFF',
+    media: '#203232',
+    mediaFg: '#E7DDB4',
+    shadow: 'none',
+    shadowHi: '0 10px 22px rgba(0,0,0,0.3)',
+    tone: {
+      neutral: '#A2A59C',
+      gate: '#FFD43B',
+      rank: '#51CF66',
+      avoid: '#FF8787'
+    }
+  }
+};
+const CHECK = 'M20 6 9 17l-5-5';
+function ChoiceTile({
+  label,
+  hint,
+  hintTone = 'neutral',
+  image,
+  imageFit = 'cover',
+  icon,
+  selected = false,
+  multi = false,
+  disabled = false,
+  wide = false,
+  onClick,
+  footer,
+  theme = 'light',
+  instance,
+  specId,
+  density = 'comfortable'
+}) {
+  const c = T[theme] || T.light;
+  const k = density === 'compact';
+  const [hov, setHov] = React.useState(false);
+  const id = specId || __ds_scope.makeSpecId('input-choice-tile', label, instance);
+  return /*#__PURE__*/React.createElement("div", {
+    style: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      minWidth: 0,
+      background: c.card,
+      borderRadius: k ? 10 : 14,
+      overflow: 'hidden',
+      boxSizing: 'border-box',
+      border: `${selected ? 2 : 1.5}px solid ${selected ? c.sel : hov && !disabled ? c.lineHi : c.line}`,
+      boxShadow: hov && !disabled ? c.shadowHi : c.shadow,
+      transition: 'box-shadow 150ms cubic-bezier(0.2,0,0,1), border-color 150ms',
+      opacity: disabled ? 0.45 : 1
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    role: multi ? 'checkbox' : 'radio',
+    "aria-checked": selected,
+    disabled: disabled,
+    "data-spec-id": id,
+    onClick: onClick,
+    onMouseEnter: () => setHov(true),
+    onMouseLeave: () => setHov(false),
+    style: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      width: '100%',
+      padding: 0,
+      margin: 0,
+      border: 'none',
+      background: 'transparent',
+      color: c.fg,
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      textAlign: 'center',
+      font: 'inherit'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      display: 'grid',
+      placeItems: 'center',
+      aspectRatio: k ? image ? '2.2 / 1' : '2.6 / 1' : wide ? '1.6 / 1' : imageFit === 'contain' ? '2 / 1' : '1.34 / 1',
+      background: c.media,
+      color: c.mediaFg,
+      overflow: 'hidden',
+      padding: image && imageFit === 'contain' ? k ? '6% 8%' : '8% 10%' : 0,
+      boxSizing: 'border-box'
+    }
+  }, image ? /*#__PURE__*/React.createElement("img", {
+    src: image,
+    alt: "",
+    draggable: "false",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: imageFit === 'contain' ? 'contain' : 'cover',
+      display: 'block'
+    }
+  }) : icon), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      padding: k ? '7px 8px 0' : '11px 10px 2px',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: k ? 14 : 16,
+      fontWeight: 700,
+      lineHeight: 1.25,
+      textWrap: 'pretty'
+    }
+  }, label), hint && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      padding: k ? '1px 8px 8px' : '2px 10px 12px',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: k ? 12 : 13,
+      fontWeight: 700,
+      color: c.tone[hintTone] || c.tone.neutral
+    }
+  }, hint), !hint && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      height: k ? 8 : 10
+    }
+  })), selected && /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      position: 'absolute',
+      top: k ? 6 : 9,
+      right: k ? 6 : 9,
+      width: k ? 26 : 32,
+      height: k ? 26 : 32,
+      borderRadius: '50%',
+      background: c.sel,
+      color: c.onSel,
+      display: 'grid',
+      placeItems: 'center',
+      border: `3px solid ${c.card}`,
+      boxShadow: '0 3px 9px rgba(0,0,0,0.17)',
+      pointerEvents: 'none'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    width: k ? 14 : 18,
+    height: k ? 14 : 18,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "3",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: CHECK
+  }))), footer && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      justifyContent: 'center',
+      padding: '0 10px 10px',
+      marginTop: -4
+    }
+  }, footer));
+}
+Object.assign(window, {
+  ChoiceTile
+});
+Object.assign(__ds_scope, { ChoiceTile });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/floor/ChoiceTile.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/portal-dark/Avatar.jsx
+try { (() => {
+// Kit family "Avatar" (tone × size). Source kit: tone=gold, size=default → 32px, #B89E4A fill, Bebas Neue 13px, #020000 initials.
+// Nexus canon (Zach, 2026-10-23): avatars contrast with the surface they sit on.
+//   theme="light" (white / cream surface) → INK fill, white initials.
+//   theme="dark"  (black / dark-green surface) → WHITE fill, ink initials.
+// `tone` overrides the theme default. Gold is reserved for the signed-in user's own avatar in the header.
+const TONES = {
+  ink: {
+    bg: '#0A0A09',
+    color: '#FFFFFF'
+  },
+  white: {
+    bg: '#FFFFFF',
+    color: '#0A0A09'
+  },
+  gold: {
+    bg: '#B89E4A',
+    color: '#020000'
+  },
+  olive: {
+    bg: '#545750',
+    color: '#FFFFFF'
+  },
+  cream: {
+    bg: '#E7DDB4',
+    color: '#0A0A09'
+  }
+};
+const SIZES = {
+  sm: {
+    d: 28,
+    fs: 12,
+    lh: '18px',
+    ls: '0.3px'
+  },
+  default: {
+    d: 32,
+    fs: 13,
+    lh: '19.500px',
+    ls: '0.325px'
+  },
+  lg: {
+    d: 44,
+    fs: 17,
+    lh: '26px',
+    ls: '0.425px'
+  }
+};
+function Avatar({
+  initials = 'ZM',
+  name,
+  tone,
+  theme = 'light',
+  size = 'default',
+  src,
+  specId
+}) {
+  const t = TONES[tone || (theme === 'dark' ? 'white' : 'ink')] || TONES.ink,
+    s = SIZES[size] || SIZES.default;
+  const label = name || initials;
+  return /*#__PURE__*/React.createElement("span", {
+    "data-spec-id": specId || __ds_scope.makeSpecId('info', `avatar ${label}`),
+    role: "img",
+    "aria-label": label,
+    style: {
+      position: 'relative',
+      width: s.d,
+      height: s.d,
+      flex: `0 0 ${s.d}px`,
+      overflow: 'hidden',
+      borderRadius: 9999,
+      backgroundColor: t.bg,
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }
+  }, src ? /*#__PURE__*/React.createElement("img", {
+    src: src,
+    alt: "",
+    style: {
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      display: 'block'
+    }
+  }) : /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      fontFamily: "'Bebas Neue', sans-serif",
+      fontWeight: 400,
+      fontSize: s.fs,
+      lineHeight: s.lh,
+      letterSpacing: s.ls,
+      color: t.color,
+      textAlign: 'center'
+    }
+  }, initials));
+}
+Object.assign(window, {
+  Avatar
+});
+Object.assign(__ds_scope, { Avatar });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/portal-dark/Avatar.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/floor/CustomerCard.jsx
+try { (() => {
+function _extends() { return _extends = Object.assign ? Object.assign.bind() : function (n) { for (var e = 1; e < arguments.length; e++) { var t = arguments[e]; for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]); } return n; }, _extends.apply(null, arguments); }
+// CustomerCard — the floor-traffic kanban card (original cust-card-v2 anatomy):
+// party tile · name / interest · ⋮  |  outfitter + avatar (dashed red "?" when unassigned)  |  phase clock ▏ total.
+// Optional `flag` row on top and `cta` bar on the bottom turn it into a Needs-action card (Action Hub rail).
+// CTA tones: neutral (ink on hover), danger, info. Never gold — the card's CTA is an ACTION, the alert owns the COMMIT.
+const T = {
+  light: {
+    card: '#FFFFFF',
+    line: 'rgba(0,0,0,0.08)',
+    lineMid: 'rgba(0,0,0,0.14)',
+    well: '#FAFAF6',
+    inset: '#EFEDE4',
+    ink: '#0A0A09',
+    sub: '#6B6B63',
+    mid: '#3D3D38',
+    phase: '#545750',
+    tile: '#0A0A09',
+    tileFg: '#F7F6F1',
+    shadow: '0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.05)',
+    shadowHi: '0 2px 4px rgba(0,0,0,0.06), 0 8px 20px rgba(0,0,0,0.08)',
+    danger: '#B02525',
+    dangerBg: '#FDECEC',
+    info: '#1864AB',
+    infoBg: '#E7F1FB',
+    focus: '#0A0A09'
+  },
+  dark: {
+    card: '#1C2E2E',
+    line: 'rgba(255,255,255,0.07)',
+    lineMid: 'rgba(255,255,255,0.14)',
+    well: '#162424',
+    inset: '#243838',
+    ink: '#FFFFFF',
+    sub: '#A2A59C',
+    mid: '#E7DDB4',
+    phase: '#E7DDB4',
+    tile: '#E7DDB4',
+    tileFg: '#0A0A09',
+    shadow: 'none',
+    shadowHi: '0 8px 20px rgba(0,0,0,0.3)',
+    danger: '#FF8787',
+    dangerBg: 'rgba(255,135,135,0.12)',
+    info: '#74C0FC',
+    infoBg: 'rgba(116,192,252,0.12)',
+    focus: '#E7DDB4'
+  }
+};
+const PARTY = {
+  couple: 'M5 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm10 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5ZM2 16c0-2 1.5-4 3-4s3 2 3 4v2H2v-2Zm10 0c0-2 1.5-4 3-4s3 2 3 4v2h-6v-2Z',
+  family: 'M5 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4ZM10 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM3 17v-3c0-1.5 1-3 2-3s2 1.5 2 3v3H3Zm10 0v-3c0-1.5 1-3 2-3s2 1.5 2 3v3h-4Zm-4 1v-2c0-1 .8-2 1-2s1 1 1 2v2H9Z',
+  single: 'M10 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm-5 9c0-3 2-5 5-5s5 2 5 5v1H5v-1Z'
+};
+const slug = s => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const inits = n => {
+  const w = String(n || '?').match(/[A-Za-z]+/g) || ['?'];
+  return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : w[0].slice(0, 2)).toUpperCase();
+};
+const Svg = ({
+  d,
+  size = 18
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: size,
+  height: size,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "2",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": "true"
+}, d.map(p => /*#__PURE__*/React.createElement("path", {
+  key: p,
+  d: p
+})));
+const DOTS = ['M12 5h.01', 'M12 12h.01', 'M12 19h.01'],
+  ARROW = ['M5 12h14', 'm12 5 7 7-7 7'],
+  X = ['M18 6 6 18', 'm6 6 12 12'];
+function CustomerCard({
+  customer,
+  interest,
+  partyType = 'single',
+  meta,
+  outfitter,
+  phaseTime,
+  totalTime,
+  phaseLabel = 'Current phase',
+  onOpen,
+  onMenu,
+  onAssign,
+  selected = false,
+  flag,
+  cta,
+  onDismiss,
+  theme = 'light',
+  controlProps = {},
+  rootProps = {},
+  instance,
+  specId
+}) {
+  const c = T[theme] || T.light;
+  const [hov, setHov] = React.useState(null);
+  const inst = slug(instance || customer);
+  const unassigned = !outfitter;
+  const flagColor = flag ? flag.tone === 'danger' ? c.danger : flag.tone === 'info' ? c.info : '#8B752E' : null;
+  const ctaTone = cta && cta.tone;
+  const ctaBg = ctaTone === 'danger' ? hov === 'cta' ? c.danger : c.dangerBg : ctaTone === 'info' ? hov === 'cta' ? c.info : c.infoBg : hov === 'cta' ? c.ink : c.inset;
+  const ctaFg = hov === 'cta' ? theme === 'dark' ? '#0A0A09' : '#FFFFFF' : ctaTone === 'danger' ? c.danger : ctaTone === 'info' ? c.info : c.ink;
+  const iconBtn = k => ({
+    width: 44,
+    height: 44,
+    flex: '0 0 44px',
+    border: 'none',
+    borderRadius: 8,
+    background: hov === k ? theme === 'dark' ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.05)' : 'transparent',
+    color: c.mid,
+    display: 'grid',
+    placeItems: 'center',
+    cursor: 'pointer'
+  });
+  return /*#__PURE__*/React.createElement("div", _extends({}, rootProps, {
+    "data-spec-id": specId || __ds_scope.makeSpecId(flag ? 'card-hub-action' : 'card-case', customer, inst),
+    "data-bos-level": "component",
+    role: onOpen ? 'button' : undefined,
+    tabIndex: onOpen ? 0 : undefined,
+    "aria-label": onOpen ? `${customer}, ${outfitter ? outfitter.name : 'unassigned'}. Open details` : undefined,
+    onClick: onOpen,
+    onKeyDown: onOpen ? e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        onOpen(e);
+      }
+    } : undefined,
+    onMouseEnter: () => setHov(h => h || 'card'),
+    onMouseLeave: () => setHov(null),
+    style: {
+      position: 'relative',
+      boxSizing: 'border-box',
+      width: '100%',
+      background: c.card,
+      border: `1px solid ${c.line}`,
+      borderLeft: flagColor ? `3px solid ${flagColor}` : unassigned ? `3px solid ${c.danger}` : `1px solid ${c.line}`,
+      borderRadius: 10,
+      overflow: 'hidden',
+      cursor: onOpen ? 'pointer' : 'default',
+      boxShadow: selected ? `0 0 0 2px ${c.focus}` : hov ? c.shadowHi : c.shadow,
+      transition: 'box-shadow 150ms cubic-bezier(0.2,0,0,1)'
+    }
+  }), flag && /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 6,
+      padding: '6px 4px 0 12px'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 6,
+      height: 6,
+      flex: '0 0 6px',
+      transform: 'rotate(45deg)',
+      background: flagColor
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: 1.2,
+      textTransform: 'uppercase',
+      color: flagColor
+    }
+  }, flag.label), flag.from && /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 12,
+      color: c.sub,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    }
+  }, "from ", flag.from), onDismiss && /*#__PURE__*/React.createElement("button", _extends({
+    type: "button"
+  }, controlProps.dismiss || {}, {
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', 'dismiss hub card', inst),
+    "data-bos-class": "action",
+    "aria-label": `Dismiss ${customer}`,
+    onClick: e => {
+      e.stopPropagation();
+      onDismiss();
+    },
+    onMouseEnter: () => setHov('x'),
+    onMouseLeave: () => setHov('card'),
+    style: {
+      ...iconBtn('x'),
+      marginLeft: 'auto'
+    }
+  }), /*#__PURE__*/React.createElement(Svg, {
+    d: X,
+    size: 16
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      padding: '12px 4px 10px 12px'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 32,
+      height: 32,
+      flex: '0 0 32px',
+      borderRadius: 7,
+      background: c.tile,
+      color: c.tileFg,
+      display: 'grid',
+      placeItems: 'center'
+    }
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 20 20",
+    width: "15",
+    height: "15",
+    fill: "currentColor"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: PARTY[partyType] || PARTY.single
+  }))), /*#__PURE__*/React.createElement("span", {
+    style: {
+      minWidth: 0,
+      flex: 1
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 15,
+      fontWeight: 700,
+      lineHeight: 1.2,
+      color: c.ink,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    }
+  }, customer), interest && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 12,
+      color: c.sub,
+      marginTop: 2
+    }
+  }, interest), meta && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 11,
+      letterSpacing: 0.6,
+      textTransform: 'uppercase',
+      color: c.sub,
+      marginTop: 3
+    }
+  }, meta)), onMenu && /*#__PURE__*/React.createElement("button", _extends({
+    type: "button"
+  }, controlProps.menu || {}, {
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', 'case menu', inst),
+    "data-bos-class": "action",
+    "aria-label": `Actions for ${customer}`,
+    "aria-haspopup": "dialog",
+    onClick: e => {
+      e.stopPropagation();
+      onMenu(e);
+    },
+    onMouseEnter: () => setHov('m'),
+    onMouseLeave: () => setHov('card'),
+    style: iconBtn('m')
+  }), /*#__PURE__*/React.createElement(Svg, {
+    d: DOTS
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 8,
+      margin: '0 12px',
+      padding: '10px 0',
+      borderTop: `1px solid ${c.line}`,
+      borderBottom: `1px solid ${c.line}`
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 13,
+      fontWeight: 700,
+      color: unassigned ? c.danger : c.ink
+    }
+  }, unassigned ? 'Unassigned' : outfitter.name), /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 11,
+      color: c.sub
+    }
+  }, unassigned ? 'Awaiting outfitter' : outfitter.role || 'Assigned outfitter')), unassigned ? onAssign ? /*#__PURE__*/React.createElement("button", _extends({
+    type: "button"
+  }, controlProps.assign || {}, {
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', 'assign', inst),
+    "data-bos-class": "action",
+    "aria-label": `Assign an outfitter to ${customer}`,
+    onClick: e => {
+      e.stopPropagation();
+      onAssign(e);
+    },
+    style: {
+      width: 44,
+      height: 44,
+      margin: -7,
+      border: 'none',
+      background: 'transparent',
+      display: 'grid',
+      placeItems: 'center',
+      cursor: 'pointer'
+    }
+  }), /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 30,
+      height: 30,
+      borderRadius: '50%',
+      border: `1.5px dashed ${c.danger}`,
+      background: c.dangerBg,
+      color: c.danger,
+      display: 'grid',
+      placeItems: 'center',
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 12,
+      fontWeight: 700
+    }
+  }, "?")) : /*#__PURE__*/React.createElement("span", {
+    "aria-hidden": "true",
+    style: {
+      width: 30,
+      height: 30,
+      borderRadius: '50%',
+      border: `1.5px dashed ${c.danger}`,
+      background: c.dangerBg,
+      color: c.danger,
+      display: 'grid',
+      placeItems: 'center',
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 12,
+      fontWeight: 700
+    }
+  }, "?") : /*#__PURE__*/React.createElement(__ds_scope.Avatar, {
+    initials: outfitter.initials || inits(outfitter.name),
+    name: outfitter.name,
+    src: outfitter.src,
+    tone: outfitter.tone,
+    theme: theme,
+    specId: __ds_scope.makeSpecId('info', 'avatar outfitter', inst)
+  })), /*#__PURE__*/React.createElement("dl", {
+    style: {
+      display: 'grid',
+      gridTemplateColumns: '1fr 1px auto',
+      alignItems: 'center',
+      gap: 12,
+      margin: '10px 12px 12px',
+      padding: '8px 10px',
+      border: `1px solid ${c.line}`,
+      borderRadius: 8,
+      background: c.well
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("dt", {
+    style: {
+      fontFamily: "'Source Sans 3', sans-serif",
+      fontSize: 11,
+      color: c.sub
+    }
+  }, phaseLabel), /*#__PURE__*/React.createElement("dd", {
+    style: {
+      margin: 0,
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 13,
+      fontWeight: 700,
+      color: c.phase
+    }
+  }, phaseTime)), /*#__PURE__*/React.createElement("i", {
+    "aria-hidden": "true",
+    style: {
+      display: 'block',
+      width: 1,
+      height: 28,
+      background: c.lineMid
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      textAlign: 'right'
+    }
+  }, /*#__PURE__*/React.createElement("dt", {
+    style: {
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      color: c.mid
+    }
+  }, "Total"), /*#__PURE__*/React.createElement("dd", {
+    style: {
+      margin: 0,
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 13,
+      fontWeight: 700,
+      color: c.ink
+    }
+  }, totalTime))), cta && /*#__PURE__*/React.createElement("button", _extends({
+    type: "button"
+  }, controlProps.cta || {}, {
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', cta.label, inst),
+    "data-bos-class": "action",
+    disabled: cta.disabled,
+    onClick: e => {
+      e.stopPropagation();
+      cta.onClick && cta.onClick(e);
+    },
+    onMouseEnter: () => setHov('cta'),
+    onMouseLeave: () => setHov('card'),
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 8,
+      width: '100%',
+      minHeight: 48,
+      border: 'none',
+      borderTop: `1px solid ${c.line}`,
+      background: ctaBg,
+      color: ctaFg,
+      fontFamily: "'Bebas Neue', sans-serif",
+      fontSize: 19,
+      letterSpacing: 1.5,
+      cursor: cta.disabled ? 'not-allowed' : 'pointer',
+      opacity: cta.disabled ? 0.5 : 1,
+      transition: 'background 150ms cubic-bezier(0.2,0,0,1)'
+    }
+  }), cta.label, /*#__PURE__*/React.createElement(Svg, {
+    d: ARROW
+  })));
+}
+Object.assign(window, {
+  CustomerCard
+});
+Object.assign(__ds_scope, { CustomerCard });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/floor/CustomerCard.jsx", error: String((e && e.message) || e) }); }
+
+// ui_kits/floor/PhaseAlert.jsx
+try { (() => {
+// PhaseAlert — the floor interrupt card ("Pick me a winner" / "Start the deal").
+// Anatomy (Floor Workspace rev 2 reference): ink head strip (eyebrow + dismiss) · white body · Bebas title ·
+// person rows (customer, outfitter) · WAITING timer well · one COMMIT + Snooze ACTION.
+// One alert = one frame = one COMMIT. Timer counts up from waitSeconds; past limitSeconds it turns danger (countdown-to-breach).
+const ic = d => d.map(p => /*#__PURE__*/React.createElement("path", {
+  key: p,
+  d: p
+}));
+const Svg = ({
+  d,
+  size = 20
+}) => /*#__PURE__*/React.createElement("svg", {
+  width: size,
+  height: size,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: "2",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": "true"
+}, ic(d));
+const X = ['M18 6 6 18', 'm6 6 12 12'],
+  ARROW = ['M5 12h14', 'm12 5 7 7-7 7'];
+const clock = s => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+const inits = n => {
+  const w = String(n || '?').match(/[A-Za-z]+/g) || ['?'];
+  return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : w[0].slice(0, 2)).toUpperCase();
+};
+function PhaseAlert({
+  eyebrow = 'New MCP',
+  from,
+  title = 'Pick me a winner',
+  people = [],
+  waitSeconds = 0,
+  limitSeconds,
+  ctaLabel = 'Do MCP now',
+  snoozeLabel = 'Snooze 1 min',
+  onCommit,
+  onSnooze,
+  onDismiss,
+  live = true,
+  avatarTone,
+  instance,
+  specId
+}) {
+  const [t, setT] = React.useState(0);
+  const [hov, setHov] = React.useState(null);
+  React.useEffect(() => {
+    if (!live) return undefined;
+    const id = setInterval(() => setT(x => x + 1), 1000);
+    return () => clearInterval(id);
+  }, [live]);
+  const secs = waitSeconds + t;
+  const breach = limitSeconds != null && secs >= limitSeconds;
+  const key = instance || people[0] && people[0].name || title;
+  const id = specId || __ds_scope.makeSpecId('card-phase-alert', title, key);
+  const inst = String(key).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return /*#__PURE__*/React.createElement("div", {
+    "data-spec-id": id,
+    "data-bos-level": "frame",
+    role: "alertdialog",
+    "aria-label": `${title}${people[0] ? `: ${people[0].name}` : ''}`,
+    style: {
+      width: '100%',
+      maxWidth: 420,
+      boxSizing: 'border-box',
+      background: '#FFFFFF',
+      borderRadius: 16,
+      overflow: 'hidden',
+      border: '1px solid rgba(0,0,0,0.10)',
+      boxShadow: '0 14px 40px rgba(0,0,0,0.28)'
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 10,
+      background: '#020000',
+      minHeight: 56,
+      padding: '0 6px 0 20px'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      flex: 1,
+      minWidth: 0,
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 13,
+      fontWeight: 700,
+      letterSpacing: 2.5,
+      textTransform: 'uppercase',
+      color: '#A2A59C',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis'
+    }
+  }, eyebrow, from ? ` · from ${from}` : ''), onDismiss && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', 'dismiss alert', inst),
+    "data-bos-class": "action",
+    "aria-label": "Dismiss for 1 minute",
+    onClick: onDismiss,
+    onMouseEnter: () => setHov('x'),
+    onMouseLeave: () => setHov(null),
+    style: {
+      width: 44,
+      height: 44,
+      border: 'none',
+      borderRadius: 8,
+      background: hov === 'x' ? 'rgba(255,255,255,0.08)' : 'transparent',
+      color: '#E7DDB4',
+      display: 'grid',
+      placeItems: 'center',
+      cursor: 'pointer'
+    }
+  }, /*#__PURE__*/React.createElement(Svg, {
+    d: X
+  }))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      padding: '18px 20px 20px',
+      display: 'flex',
+      flexDirection: 'column'
+    }
+  }, /*#__PURE__*/React.createElement("h2", {
+    style: {
+      margin: '0 0 6px',
+      fontFamily: "'Bebas Neue', sans-serif",
+      fontWeight: 400,
+      fontSize: 32,
+      letterSpacing: 0.5,
+      lineHeight: 1.05,
+      color: '#0A0A09'
+    }
+  }, title), people.map(p => /*#__PURE__*/React.createElement("div", {
+    key: `${p.role || 'c'}-${p.name}`,
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 16,
+      padding: '10px 0'
+    }
+  }, /*#__PURE__*/React.createElement(__ds_scope.Avatar, {
+    initials: p.initials || inits(p.name),
+    name: p.name,
+    src: p.src,
+    tone: p.tone || avatarTone,
+    theme: "light",
+    size: "lg",
+    specId: __ds_scope.makeSpecId('info', `avatar ${p.role || 'customer'}`, inst)
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      minWidth: 0
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 20,
+      fontWeight: 700,
+      color: '#0A0A09',
+      lineHeight: 1.15
+    }
+  }, p.name), p.role && /*#__PURE__*/React.createElement("span", {
+    style: {
+      display: 'block',
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 14,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      color: '#3D3D38'
+    }
+  }, p.role)))), /*#__PURE__*/React.createElement("div", {
+    role: "timer",
+    "aria-label": `Waiting ${clock(secs)}`,
+    "data-spec-id": __ds_scope.makeSpecId('metric', 'waiting', inst),
+    style: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 12,
+      marginTop: 10,
+      minHeight: 56,
+      padding: '0 20px 0 24px',
+      borderRadius: 12,
+      border: `1px solid ${breach ? 'rgba(176,37,37,0.35)' : 'rgba(0,0,0,0.12)'}`,
+      background: breach ? '#FDECEC' : '#F7F6F1'
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 16,
+      fontWeight: 700,
+      letterSpacing: 2.5,
+      textTransform: 'uppercase',
+      color: breach ? '#B02525' : '#5E4F1F'
+    }
+  }, breach ? 'Over limit' : 'Waiting'), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontFamily: "'JetBrains Mono', monospace",
+      fontSize: 24,
+      fontWeight: 500,
+      color: breach ? '#B02525' : '#0A0A09'
+    }
+  }, clock(secs))), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: 'flex',
+      gap: 14,
+      marginTop: 20,
+      flexWrap: 'wrap'
+    }
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "data-spec-id": __ds_scope.makeSpecId('btn-commit', ctaLabel, inst),
+    "data-bos-class": "commit",
+    onClick: onCommit,
+    onMouseEnter: () => setHov('c'),
+    onMouseLeave: () => setHov(null),
+    style: {
+      flex: '2 1 200px',
+      minHeight: 60,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 12,
+      border: 'none',
+      borderRadius: 12,
+      background: hov === 'c' ? '#8B752E' : '#B89E4A',
+      color: '#020000',
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 18,
+      fontWeight: 700,
+      letterSpacing: 1.5,
+      textTransform: 'uppercase',
+      cursor: 'pointer',
+      transition: 'background 150ms cubic-bezier(0.2,0,0,1)'
+    }
+  }, ctaLabel, /*#__PURE__*/React.createElement(Svg, {
+    d: ARROW
+  })), onSnooze && /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    "data-spec-id": __ds_scope.makeSpecId('btn-action', 'snooze alert', inst),
+    "data-bos-class": "action",
+    onClick: onSnooze,
+    onMouseEnter: () => setHov('s'),
+    onMouseLeave: () => setHov(null),
+    style: {
+      flex: '1 1 120px',
+      minHeight: 60,
+      padding: '0 16px',
+      borderRadius: 12,
+      border: `1px solid ${hov === 's' ? '#0A0A09' : 'rgba(0,0,0,0.18)'}`,
+      background: '#FFFFFF',
+      color: '#0A0A09',
+      fontFamily: "'Barlow Condensed', sans-serif",
+      fontSize: 16,
+      fontWeight: 700,
+      letterSpacing: 1,
+      textTransform: 'uppercase',
+      cursor: 'pointer'
+    }
+  }, snoozeLabel))));
+}
+Object.assign(window, {
+  PhaseAlert
+});
+Object.assign(__ds_scope, { PhaseAlert });
+})(); } catch (e) { __ds_ns.__errors.push({ path: "ui_kits/floor/PhaseAlert.jsx", error: String((e && e.message) || e) }); }
+
 // ui_kits/portal-dark/Badge.jsx
 try { (() => {
+const DARK = {
+  gold: {
+    bg: "rgba(139,117,46,0.15)",
+    color: "#B89E4A",
+    border: "rgba(139,117,46,0.28)"
+  },
+  success: {
+    bg: "rgba(47,158,68,0.12)",
+    color: "#51CF66",
+    border: "rgba(47,158,68,0.3)"
+  },
+  warning: {
+    bg: "rgba(245,159,0,0.12)",
+    color: "#FFD43B",
+    border: "rgba(245,159,0,0.3)"
+  },
+  danger: {
+    bg: "rgba(224,49,49,0.12)",
+    color: "#FF8787",
+    border: "rgba(224,49,49,0.3)"
+  },
+  info: {
+    bg: "rgba(28,126,214,0.12)",
+    color: "#74C0FC",
+    border: "rgba(28,126,214,0.3)"
+  },
+  neutral: {
+    bg: "rgba(255,255,255,0.06)",
+    color: "#A2A59C",
+    border: "rgba(255,255,255,0.13)"
+  }
+};
+// Light: semantic *-light fill + *-dark text (AA on cream/white). Warning text deepens to #7A4C00 for AA on #FFF3BF.
+const LIGHT = {
+  gold: {
+    bg: "rgba(139,117,46,0.12)",
+    color: "#5E4F1F",
+    border: "rgba(139,117,46,0.35)"
+  },
+  success: {
+    bg: "#D3F9D8",
+    color: "#1B7A2E",
+    border: "rgba(27,122,46,0.25)"
+  },
+  warning: {
+    bg: "#FFF3BF",
+    color: "#7A4C00",
+    border: "rgba(199,124,0,0.3)"
+  },
+  danger: {
+    bg: "#FFE3E3",
+    color: "#B02525",
+    border: "rgba(176,37,37,0.25)"
+  },
+  info: {
+    bg: "#D0EBFF",
+    color: "#1864AB",
+    border: "rgba(24,100,171,0.25)"
+  },
+  neutral: {
+    bg: "#EFEDE4",
+    color: "#3D3D38",
+    border: "rgba(0,0,0,0.12)"
+  }
+};
 function Badge({
   type = "gold",
+  theme = "dark",
   children,
   specId
 }) {
-  const types = {
-    gold: {
-      bg: "rgba(139,117,46,0.15)",
-      color: "#B89E4A",
-      border: "rgba(139,117,46,0.28)"
-    },
-    success: {
-      bg: "rgba(47,158,68,0.12)",
-      color: "#51CF66",
-      border: "rgba(47,158,68,0.3)"
-    },
-    warning: {
-      bg: "rgba(245,159,0,0.12)",
-      color: "#FFD43B",
-      border: "rgba(245,159,0,0.3)"
-    },
-    danger: {
-      bg: "rgba(224,49,49,0.12)",
-      color: "#FF8787",
-      border: "rgba(224,49,49,0.3)"
-    },
-    info: {
-      bg: "rgba(28,126,214,0.12)",
-      color: "#74C0FC",
-      border: "rgba(28,126,214,0.3)"
-    },
-    neutral: {
-      bg: "rgba(255,255,255,0.06)",
-      color: "#A2A59C",
-      border: "rgba(255,255,255,0.13)"
-    }
-  };
-  const t = types[type] || types.neutral;
+  const map = theme === "light" ? LIGHT : DARK;
+  const t = map[type] || map.neutral;
   return /*#__PURE__*/React.createElement("span", {
     "data-spec-id": specId || __ds_scope.makeSpecId("badge", children),
     style: {
@@ -3642,10 +7196,12 @@ Object.assign(__ds_scope, { Badge });
 
 // ui_kits/portal-dark/Button.jsx
 try { (() => {
+// theme = surface the button sits on. Gold primary is identical on both (COMMIT); hover goes lighter gold → darker gold.
 function Button({
   variant = "primary",
   size = "md",
   disabled = false,
+  theme = "dark",
   children,
   onClick,
   specId
@@ -3669,9 +7225,31 @@ function Button({
     }
   };
   const s = sizes[size];
-  const variants = {
+  const L = theme === "light";
+  const variants = L ? {
     primary: {
-      bg: disabled ? "#4A4D46" : hover ? "#B89E4A" : "#8B752E",
+      bg: disabled ? "#EFEDE4" : hover ? "#8B752E" : "#B89E4A",
+      color: disabled ? "#767670" : "#020000",
+      border: disabled ? "1px solid rgba(0,0,0,0.15)" : "none"
+    },
+    secondary: {
+      bg: hover ? "rgba(139,117,46,0.08)" : "transparent",
+      color: disabled ? "#767670" : "#5E4F1F",
+      border: `1px solid ${disabled ? "rgba(0,0,0,0.15)" : hover ? "#5E4F1F" : "#8B752E"}`
+    },
+    ghost: {
+      bg: hover ? "rgba(0,0,0,0.04)" : "transparent",
+      color: disabled ? "#767670" : "#3D3D38",
+      border: "none"
+    },
+    danger: {
+      bg: hover ? "#8A1C1C" : "#B02525",
+      color: "#fff",
+      border: "none"
+    }
+  } : {
+    primary: {
+      bg: disabled ? "#4A4D46" : hover ? "#8B752E" : "#B89E4A",
       color: disabled ? "#A2A59C" : "#020000",
       border: "none"
     },
@@ -3711,7 +7289,7 @@ function Button({
       border: v.border,
       borderRadius: 8,
       cursor: disabled ? "not-allowed" : "pointer",
-      opacity: disabled && variant === "primary" ? 0.6 : 1,
+      opacity: disabled && variant === "primary" && !L ? 0.6 : 1,
       transition: "all 150ms cubic-bezier(0.2,0,0,1)",
       display: "inline-flex",
       alignItems: "center",
@@ -3728,39 +7306,76 @@ Object.assign(__ds_scope, { Button });
 
 // ui_kits/portal-dark/Card.jsx
 try { (() => {
+// theme = surface role. dark: raised-surface elevation. light: white card + shadow on cream page.
+const T = {
+  dark: {
+    card: "#1C2E2E",
+    head: "#243838",
+    line: "rgba(255,255,255,0.07)",
+    title: "#fff",
+    sub: "#A2A59C",
+    body: "#E7DDB4",
+    over: "#B89E4A",
+    id: "#B89E4A",
+    hover: "rgba(255,255,255,0.03)",
+    shadow: "none",
+    up: "#51CF66",
+    down: "#FF8787",
+    flat: "#A2A59C"
+  },
+  light: {
+    card: "#FFFFFF",
+    head: "#FAFAF6",
+    line: "rgba(0,0,0,0.08)",
+    title: "#0A0A09",
+    sub: "#6B6B63",
+    body: "#3D3D38",
+    over: "#5E4F1F",
+    id: "#5E4F1F",
+    hover: "rgba(0,0,0,0.03)",
+    shadow: "0 1px 2px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.05)",
+    up: "#1B7A2E",
+    down: "#B02525",
+    flat: "#6B6B63"
+  }
+};
+const th = t => T[t] || T.dark;
 function Card({
   title,
   subtitle,
   children,
   footer,
+  theme = "dark",
   specId
 }) {
+  const c = th(theme);
   return /*#__PURE__*/React.createElement("div", {
     "data-spec-id": specId || __ds_scope.makeSpecId("card", title || subtitle || "card"),
     style: {
-      background: "#1C2E2E",
-      border: "1px solid rgba(255,255,255,0.07)",
+      background: c.card,
+      border: `1px solid ${c.line}`,
       borderRadius: 8,
-      overflow: "hidden"
+      overflow: "hidden",
+      boxShadow: c.shadow
     }
   }, (title || subtitle) && /*#__PURE__*/React.createElement("div", {
     style: {
-      background: "#243838",
+      background: c.head,
       padding: "16px 20px",
-      borderBottom: "1px solid rgba(255,255,255,0.07)"
+      borderBottom: `1px solid ${c.line}`
     }
   }, title && /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 22,
-      color: "#fff",
+      color: c.title,
       letterSpacing: 0.5
     }
   }, title), subtitle && /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Barlow Condensed', sans-serif",
       fontSize: 11,
-      color: "#A2A59C",
+      color: c.sub,
       letterSpacing: 1,
       textTransform: "uppercase",
       marginTop: 2
@@ -3769,14 +7384,14 @@ function Card({
     style: {
       padding: "16px 20px",
       fontFamily: "'Source Sans 3', sans-serif",
-      fontSize: 13,
-      color: "#E7DDB4",
+      fontSize: 14,
+      color: c.body,
       lineHeight: 1.6
     }
   }, children), footer && /*#__PURE__*/React.createElement("div", {
     style: {
       padding: "12px 20px",
-      borderTop: "1px solid rgba(255,255,255,0.07)",
+      borderTop: `1px solid ${c.line}`,
       display: "flex",
       justifyContent: "flex-end",
       gap: 8
@@ -3788,20 +7403,23 @@ function StatTile({
   value,
   delta,
   deltaType = "neutral",
+  theme = "dark",
   specId
 }) {
+  const c = th(theme);
   const deltaColors = {
-    up: "#51CF66",
-    down: "#FF8787",
-    neutral: "#A2A59C"
+    up: c.up,
+    down: c.down,
+    neutral: c.flat
   };
   return /*#__PURE__*/React.createElement("div", {
     "data-spec-id": specId || __ds_scope.makeSpecId("metric", label),
     style: {
-      background: "#1C2E2E",
-      border: "1px solid rgba(255,255,255,0.07)",
+      background: c.card,
+      border: `1px solid ${c.line}`,
       borderRadius: 8,
-      padding: "16px 20px"
+      padding: "16px 20px",
+      boxShadow: c.shadow
     }
   }, /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3809,7 +7427,7 @@ function StatTile({
       fontSize: 11,
       letterSpacing: 3,
       textTransform: "uppercase",
-      color: "#B89E4A",
+      color: c.over,
       marginBottom: 6
     }
   }, label), /*#__PURE__*/React.createElement("div", {
@@ -3817,7 +7435,7 @@ function StatTile({
       fontFamily: "'Bebas Neue', sans-serif",
       fontSize: 40,
       letterSpacing: 1,
-      color: "#fff",
+      color: c.title,
       lineHeight: 1
     }
   }, value), delta && /*#__PURE__*/React.createElement("div", {
@@ -3836,9 +7454,11 @@ function UnitRow({
   status,
   statusType,
   onClick,
+  theme = "dark",
   specId
 }) {
   const [hover, setHover] = React.useState(false);
+  const c = th(theme);
   return /*#__PURE__*/React.createElement("div", {
     "data-spec-id": specId || __ds_scope.makeSpecId("row-unit", title, id),
     "data-bos-class": onClick ? "nav" : undefined,
@@ -3851,10 +7471,11 @@ function UnitRow({
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
+      gap: 12,
       padding: "12px 20px",
-      borderBottom: "1px solid rgba(255,255,255,0.07)",
+      borderBottom: `1px solid ${c.line}`,
       cursor: onClick ? "pointer" : "default",
-      background: hover ? "rgba(255,255,255,0.03)" : "transparent",
+      background: hover ? c.hover : "transparent",
       transition: "background 150ms cubic-bezier(0.2,0,0,1)"
     }
   }, /*#__PURE__*/React.createElement("div", {
@@ -3868,7 +7489,7 @@ function UnitRow({
     style: {
       fontFamily: "'JetBrains Mono', monospace",
       fontSize: 12,
-      color: "#B89E4A",
+      color: c.id,
       flexShrink: 0
     }
   }, id), /*#__PURE__*/React.createElement("div", {
@@ -3881,17 +7502,18 @@ function UnitRow({
       fontSize: 14,
       fontWeight: 500,
       letterSpacing: 0.5,
-      color: "#fff"
+      color: c.title
     }
   }, title), /*#__PURE__*/React.createElement("div", {
     style: {
       fontFamily: "'Source Sans 3', sans-serif",
       fontSize: 12,
-      color: "#A2A59C",
+      color: c.sub,
       marginTop: 2
     }
   }, phase))), /*#__PURE__*/React.createElement(__ds_scope.Badge, {
-    type: statusType
+    type: statusType,
+    theme: theme
   }, status));
 }
 Object.assign(window, {
@@ -3904,19 +7526,44 @@ Object.assign(__ds_scope, { Card, StatTile, UnitRow });
 
 // ui_kits/portal-dark/Header.jsx
 try { (() => {
+// theme = surface role. dark: ink→green hero. light: white band on cream with the same gold rule.
 function Header({
   eyebrow = "Nexus Portal · Dealer Ops",
   title = "Inventory",
   titleAccent = "Dashboard",
   meta = [["Location", "Coeur d'Alene"], ["Units", "284"], ["Updated", "2 min ago"]],
-  specId
+  theme = "dark",
+  specId,
+  logoSrc
 }) {
+  const L = theme === "light";
+  const c = L ? {
+    bg: "#FFFFFF",
+    ring: "rgba(139,117,46,0.12)",
+    ring2: "rgba(139,117,46,0.06)",
+    over: "#5E4F1F",
+    title: "#0A0A09",
+    accent: "#8B752E",
+    k: "#3D3D38",
+    v: "#6B6B63",
+    logo: "../../assets/logo-tag-black-gold.png"
+  } : {
+    bg: "linear-gradient(135deg, #020000 0%, #203232 65%, #2A4040 100%)",
+    ring: "rgba(139,117,46,0.10)",
+    ring2: "rgba(139,117,46,0.05)",
+    over: "#B89E4A",
+    title: "#fff",
+    accent: "#B89E4A",
+    k: "#E7DDB4",
+    v: "#A2A59C",
+    logo: "../../assets/logo-tag-gold.png"
+  };
   return /*#__PURE__*/React.createElement("header", {
     "data-spec-id": specId || "sec-page-header",
     "data-bos-level": "section",
     "data-bos-type": "header",
     style: {
-      background: "linear-gradient(135deg, #020000 0%, #203232 65%, #2A4040 100%)",
+      background: c.bg,
       borderBottom: "2px solid #8B752E",
       padding: "40px 32px 32px",
       position: "relative",
@@ -3929,7 +7576,7 @@ function Header({
       right: -80,
       width: 320,
       height: 320,
-      border: "1px solid rgba(139,117,46,0.10)",
+      border: `1px solid ${c.ring}`,
       borderRadius: "50%",
       pointerEvents: "none"
     }
@@ -3940,7 +7587,7 @@ function Header({
       right: -120,
       width: 480,
       height: 480,
-      border: "1px solid rgba(139,117,46,0.05)",
+      border: `1px solid ${c.ring2}`,
       borderRadius: "50%",
       pointerEvents: "none"
     }
@@ -3962,7 +7609,7 @@ function Header({
       fontSize: 11,
       letterSpacing: 3,
       textTransform: "uppercase",
-      color: "#B89E4A",
+      color: c.over,
       marginBottom: 10,
       fontWeight: 600
     }
@@ -3972,13 +7619,13 @@ function Header({
       fontSize: 48,
       letterSpacing: 2,
       lineHeight: 1,
-      color: "#fff",
+      color: c.title,
       margin: 0,
       fontWeight: 400
     }
   }, title, " ", /*#__PURE__*/React.createElement("span", {
     style: {
-      color: "#B89E4A"
+      color: c.accent
     }
   }, titleAccent)), /*#__PURE__*/React.createElement("div", {
     style: {
@@ -3994,15 +7641,15 @@ function Header({
       fontSize: 11,
       letterSpacing: 1.5,
       textTransform: "uppercase",
-      color: "#A2A59C"
+      color: c.v
     }
   }, /*#__PURE__*/React.createElement("strong", {
     style: {
-      color: "#E7DDB4",
+      color: c.k,
       fontWeight: 500
     }
   }, k), " ", v)))), /*#__PURE__*/React.createElement("img", {
-    src: "../../assets/logo-tag-gold.png",
+    src: logoSrc || c.logo,
     alt: "Bish's RV",
     style: {
       height: 64,
@@ -4026,10 +7673,35 @@ function Input({
   error,
   helper,
   disabled,
+  theme = "dark",
   specId
 }) {
   const [focus, setFocus] = React.useState(false);
-  const borderColor = error ? "#E03131" : focus ? "#B89E4A" : "rgba(255,255,255,0.30)";
+  const L = theme === "light";
+  const c = L ? {
+    edge: "#949494",
+    focus: "#8B752E",
+    err: "#B02525",
+    errText: "#B02525",
+    label: "#3D3D38",
+    bg: "#FFFFFF",
+    bgOff: "#EFEDE4",
+    text: "#0A0A09",
+    textOff: "#767670",
+    helper: "#6B6B63"
+  } : {
+    edge: "rgba(255,255,255,0.30)",
+    focus: "#B89E4A",
+    err: "#E03131",
+    errText: "#FF8787",
+    label: "#E7DDB4",
+    bg: "#111E1E",
+    bgOff: "#0A1414",
+    text: "#fff",
+    textOff: "#4A4D46",
+    helper: "#A2A59C"
+  };
+  const borderColor = error ? c.err : focus ? c.focus : c.edge;
   const shadow = focus ? error ? "0 0 0 3px rgba(224,49,49,0.15)" : "0 0 0 3px rgba(139,117,46,0.15)" : "none";
   return /*#__PURE__*/React.createElement("div", {
     style: {
@@ -4042,7 +7714,7 @@ function Input({
       fontSize: 12,
       fontWeight: 500,
       letterSpacing: 0.5,
-      color: error ? "#FF8787" : "#E7DDB4",
+      color: error ? c.errText : c.label,
       marginBottom: 4
     }
   }, label), /*#__PURE__*/React.createElement("input", {
@@ -4059,8 +7731,9 @@ function Input({
       width: "100%",
       boxSizing: "border-box",
       padding: "10px 12px",
-      background: disabled ? "#0A1414" : "#111E1E",
-      color: disabled ? "#4A4D46" : "#fff",
+      minHeight: 44,
+      background: disabled ? c.bgOff : c.bg,
+      color: disabled ? c.textOff : c.text,
       border: `1px solid ${borderColor}`,
       borderRadius: 8,
       outline: "none",
@@ -4072,10 +7745,10 @@ function Input({
     style: {
       fontFamily: "'Source Sans 3', sans-serif",
       fontSize: 12,
-      color: error ? "#FF8787" : "#A2A59C",
+      color: error ? c.errText : c.helper,
       marginTop: 4
     }
-  }, "          ", error || helper));
+  }, error || helper));
 }
 Object.assign(window, {
   Input
@@ -4085,18 +7758,32 @@ Object.assign(__ds_scope, { Input });
 
 // ui_kits/portal-dark/TabBar.jsx
 try { (() => {
+// Active tab = gold-lo text on light / gold-hi on dark (current-item wayfinding, one of gold's three jobs).
 function TabBar({
   tabs,
   active,
   onChange,
+  theme = "dark",
   specId
 }) {
+  const L = theme === "light";
+  const c = L ? {
+    bg: "#FFFFFF",
+    line: "rgba(0,0,0,0.08)",
+    on: "#5E4F1F",
+    off: "#6B6B63"
+  } : {
+    bg: "#020000",
+    line: "rgba(255,255,255,0.07)",
+    on: "#B89E4A",
+    off: "#A2A59C"
+  };
   return /*#__PURE__*/React.createElement("div", {
     "data-spec-id": specId || "nav-tabs",
     "data-bos-type": "nav",
     style: {
-      background: "#020000",
-      borderBottom: "1px solid rgba(255,255,255,0.07)",
+      background: c.bg,
+      borderBottom: `1px solid ${c.line}`,
       padding: "0 32px",
       position: "sticky",
       top: 0,
@@ -4123,10 +7810,11 @@ function TabBar({
       letterSpacing: 1.5,
       textTransform: "uppercase",
       padding: "14px 18px 12px",
+      minHeight: 44,
       border: "none",
       cursor: "pointer",
       background: "transparent",
-      color: active === tab ? "#B89E4A" : "#A2A59C",
+      color: active === tab ? c.on : c.off,
       borderBottom: active === tab ? "2px solid #8B752E" : "2px solid transparent",
       transition: "all 150ms cubic-bezier(0.2,0,0,1)",
       whiteSpace: "nowrap",
@@ -4144,19 +7832,25 @@ __ds_ns.ActionOverlay = __ds_scope.ActionOverlay;
 
 __ds_ns.AppShell = __ds_scope.AppShell;
 
-__ds_ns.NAV_ICONS = __ds_scope.NAV_ICONS;
-
-__ds_ns.UI_ICONS = __ds_scope.UI_ICONS;
-
-__ds_ns.ICON_ALIASES = __ds_scope.ICON_ALIASES;
-
-__ds_ns.SHELL_THEME = __ds_scope.SHELL_THEME;
-
 __ds_ns.NavIcon = __ds_scope.NavIcon;
 
 __ds_ns.NavConfig = __ds_scope.NavConfig;
 
 __ds_ns.RolesNavAdmin = __ds_scope.RolesNavAdmin;
+
+__ds_ns.ChoiceChip = __ds_scope.ChoiceChip;
+
+__ds_ns.ChoiceGroup = __ds_scope.ChoiceGroup;
+
+__ds_ns.QuestionCard = __ds_scope.QuestionCard;
+
+__ds_ns.ChoiceTile = __ds_scope.ChoiceTile;
+
+__ds_ns.CustomerCard = __ds_scope.CustomerCard;
+
+__ds_ns.PhaseAlert = __ds_scope.PhaseAlert;
+
+__ds_ns.Avatar = __ds_scope.Avatar;
 
 __ds_ns.Badge = __ds_scope.Badge;
 

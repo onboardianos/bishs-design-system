@@ -16,7 +16,10 @@
         "patterns": [
           {
             "group": [
+              "conversions/outfitter-discovery/data/**",
+              "conversions/wayfinder/data/**",
               "ui_kits/app-shell/**",
+              "ui_kits/floor/**",
               "ui_kits/portal-dark/**",
               "ui_kits/spec-ready/**"
             ],
@@ -40,24 +43,48 @@
         "message": "Font not provided by the design system. Available: Bebas Neue, Barlow Condensed, Source Sans 3, JetBrains Mono."
       },
       {
-        "selector": "JSXOpeningElement[name.name='AppShell'] > JSXAttribute > JSXIdentifier[name!=/^(?:role|activeId|onNavigate|onRoleChange|onAction|onPhase|currentPhase|alerts|logoSrc|logoSrcDark|theme|height|children|key|ref|className|style|children)$/]",
-        "message": "<AppShell> doesn't accept that prop. Declared props: role, activeId, onNavigate, onRoleChange, onAction, onPhase, currentPhase, alerts, logoSrc, logoSrcDark, theme, height, children."
+        "selector": "JSXOpeningElement[name.name='AppShell'] > JSXAttribute > JSXIdentifier[name!=/^(?:role|activeId|onNavigate|onRoleChange|onAction|onPhase|currentPhase|alerts|logoSrc|logoSrcDark|theme|height|onSearch|onSearchSubmit|children|key|ref|className|style|children)$/]",
+        "message": "<AppShell> doesn't accept that prop. Declared props: role, activeId, onNavigate, onRoleChange, onAction, onPhase, currentPhase, alerts, logoSrc, logoSrcDark, theme, height, onSearch, onSearchSubmit, children."
       },
       {
         "selector": "JSXOpeningElement[name.name='AppShell'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
         "message": "<AppShell> theme must be one of 'light' | 'dark'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|type|children|key|ref|className|style|children)$/]",
-        "message": "<Badge> doesn't accept that prop. Declared props: specId, type, children."
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|initials|name|theme|tone|size|src|key|ref|className|style|children)$/]",
+        "message": "<Avatar> doesn't accept that prop. Declared props: specId, initials, name, theme, tone, size, src."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Avatar> theme must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:ink|white|gold|olive|cream)$/]",
+        "message": "<Avatar> tone must be one of 'ink' | 'white' | 'gold' | 'olive' | 'cream'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Avatar'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:sm|default|lg)$/]",
+        "message": "<Avatar> size must be one of 'sm' | 'default' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|type|children|key|ref|className|style|children)$/]",
+        "message": "<Badge> doesn't accept that prop. Declared props: specId, theme, type, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Badge> theme must be one of 'light' | 'dark'."
       },
       {
         "selector": "JSXOpeningElement[name.name='Badge'] > JSXAttribute[name.name='type'] > Literal[value!=/^(?:gold|success|warning|danger|info|neutral)$/]",
         "message": "<Badge> type must be one of 'gold' | 'success' | 'warning' | 'danger' | 'info' | 'neutral'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|variant|size|disabled|onClick|children|key|ref|className|style|children)$/]",
-        "message": "<Button> doesn't accept that prop. Declared props: specId, variant, size, disabled, onClick, children."
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|variant|size|disabled|onClick|children|key|ref|className|style|children)$/]",
+        "message": "<Button> doesn't accept that prop. Declared props: specId, theme, variant, size, disabled, onClick, children."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Button> theme must be one of 'light' | 'dark'."
       },
       {
         "selector": "JSXOpeningElement[name.name='Button'] > JSXAttribute[name.name='variant'] > Literal[value!=/^(?:primary|secondary|ghost|danger)$/]",
@@ -68,20 +95,80 @@
         "message": "<Button> size must be one of 'sm' | 'md' | 'lg'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|title|subtitle|children|footer|key|ref|className|style|children)$/]",
-        "message": "<Card> doesn't accept that prop. Declared props: specId, title, subtitle, children, footer."
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|title|subtitle|children|footer|key|ref|className|style|children)$/]",
+        "message": "<Card> doesn't accept that prop. Declared props: specId, theme, title, subtitle, children, footer."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Header'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|eyebrow|title|titleAccent|meta|key|ref|className|style|children)$/]",
-        "message": "<Header> doesn't accept that prop. Declared props: specId, eyebrow, title, titleAccent, meta."
+        "selector": "JSXOpeningElement[name.name='Card'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Card> theme must be one of 'light' | 'dark'."
       },
       {
-        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|label|value|onChange|placeholder|error|helper|disabled|key|ref|className|style|children)$/]",
-        "message": "<Input> doesn't accept that prop. Declared props: specId, label, value, onChange, placeholder, error, helper, disabled."
+        "selector": "JSXOpeningElement[name.name='ChoiceChip'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|instance|label|selected|multi|disabled|size|onClick|theme|key|ref|className|style|children)$/]",
+        "message": "<ChoiceChip> doesn't accept that prop. Declared props: specId, instance, label, selected, multi, disabled, size, onClick, theme."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceChip'] > JSXAttribute[name.name='size'] > Literal[value!=/^(?:md|lg)$/]",
+        "message": "<ChoiceChip> size must be one of 'md' | 'lg'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceChip'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<ChoiceChip> theme must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceTile'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|instance|label|hint|hintTone|image|imageFit|icon|selected|multi|disabled|wide|onClick|footer|theme|density|key|ref|className|style|children)$/]",
+        "message": "<ChoiceTile> doesn't accept that prop. Declared props: specId, instance, label, hint, hintTone, image, imageFit, icon, selected, multi, disabled, wide, onClick, footer, theme, density."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceTile'] > JSXAttribute[name.name='hintTone'] > Literal[value!=/^(?:neutral|gate|rank|avoid)$/]",
+        "message": "<ChoiceTile> hintTone must be one of 'neutral' | 'gate' | 'rank' | 'avoid'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceTile'] > JSXAttribute[name.name='imageFit'] > Literal[value!=/^(?:cover|contain)$/]",
+        "message": "<ChoiceTile> imageFit must be one of 'cover' | 'contain'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceTile'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<ChoiceTile> theme must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='ChoiceTile'] > JSXAttribute[name.name='density'] > Literal[value!=/^(?:comfortable|compact)$/]",
+        "message": "<ChoiceTile> density must be one of 'comfortable' | 'compact'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CustomerCardOutfitter'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|role|initials|src|tone|key|ref|className|style|children)$/]",
+        "message": "<CustomerCardOutfitter> doesn't accept that prop. Declared props: name, role, initials, src, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='CustomerCardOutfitter'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:ink|white|gold|olive|cream)$/]",
+        "message": "<CustomerCardOutfitter> tone must be one of 'ink' | 'white' | 'gold' | 'olive' | 'cream'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Header'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|eyebrow|title|titleAccent|meta|logoSrc|key|ref|className|style|children)$/]",
+        "message": "<Header> doesn't accept that prop. Declared props: specId, theme, eyebrow, title, titleAccent, meta, logoSrc."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Header'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Header> theme must be one of 'light' | 'dark'."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|label|value|onChange|placeholder|error|helper|disabled|key|ref|className|style|children)$/]",
+        "message": "<Input> doesn't accept that prop. Declared props: specId, theme, label, value, onChange, placeholder, error, helper, disabled."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='Input'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<Input> theme must be one of 'light' | 'dark'."
       },
       {
         "selector": "JSXOpeningElement[name.name='NavItem'] > JSXAttribute > JSXIdentifier[name!=/^(?:id|label|short|icon|group|custom|key|ref|className|style|children)$/]",
         "message": "<NavItem> doesn't accept that prop. Declared props: id, label, short, icon, group, custom."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PhaseAlertPerson'] > JSXAttribute > JSXIdentifier[name!=/^(?:name|role|initials|src|tone|key|ref|className|style|children)$/]",
+        "message": "<PhaseAlertPerson> doesn't accept that prop. Declared props: name, role, initials, src, tone."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='PhaseAlertPerson'] > JSXAttribute[name.name='tone'] > Literal[value!=/^(?:ink|white|gold|olive|cream)$/]",
+        "message": "<PhaseAlertPerson> tone must be one of 'ink' | 'white' | 'gold' | 'olive' | 'cream'."
       },
       {
         "selector": "JSXOpeningElement[name.name='RolesNavAdmin'] > JSXAttribute > JSXIdentifier[name!=/^(?:theme|key|ref|className|style|children)$/]",
@@ -96,8 +183,12 @@
         "message": "<SpecLintItem> doesn't accept that prop. Declared props: tag, text, id, suggested, el."
       },
       {
-        "selector": "JSXOpeningElement[name.name='TabBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|tabs|active|onChange|key|ref|className|style|children)$/]",
-        "message": "<TabBar> doesn't accept that prop. Declared props: specId, tabs, active, onChange."
+        "selector": "JSXOpeningElement[name.name='TabBar'] > JSXAttribute > JSXIdentifier[name!=/^(?:specId|theme|tabs|active|onChange|key|ref|className|style|children)$/]",
+        "message": "<TabBar> doesn't accept that prop. Declared props: specId, theme, tabs, active, onChange."
+      },
+      {
+        "selector": "JSXOpeningElement[name.name='TabBar'] > JSXAttribute[name.name='theme'] > Literal[value!=/^(?:light|dark)$/]",
+        "message": "<TabBar> theme must be one of 'light' | 'dark'."
       }
     ]
   },
@@ -116,6 +207,9 @@
       "AppShell": {
         "replaces": []
       },
+      "Avatar": {
+        "replaces": []
+      },
       "Badge": {
         "replaces": []
       },
@@ -125,6 +219,15 @@
       "Card": {
         "replaces": []
       },
+      "ChoiceChip": {
+        "replaces": []
+      },
+      "ChoiceTile": {
+        "replaces": []
+      },
+      "CustomerCardOutfitter": {
+        "replaces": []
+      },
       "Header": {
         "replaces": []
       },
@@ -132,6 +235,9 @@
         "replaces": []
       },
       "NavItem": {
+        "replaces": []
+      },
+      "PhaseAlertPerson": {
         "replaces": []
       },
       "RolesNavAdmin": {

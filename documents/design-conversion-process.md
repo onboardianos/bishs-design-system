@@ -1,5 +1,7 @@
 # Design conversion process (REQUIRED — Step 0D)
 
+> One-page overview of the whole route: `design-intake-to-handoff.md`.
+
 Any design that enters this system goes through this process: a screenshot, a Figma frame, an HTML export, a standalone app, or a screen someone else built. It comes out as a Bish's OS design that meets every canon rule, and it ships with a complete dev handoff package.
 
 **Reference example:** `conversions/floor-workspace/` is the Floor Workspace, converted from `Floor Workspace - Full App (standalone).html`. Match its structure, depth and documentation on every conversion.
@@ -33,8 +35,9 @@ Fill in `documents/business-intake.md` as `<build>/handoff/intake.md`: outcome, 
 - Output: section 1 of `conversion-report.md`.
 
 ### Pass 2 · Map to the system
+Use `component-selection-guide.md` for every decision.
 Each source part becomes exactly one of these:
-1. **A DS component.** Button, Badge, Card, StatTile, UnitRow, Input, TabBar or Header, mapped to its shadcn primitive.
+1. **A DS component.** Button, Badge, Card, StatTile, UnitRow, Input, TabBar, Header or Avatar (portal primitives), or PhaseAlert, CustomerCard, QuestionCard, ChoiceChip / ChoiceGroup (floor components in `ui_kits/floor/`), mapped to its shadcn primitive. Alerts, customer/kanban cards, question cards and answer chips are **never** custom blocks.
 2. **A shell part.** The AppShell header, side panel, drawer, mobile tab bar or ActionOverlay. Delete any hand-built chrome.
 3. **A screen block** built from DS tokens, stamped and documented in the component map as *custom*.
 
@@ -84,8 +87,8 @@ One implementation, sized by its container and built mobile-first, across three 
 | G8 | All six data states exist for every module | `state-map.md` |
 | G9 | Canvas ⇄ Prototype match 1:1 | `state-map.md` |
 | G10 | Every element family has a filled requirement row (no TODOs) | `requirements.md` |
-| G12 | Every generated ticket traces to a source (spec, intake BR-##, confirmed precedent, or canon). No story is **Ready** while it carries the `needs-rule` label | `<build>.jira-tickets.csv` |
 | G11 | Every role that reaches the build has a designed posture and a matrix row. Gated elements carry `data-bos-perm` + `data-bos-access`. Nothing with access `hidden` is rendered. | `roles-permissions.md` and the manifest `perm` / `access` / `viewRole` fields |
+| G12 | Every generated ticket traces to a source (spec, intake BR-##, confirmed precedent, or canon). No story is **Ready** while it carries the `needs-rule` label | `<build>.jira-tickets.csv` |
 
 A gate that fails is listed in `decisions.md` with an owner and a fix. Nothing ships with a silent gap.
 
@@ -102,7 +105,7 @@ Every conversion produces the full **handoff package** in `<build>/handoff/`, as
 5. `state-map.md`: screens, states, triggers, transitions
 6. `component-map.md`: each element → DS component → shadcn primitive → props
 7. `data-contract.md`: entities, fields, sources, events
-8. `qa-gates.md`: results for G1–G10
+8. `qa-gates.md`: results for G1–G12
 9. `decisions.md`: open questions, decisions and retired IDs
 10. `roles-permissions.md`: who sees and does what, in matrices A/B/C, plus approvals and audit
 

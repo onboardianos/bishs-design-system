@@ -1,0 +1,272 @@
+// Floor Workspace — Phase Action Hub, phase alerts, and the converted overlay set that replaced the flat drawers:
+// case popover (dark), outfitter stats popover, phase-detail modal. Each overlay is its own frame (≤1 COMMIT).
+(function () {
+const FW = window.FW, { Icon, OUTFITTER_BY_ID, PHASES, REP_STATE, can, shows, acts } = FW;
+const { CustCard, Avatar, useRole, perm, slug } = window.FWScreen;
+function useEsc(onClose) { React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') onClose(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, [onClose]); }
+const ofByName = (n) => FW.OUTFITTERS.find((x) => x.name === n) || null;
+const PersonAv = ({ name, size = 28 }) => {
+  const o = ofByName(name);
+  return o ? <Avatar o={o} size={size} /> : <span className="fw-av" aria-hidden="true" style={{ width: size, height: size, flex: `0 0 ${size}px` }}>{FW.initials(name)}</span>;
+};
+
+// ── Phase Action Hub (opens from a column header) ─────────────
+function UrgentCard({ u, role, onAct, onDismiss }) {
+  const f = FW.FLAG[u.flag];
+  const t = FW.useTick();
+  const k = slug(u.cust);
+  const card = { id: k, customer: u.cust, type: u.type, interest: u.interest, outfitter: ofByName(u.of) ? ofByName(u.of).id : null, ofName: u.of, since: FW.hms(u.wait + t), total: FW.mins(u.total + t) };
+  return (
+    <div style={{ borderRadius: 10, animation: u.flag === 'unit' ? 'fwPulse 1.8s ease-in-out infinite' : undefined }}>
+      <CustCard c={card} specId={`card-hub-action#${k}`} meta={u.unit} onDismiss={() => onDismiss(u)}
+        flag={{ label: f.eb, from: u.from, tone: f.tone }}
+        cta={{ label: f.cta, tone: f.tone === 'gold' ? 'neutral' : f.tone, disabled: !acts(role, 'phase.hub'), onClick: () => onAct(u) }} />
+    </div>
+  );
+}
+
+function Hub({ phase, cards, onClose, onAct }) {
+  useEsc(onClose);
+  const role = useRole();
+  const meta = FW.HUB[phase.id] || { kpi: [{ t: `${phase.label} completed (today)`, v: '—', s: 'Awaiting phase telemetry', hero: true }, { t: `Avg. ${phase.label} duration`, v: '—', s: 'No floor limit set' }, { t: 'Avg. wait time', v: '—', s: 'No floor limit set' }], rows: [], urgent: [] };
+  const rows = React.useMemo(() => {
+    const r = meta.rows.slice();
+    cards.filter((c) => c.phase === phase.id).forEach((c) => { if (!r.some((x) => x[0].toLowerCase() === c.customer.toLowerCase())) { const o = c.outfitter && OUTFITTER_BY_ID[c.outfitter]; r.push([c.customer, o ? o.name : 'Unassigned', '', 'In progress', 'neutral', `Active in ${phase.label}`, '', 0, o ? 'Outfitter' : 'Unassigned']); } });
+    return r;
+  }, [phase.id, cards]);
+  const [urg, setUrg] = React.useState(() => meta.urgent.slice().sort((a, b) => (a.flag === 'unit' ? 0 : 1) - (b.flag === 'unit' ? 0 : 1)));
+  const [on, setOn] = React.useState({});
+  const [q, setQ] = React.useState('');
+  const [range, setRange] = React.useState('today');
+  const stages = [...new Set(rows.map((r) => r[3]))];
+  const max = FW.DATE_RANGES.find((d) => d.id === range).max;
+  const picked = Object.keys(on).filter((k) => on[k]);
+  const shown = rows.filter((r) => (!picked.length || picked.includes(r[3])) && (!q || `${r[0]} ${r[1]} ${r[2]} ${r[3]} ${r[5]}`.toLowerCase().includes(q.toLowerCase())) && r[7] <= max);
+  const dayLabel = (d) => (!d ? 'Today' : d === 1 ? 'Yesterday' : `${d} days ago`);
+  const drop = (u) => setUrg((l) => l.filter((x) => x !== u));
+  return (
+    <div className="fw-hub-back" data-spec-id={`frame-phase-hub#${phase.id}`} data-bos-level="frame" role="dialog" aria-modal="true" aria-label={`${phase.label} action hub`} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="fw-hub">
+        <div className="fw-hub-bar" data-spec-id={`sec-hub-bar#${phase.id}`} data-bos-level="section" data-bos-section="S01" data-bos-type="header">
+          <span className="fw-dia" aria-hidden="true" style={{ width: 11, height: 11, flex: '0 0 11px', background: '#1F2424', boxShadow: 'inset 0 0 0 1px var(--border-mid)' }} />
+          <h2 className="fw-hub-t" style={{ margin: 0, fontWeight: 400 }}>{phase.label}</h2>
+          <span className="fw-hub-pill" aria-label={`${shown.length} customers`}>{shown.length}</span>
+          <span className="fw-hub-sub">Action hub</span>
+          <button type="button" data-spec-id={`btn-action-close-phase-hub#${phase.id}`} data-bos-class="action" aria-label="Close action hub" onClick={onClose} className="fw-icon-btn"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="fw-hub-main">
+          <aside className="fw-hub-rail" data-spec-id={`sec-hub-needs-action#${phase.id}`} data-bos-level="section" data-bos-section="S02" data-bos-type="list" aria-label="Needs action now">
+            <div className="fw-hub-rail-h">Needs action now</div>
+            <ul className="fw-hub-rail-b fw-scroll-x" data-spec-id={`list-hub-needs-action#${phase.id}`} data-bos-level="layer" data-bos-layer="L01">
+              {urg.length ? urg.map((u) => <li key={u.cust}><UrgentCard u={u} role={role} onDismiss={drop} onAct={(x) => { drop(x); onAct(x); }} /></li>)
+                : <li style={{ fontStyle: 'italic', fontSize: 14, color: 'var(--text-light-tertiary)', padding: '4px 0' }}>Nothing urgent in {phase.label}.</li>}
+            </ul>
+          </aside>
+          <section className="fw-hub-right" data-spec-id={`sec-hub-activity#${phase.id}`} data-bos-level="section" data-bos-section="S03" data-bos-type="content" aria-label={`${phase.label} activity`}>
+            <dl className="fw-kpis">
+              {meta.kpi.map((k) => (
+                <div key={k.t} data-spec-id={`metric-${slug(k.t)}#${phase.id}`} className={`fw-kpi${k.hero ? ' hero' : ''}${k.bad ? ' bad' : ''}`}>
+                  <dt>{k.t}<span className="fw-dia" aria-hidden="true" style={{ width: 6, height: 6, flex: '0 0 6px' }} /></dt>
+                  <dd><b>{k.v}</b><small>{k.s}</small></dd>
+                </div>
+              ))}
+            </dl>
+            <div className="fw-hub-tools">
+              <div className="fw-chips" role="group" aria-label="Filter by stage">
+                {stages.map((s) => <button key={s} type="button" aria-pressed={!!on[s]} data-spec-id={`btn-action-hub-filter#${slug(s)}`} data-bos-class="action" onClick={() => setOn({ ...on, [s]: !on[s] })} className="fw-chip">{s}</button>)}
+              </div>
+              <label className="fw-field" style={{ flex: '1 1 240px', maxWidth: 360 }}><Icon name="search" size={16} /><input data-spec-id={`input-hub-search#${phase.id}`} type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search customer, outfitter, or unit" aria-label="Search this phase" /></label>
+              <label className="fw-field" style={{ flex: '0 0 auto' }}><Icon name="calendar" size={16} /><select data-spec-id={`input-hub-date-range#${phase.id}`} value={range} onChange={(e) => setRange(e.target.value)} aria-label="Date range">{FW.DATE_RANGES.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}</select></label>
+            </div>
+            <ul className="fw-table" data-spec-id={`list-hub-activity#${phase.id}`} data-bos-level="layer" data-bos-layer="L02" aria-label={`${shown.length} customers`}>
+              <li className="fw-trow fw-thead" aria-hidden="true"><span>Customer</span><span>Outfitter</span><span>Stage</span><span>Next step · owner</span></li>
+              {shown.map((r) => (
+                <li key={r[0]} className="fw-trow" data-spec-id={`info-hub-row#${slug(r[0])}`}>
+                  <span className="fw-tcust">{r[0]}<span className="fw-twhen">{dayLabel(r[7])}</span></span>
+                  <span className="fw-tof"><PersonAv name={r[1]} /><span>{r[1]}{r[2] && <small>{r[2]}</small>}</span></span>
+                  <span><span className={`fw-tag ${r[4]}`}>{r[3]}</span></span>
+                  <span className="fw-tstep">
+                    <span className={`fw-own ${slug(r[8]).replace(/-/g, '')}`}>{r[8]}</span>
+                    <span className="fw-tnext">{r[5]}
+                      {typeof r[6] === 'object' && <span className="fw-dots" aria-label={`Unit ${r[6].steps} of 3`}>{[1, 2, 3].map((i) => <span key={i} className={`fw-dot${i < r[6].steps ? ' done' : i === r[6].steps ? ' on' : ''}`}>{i < r[6].steps ? <Icon name="check" size={12} stroke={3} /> : i}</span>)}</span>}
+                      {typeof r[6] === 'string' && r[6] && <span className="fw-cue">{r[6]}</span>}
+                    </span>
+                  </span>
+                </li>
+              ))}
+              {!shown.length && <li className="fw-trow" style={{ fontStyle: 'italic', fontSize: 14, color: 'var(--text-light-tertiary)' }}>{rows.length ? 'No matches for this filter.' : `No ${phase.label} activity recorded today.`}</li>}
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Phase alerts (MCP / Worksheet): shared DS PhaseAlert. Recur until a manager starts them; snooze parks 60s ──
+// Original engine (phase-hub.js): key = phase::card, so a card re-alerts on every MCP / Worksheet entry.
+// `baseline` = cards already parked there at load are treated as handled; any card that ENTERS afterwards fires.
+function PhaseAlerts({ cards, paused, onStart, baseline }) {
+  const role = useRole();
+  const key = (c) => `${c.phase}::${c.id}`;
+  const [st, setSt] = React.useState(() => (baseline ? Object.fromEntries(cards.filter((c) => FW.WATCH[c.phase]).map((c) => [key(c), { done: true }])) : {}));
+  React.useEffect(() => { setSt((s) => { const live = new Set(cards.map(key)); const n = {}; Object.keys(s).forEach((k) => { if (live.has(k)) n[k] = s[k]; }); return Object.keys(n).length === Object.keys(s).length ? s : n; }); }, [cards]);
+  FW.useTick();
+  const DS = window.BishSRVDesignSystem_26feec;
+  if (!acts(role, 'phase.alert') || paused) return null;
+  const now = Date.now();
+  const live = cards.filter((c) => FW.WATCH[c.phase]).filter((c) => { const s = st[key(c)]; return !s || (!s.done && now >= (s.until || 0)); });
+  if (!live.length) return null;
+  const snooze = (c) => setSt((s) => ({ ...s, [key(c)]: { until: Date.now() + 60000 } }));
+  return (
+    <div className="fw-alerts">
+      {live.map((c) => {
+        const w = FW.WATCH[c.phase], o = c.outfitter ? OUTFITTER_BY_ID[c.outfitter] : null;
+        return (
+          <div key={key(c)} style={{ pointerEvents: 'auto', animation: 'fwSlide .22s cubic-bezier(.2,.8,.3,1)' }}>
+            <DS.PhaseAlert specId={`frame-phase-alert#${c.id}`} instance={c.id} eyebrow={w.eb} from={o ? o.name : 'the floor'} title={w.t}
+              people={[{ name: c.customer }, { name: o ? o.name : 'Unassigned', role: 'Outfitter', initials: o && o.initials, src: o && o.photo }]}
+              waitSeconds={FW.parseT(c.since) % 3600} limitSeconds={600} ctaLabel={w.cta}
+              onCommit={() => { setSt((s) => ({ ...s, [key(c)]: { done: true } })); onStart(c, w); }} onSnooze={() => snooze(c)} onDismiss={() => snooze(c)} />
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+FW.slugCta = (s) => slug(s);
+
+// ── Case popover (original dark hover-overlay) ─────────────────
+function CaseMenu({ card, anchor, phone, onClose, onAction }) {
+  useEsc(onClose);
+  const role = useRole();
+  const o = card.outfitter ? OUTFITTER_BY_ID[card.outfitter] : null;
+  const waiting = card.phase === 'waiting' || !o;
+  const items = (waiting
+    ? [['assign', 'Assign outfitter', 'user-plus', 'case.assign', 'action'], ['left', 'Customer left', 'log-out', 'case.close', 'danger']]
+    : [['message', `Message ${o.first}`, 'message-square', 'rep.message'], ['note', 'Add note', 'sticky-note', 'case.note'], ['move', 'Move to…', 'arrow-right-left', 'case.move'], ['assign', 'Reassign', 'user-plus', 'case.assign'], ['left', 'Customer left', 'log-out', 'case.close', 'danger']]
+  ).filter((it) => shows(role, it[3]));
+  const W = 320;
+  const pos = phone || !anchor ? null : (() => { const right = anchor.left + anchor.width + 12; const left = right + W > anchor.maxX - 8 ? Math.max(8, anchor.left - W - 12) : right; return { left, top: Math.max(8, Math.min(anchor.top, anchor.maxY - 420)) }; })();
+  return (
+    <div data-spec-id={`frame-case-menu#${card.id}`} data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 85, background: phone ? 'rgba(2,0,0,0.55)' : 'rgba(2,0,0,0.12)', display: 'flex', alignItems: 'flex-end' }}>
+      <div role="dialog" aria-label={`${card.customer} details`} className="fw-pop" style={phone ? { position: 'relative', width: '100%', borderRadius: '16px 16px 0 0' } : { ...pos, width: W }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '14px 8px 12px 16px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 12, fontWeight: 700, letterSpacing: 2.5, textTransform: 'uppercase', color: 'var(--accent-gold-hi)' }}>In {PHASES.find((p) => p.id === card.phase).label}</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 28, letterSpacing: 0.5, lineHeight: 1.05, marginTop: 2 }}>{card.customer}</div>
+            <div style={{ fontSize: 13, color: 'var(--text-body)', marginTop: 4, textTransform: 'capitalize' }}>{card.type === 'single' ? 'Individual' : card.type} · interested in {card.interest}</div>
+          </div>
+          <button type="button" data-spec-id={`btn-action-close-case-menu#${card.id}`} data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn" style={{ color: 'var(--text-body)' }}><Icon name="x" size={18} /></button>
+        </div>
+        <dl style={{ margin: 0 }}>
+          {[['Outfitter', o ? o.name : 'Unassigned', !o], ['Time in phase', card.since, false, true], ['Total on floor', card.total, false, true], ['Source', 'Walk-in']].map(([k, v, bad, mono]) => (
+            <div key={k} className="fw-pop-row"><dt className="fw-pop-k" style={{ color: 'var(--text-muted)' }}>{k}</dt><dd style={{ margin: 0, fontFamily: mono ? 'var(--font-mono)' : 'var(--font-body)', fontWeight: 600, color: bad ? 'var(--semantic-danger)' : 'var(--text-primary)' }}>{v}</dd></div>
+          ))}
+        </dl>
+        <div role="menu" aria-label={`Actions for ${card.customer}`} style={{ display: 'grid', gridTemplateColumns: waiting ? '1fr' : '1fr 1fr', gap: 8, padding: 12, borderTop: '1px solid var(--border-ghost)' }}>
+          {items.map(([k, label, icon, p, tone], i) => (
+            <button key={k} type="button" role="menuitem" disabled={!acts(role, p)} data-spec-id={`menuitem-${k}#${card.id}`} data-bos-class="action" {...perm(role, p)} onClick={() => onAction(k, card)} className={`fw-pop-btn${tone ? ` ${tone}` : ''}`} style={!waiting && k === 'left' ? { gridColumn: '1 / -1' } : undefined}><Icon name={icon} size={16} />{label}</button>
+          ))}
+        </div>
+        {can(role, 'case.move') === 'read' && !waiting && <div role="note" style={{ padding: '0 16px 12px', fontSize: 13, color: 'var(--text-muted)' }}>Only a sales manager can move cases between phases.</div>}
+      </div>
+    </div>
+  );
+}
+
+// ── Outfitter stats popover (original rho2) ────────────────────
+function RepMenu({ entry, anchor, phone, role, onClose, onPick }) {
+  useEsc(onClose);
+  const o = OUTFITTER_BY_ID[entry.outfitter], base = FW.OUTFITTER_STATS[entry.outfitter];
+  const [range, setRange] = React.useState('month');
+  const R = FW.RANGES.find((r) => r.id === range), n = (v) => Math.max(0, Math.round(v * R.f));
+  const paused = entry.state === 'paused', benched = entry.state === 'benched';
+  const W = 460;
+  const pos = phone || !anchor ? null : { top: Math.min(anchor.top + anchor.height + 10, Math.max(8, anchor.maxY - 500)), left: Math.max(8, Math.min(anchor.left + anchor.width / 2 - W / 2, anchor.maxX - W - 8)) };
+  const acts3 = [
+    ['message', 'Message', 'fw-btn--ink', false, 'rep.message'],
+    [paused ? 'unpause' : 'pause', paused ? 'Unpause' : can(role, 'rep.pause') === 'approve' ? 'Request pause' : 'Pause', 'fw-btn--quiet', benched, 'rep.pause'],
+    [benched ? 'unbench' : 'bench', benched ? 'Un-bench' : 'Bench', 'fw-btn--danger-tint', false, 'rep.bench'],
+  ].filter((a) => shows(role, a[4]));
+  return (
+    <div data-spec-id={`frame-rep-menu#${entry.outfitter}`} data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 85, background: phone ? 'rgba(2,0,0,0.55)' : 'rgba(2,0,0,0.12)', display: 'flex', alignItems: 'flex-end' }}>
+      <div role="dialog" aria-label={`${base.fullName} stats and actions`} className="fw-rs" style={phone ? { position: 'relative', width: '100%', borderRadius: '16px 16px 0 0' } : { ...pos, width: W }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <Avatar o={o} size={52} />
+          <div style={{ flex: 1, minWidth: 0 }}><div style={{ fontFamily: 'var(--font-display)', fontSize: 30, lineHeight: 1, letterSpacing: 0.5 }}>{base.fullName}</div><div style={{ fontSize: 14, color: 'var(--text-light-tertiary)', marginTop: 4 }}>{base.tenure} · {base.tier} · Rank #{base.rank} · {REP_STATE[entry.state].label}</div></div>
+          <button type="button" data-spec-id={`btn-action-close-rep-menu#${entry.outfitter}`} data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn" style={{ border: '1px solid var(--border-light-mid)', borderRadius: '50%' }}><Icon name="x" size={18} /></button>
+        </div>
+        {shows(role, 'rep.stats') && (<>
+          <div role="tablist" aria-label="Stats range" className="fw-seg">
+            {FW.RANGES.map((r) => <button key={r.id} type="button" role="tab" aria-selected={range === r.id} data-spec-id={`nav-tab-rep-stats#${r.id}`} data-bos-class="nav" onClick={() => setRange(r.id)}>{r.label}</button>)}
+          </div>
+          <dl className="fw-rs-stats">
+            {[['Ups', 'ups', n(base.ups), R.sub], ['Demo', 'demos', n(base.demo), `${base.demoPct}%`], ['W-up', 'write-ups', n(base.wup), `${base.wupPct}%`], ['Sold', 'sold', n(base.sold), `${base.soldPct}%`]].map(([k, id, v, sub]) => (
+              <div key={k} data-spec-id={`metric-rep-${id}`}><dt>{k}</dt><dd>{v}</dd><small>{sub}</small></div>
+            ))}
+          </dl>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {[['Goal', 'goal', base.goalPct, `${base.goalPct}%`], ['Gross/U', 'gross-unit', 72, base.gross], ['Avg time', 'avg-time', 46, base.avgTime]].map(([k, id, pct, v]) => (
+              <div key={k} className="fw-bar" data-spec-id={`metric-rep-${id}`}><span className="fw-bar-k">{k}</span><span className="fw-bar-t" role="meter" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={k}><span style={{ width: `${Math.min(pct, 100)}%` }} /></span><span className="fw-bar-v">{v}</span></div>
+            ))}
+          </div>
+        </>)}
+        <div style={{ display: 'grid', gridTemplateColumns: `repeat(${acts3.length}, 1fr)`, gap: 8, paddingTop: 4 }}>
+          {acts3.map(([k, label, cls, dis, p]) => <button key={k} type="button" disabled={dis || !acts(role, p)} data-spec-id={`btn-action-rep-${k}#${entry.outfitter}`} data-bos-class="action" {...perm(role, p)} onClick={() => onPick(k)} className={`fw-btn ${cls}`} style={{ minHeight: 52, fontFamily: 'var(--font-ui)', fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>{label}</button>)}
+        </div>
+        {shows(role, 'rotation.reorder') && acts(role, 'rotation.reorder') && !benched && <button type="button" data-spec-id={`btn-action-rep-move#${entry.outfitter}`} data-bos-class="action" onClick={() => onPick('move')} className="fw-btn fw-btn--quiet fw-btn--sm" style={{ alignSelf: 'center' }}><Icon name="arrow-right-left" size={15} />Move in rotation</button>}
+        {can(role, 'rep.bench') === 'disabled' && <div role="note" style={{ fontSize: 13, color: 'var(--text-light-tertiary)', textAlign: 'center' }}>Only a manager can bench or un-bench.</div>}
+        {can(role, 'rep.pause') === 'approve' && <div role="note" style={{ fontSize: 13, color: 'var(--text-light-tertiary)', textAlign: 'center' }}>A pause request goes to the sales manager for approval.</div>}
+      </div>
+    </div>
+  );
+}
+
+// ── Phase detail (original col-overlay: centered modal, not a drawer) ──
+function PhaseDetail({ phase, cards, exits, phone, onClose, onOpenCard }) {
+  useEsc(onClose);
+  const here = cards.filter((c) => c.phase === phase.id), out = exits.filter((e) => e.phase === phase.id);
+  const idx = PHASES.findIndex((p) => p.id === phase.id);
+  const checked = cards.filter((c) => c.phase !== 'delivery').length + exits.length;
+  const entered = cards.filter((c) => PHASES.findIndex((p) => p.id === c.phase) >= idx).length + out.length;
+  const avg = here.length ? Math.round(here.reduce((s, c) => s + FW.parseT(c.since) / 60, 0) / here.length) : 0;
+  const stats = [['Checked in today', checked], ['Entered phase', entered], ['Conversion', `${checked ? Math.round(entered / checked * 100) : 0}%`], ['Currently in phase', here.length], ['Exits', `${entered ? Math.round(out.length / entered * 100) : 0}%`], ['Avg time in phase', `${avg}m`]];
+  const by = {}; here.forEach((c) => { (by[c.outfitter || 'none'] = by[c.outfitter || 'none'] || []).push(c); });
+  return (
+    <div data-spec-id={`frame-phase-detail#${phase.id}`} data-bos-level="frame" role="dialog" aria-modal="true" aria-label={`${phase.label} phase detail`} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 90, background: 'rgba(2,0,0,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: phone ? 0 : 24, boxSizing: 'border-box' }}>
+      <div className="fw-pd" style={phone ? { borderRadius: 0, height: '100%' } : null}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '16px 12px 14px 20px', background: '#141414' }}>
+          <div style={{ flex: 1 }}><div style={{ fontFamily: 'var(--font-ui)', fontSize: 12, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--accent-gold-hi)' }}>Phase detail · today</div><h2 style={{ margin: '4px 0 0', fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 34, letterSpacing: 1, lineHeight: 1, color: 'var(--brand-white)' }}>{phase.label}</h2></div>
+          <button type="button" data-spec-id={`btn-action-close-phase-detail#${phase.id}`} data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn" style={{ color: 'var(--brand-cream)', border: '1px solid var(--border-mid)' }}><Icon name="x" size={18} /></button>
+        </div>
+        <dl className="fw-pd-stats">{stats.map(([k, v]) => <div key={k} data-spec-id={`metric-phase-${slug(k)}#${phase.id}`}><dd>{v}</dd><dt>{k}</dt></div>)}</dl>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: 20, display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <section aria-label="Active customers"><h3 className="fw-sec-h">Active · {here.length}<small>Click a card to act</small></h3>
+            {here.length ? <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12 }}>{here.map((c) => <li key={c.id}><CustCard c={c} specId={`card-phase-detail-case#${c.id}`} onOpen={onOpenCard} /></li>)}</ul>
+              : <p style={{ margin: 0, fontSize: 14, color: 'var(--text-light-tertiary)' }}>No customers in {phase.label}.</p>}
+          </section>
+          {here.length > 0 && <section aria-label="Outfitter performance"><h3 className="fw-sec-h">Outfitter performance · {phase.label}<small>Today, this phase</small></h3>
+            <ul className="fw-table">
+              {Object.entries(by).map(([oid, list]) => { const o = OUTFITTER_BY_ID[oid]; return (
+                <li key={oid} className="fw-trow" style={{ gridTemplateColumns: 'minmax(0,1.4fr) repeat(2, minmax(0,1fr))' }}>
+                  <span className="fw-tof">{o ? <Avatar o={o} size={28} /> : <span className="fw-cc-empty">?</span>}{o ? o.name : 'Unassigned'}</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}>{list.length} now</span>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 13 }}>{Math.round(list.reduce((s, c) => s + FW.parseT(c.since) / 60, 0) / list.length)}m avg</span>
+                </li>); })}
+            </ul></section>}
+          <section aria-label="Exits today"><h3 className="fw-sec-h">Exits today · {out.length}</h3>
+            {out.length ? <ul className="fw-table">{out.map((e) => <li key={e.id} className="fw-trow"><span className="fw-tcust">{e.customer}<span className="fw-twhen">{e.when} · {OUTFITTER_BY_ID[e.outfitter].name}</span></span><span style={{ fontSize: 14, color: 'var(--text-light-secondary)' }}>{e.note}</span></li>)}</ul>
+              : <p style={{ margin: 0, fontSize: 14, color: 'var(--text-light-tertiary)' }}>No one has left from {phase.label} today.</p>}
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+Object.assign(window.FWOverlays, { Hub, PhaseAlerts, CaseMenu, RepMenu, PhaseDetail });
+})();

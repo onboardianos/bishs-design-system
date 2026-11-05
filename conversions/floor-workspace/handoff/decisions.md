@@ -24,7 +24,13 @@
 | 2026-10-22 | Convert design A (schedule timeline) only; design B (left rail + messages dock) is dropped | Zach (screenshot) |
 | 2026-10-22 | Rep menu opens on click / Enter, not on a 1.2s hover (RF08) | Build, per canon |
 | 2026-10-22 | Every drag has a stamped alternative: Move to… (cases) and Move in rotation (outfitters) | Build, per boards-and-dnd |
-| 2026-10-22 | Clothing pickers and party illustrations dropped from check-in (not Lucide); replaced by party type + notes | Build, per canon |
+| 2026-10-22 | ~~Clothing pickers and party illustrations dropped from check-in~~ **Superseded 2026-10-22 (rev 2):** restored. They are domain illustrations, not UI icons, so the Lucide-only rule doesn't apply | Zach (screenshot) |
+| 2026-10-22 | Rev 2 · Customer card rebuilt to the original cust-card-v2 anatomy (party tile, outfitter row + avatar, phase clock ▏ total footer, red edge when unassigned) | Zach (screenshot) |
+| 2026-10-22 | Rev 2 · Overlays restored to the original structures: dark case popover, outfitter stats popover (4 ranges, 4 stats, 3 bars), phase detail as a centred modal, 4-step check-in modal. No more side drawers for these | Zach (screenshot) |
+| 2026-10-22 | Rev 2 · Phase Action Hub added (column header → MCP / Worksheet hub: Needs-action rail, KPI tiles, stage filters, search, date range, activity table) | Source › phase-hub layer |
+| 2026-10-22 | Rev 2 · Phase alert added: cards in MCP / Worksheet raise a recurring alert until a manager starts them; snooze parks it 60s | Source › phase-hub layer |
+| 2026-10-22 | Rev 2 · Canon re-skin of the source: selected period, filter chips and progress bars are ink, not gold; hub CTAs are ACTION tints; START DEAL NOW is the alert's single COMMIT; initials avatars are ink | Build, per gold rule |
+| 2026-10-22 | Rev 2 · Non-up outfitter override reason is inline in the check-in, not a second stacked modal | Build, per HIG modality |
 
 ## Retired IDs (source v1.2 → spec-ready v2)
 | Retired | Replaced by |
@@ -33,3 +39,8 @@
 | `nav-open-floor-workspace` (Home tile) | AppShell `nav-floor` |
 | `scr-floor-workspace` / `data-spec-screen="floor-workspace"` | `frame-app-shell` + `sec-floor-workspace` |
 | v1.2 `-N` index suffixes from the uniqueness sweep | Domain-keyed instances (`#jacksons`, `#mh`, `#waiting`) |
+
+| 2026-10-23 | **D-19 closed in the design system:** Button, Badge, Card, StatTile, UnitRow, Header, Input and TabBar now take `theme="light"`. Consumer builds must use it rather than local light copies. Packs gained a pre-flight checklist | Zach · DS owner |
+| 2026-10-23 | Rev 3 · Customer card, phase alert and override-reason chips now use the shared DS components (`CustomerCard`, `PhaseAlert`, `ChoiceChip` in `ui_kits/floor/`). Local `.fw-cc` / `.fw-alert` copies deleted. All published IDs kept | Zach |
+| 2026-10-23 | Rev 3 · Avatar rule: contrast with the surface (ink on light, white on dark). Supersedes "avatars are ink-filled" | Zach |
+| 2026-10-23 | Rev 3 · Phase alert waiting timer turns danger ("Over limit") after 10 min. **Limit is a mock value**, confirm with Q-HUB-2 | Build · `needs-rule` |

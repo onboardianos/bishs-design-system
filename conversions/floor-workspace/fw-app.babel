@@ -21,7 +21,7 @@ function Content({ st, set, open }) {
   const compact = w < 980, single = w < 600;
   const board = <S.Board cards={st.cards} mode={single ? 'single' : 'columns'} phase={st.phase} setPhase={(p) => set({ phase: p })}
     onOpenCard={(c, el, direct) => direct === 'assign' ? open({ kind: 'assign', card: c }) : open({ kind: 'case-menu', card: c }, el)}
-    onExpand={(p) => open({ kind: 'phase', phase: p })} onDropCard={(id, ph) => set({ move: { id, phase: ph } })} onCheckIn={() => open({ kind: 'checkin' })} />;
+    onExpand={(p) => open({ kind: 'phase', phase: p })} onHub={(p) => open({ kind: 'hub', phase: p })} openId={st.openId} onDropCard={(id, ph) => set({ move: { id, phase: ph } })} onCheckIn={() => open({ kind: 'checkin' })} />;
   const sched = <S.Schedule filter={st.filter} setFilter={(f) => set({ filter: f })} onItem={(a) => open({ kind: 'appt', appt: a })} />;
   return (
     <div ref={ref} data-spec-id="sec-floor-workspace" data-bos-level="section" data-bos-section="S03" data-bos-type="content" className="fw"
@@ -56,6 +56,9 @@ function FWApp({ initial = {}, role = 'manager' }) {
     cards: FW.SEED_CARDS, rotation: FW.ROTATION, exits: FW.SEED_EXITS, unread: { mh: 1 }, filter: 'all', tab: 'board', phase: 'waiting', collapsed: false, hideBenched: false, toast: null, ...(initial.state || {}),
   }));
   const [modal, setModal] = React.useState(initial.modal || null);
+  const [query, setQuery] = React.useState(initial.query || '');
+  const [preview, setPreview] = React.useState(initial.link ? (window.FW_LINKS.LINKS.find((l) => l.id === initial.link) || null) : null);
+  const results = React.useMemo(() => (window.FW_LINKS ? window.FW_LINKS.search(query) : []), [query]);
   const [anchor, setAnchor] = React.useState(null);
   const toastTimer = React.useRef(null);
   const toast = (msg, undo) => { clearTimeout(toastTimer.current); setSt((s) => ({ ...s, toast: { msg, undo } })); toastTimer.current = setTimeout(() => setSt((s) => ({ ...s, toast: null })), 6000); };
@@ -85,12 +88,13 @@ function FWApp({ initial = {}, role = 'manager' }) {
       if (k === 'message') return open({ kind: 'chat', outfitterId: card.outfitter });
       setModal({ kind: k, card });
     }} />;
-    if (m.kind === 'checkin') layer = <O.CheckIn {...p} rotation={st.rotation} onSubmit={(v) => setSt((s) => ({ ...s, cards: [{ id: `new-${Date.now()}`, phase: 'assigned', customer: v.customer, type: v.type, interest: v.interest, outfitter: v.outfitter, since: '0m', total: '0m' }, ...s.cards] }))} />;
+    if (m.kind === 'checkin') layer = <O.CheckIn {...p} rotation={st.rotation} initialStep={m.step || 0} seed={m.seed || {}} onSubmit={(v) => setSt((s) => ({ ...s, cards: [{ id: `new-${Date.now()}`, phase: 'assigned', customer: v.customer, type: v.type, interest: v.interest, outfitter: v.outfitter, since: '0m 00s', total: '0m' }, ...s.cards] }))} />;
+    if (m.kind === 'hub') layer = <O.Hub {...p} phase={m.phase} cards={st.cards} onAct={(u) => { if (u.flag === 'mcp') { window.open('../mcp/index.html', '_blank', 'noopener'); return; } toast(`${FW.FLAG[u.flag].cta.replace(/ now$/i, '')} started for ${u.cust}`); }} />;
     if (m.kind === 'assign') layer = <O.Assign {...p} card={m.card} rotation={st.rotation} onAssign={(oid) => { setSt((s) => ({ ...s, cards: s.cards.map((c) => (c.id === m.card.id ? { ...c, outfitter: oid, phase: c.phase === 'waiting' ? 'assigned' : c.phase } : c)) })); close(); toast(`${m.card.customer} assigned to ${first(oid)}. Notification sent.`); }} />;
     if (m.kind === 'move') layer = <O.Move {...p} card={m.card} onMove={(ph) => { moveCard(m.card.id, ph); close(); }} />;
     if (m.kind === 'note') layer = <O.NoteD {...p} card={m.card} onSave={() => { close(); toast(`Note saved on ${m.card.customer}`); }} />;
     if (m.kind === 'left') layer = <O.Left {...p} card={m.card} onComplete={(r, t) => { setSt((s) => ({ ...s, cards: s.cards.filter((c) => c.id !== m.card.id), exits: [...s.exits, { id: m.card.id, phase: m.card.phase, customer: m.card.customer, outfitter: m.card.outfitter || 'mh', note: t || r, when: '12:45 PM' }] })); close(); toast(`${m.card.customer} marked as left · ${r}`); }} />;
-    if (m.kind === 'phase') layer = <O.PhaseDetail {...p} phase={m.phase} cards={st.cards} exits={st.exits} />;
+    if (m.kind === 'phase') layer = <O.PhaseDetail {...p} phase={m.phase} cards={st.cards} exits={st.exits} onOpenCard={(c, el) => open({ kind: 'case-menu', card: c }, el)} />;
     if (m.kind === 'rep-menu') layer = <O.RepMenu {...p} entry={m.entry} anchor={anchor} role={role} onPick={(k) => {
       const e = m.entry;
       if (k === 'message') { setSt((s) => ({ ...s, unread: { ...s.unread, [e.outfitter]: 0 } })); setModal({ kind: 'chat', outfitterId: e.outfitter }); }
@@ -111,10 +115,13 @@ function FWApp({ initial = {}, role = 'manager' }) {
   return (
     <RoleCtx.Provider value={role}>
     <div ref={wrap} className="fw-app" data-bos-role={role} style={{ position: 'relative', height: '100%', width: '100%', overflow: 'hidden' }}>
-      <NS.AppShell role={role} activeId="floor" theme="light" height="100%" alerts={3} logoSrc="../../assets/logo-bishs-os.png" logoSrcDark="../../assets/logo-bishs-os-white.png" onNavigate={() => {}}>
+      <NS.AppShell role={role} activeId="floor" theme="light" height="100%" alerts={3} logoSrc={window.FW_RES("../../assets/logo-bishs-os.png")} logoSrcDark={window.FW_RES("../../assets/logo-bishs-os-white.png")} onNavigate={() => {}} onSearch={setQuery} onSearchSubmit={(q) => { const r = window.FW_LINKS.search(q)[0]; if (!r) return; setQuery(''); if (r.url && window.FW_LINKS.embedFor(r.url, r.embed) === 'blocked') window.open(r.url, '_blank', 'noopener'); else setPreview(r); }}>
         <Content st={st} set={set} open={open} />
       </NS.AppShell>
       {layer}
+      <O.PhaseAlerts cards={st.cards} baseline={!!initial.alertBaseline} paused={!!m || !!preview || !!query.trim()} onStart={(c, w) => toast(`${w.cta.replace(/ now$/i, '')} started for ${c.customer}`)} />
+      {query.trim() && !preview && <O.SearchResults query={query} results={results} phone={phone} onPick={(r) => { setQuery(''); if (r.url && window.FW_LINKS.embedFor(r.url, r.embed) === 'blocked') window.open(r.url, '_blank', 'noopener'); else setPreview(r); }} onClose={() => setQuery('')} />}
+      {preview && <O.LinkPreview key={preview.id + (preview.url || '')} link={preview} phone={phone} onClose={() => setPreview(null)} onSaved={() => setPreview({ ...window.FW_LINKS.LINKS.find((x) => x.id === preview.id) })} />}
       {st.toast && (
         <div role="status" data-spec-id="info-toast" style={{ position: 'absolute', left: '50%', bottom: phone ? 96 : 24, transform: 'translateX(-50%)', zIndex: 95, display: 'flex', alignItems: 'center', gap: 12, maxWidth: 'calc(100% - 32px)', padding: '10px 10px 10px 16px', borderRadius: 10, background: 'var(--brand-black)', color: 'var(--brand-white)', boxShadow: 'var(--shadow-lg)', fontSize: 14, fontWeight: 600 }}>
           <span>{st.toast.msg}</span>
@@ -129,9 +136,14 @@ function FWApp({ initial = {}, role = 'manager' }) {
 // Every reviewable state (Canvas artboard ⇄ Prototype screen, 1:1).
 const C0 = FW.SEED_CARDS[0], R0 = FW.ROTATION[0], RP = FW.ROTATION[3], RB = FW.ROTATION[12], A0 = FW.SCHEDULE[2];
 const STATES = [
-  { id: 'floor', label: 'Floor workspace', key: true, initial: {} },
+  { id: 'floor', label: 'Floor workspace', key: true, initial: { alertBaseline: true } },
   { id: 'case-menu', label: 'Case actions', initial: { modal: { kind: 'case-menu', card: C0 }, anchorSel: `btn-action-case-menu#${C0.id}` } },
   { id: 'checkin', label: 'New check-in', key: true, initial: { modal: { kind: 'checkin' } } },
+  { id: 'checkin-match', label: 'Check-in · match', initial: { modal: { kind: 'checkin', step: 1, seed: { tel: '(208) 809-0782', matches: FW.MATCHES['2088090782'] } } } },
+  { id: 'checkin-assign', label: 'Check-in · assign', key: true, initial: { modal: { kind: 'checkin', step: 2, seed: { tel: '', matches: [{ id: 'walkin', name: 'Walk-in (no record)', phone: '—' }], picked: [{ id: 'walkin', name: 'Walk-in (no record)', phone: '—' }], party: 'single', b1: { f: 'Walk-in (no', l: 'record)' } } } } },
+  { id: 'hub-mcp', label: 'MCP action hub', key: true, initial: { modal: { kind: 'hub', phase: FW.PHASES[3] } } },
+  { id: 'hub-worksheet', label: 'Worksheet action hub', initial: { modal: { kind: 'hub', phase: FW.PHASES[5] } } },
+  { id: 'phase-alert', label: 'Phase alert · start the deal', key: true, initial: {} },
   { id: 'assign', label: 'Assign outfitter', initial: { modal: { kind: 'assign', card: C0 } } },
   { id: 'move', label: 'Move to phase', initial: { modal: { kind: 'move', card: C0 } } },
   { id: 'note', label: 'Add note', initial: { modal: { kind: 'note', card: C0 } } },
@@ -146,6 +158,8 @@ const STATES = [
   { id: 'chat', label: 'Message outfitter', initial: { modal: { kind: 'chat', outfitterId: 'mh' } } },
   { id: 'appt', label: 'Schedule item detail', initial: { modal: { kind: 'appt', appt: A0 } } },
   { id: 'appt-checkin', label: 'Customer arrived', initial: { modal: { kind: 'appt-checkin', appt: A0 } } },
+  { id: 'search', label: 'Global search results', initial: { query: 'inv' } },
+  { id: 'link-preview', label: 'Link preview overlay', key: true, initial: { link: 'inventory-search' } },
 ];
 
 window.FWApp = FWApp;

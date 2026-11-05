@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Outfitter Discovery · converted to Bish's OS</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+html,body{margin:0;height:100%;background:var(--surface-deep);font-family:var(--font-body);}
+a{color:var(--accent-gold-lo);}a:hover{color:var(--accent-gold);}
+.od-app{container-type:inline-size;container-name:app;color:var(--text-light-primary);}
+.od-app :is(h1,h2,h3,h4,p,li,dt,dd){color:inherit;}
+.od{display:flex;flex-direction:column;gap:16px;padding:16px;box-sizing:border-box;min-height:100%;background:var(--surface-light-page);}
+.od-pad{display:flex;flex-direction:column;gap:14px;}
+.od-lbl{margin:0;font-family:var(--font-ui);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-light-secondary);}
+.od-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;}
+.od-rail{overflow-x:auto;scrollbar-width:thin;margin:0 -16px;padding:0 16px;}
+.od-rail ol{display:flex;gap:6px;margin:0;padding:0 0 4px;list-style:none;}
+.od-step{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:0;min-height:44px;padding:4px 12px;border:none;border-bottom:3px solid transparent;background:transparent;font-family:var(--font-ui);font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-light-secondary);cursor:pointer;white-space:nowrap;border-radius:6px 6px 0 0;}
+.od-step:hover:not(:disabled){background:var(--surface-light-inset);}
+.od-step.on{color:var(--accent-gold-lo);border-bottom-color:var(--accent-gold-lo);}
+.od-step.done{color:var(--text-light-primary);flex-direction:row;align-items:center;gap:6px;}
+.od-step.skip{color:var(--text-light-muted);cursor:default;}
+.od-step.skip .od-step-t{text-decoration:line-through;}
+.od-step-r{font-family:var(--font-body);font-size:11px;font-weight:400;letter-spacing:0;text-transform:none;}
+.od-step:focus-visible,.od-stepper button:focus-visible,.od-select:focus-visible,.od-check input:focus-visible{outline:2px solid var(--accent-gold-hi);outline-offset:2px;}
+.od-body{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start;}
+.od-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px;}
+.od-tiles.two{grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));}
+.od-panel,.od-sub{display:flex;flex-direction:column;gap:14px;padding:16px;border:1px solid var(--border-light);border-radius:12px;background:var(--surface-light-raised);}
+.od-sub{background:transparent;border:none;padding:0;}
+.od-row{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;}
+.od-row>*{flex:1 1 200px;min-width:0;}
+.od-field{display:flex;flex-direction:column;gap:6px;}
+.od-select{min-height:44px;padding:0 12px;border:1px solid var(--border-input-light);border-radius:8px;background:var(--surface-light-card);color:var(--text-light-primary);font-family:var(--font-body);font-size:16px;}
+.od-stepper{display:inline-flex;align-items:center;border:1px solid var(--border-input-light);border-radius:8px;background:var(--surface-light-card);overflow:hidden;align-self:flex-start;}
+.od-stepper button{width:48px;height:48px;border:none;background:transparent;color:var(--text-light-primary);display:grid;place-items:center;cursor:pointer;}
+.od-stepper button:hover:not(:disabled){background:var(--surface-light-inset);}
+.od-stepper button:disabled{color:var(--text-light-muted);cursor:not-allowed;}
+.od-stepper output{min-width:48px;text-align:center;font-family:var(--font-display);font-size:28px;line-height:1;}
+.od-result{margin:0;align-self:center;font-family:var(--font-body);font-size:16px;font-weight:700;color:var(--text-light-primary);}
+.od-result small{display:block;font-weight:400;font-size:14px;color:var(--text-light-secondary);}
+.od-check{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-family:var(--font-body);font-size:14px;font-weight:700;color:var(--text-light-primary);cursor:pointer;}
+.od-check input{width:20px;height:20px;accent-color:var(--text-light-primary);margin:0;}
+.od-notice{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:10px;font-size:15px;line-height:1.45;}
+.od-notice svg{flex:0 0 auto;margin-top:2px;}
+.od-summary{margin:0;padding:12px 14px;border-radius:10px;background:var(--surface-light-inset);font-size:15px;color:var(--text-light-secondary);}
+.od-summary b{color:var(--text-light-primary);}
+.od-bens{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.4;}
+.od-bens li{display:flex;gap:8px;align-items:flex-start;}
+.od-bens svg{flex:0 0 auto;margin-top:2px;}
+.od-effects{display:flex;flex-direction:column;gap:8px;}
+.od-badges{display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
+.od-stock{font-family:var(--font-mono);font-size:12px;color:var(--text-light-tertiary);margin-left:auto;}
+.od-results{display:flex;flex-direction:column;gap:14px;}
+.od-over{font-family:var(--font-ui);font-size:15px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--accent-gold-lo);}
+.od-h{margin:10px 0 0;font-family:var(--font-display);font-weight:400;font-size:clamp(32px,6cqi,60px);line-height:1;}
+.od-sub-p{margin:10px 0 0;font-size:16px;color:var(--text-light-secondary);}
+.od-matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:12px;margin:0;padding:0;list-style:none;}
+.od-reasons{margin:0;padding-left:18px;font-size:14px;line-height:1.45;color:var(--text-light-secondary);}
+.od-recovery{display:flex;flex-direction:column;gap:12px;}
+.od-rec-list{display:flex;flex-direction:column;gap:10px;margin:0;padding:0;list-style:none;}
+.od-rec-list li{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 16px;border:1px solid var(--border-light);border-radius:12px;background:var(--surface-light-card);}
+.od-rec-list b{display:block;font-size:16px;}.od-rec-list small{display:block;font-size:14px;color:var(--text-light-secondary);margin-top:2px;}
+.od-actions{position:sticky;bottom:0;z-index:5;display:flex;justify-content:space-between;gap:12px;padding:12px 16px;margin:0 -16px -16px;background:var(--surface-light-card);border-top:1px solid var(--border-light);}
+.od-actions>*:last-child{flex:1 1 auto;max-width:360px;}
+.od-actions>*:last-child>button,.od-actions>button:last-child{width:100%;}
+.od-skel{display:flex;flex-direction:column;gap:14px;padding:24px;border-radius:16px;background:var(--surface-light-card);border:1px solid var(--border-light);}
+.od-skel .b{border-radius:10px;background:linear-gradient(90deg,var(--surface-light-inset),var(--surface-light-raised),var(--surface-light-inset));background-size:200% 100%;animation:odSh 1.4s linear infinite;}
+@keyframes odSh{from{background-position:200% 0}to{background-position:-200% 0}}
+@container app (max-width: 640px){.od-stats{gap:6px;}}
+@container app (min-width: 641px){.od{padding:20px 24px;gap:18px;}.od-rail{margin:0 -24px;padding:0 24px;}.od-actions{margin:0 -24px -20px;padding:14px 24px;}.od-tiles{grid-template-columns:repeat(auto-fill,minmax(min(100%,180px),1fr));}}
+@container app (min-width: 1024px){.od-body{grid-template-columns:minmax(0,1fr) 320px;}.od-body.full{grid-template-columns:minmax(0,1fr);}.od-aside{position:sticky;top:12px;}.od-actions>*:last-child{flex:0 0 auto;min-width:240px;}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important;}}
+.od>.od-actions{margin-top:auto;}
+.h-btn{min-height:36px;padding:0 14px;border-radius:6px;border:1px solid var(--border-mid);background:transparent;color:var(--text-muted);font-family:var(--font-ui);font-size:13px;font-weight:600;letter-spacing:.5px;cursor:pointer;}
+.h-btn[aria-pressed="true"]{border-color:var(--accent-gold-hi);color:var(--accent-gold-hi);}
+.h-row{display:flex;align-items:center;gap:10px;width:100%;min-height:36px;padding:0 10px;border:none;border-radius:6px;background:transparent;color:var(--text-muted);font-family:var(--font-ui);font-size:14px;cursor:pointer;text-align:left;}
+.h-row[aria-current="true"]{background:rgba(184,158,74,.14);color:var(--accent-gold-hi);}
+.h-row.key{color:var(--text-body);}
+.h-lab{font-family:var(--font-ui);font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--text-muted);}
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="data/engine.js"></script>
+<script src="data/snapshot.jsonp"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#F7F6F1"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="#F7F6F1"/><text x="50" y="62" text-anchor="middle" font-family="sans-serif" font-size="30" font-weight="700" fill="#8B752E">OD</text></svg></template>
+<div id="od-res" hidden aria-hidden="true"><img data-res="images/bathroom-full-bathroom.jpg" src="images/bathroom-full-bathroom.jpg" alt=""><img data-res="images/bathroom-half-bathroom.jpg" src="images/bathroom-half-bathroom.jpg" alt=""><img data-res="images/bathroom-other.jpg" src="images/bathroom-other.jpg" alt=""><img data-res="images/bathroom-rear-bathroom.jpg" src="images/bathroom-rear-bathroom.jpg" alt=""><img data-res="images/bathroom-split-bathroom.jpg" src="images/bathroom-split-bathroom.jpg" alt=""><img data-res="images/bathroom-wet-bath.jpg" src="images/bathroom-wet-bath.jpg" alt=""><img data-res="images/kitchen-center-kitchen.jpg" src="images/kitchen-center-kitchen.jpg" alt=""><img data-res="images/kitchen-front-kitchen.jpg" src="images/kitchen-front-kitchen.jpg" alt=""><img data-res="images/kitchen-kitchen-island.jpg" src="images/kitchen-kitchen-island.jpg" alt=""><img data-res="images/kitchen-l-shaped-galley.jpg" src="images/kitchen-l-shaped-galley.jpg" alt=""><img data-res="images/kitchen-other.jpg" src="images/kitchen-other.jpg" alt=""><img data-res="images/kitchen-rear-kitchen.jpg" src="images/kitchen-rear-kitchen.jpg" alt=""><img data-res="images/rv-destination.png" src="images/rv-destination.png" alt=""><img data-res="images/rv-fifth-wheel.png" src="images/rv-fifth-wheel.png" alt=""><img data-res="images/rv-motorhome.png" src="images/rv-motorhome.png" alt=""><img data-res="images/rv-toy-hauler.png" src="images/rv-toy-hauler.png" alt=""><img data-res="images/rv-travel-trailer.png" src="images/rv-travel-trailer.png" alt=""><img data-res="images/rv-truck-camper.png" src="images/rv-truck-camper.png" alt=""><img data-res="images/sitting-booth-dinette.jpg" src="images/sitting-booth-dinette.jpg" alt=""><img data-res="images/sitting-freestanding-dinette.jpg" src="images/sitting-freestanding-dinette.jpg" alt=""><img data-res="images/sitting-jack-knife-sofa.jpg" src="images/sitting-jack-knife-sofa.jpg" alt=""><img data-res="images/sitting-other.jpg" src="images/sitting-other.jpg" alt=""><img data-res="images/sitting-theater-seating.jpg" src="images/sitting-theater-seating.jpg" alt=""><img data-res="images/sitting-tri-fold-sofa.jpg" src="images/sitting-tri-fold-sofa.jpg" alt=""><img data-res="images/sleeping-bunk-beds.jpg" src="images/sleeping-bunk-beds.jpg" alt=""><img data-res="images/sleeping-convertible.jpg" src="images/sleeping-convertible.jpg" alt=""><img data-res="images/sleeping-king-bed.jpg" src="images/sleeping-king-bed.jpg" alt=""><img data-res="images/sleeping-other.jpg" src="images/sleeping-other.jpg" alt=""><img data-res="images/sleeping-queen-bed.jpg" src="images/sleeping-queen-bed.jpg" alt=""><img data-res="images/sleeping-twin-beds.jpg" src="images/sleeping-twin-beds.jpg" alt=""><img data-res="../../assets/logo-tag-black-gold.png" src="../../assets/logo-tag-black-gold.png" alt=""><img data-res="../../assets/logo-bishs-os.png" src="../../assets/logo-bishs-os.png" alt=""><img data-res="../../assets/logo-bishs-os-white.png" src="../../assets/logo-bishs-os-white.png" alt=""></div>
+<script>window.OD_RES=function(p){if(!p)return p;var e=document.querySelector('#od-res img[data-res="'+p+'"]');return e?e.getAttribute('src'):p;};</script>
+<div id="root"></div>
+<script type="text/babel" src="od-model.babel"></script>
+<script type="text/babel" src="od-app.babel"></script>
+<script type="text/babel">
+const STATES = window.OD_STATES;
+const DEVICES = [['fill', 'Fill', null], ['desktop', 'Desktop', 1280], ['tablet', 'Tablet', 834], ['phone', 'Phone', 390]];
+const NAV_KEY = 'od-conversion-nav';
+async function exportHandoff(onProgress) {
+  const L = window.BishSRVDesignSystem_26feec.SpecLint;
+  await window.OD.loadSnapshot();
+  const snaps = [];
+  for (const st of STATES) for (const w of [1280, 834, 390]) {
+    onProgress(`${st.label} · ${w}`);
+    const host = document.createElement('div');
+    host.style.cssText = `position:fixed;left:-20000px;top:0;width:${w}px;height:900px;`;
+    document.body.appendChild(host);
+    const root = ReactDOM.createRoot(host);
+    root.render(<window.ODApp initial={st.initial} role={st.role || 'outfitter'} />);
+    await new Promise((r) => setTimeout(r, 500));
+    snaps.push(L.snapshot(host, { state: st.id, width: w, label: st.label, status: 'mvp' }));
+    root.unmount(); host.remove();
+  }
+  const man = L.manifest('OUTFITTER-DISCOVERY', snaps);
+  L.download('outfitter-discovery.manifest.json', JSON.stringify(man, null, 2));
+  L.download('outfitter-discovery.requirements.md', L.requirements(man, {}), 'text/markdown');
+  const t = L.tickets(man, {}, { intake: { rules: {} }, ruleMap: {}, precedents: [], questions: [] });
+  L.download('outfitter-discovery.jira-tickets.csv', t.csv, 'text/csv');
+  man.tickets = { stories: t.stories, blocked: t.blocked };
+  return man;
+}
+function Artboard({ state, w, h }) {
+  return (
+    <figure data-spec-id={`frame-artboard#${state.id}-${w}`} style={{ margin: 0, display: 'flex', flexDirection: 'column', gap: 8, flex: '0 0 auto' }}>
+      <figcaption style={{ fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 600, letterSpacing: 0.5, color: 'var(--text-body)' }}>{state.label} · {w}</figcaption>
+      <div style={{ width: w, height: h, borderRadius: 10, overflow: 'hidden', border: '1px solid var(--border-mid)', background: 'var(--surface-light-page)' }}><window.ODApp initial={state.initial} role={state.role || 'outfitter'} /></div>
+    </figure>
+  );
+}
+function Canvas() {
+  const sec = (label, items) => (
+    <section data-spec-id={`sec-canvas-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <h2 style={{ margin: 0, fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--accent-gold-hi)' }}>{label}</h2>
+      <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', alignItems: 'flex-start' }}>{items}</div>
+    </section>
+  );
+  const S = (id) => STATES.find((s) => s.id === id);
+  const q = ['type-tow', 'type-motor', 'budget-cash', 'budget-finance', 'tow', 'sleep', 'sleep-motor', 'bedroom', 'length', 'garage', 'bath', 'inside', 'outside', 'size'];
+  return (
+    <div style={{ padding: 32, display: 'flex', flexDirection: 'column', gap: 40, overflow: 'auto', height: '100%', boxSizing: 'border-box' }}>
+      {sec('Discovery · postures', [<Artboard key="d" state={S('path')} w={1280} h={900} />, <Artboard key="t" state={S('path')} w={834} h={1100} />, <Artboard key="p" state={S('path')} w={390} h={844} />])}
+      {sec('Questions · desktop', q.map((id) => <Artboard key={id} state={S(id)} w={1280} h={1000} />))}
+      {sec('Matches', [<Artboard key="r" state={S('results')} w={1280} h={1100} />, <Artboard key="z" state={S('zero')} w={1280} h={900} />, <Artboard key="rp" state={S('results')} w={390} h={844} />])}
+      {sec('Phone · key questions', ['type-tow', 'budget-finance', 'sleep', 'bath'].map((id) => <Artboard key={id} state={S(id)} w={390} h={844} />))}
+      {sec('Data states', ['loading', 'error', 'no-access'].map((id) => <Artboard key={id} state={S(id)} w={1280} h={700} />))}
+    </div>
+  );
+}
+function Prototype() {
+  const [cur, setCur] = React.useState(1);
+  const [dev, setDev] = React.useState('fill');
+  const [open, setOpen] = React.useState(() => localStorage.getItem(NAV_KEY) !== 'collapsed');
+  const [lint, setLint] = React.useState(null);
+  const [exp, setExp] = React.useState('');
+  const stage = React.useRef(null);
+  const w = DEVICES.find((d) => d[0] === dev)[2];
+  const go = (i) => { setCur((i + STATES.length) % STATES.length); setLint(null); };
+  const toggle = () => { const n = !open; setOpen(n); localStorage.setItem(NAV_KEY, n ? 'open' : 'collapsed'); };
+  const run = () => { const L = window.BishSRVDesignSystem_26feec.SpecLint; if (L) setLint(L.run(stage.current)); };
+  const st = STATES[cur];
+  return (
+    <div style={{ display: 'flex', height: '100%' }}>
+      {open && (
+        <aside data-spec-id="sec-proto-navigator" style={{ width: 276, flexShrink: 0, background: 'var(--surface-page)', borderRight: '1px solid var(--border-ghost)', padding: 16, boxSizing: 'border-box', display: 'flex', flexDirection: 'column', gap: 16, overflowY: 'auto' }}>
+          <div><div className="h-lab">Layer</div><div style={{ marginTop: 6, fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>Outfitter Discovery</div></div>
+          <div><div className="h-lab">Device</div><div style={{ display: 'flex', gap: 6, marginTop: 6, flexWrap: 'wrap' }}>{DEVICES.map(([k, l, px]) => <button key={k} type="button" className="h-btn" aria-pressed={dev === k} data-spec-id={`btn-action-device#${k}`} onClick={() => setDev(k)}>{l}{px ? ` ${px}` : ''}</button>)}</div></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <button type="button" className="h-btn" data-spec-id="btn-action-prev-screen" aria-label="Previous screen" onClick={() => go(cur - 1)}>‹</button>
+            <span style={{ flex: 1, textAlign: 'center', fontFamily: 'var(--font-mono)', fontSize: 13, color: 'var(--text-body)' }}>{String(cur + 1).padStart(2, '0')} / {STATES.length}</span>
+            <button type="button" className="h-btn" data-spec-id="btn-action-next-screen" aria-label="Next screen" onClick={() => go(cur + 1)}>›</button>
+          </div>
+          <div><div className="h-lab">Screens</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: 6 }}>
+              {STATES.map((s, i) => (
+                <button key={s.id} type="button" className={`h-row${s.key ? ' key' : ''}`} aria-current={i === cur} data-spec-id={`nav-screen#${s.id}`} onClick={() => go(i)}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, opacity: 0.7 }}>{String(i + 1).padStart(2, '0')}</span>{s.label}
+                  {s.key && <span aria-hidden="true" style={{ marginLeft: 'auto', width: 6, height: 6, borderRadius: '50%', background: 'var(--accent-gold-hi)' }} />}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ borderTop: '1px solid var(--border-ghost)', paddingTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <button type="button" className="h-btn" data-spec-id="btn-action-run-speclint" onClick={run}>Run SpecLint on this screen</button>
+            <button type="button" className="h-btn" data-spec-id="btn-action-export-handoff" disabled={!!exp && !exp.startsWith('Done')} onClick={async () => { const m = await exportHandoff((t) => setExp(`Rendering ${t}…`)); const fails = m.gates.filter((g) => !g.pass).length; setExp(`Done · ${m.count} elements · ${m.gates.length - fails}/${m.gates.length} gates pass · ${m.tickets.stories} stories, ${m.tickets.blocked} blocked`); }}>Export handoff (manifest · requirements · Jira CSV)</button>
+            {exp && <div role="status" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.5, color: 'var(--text-body)' }}>{exp}</div>}
+            {lint && <div role="status" style={{ fontFamily: 'var(--font-mono)', fontSize: 12, lineHeight: 1.6, color: lint.pass ? 'var(--semantic-success)' : 'var(--semantic-danger)' }}>{lint.pass ? 'PASS' : 'FAIL'} · {Math.round(lint.coverage * 100)}% stamped<br />{lint.interactive} interactive · {lint.unstamped.length} unstamped<br />{lint.duplicates.length} dup · {lint.invalid.length} invalid · {lint.commitViolations} commit&gt;1</div>}
+          </div>
+        </aside>
+      )}
+      <div style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', position: 'relative' }}>
+        <button type="button" className="h-btn" data-spec-id="btn-action-toggle-navigator" aria-expanded={open} aria-label={open ? 'Hide panel' : 'Show panel'} onClick={toggle} style={{ position: 'absolute', top: 8, left: 8, zIndex: 10, minWidth: 36, padding: '0 10px', background: 'var(--surface-page)' }}>{open ? '‹' : '›'}</button>
+        <div style={{ flex: 1, minHeight: 0, display: 'flex', justifyContent: 'center', padding: '8px 16px 16px 52px', overflow: 'auto' }}>
+          <div ref={stage} style={{ width: w ? w : '100%', maxWidth: '100%', flexShrink: 0, height: '100%', resize: 'horizontal', overflow: 'hidden', borderRadius: 10, border: '1px solid var(--border-mid)', background: 'var(--surface-light-page)' }}>
+            <window.ODApp key={`${st.id}-${dev}`} initial={st.initial} role={st.role || 'outfitter'} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+function Harness() {
+  const [mode, setMode] = React.useState('prototype');
+  const [ready, setReady] = React.useState(!!window.BISH_SNAPSHOT);
+  React.useEffect(() => { if (!ready) window.OD.loadSnapshot().then(() => setReady(true), () => setReady(true)); }, []);
+  return (
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: 8, background: 'var(--surface-page)', borderBottom: '1px solid var(--border-ghost)' }}>
+        {['canvas', 'prototype'].map((m) => <button key={m} type="button" className="h-btn" aria-pressed={mode === m} data-spec-id={`btn-action-mode#${m}`} onClick={() => setMode(m)}>{m === 'canvas' ? 'Canvas' : 'Prototype'}</button>)}
+      </div>
+      <div style={{ flex: 1, minHeight: 0 }}>{!ready ? null : mode === 'canvas' ? <Canvas /> : <Prototype />}</div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Harness />);
+</script>
+</body>
+</html>

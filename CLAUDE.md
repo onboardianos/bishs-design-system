@@ -15,10 +15,20 @@ Find the request type, then run **every** step listed for it, in order. Steps ar
 **Never:**
 - Invent a business rule. Put it in the intake as an open question, and label the ticket `needs-rule`.
 - Hand-build a header or nav.
+- Build local light copies of DS components. Pass `theme="light"` (Button, Badge, Card, StatTile, UnitRow, Header, Input, TabBar, Avatar, AppShell, RolesNavAdmin).
+- Hand-build an alert card, a customer/kanban card, a question card or answer chips. Use `PhaseAlert`, `CustomerCard`, `QuestionCard`, `ChoiceChip` / `ChoiceGroup` from `ui_kits/floor/`.
 - Put gold outside its three jobs.
 - Ship unstamped elements.
 - Fork a screen per device.
 - Rename a published ID.
+
+**Whole route on one page:** `documents/design-intake-to-handoff.md`.
+
+**Bishifying a design? Read `documents/bishify-reading-order.md` first.** It lists the files to read, in order, before each pass.
+
+**What component to use, and why:** `documents/component-selection-guide.md`. Read it at pass 2 (Map to the system) and before building any screen.
+
+**Other projects:** copy `starter-kit/CLAUDE.md` to their root. The template's `ds-base.js` finds the linked design system on its own.
 
 **Copy the reference.** `conversions/floor-workspace/` shows every step done once: prototype, canvas, roles, the handoff package and the dev zip. When unsure, do what it does.
 

@@ -21,6 +21,10 @@ export interface AppShellProps {
   theme?: 'light' | 'dark';
   /** CSS height of the shell. Defaults to 100vh; pass '100%' inside a sized artboard or stage. */
   height?: string | number;
+  /** Fires on every keystroke in the global search. The screen decides what to show. */
+  onSearch?: (query: string) => void;
+  /** Fires on Enter in the global search. */
+  onSearchSubmit?: (query: string) => void;
   children?: React.ReactNode;
 }
 export function AppShell(props: AppShellProps): JSX.Element;

@@ -1,0 +1,77 @@
+// Floor Workspace — Phase Action Hub (MCP / Worksheet), alert engine, and outfitter stats data.
+// Source: original "Floor Workspace - Full App (standalone)" → phase-hub layer + data/workspace WS_OUTFITTER_STATS.
+(function () {
+const FW = window.FW;
+const STAT_KEYS = ['fullName', 'tenure', 'tier', 'rank', 'ups', 'demo', 'demoPct', 'wup', 'wupPct', 'sold', 'soldPct', 'goalPct', 'gross', 'avgTime'];
+const RAW = {"mh":["Mike Henderson","7 yrs","Elite tier",3,32,24,75,17,53,11,34,68,"$4.2k","2h 18m"],"sr":["Sarah Reyes","5 yrs","Elite tier",1,28,22,79,19,68,14,50,92,"$4.6k","1h 58m"],"jt":["Jake Thornton","3 yrs","Pro tier",6,21,14,67,8,38,4,19,41,"$3.4k","2h 41m"],"dc":["Dan Castellano","9 yrs","Elite tier",2,35,30,86,22,63,16,46,88,"$4.9k","2h 02m"],"lm":["Lisa Marquez","4 yrs","Pro tier",4,26,19,73,13,50,9,35,71,"$4.0k","2h 12m"],"tv":["Tom Vasquez","6 yrs","Elite tier",5,31,25,81,16,52,10,32,64,"$4.1k","2h 20m"],"ab":["Alan Bryce","2 yrs","Rookie tier",7,16,9,56,4,25,2,13,28,"$3.1k","3h 04m"],"kr":["Kyle Renner","1 yr","Rookie tier",13,30,12,40,0,0,0,0,8,"—","3h 31m"],"mp":["Maria Perez","4 yrs","Pro tier",9,24,17,71,11,46,7,29,58,"$3.9k","2h 24m"],"rh":["Ryan Hayes","2 yrs","Pro tier",10,18,12,67,6,33,3,17,33,"$3.3k","2h 51m"],"ks":["Karen Stevens","8 yrs","Elite tier",11,30,22,73,14,47,9,30,60,"$4.2k","2h 09m"],"cb":["Carlos Brooks","3 yrs","Pro tier",12,22,13,59,7,32,4,18,36,"$3.5k","2h 33m"],"jw":["Jenna Wells","5 yrs","Pro tier",8,27,20,74,12,44,8,30,62,"$4.0k","2h 16m"]};
+const OUTFITTER_STATS = Object.fromEntries(Object.entries(RAW).map(([k, v]) => [k, Object.fromEntries(STAT_KEYS.map((s, i) => [s, v[i]]))]));
+const RANGES = [{ id: 'today', label: 'Today', f: 1 / 22, sub: 'Today' }, { id: 'week', label: 'Week', f: 1 / 4, sub: 'Week' }, { id: 'month', label: 'Month', f: 1, sub: 'MTD' }, { id: 'd90', label: '90 day', f: 2.8, sub: '90D' }];
+
+// Row: [customer, outfitter, location, stage, tone, nextStep, cue|{steps}, daysAgo, owner]
+const HUB = {
+  mcp: {
+    kpi: [
+      { t: 'MCP completed (today)', v: '14 / 18', s: '77.7% target met', hero: true },
+      { t: 'Avg. MCP duration', v: '14 mins', s: '5 mins over floor max', bad: true },
+      { t: 'Avg. wait time', v: '34 mins', s: '2 mins under floor max' },
+    ],
+    rows: [
+      ['Harrison Family', 'Sarah Jenkins', '', 'Needs my review', 'danger', 'Customer waiting in store', 'Select Top 3 now', 0, 'Manager'],
+      ['James Jenkins', 'Marcus Wright', '', 'Needs my review', 'danger', 'Ready for review', '', 0, 'Manager'],
+      ['Robert Nelson', 'Luis Ortega', '', 'Incomplete', 'warning', 'Missing tow rating', '', 0, 'Customer'],
+      ['Chris Harper', 'Marcus Wright', 'North Lot', 'In progress', 'neutral', 'Building recommendations', '', 0, 'Manager'],
+      ['Linda Vance', 'David Reynolds', '', 'Walkthrough', 'info', 'Unit 2 of 3', { steps: 2 }, 0, 'Customer'],
+      ['Maria Pavlova', 'Sarah Jenkins', '', 'Walkthrough', 'info', 'Unit 1 of 3', { steps: 1 }, 0, 'Customer'],
+      ['Riya Patel', 'Marcus Wright', '', 'Walkthrough', 'info', 'Unit 3 of 3', { steps: 3 }, 1, 'Customer'],
+      ['Anderson Family', 'Luis Ortega', '', 'Walkthrough', 'info', 'Unit 1 of 3', { steps: 1 }, 1, 'Customer'],
+      ['David Watson', 'David Reynolds', '', 'Top 3 sent', 'success', 'Top 3 sent to outfitter', '', 3, 'Outfitter'],
+      ['Emily Lee', 'Sarah Jenkins', '', 'Top 3 sent', 'success', 'Top 3 sent to outfitter', '', 6, 'Outfitter'],
+      ['Ashley Green', 'Luis Ortega', 'South Lot', 'Intervention', 'danger', 'Customer rejected Unit 1', 'Action required', 14, 'Manager'],
+    ],
+    urgent: [
+      { flag: 'unit', from: 'Marcus Wright', cust: 'Ashley Green', type: 'couple', interest: 'Toy Hauler', unit: '#88C1 · rejected Unit 1', of: 'Marcus Wright', wait: 143, total: 4022 },
+      { flag: 'mcp', from: 'Mike H.', cust: 'David Fletcher', type: 'single', interest: 'Fifth Wheel', unit: '#47A3 · Finance · TX', of: 'Marco Kim', wait: 12, total: 2287 },
+      { flag: 'mcp', from: 'Sarah R.', cust: 'Harrison Family', type: 'family', interest: 'Travel Trailer', unit: '#21B8 · Cash · OK', of: 'Sarah Jenkins', wait: 74, total: 3140 },
+    ],
+  },
+  worksheet: {
+    kpi: [
+      { t: 'Deals written (today)', v: '5 / 9', s: '55.6% target met', hero: true },
+      { t: 'Avg. worksheet time', v: '26 mins', s: '4 mins over floor max', bad: true },
+      { t: 'Avg. desk turn', v: '9 mins', s: '3 mins under floor max' },
+    ],
+    rows: [
+      ['Martinez', 'Alan B.', '', 'Needs desking', 'danger', 'Customer at desk', 'Start the deal', 0, 'Manager'],
+      ['Olsen Fam.', 'Tom V.', '', 'In progress', 'neutral', 'Building numbers', '', 0, 'Manager'],
+      ['Randall Family', 'Sarah Jenkins', '', 'Sent to F&I', 'success', 'Credit app submitted', '', 1, 'F&I'],
+      ['Brennan Family', 'Alan B.', '', 'Intervention', 'danger', 'Payment gap $180/mo', 'Action required', 4, 'Manager'],
+      ['Ashford Couple', 'Mike H.', '', 'Signed', 'success', 'Deal closed', '', 9, 'Done'],
+    ],
+    urgent: [{ flag: 'deal', from: 'Alan B.', cust: 'Martinez', type: 'couple', interest: 'Fifth Wheel', unit: '#33D2 · Finance · NE', of: 'Alan B.', wait: 31, total: 5522 }],
+  },
+};
+const FLAG = {
+  mcp: { eb: 'New MCP', cta: 'Do MCP now', tone: 'gold' },
+  unit: { eb: 'New unit needed', cta: 'Find new unit', tone: 'danger' },
+  deal: { eb: 'New worksheet', cta: 'Start deal now', tone: 'info' },
+};
+// Cards entering these phases raise a recurring alert until a manager starts them. Snooze parks it 60s.
+const WATCH = { mcp: { eb: 'New MCP', t: 'Pick me a winner', cta: 'Do MCP now' }, worksheet: { eb: 'New worksheet', t: 'Start the deal', cta: 'Start deal now' } };
+const DATE_RANGES = [{ id: 'today', label: 'Today', max: 0 }, { id: 'yest', label: 'Yesterday', max: 1 }, { id: 'w', label: 'Last 7 days', max: 7 }, { id: 'm', label: 'Last 30 days', max: 30 }, { id: 'all', label: 'All time', max: 99999 }];
+const UNIT_TILES = [['travel-trailer', 'Travel Trailer'], ['fifth-wheel', 'Fifth Wheel'], ['toy-hauler', 'Toy Hauler'], ['motorhome', 'Motorhome'], ['truck-camper', 'Truck Camper'], ['destination', 'Destination']].map(([id, label]) => ({ id, label, img: window.FW_RES(`photos/rv-${id}.png`) }));
+const WEAR = ['hat', 'hoodie', 'shirt', 'pants', 'dress', 'skirt'];
+const MATCHES = { '2088090782': [{ id: 'dale', name: 'Dale McVicker', phone: '(208) 809-0782', city: 'Twin Falls, ID', score: 742, owner: 'mh' }, { id: 'rhonda', name: 'Rhonda McVicker', phone: '(208) 809-0782', city: 'Twin Falls, ID', score: 731, owner: 'mh' }] };
+
+// Permissions added by this conversion (documents/roles-and-permissions.md). Receptionist access to the hub is an OPEN QUESTION (intake Q-HUB-1).
+Object.assign(FW.PERMS, {
+  'phase.hub':   { manager: 'act', receptionist: 'read',   outfitter: 'hidden' },
+  'phase.alert': { manager: 'act', receptionist: 'hidden', outfitter: 'hidden' },
+});
+const hms = (s) => { const m = Math.floor(s / 60), x = s % 60; return `${m}m ${String(x).padStart(2, '0')}s`; };
+const mins = (s) => { const h = Math.floor(s / 3600), m = Math.round((s % 3600) / 60); return h ? `${h}h ${m}m` : `${m}m`; };
+const clock = (s) => `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`;
+const parseT = (s) => { if (!s) return 0; const h = /(\d+)\s*h/.exec(s), m = /(\d+)\s*m(?!s)/.exec(s), x = /(\d+)\s*s/.exec(s); return (h ? +h[1] * 3600 : 0) + (m ? +m[1] * 60 : 0) + (x ? +x[1] : 0); };
+const initials = (n) => { const w = String(n || '?').match(/[A-Za-z]+/g) || ['?']; return (w.length > 1 ? w[0][0] + w[w.length - 1][0] : w[0].slice(0, 2)).toUpperCase(); };
+function useTick(on = true) { const [t, setT] = React.useState(0); React.useEffect(() => { if (!on) return undefined; const id = setInterval(() => setT((x) => x + 1), 1000); return () => clearInterval(id); }, [on]); return t; }
+Object.assign(FW, { OUTFITTER_STATS, RANGES, HUB, FLAG, WATCH, DATE_RANGES, UNIT_TILES, WEAR, MATCHES, hms, mins, clock, parseT, initials, useTick });
+})();

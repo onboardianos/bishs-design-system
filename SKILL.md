@@ -4,6 +4,8 @@ description: Bish's RV / Nexus design system. Use it for ANY Bish's design work:
 user-invocable: true
 ---
 
+> **Using this from another project?** This design system is linked in, usually at `_ds/<folder>/`. Every path in this file is relative to that folder. Read `documents/bishify-reading-order.md` from there before building. Copy `starter-kit/CLAUDE.md` to the project root so the rules load in every chat. Never work from a copied v1.x folder; it predates AppShell, tagging and the floor components.
+
 ## START HERE — what to do for each kind of request
 
 Find the request type, then run **every** step listed for it, in order. Steps are below; nothing is optional.
@@ -94,7 +96,9 @@ Read the `README.md` file within this skill, and explore the other available fil
 - `README.md` — brand context, content fundamentals, visual foundations, iconography
 - `colors_and_type.css` — drop-in CSS variables + semantic element styles
 - `assets/` — 16 Bish's RV logo PNGs (Black/Gold/White × Tagline variants)
-- `ui_kits/portal-dark/` — dark-theme React/JSX component kit with an interactive `index.html` demo
+- `documents/component-selection-guide.md` — **required** which component to use for what, look-alikes, and the source → component mapping cheat sheet
+- `ui_kits/portal-dark/` — React/JSX component kit; every primitive takes `theme="dark" | "light"` (default dark). Light surfaces use `theme="light"`. Never build local light copies.
+- `ui_kits/floor/` — PhaseAlert, CustomerCard, QuestionCard, ChoiceChip / ChoiceGroup. Never hand-build alerts, customer cards, question cards or answer chips.
 - `preview/` — rendered design-system cards (tokens, type, components)
 
 **If creating single-surface static artifacts** (one slide deck, one email, one flier/poster — the Step 0 shell does NOT apply to these; interactive prototypes, internal-tool UI, and multi-screen mocks DO require it):

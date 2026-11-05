@@ -1,10 +1,10 @@
-<!-- @dsCard group="Components" viewport="760x360" name="Card" subtitle="Card + StatTile + UnitRow composition" -->
+<!-- @dsCard group="Components" viewport="760x760" name="Card" subtitle="Card + StatTile + UnitRow composition · dark + light (theme prop)" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../colors_and_type.css">
-<style>html,body{margin:0;background:#020000;padding:28px;font-family:'Source Sans 3',sans-serif;}#root{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;}</style>
+<style>html,body{margin:0;font-family:'Source Sans 3',sans-serif;}.pane{padding:24px 28px;}.pane.dark{background:#020000;}.pane.light{background:#F7F6F1;}.tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;}.dark .tag{color:#A2A59C;}.light .tag{color:#6B6B63;}</style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
@@ -18,17 +18,19 @@
   var root = ReactDOM.createRoot(document.getElementById('root'));
   
   var Card=NS.Card, StatTile=NS.StatTile, UnitRow=NS.UnitRow, Button=NS.Button, Badge=NS.Badge;
-  root.render(e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20,width:'100%',maxWidth:720,alignItems:'start'}},
-    e(Card,{title:'Unit #4821-B',subtitle:'2024 Winnebago Vista · Class A',
-      footer:e('div',{style:{display:'flex',gap:8}}, e(Button,{variant:'ghost',size:'sm'},'Details'), e(Button,{variant:'primary',size:'sm'},'Continue'))},
-      e('div',null, e(Badge,{type:'gold'},'Active'),
+  function V(theme){return e('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:20,width:'100%',maxWidth:720,alignItems:'start'}},
+    e(Card,{theme:theme,title:'Unit #4821-B',subtitle:'2024 Winnebago Vista · Class A',
+      footer:e('div',{style:{display:'flex',gap:8}}, e(Button,{theme:theme,variant:'ghost',size:'sm'},'Details'), e(Button,{theme:theme,variant:'primary',size:'sm'},'Continue'))},
+      e('div',null, e(Badge,{theme:theme,type:'gold'},'Active'),
         e('p',{style:{marginTop:10}},'Protection ops checklist is 67% complete. 4 tasks remaining in Phase 3.'))),
     e('div',{style:{display:'grid',gap:12}},
-      e(StatTile,{label:'Active Units',value:'284',delta:'+12 this week',deltaType:'up'}),
-      e('div',{style:{background:'#1C2E2E',border:'1px solid rgba(255,255,255,0.07)',borderRadius:8,overflow:'hidden'}},
-        e(UnitRow,{id:'#4821-B',title:'2024 Winnebago Vista',phase:'Phase 3 · Interior',status:'Active',statusType:'gold'}),
-        e(UnitRow,{id:'#3190-A',title:'2023 Forest River',phase:'Phase 8 · Final QC',status:'Complete',statusType:'success'})))
-  ));
+      e(StatTile,{theme:theme,label:'Active Units',value:'284',delta:'+12 this week',deltaType:'up'}),
+      e('div',{style:{background:theme==='light'?'#FFFFFF':'#1C2E2E',border:theme==='light'?'1px solid rgba(0,0,0,0.08)':'1px solid rgba(255,255,255,0.07)',borderRadius:8,overflow:'hidden'}},
+        e(UnitRow,{theme:theme,id:'#4821-B',title:'2024 Winnebago Vista',phase:'Phase 3 · Interior',status:'Active',statusType:'gold'}),
+        e(UnitRow,{theme:theme,id:'#3190-A',title:'2023 Forest River',phase:'Phase 8 · Final QC',status:'Complete',statusType:'success'})))
+  );}
+  function pane(t){return e('div',{className:'pane '+t,key:t},e('div',{className:'tag'},t==='light'?'theme="light"':'theme="dark" (default)'),V(t));}
+  root.render(e('div',null,pane('dark'),pane('light')));
 })();
 </script>
 </body>

@@ -45,3 +45,11 @@ The `-light` (tinted bg) and `-dark` (white-text fill / light-theme text) varian
 - `--text-subtle`, `--border-ghost`, `--border-mid` retained for disabled states / decorative dividers (WCAG-exempt in those roles).
 - `danger` solid button keeps white text (4.51:1 — passes).
 - Base semantic colors retained — they read fine as text/icons on the page surface; the new `-text` tints cover card/raised use.
+
+
+## 2026-10-23 · Primary button hover direction flipped
+
+- **Rest** `#8B752E → #B89E4A` (gold-hi), **hover** `#B89E4A → #8B752E` (gold). Text stays `#020000`.
+- Why: since primary text became near-black, the content-colored overlay rule means hover should darken, not lighten. Flipping keeps both states above 4.5:1 (rest 8.0:1, hover 4.68:1); darkening from `#8B752E` instead would land near 4.1:1 and fail.
+- Tradeoff, accepted by Zach: the resting fill is the gold-hi accent; brand gold `#8B752E` appears on hover.
+- Updated: `README.md` hover rule, `ui_kits/portal-dark/Button.jsx`, `ui_kits/portal-light/index.html`, `preview/components-buttons*.html`, `conversions/floor-workspace` `.fw-btn--commit`.

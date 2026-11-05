@@ -1,0 +1,199 @@
+// MCP — converted app: state, AppShell mount, fluid layout, overlays, reviewable states.
+(function () {
+const M = window.MCP, S = window.MCPScreen, { Icon, money, payment, financed, acts, shows, slug } = M;
+const NS = window.BishSRVDesignSystem_26feec;
+function useWidth(ref) {
+  const [w, setW] = React.useState(1280);
+  React.useLayoutEffect(() => { const el = ref.current; if (!el) return undefined; setW(el.offsetWidth); const ro = new ResizeObserver(() => setW(el.offsetWidth)); ro.observe(el); return () => ro.disconnect(); }, []);
+  return w;
+}
+function useEsc(fn) { React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') fn(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, [fn]); }
+
+// ── Unit detail (frame) ───────────────────────────────────────
+function UnitDetail({ u, deal, role, selected, onSelect, onClose, phone }) {
+  useEsc(onClose);
+  const pay = payment(u.dsrp, deal), diff = deal.ceiling - pay, dash = '—';
+  const KV = ({ id, k, v, tone }) => <div className="mc-kv" data-spec-id={`metric-unit-${id}`}><dt>{k}</dt><dd style={{ color: tone }}>{v}</dd></div>;
+  return (
+    <div data-spec-id={`frame-unit-detail#${u.id}`} data-bos-level="frame" role="dialog" aria-modal="true" aria-label={`${u.year} ${u.model}`} className="mc-scrim" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} style={{ alignItems: phone ? 'flex-end' : 'center', padding: phone ? 0 : 24 }}>
+      <div className="mc-dialog" style={phone ? { borderRadius: '16px 16px 0 0', maxHeight: '94%' } : null}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', padding: '20px 16px 16px 24px', borderBottom: '1px solid var(--border-light)' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div className="mc-mono" style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--text-light-tertiary)' }}><span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--semantic-success-dark)' }} /><b style={{ color: 'var(--semantic-success-dark)', letterSpacing: 2, textTransform: 'uppercase', fontFamily: 'var(--font-ui)' }}>{u.cond}</b>#{u.stock}</div>
+            <h2 className="mc-h1">{u.year} {u.model}</h2>
+            <div style={{ fontSize: 16, color: 'var(--text-light-secondary)' }}>{u.make} · Travel Trailer · {u.store}, ID</div>
+          </div>
+          <button type="button" data-spec-id={`btn-action-close-unit-detail#${u.id}`} data-bos-class="action" aria-label="Close" onClick={onClose} className="mc-icon-btn mc-icon-btn--box"><Icon name="x" size={18} /></button>
+        </div>
+        <div className="mc-detail-body">
+          <div className="mc-stack">
+            <div className="mc-photo"><img src={u.img} alt={`${u.year} ${u.model}`} /></div>
+            <p style={{ margin: 0, fontSize: 13, fontStyle: 'italic', color: 'var(--text-light-tertiary)' }}>One photo in the feed. The full set is on bishs.com.</p>
+            <a data-spec-id={`btn-action-open-photos#${u.id}`} data-bos-class="action" href="https://www.bishs.com" target="_blank" rel="noopener noreferrer" className="mc-btn mc-btn--quiet" style={{ textDecoration: 'none' }}>All photos on bishs.com<Icon name="arrow-up-right" size={16} /></a>
+            <Over>Stock</Over>
+            <dl className="mc-kvs">
+              <KV id="stock" k="Stock #" v={u.stock} /><KV id="vin" k="VIN" v={u.vin || dash} /><KV id="lot-age" k="Lot age" v={`${u.age} days`} tone={u.age >= M.AGED_DAYS ? 'var(--semantic-warning-dark)' : undefined} />
+              <KV id="store" k="Store" v={`${u.store} ID`} /><KV id="year" k="Year" v={u.year} />
+              {shows(role, 'mcp.view_margin') && <><KV id="unit-cost" k="Unit cost est" v={u.cost ? money(u.cost) : dash} /><KV id="margin" k="Margin est" v={u.cost ? money(u.dsrp - u.cost) : dash} tone={u.cost ? 'var(--semantic-success-dark)' : undefined} /></>}
+            </dl>
+          </div>
+          <div className="mc-stack">
+            <Over>This deal</Over>
+            <dl className="mc-kvs">
+              <KV id="dsrp" k="DSRP" v={money(u.dsrp)} /><KV id="amount-financed" k="Amount financed" v={money(financed(u.dsrp, deal))} /><KV id="term" k="Term" v={`${deal.term} mo · cap ${deal.termCap}`} />
+              <KV id="payment" k="Payment" v={`${money(pay)}/mo`} /><KV id="vs-ceiling" k="vs ceiling" v={`${money(Math.abs(diff))} ${diff >= 0 ? 'under' : 'over'}`} tone={diff >= 0 ? 'var(--semantic-success-dark)' : 'var(--semantic-danger-dark)'} />
+              <KV id="must-have-match" k="Must-have match" v={u.id === 'tx24' ? '4 of 4' : dash} />
+            </dl>
+            <Over>Weights and size</Over>
+            <dl className="mc-kvs">
+              <KV id="length" k="Length" v={`${u.len} ft`} /><KV id="dry-weight" k="Dry weight" v={u.dry ? `${u.dry.toLocaleString()} lbs` : dash} /><KV id="sleeps" k="Sleeps" v={u.sleeps || dash} /><KV id="slides" k="Slides" v={u.slides ?? dash} /><KV id="tow-class" k="Tow class" v={u.tow || dash} />
+            </dl>
+            <Over>Features · {u.features ? u.features.length : 0}</Over>
+            {u.features ? <ul className="mc-tags mc-tags--ui">{u.features.map((f) => <li key={f}>{f}</li>)}</ul> : <p className="mc-p" style={{ margin: 0, color: 'var(--text-light-tertiary)' }}>Feature list not in the feed for this unit.</p>}
+          </div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 24px 18px', borderTop: '1px solid var(--border-light)', background: 'var(--surface-light-inset)', flexWrap: 'wrap' }}>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 8, flex: '1 1 240px', fontSize: 14, color: 'var(--text-light-secondary)' }}><Icon name="grip-vertical" size={18} />To place it in your 3 + 1, drag the row handle into a slot, or use Place on a slot.</span>
+          {shows(role, 'mcp.select') && <button type="button" data-spec-id={`btn-action-select-unit-detail#${u.id}`} data-bos-class="action" aria-pressed={selected} disabled={!acts(role, 'mcp.select')} onClick={() => onSelect(u.id)} className={`mc-btn mc-btn--sel${selected ? ' on' : ''}`}>{selected && <Icon name="check" size={16} stroke={2.5} />}{selected ? 'Selected' : 'Select'}</button>}
+        </div>
+      </div>
+    </div>
+  );
+}
+const Over = ({ children }) => <div className="mc-ov">{children}</div>;
+
+// ── Place picker + slot menu (menus, anchored; sheet on phone) ──
+function Menu({ id, label, anchor, phone, onClose, children }) {
+  useEsc(onClose);
+  const pos = phone || !anchor ? null : { top: Math.min(anchor.top + anchor.height + 6, anchor.maxY - 280), left: Math.max(8, Math.min(anchor.left + anchor.width - 280, anchor.maxX - 288)) };
+  return (
+    <div data-spec-id={id} data-bos-level="frame" className="mc-scrim" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} style={{ background: phone ? 'rgba(2,0,0,.55)' : 'transparent', alignItems: 'flex-end', padding: 0 }}>
+      <div role="menu" aria-label={label} className="mc-menu" style={phone ? { position: 'relative', width: '100%', borderRadius: '16px 16px 0 0' } : { position: 'absolute', ...pos, width: 280 }}>
+        <div style={{ padding: '10px 12px 6px', fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase', color: 'var(--text-light-secondary)' }}>{label}</div>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// ── Sheet wrapper for narrow widths (situation, 3+1) ──
+function Sheet({ id, label, side, onClose, children }) {
+  useEsc(onClose);
+  return (
+    <div data-spec-id={id} data-bos-level="frame" role="dialog" aria-modal="true" aria-label={label} className="mc-scrim" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} style={{ padding: 0, justifyContent: side === 'left' ? 'flex-start' : 'flex-end', alignItems: side === 'bottom' ? 'flex-end' : 'stretch' }}>
+      <div className="mc-sheet" style={side === 'bottom' ? { width: '100%', maxHeight: '90%', borderRadius: '16px 16px 0 0' } : { width: 'min(400px, 92%)', height: '100%' }}>{children}</div>
+    </div>
+  );
+}
+
+function MCPApp({ initial = {}, role = 'manager' }) {
+  const wrap = React.useRef(null), ww = useWidth(wrap);
+  const phone = ww <= 640;
+  const cw = ww >= 1024 ? ww - 72 : ww; // canvas width inside the AppShell (rail at ≥1024)
+  const wide = cw >= 1240, mid = cw >= 900;
+  const [deal, setDeal] = React.useState(() => ({ ...M.DEAL, ...(initial.deal || {}) }));
+  const [selected, setSelected] = React.useState(initial.selected || []);
+  const [slots, setSlots] = React.useState(initial.slots || {});
+  const [view, setView] = React.useState(initial.view || 'all');
+  const [sTab, setSTab] = React.useState(initial.sTab || 'story');
+  const [collapsed, setCollapsed] = React.useState(!!initial.collapsed);
+  const [drag, setDrag] = React.useState(initial.drag || null);
+  const [q, setQ] = React.useState('');
+  const [f, setF] = React.useState({ stock: '', type: ['Travel Trailer'], condition: [], build: [], chars: [], tow: 10000, sleeps: 3, len: 30 });
+  const fCount = 4; // source: type, tow, length, sleeps
+  const [modal, setModal] = React.useState(initial.modal || null);
+  const [anchor, setAnchor] = React.useState(null);
+  const [sent, setSent] = React.useState(!!initial.sent);
+  const [toast, setToast] = React.useState(null);
+  const [elapsed, setElapsed] = React.useState(initial.elapsed ?? 43);
+  React.useEffect(() => { if (sent || initial.freeze) return undefined; const t = setInterval(() => setElapsed((x) => x + 1), 1000); return () => clearInterval(t); }, [sent]);
+  const say = (m) => { setToast(m); clearTimeout(say.t); say.t = setTimeout(() => setToast(null), 5000); };
+  const rel = (el) => { if (!el || !wrap.current) return null; const a = el.getBoundingClientRect(), b = wrap.current.getBoundingClientRect(); return { top: a.top - b.top, left: a.left - b.left, width: a.width, height: a.height, maxX: b.width, maxY: b.height }; };
+  const slotOf = (id) => M.SLOTS.find((s) => slots[s.id] === id);
+  const toggleSel = (id) => { if (sent) return; setSelected((l) => l.includes(id) ? l.filter((x) => x !== id) : [...l, id]); if (selected.includes(id)) setSlots((s) => Object.fromEntries(Object.entries(s).filter(([, v]) => v !== id))); };
+  const setSlot = (sid, id) => { if (sent || !acts(role, 'mcp.place')) return; setSlots((s) => { const n = { ...s }; const from = Object.keys(n).find((k) => n[k] === id); if (from) n[from] = s[sid] || null; n[sid] = id; return n; }); setSelected((l) => l.includes(id) ? l : [...l, id]); };
+  const moveSlot = (sid, dir) => { const i = M.SLOTS.findIndex((s) => s.id === sid), j = i + dir; if (j < 0 || j >= M.SLOTS.length) return; const a = M.SLOTS[i].id, b = M.SLOTS[j].id; setSlots((s) => ({ ...s, [a]: s[b] || null, [b]: s[a] })); };
+  const close = () => setModal(null);
+  const open = (m, el) => { setAnchor(rel(el)); setModal(m); };
+  const send = () => { setSent(true); close(); say(`Picks sent to ${M.CUSTOMER.name.split(' ')[0]} · ${Object.values(slots).filter(Boolean).length} units`); };
+
+  React.useEffect(() => { if (!initial.anchorSel) return undefined; const t = setTimeout(() => { const el = wrap.current && wrap.current.querySelector(`[data-spec-id="${initial.anchorSel}"]`); if (el) setAnchor(rel(el)); }, 150); return () => clearTimeout(t); }, []);
+
+  const situation = (inline) => <S.Situation tab={sTab} setTab={setSTab} f={f} setF={setF} fCount={fCount} total={39} inline={inline} onCollapse={() => (inline ? setCollapsed(true) : close())} onDiscovery={() => say("Opens the case's Discovery tab (13 answers)")} />;
+  const slotsEl = <S.Slots deal={deal} slots={slots} setSlot={setSlot} selected={selected.filter((id) => !slotOf(id))} drag={drag} setDrag={setDrag} sent={sent}
+    onPlaceMenu={(s, el) => open({ kind: 'place', slot: s }, el)} onSlotMenu={(s, el) => open({ kind: 'slot-menu', slot: s }, el)} onSend={send} />;
+  const placed = Object.values(slots).filter(Boolean).length;
+
+  let layer = null;
+  if (modal && modal.kind === 'unit') layer = <UnitDetail u={M.UNIT_BY_ID[modal.id]} deal={deal} role={role} selected={selected.includes(modal.id)} onSelect={toggleSel} onClose={close} phone={phone} />;
+  if (modal && modal.kind === 'place') { const pool = selected.filter((id) => !slotOf(id)); layer = (
+    <Menu id={`frame-place-menu#${modal.slot.id}`} label={`Place in ${modal.slot.label}`} anchor={anchor} phone={phone} onClose={close}>
+      {pool.length ? pool.map((id) => { const u = M.UNIT_BY_ID[id]; return <button key={id} type="button" role="menuitem" data-spec-id={`menuitem-place-${modal.slot.id}#${id}`} data-bos-class="action" onClick={() => { setSlot(modal.slot.id, id); close(); }} className="mc-menuitem"><S.UnitThumb /><span style={{ minWidth: 0 }}><b style={{ display: 'block' }}>{u.year} {u.model}</b><span className="mc-mono" style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>{money(payment(u.dsrp, deal))}/mo · #{u.stock}</span></span></button>; })
+        : <p className="mc-p" style={{ margin: 0, padding: '4px 12px 12px', color: 'var(--text-light-tertiary)' }}>Select units in the results first, then place them here.</p>}
+    </Menu>); }
+  if (modal && modal.kind === 'slot-menu') { const i = M.SLOTS.findIndex((s) => s.id === modal.slot.id); layer = (
+    <Menu id={`frame-slot-menu#${modal.slot.id}`} label={modal.slot.label} anchor={anchor} phone={phone} onClose={close}>
+      <button type="button" role="menuitem" disabled={i === 0} data-spec-id={`menuitem-move-up#${modal.slot.id}`} data-bos-class="action" onClick={() => { moveSlot(modal.slot.id, -1); close(); }} className="mc-menuitem"><Icon name="arrow-up" size={18} />Move up</button>
+      <button type="button" role="menuitem" disabled={i === M.SLOTS.length - 1} data-spec-id={`menuitem-move-down#${modal.slot.id}`} data-bos-class="action" onClick={() => { moveSlot(modal.slot.id, 1); close(); }} className="mc-menuitem"><Icon name="arrow-down" size={18} />Move down</button>
+      <button type="button" role="menuitem" data-spec-id={`menuitem-remove-from-slot#${modal.slot.id}`} data-bos-class="action" onClick={() => { setSlots((s) => ({ ...s, [modal.slot.id]: null })); close(); }} className="mc-menuitem" style={{ color: 'var(--semantic-danger-dark)' }}><Icon name="trash-2" size={18} />Remove from slot</button>
+    </Menu>); }
+  if (modal && modal.kind === 'situation') layer = <Sheet id="frame-situation-sheet" label="Customer situation" side="left" onClose={close}>{situation(false)}</Sheet>;
+  if (modal && modal.kind === 'slots') layer = <Sheet id="frame-slots-sheet" label="Your 3 plus 1" side={phone ? 'bottom' : 'right'} onClose={close}>
+    <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: -8 }}><button type="button" data-spec-id="btn-action-close-slots-sheet" data-bos-class="action" aria-label="Close" onClick={close} className="mc-icon-btn mc-icon-btn--box"><Icon name="x" size={18} /></button></div>{slotsEl}</Sheet>;
+
+  const main = (
+    <div className="mc-center">
+      {!wide && (
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" data-spec-id="btn-action-open-situation" data-bos-class="action" onClick={() => setModal({ kind: 'situation' })} className="mc-btn mc-btn--quiet mc-btn--sm"><Icon name="clipboard-list" size={16} />Customer situation · {M.CUSTOMER.name}</button>
+        </div>
+      )}
+      <S.Brief elapsed={elapsed} />
+      <S.DealBar deal={deal} setDeal={setDeal} compact={cw < 640} />
+      <S.Results view={view} setView={setView} deal={deal} selected={selected} slotOf={slotOf} onSelect={toggleSel} onDetail={(u) => setModal({ kind: 'unit', id: u.id })} drag={drag} setDrag={setDrag} q={q} setQ={setQ} fLen={f.len} />
+    </div>
+  );
+  return (
+    <S.RoleCtx.Provider value={role}>
+      <div ref={wrap} className="mc-app" data-bos-role={role} style={{ position: 'relative', height: '100%', width: '100%', overflow: 'hidden' }}>
+        <NS.AppShell role={role === 'outfitter' ? 'outfitter' : 'manager'} activeId={role === 'outfitter' ? 'cases' : 'floor'} theme="light" height="100%" alerts={3} logoSrc="../../assets/logo-bishs-os.png" logoSrcDark="../../assets/logo-bishs-os-white.png" onNavigate={() => {}}>
+          <div data-spec-id="sec-mcp-workspace" data-bos-level="section" data-bos-section="S03" data-bos-type="content" className="mc"
+            style={{ paddingBottom: mid ? undefined : 88, gridTemplateColumns: wide ? `${collapsed ? '56px' : 'minmax(300px, 340px)'} minmax(0, 1fr) minmax(280px, 320px)` : mid ? 'minmax(0, 1fr) minmax(260px, 300px)' : 'minmax(0, 1fr)' }}>
+            {wide && (collapsed
+              ? <div className="mc-rail"><button type="button" data-spec-id="btn-action-expand-situation" data-bos-class="action" aria-label="Expand customer situation" onClick={() => setCollapsed(false)} className="mc-icon-btn mc-icon-btn--box"><Icon name="clipboard-list" size={18} /></button></div>
+              : situation(true))}
+            {main}
+            {mid && slotsEl}
+          </div>
+        </NS.AppShell>
+        {!mid && (
+          <div className="mc-dock" style={{ bottom: phone ? 80 : 0 }} data-spec-id="sec-slots-dock" data-bos-level="section" data-bos-section="S15" data-bos-type="action">
+            <button type="button" data-spec-id="btn-action-open-slots" data-bos-class="action" onClick={() => setModal({ kind: 'slots' })} className="mc-btn mc-btn--quiet" style={{ flex: '1 1 0', minWidth: 0, paddingInline: 10 }}>3 + 1 · {placed}/4</button>
+            {shows(role, 'mcp.send') && <button type="button" data-spec-id="btn-commit-compare-and-send-dock" data-bos-class="commit" disabled={!placed || sent} onClick={send} className="mc-btn mc-btn--commit" style={{ flex: '1.4 1 0', minWidth: 0, paddingInline: 10, fontSize: 18 }}><Icon name={sent ? 'check' : 'send'} size={18} />{sent ? 'Sent' : 'Compare & send'}</button>}
+          </div>
+        )}
+        {layer}
+        {toast && <div role="status" data-spec-id="info-toast" className="mc-toast" style={{ bottom: !mid ? (phone ? 160 : 84) : 24 }}>{toast}</div>}
+      </div>
+    </S.RoleCtx.Provider>
+  );
+}
+
+const FOUR = { 'slot-1': 'tx24', 'slot-2': 'jf261', 'target-unit': 'im26', 'great-idea': 'jf175' };
+const STATES = [
+  { id: 'empty', label: 'Empty · 0 placed', key: true, figma: 'MCP v2 · 1920 · Empty (0 placed)', initial: { freeze: true } },
+  { id: 'filters', label: 'Filters panel', figma: 'MCP v2 · 1920 · Filters panel', initial: { sTab: 'filters', freeze: true } },
+  { id: 'shortlist', label: 'AI shortlist', key: true, figma: 'MCP v2 · 1920 · AI shortlist', initial: { view: 'shortlist', freeze: true } },
+  { id: 'one-selected', label: '1 selected', figma: 'MCP v2 · 1920 · 1 selected', initial: { selected: ['tx24'], freeze: true } },
+  { id: 'one-placed', label: '1 placed', figma: 'MCP v2 · 1920 · 1 placed', initial: { selected: ['tx24'], slots: { 'slot-1': 'tx24' }, freeze: true } },
+  { id: 'dragging', label: 'Dragging · drop target', figma: 'MCP v2 · 1920 · Dragging (drop target)', initial: { selected: ['tx24', 'jf261', 'im26'], slots: { 'slot-1': 'tx24', 'slot-2': 'jf261', 'target-unit': 'im26' }, drag: 'jf175', freeze: true } },
+  { id: 'picks-placed', label: 'Picks placed · 4/4', key: true, figma: 'MCP v2 · 1920 · Picks placed', initial: { selected: Object.values(FOUR), slots: FOUR, elapsed: 134, freeze: true } },
+  { id: 'selected-view', label: 'Selected view', figma: 'MCP v2 · 1920 · Selected view', initial: { selected: Object.values(FOUR), slots: FOUR, view: 'selected', elapsed: 134, freeze: true } },
+  { id: 'unit-detail', label: 'Unit detail dialog', key: true, figma: 'MCP v2 · Unit detail dialog (+ overlay)', initial: { modal: { kind: 'unit', id: 'tx24' }, freeze: true } },
+  { id: 'place-menu', label: 'Place in slot (drag alternative)', initial: { selected: ['tx24', 'jf261'], modal: { kind: 'place', slot: M.SLOTS[0] }, anchorSel: 'btn-action-place-in-slot#slot-1', freeze: true } },
+  { id: 'slot-menu', label: 'Slot options · reorder', initial: { selected: Object.values(FOUR), slots: FOUR, modal: { kind: 'slot-menu', slot: M.SLOTS[1] }, anchorSel: 'btn-action-slot-menu#slot-2', freeze: true } },
+  { id: 'sent', label: 'Sent to customer', initial: { selected: Object.values(FOUR), slots: FOUR, sent: true, elapsed: 151, freeze: true } },
+  { id: 'collapsed', label: 'Situation collapsed', figma: 'MCP v2 · 1440', initial: { collapsed: true, selected: ['tx24'], slots: { 'slot-1': 'tx24' }, freeze: true } },
+];
+window.MCPApp = MCPApp; window.MCP_STATES = STATES;
+})();

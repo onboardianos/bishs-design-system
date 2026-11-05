@@ -1,7 +1,9 @@
-# Not part of the design system: user uploads, scratch builds, generated exports
+﻿# Not part of the design system: user uploads, scratch builds, generated exports
 uploads/
 standalone-src/
 Nexus Design System Viewer.html
+Floor Workspace.html
+Wayfinder Discovery.html
+*.zip
 .DS_Store
 node_modules/
-bishs-design-system.zip

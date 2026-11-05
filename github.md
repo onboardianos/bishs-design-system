@@ -1,25 +1,30 @@
 repo: onboardianos/bishs-design-system
 branch: main
-direction: this project is the source of truth; the repo is its published mirror
 
 ## Last sync
-date: 2026-10-21
-status: initial commit pending (repo created empty)
+date: 2026-11-05T00:00:00Z
+version: v2.0_2026-11-05 (zip built here; push by Zach)
 
 ### Updated in this project
-- Navigation foundation: AppShell, ActionOverlay, NavConfig, RolesNavAdmin (ui_kits/app-shell/)
-- shadcn/ui layer: globals.css (Tailwind v4, CSS-first), variants.ts, components.json
-- Required libraries: Tailwind v4, tw-animate-css, shadcn v4 new-york, Lucide only, SVAR React Kanban, dnd-kit
-- Gold rule and spec-ready v2 decisions (documents/decisions-2026-10-21.md)
-- Prototype & Canvas Shell template mounts AppShell with Desktop/Tablet/Mobile
+- starter-kit/CLAUDE.md for projects using the design system
+- ds-base.js finds the linked design system on its own
+- Floor components (PhaseAlert, CustomerCard, QuestionCard, ChoiceChip/Group/Tile) and light themes
+- Wayfinder Discovery conversion; bishify reading order; component selection guide
+
+## Sync history
+- 2026-10-22 · 8f6e664: START HERE router, roles & permissions, intake, Jira tickets, Floor Workspace handoff
+- 2026-10-22 · 7b04d81: accidental clear-out (PowerShell unzip failed); restored in 8f6e664
 
 ## Screen map
-| Screen / artifact | Repo path |
+| Screen | Repo files |
 |---|---|
-| Tokens + type | colors_and_type.css, styles.css |
-| App shell + admin nav | ui_kits/app-shell/ |
-| Portal primitives | ui_kits/portal-dark/, ui_kits/portal-light/ |
-| Templates | templates/prototype-canvas-shell/ |
-| Design-system cards | preview/ |
-| Code bridge | shadcn/ |
-| Canon docs | README.md, SKILL.md, CLAUDE.md, documents/ |
+| App Shell (required nav) | ui_kits/app-shell/* |
+| Spec-ready coverage | ui_kits/spec-ready/* |
+| Floor Workspace (reference) | conversions/floor-workspace/* |
+| Prototype & Canvas Shell template | templates/prototype-canvas-shell/* |
+| Starter for other projects | starter-kit/CLAUDE.md |
+| Floor components | ui_kits/floor/* |
+| Wayfinder Discovery | conversions/wayfinder*/* |
+| Portal kits | ui_kits/portal-dark/*, ui_kits/portal-light/* |
+| Design-system cards | preview/*, design-system-viewer.html |
+| Tokens & theme | colors_and_type.css, styles.css, shadcn/* |

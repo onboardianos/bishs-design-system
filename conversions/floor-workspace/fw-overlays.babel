@@ -416,5 +416,81 @@ function PhaseDetail({ phase, cards, exits, phone, onClose }) {
   );
 }
 
-window.FWOverlays = { CaseMenu, CheckIn, Assign, Move, NoteD, Left, RepMenu, Pause, Unpause, Bench, Unbench, MoveRep, Chat, ApptDetails, ApptCheckIn, PhaseDetail };
+
+// ── Global search results (dropdown under the shell search) ──
+function SearchResults({ query, results, onPick, onClose, phone }) {
+  useEsc(onClose);
+  return (
+    <div data-spec-id="frame-search-results" data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 86, background: phone ? 'rgba(2,0,0,0.35)' : 'transparent' }}>
+      <div role="listbox" aria-label={`Results for ${query}`} style={{ position: 'absolute', top: phone ? 64 : 70, left: '50%', transform: 'translateX(-50%)', width: phone ? 'calc(100% - 16px)' : 'min(576px, calc(100% - 32px))', background: 'var(--surface-light-card)', border: '1px solid var(--border-light)', borderRadius: 12, boxShadow: 'var(--shadow-lg)', padding: 6, maxHeight: '60%', overflowY: 'auto', color: 'var(--text-light-primary)' }}>
+        {results.length ? results.map((r) => (
+          <button key={r.id} type="button" role="option" aria-selected="false" data-spec-id={`btn-action-open-link#${r.id}`} data-bos-class="action" data-bos-target={`link:${r.id}`} onClick={() => onPick(r)} className="fw-menuitem" style={{ justifyContent: 'space-between' }}>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 12, minWidth: 0 }}>
+              <Icon name="search" size={16} />
+              <span style={{ minWidth: 0 }}><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 15, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{r.title}</span><span style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>{r.group}{r.url ? ' · ' + r.url.replace(/^https?:\/\//, '').slice(0, 48) : ' · link not added yet'}</span></span>
+            </span>
+            <Icon name="maximize-2" size={14} />
+          </button>
+        )) : (
+          <div style={{ padding: '14px 12px', fontSize: 14, color: 'var(--text-light-tertiary)' }}>No results for “{query}”. Try a tool or resource name.</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Link preview: opens a URL inside the prototype, in a closable overlay ──
+function LinkPreview({ link, phone, onClose, onSaved }) {
+  useEsc(onClose);
+  const [draft, setDraft] = React.useState('');
+  const [newTab, setNewTab] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const blocked = window.FW_LINKS.embedFor(link.url, link.embed) === 'blocked';
+  const missing = !link.url;
+  return (
+    <div role="dialog" aria-modal="true" aria-label={`Preview: ${link.title}`} data-spec-id={`frame-link-preview#${link.id}`} data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 92, background: 'rgba(2,0,0,0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: phone ? 0 : 24, boxSizing: 'border-box' }}>
+      <div style={{ width: '100%', height: '100%', maxWidth: 1400, display: 'flex', flexDirection: 'column', background: 'var(--surface-light-card)', borderRadius: phone ? 0 : 14, boxShadow: 'var(--shadow-xl)', overflow: 'hidden' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px 10px 18px', borderBottom: '1px solid var(--border-light)', flexShrink: 0 }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>{link.group} · preview</div>
+            <div style={{ fontFamily: 'var(--font-display)', fontSize: 22, lineHeight: 1.1, color: 'var(--text-light-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{link.title}</div>
+          </div>
+          {!missing && <a href={link.url} target="_blank" rel="noopener noreferrer" data-spec-id={`btn-action-open-link-external#${link.id}`} data-bos-class="action" className="fw-btn fw-btn--quiet fw-btn--sm" style={{ textDecoration: 'none' }}><Icon name="maximize-2" size={15} />Open in new tab</a>}
+          <button type="button" data-spec-id={`btn-action-close-link-preview#${link.id}`} data-bos-class="action" aria-label="Close preview" onClick={onClose} className="fw-icon-btn"><Icon name="x" size={20} /></button>
+        </div>
+        <div style={{ flex: 1, minHeight: 0, position: 'relative', background: 'var(--surface-light-inset)' }}>
+          {missing ? (
+            <form onSubmit={(ev) => { ev.preventDefault(); const u = draft.trim(); if (!/^https?:\/\//.test(u)) return; window.FW_LINKS.setUrl(link.id, u, newTab ? 'blocked' : 'iframe'); onSaved(); }}
+              style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: 24, textAlign: 'center', color: 'var(--text-light-secondary)' }}>
+              <Icon name="circle-help" size={28} />
+              <div style={{ fontFamily: 'var(--font-ui)', fontSize: 17, fontWeight: 600, color: 'var(--text-light-primary)' }}>Paste the link for “{link.title}”</div>
+              <div style={{ display: 'flex', gap: 8, width: '100%', maxWidth: 560 }}>
+                <input data-spec-id={`input-link-url#${link.id}`} type="url" autoFocus value={draft} onChange={(ev) => setDraft(ev.target.value)} placeholder="https://claude.ai/…" aria-label={`URL for ${link.title}`} className="fw-input" style={{ flex: 1 }} />
+                <button type="submit" data-spec-id={`btn-commit-save-link#${link.id}`} data-bos-class="commit" disabled={!/^https?:\/\//.test(draft.trim())} className="fw-btn fw-btn--commit">Save</button>
+              </div>
+              <button type="button" role="checkbox" aria-checked={newTab} data-spec-id={`input-link-new-tab#${link.id}`} onClick={() => setNewTab(!newTab)} className="fw-check"><span aria-hidden="true" className="fw-check-box">{newTab && <Icon name="check" size={14} stroke={3} />}</span>Always open this one in a new tab (use for sites that won't preview)</button>
+              <div style={{ fontSize: 13 }}>Saved in this browser. It's searchable and opens here from now on.</div>
+            </form>
+          ) : blocked ? (
+            <div style={{ height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 12, padding: 24, textAlign: 'center', color: 'var(--text-light-secondary)' }}>
+              <Icon name="triangle-alert" size={28} />
+              <div style={{ fontFamily: 'var(--font-ui)', fontSize: 17, fontWeight: 600, color: 'var(--text-light-primary)' }}>This site doesn’t allow embedding</div>
+              <div style={{ fontSize: 14, maxWidth: 420 }}>{link.url}</div>
+              <a href={link.url} target="_blank" rel="noopener noreferrer" className="fw-btn fw-btn--action" style={{ textDecoration: 'none' }}>Open in new tab</a>
+            </div>
+          ) : (
+            <>
+              {loading && <div role="status" style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-ui)', fontSize: 14, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>Loading preview…</div>}
+              <iframe title={link.title} src={link.url} onLoad={() => setLoading(false)} sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerPolicy="no-referrer" style={{ width: '100%', height: '100%', border: 0, display: 'block', background: '#fff' }} />
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+window.FWOverlays = { SearchResults, LinkPreview, CaseMenu, CheckIn, Assign, Move, NoteD, Left, RepMenu, Pause, Unpause, Bench, Unbench, MoveRep, Chat, ApptDetails, ApptCheckIn, PhaseDetail };
 })();

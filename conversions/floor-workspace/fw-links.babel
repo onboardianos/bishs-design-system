@@ -1,0 +1,116 @@
+// Floor Workspace — resource catalog for global search + in-prototype preview.
+// Each entry: id (stable; becomes btn-action-open-link#<id>), title, group, keywords, url, embed.
+// url: null means the link hasn't been supplied yet; the overlay shows a "link needed" card.
+// embed: 'iframe' (opens inside the overlay) · 'blocked' (site refuses embedding; overlay offers Open in new tab).
+(function () {
+// Hosts that refuse to be framed (X-Frame-Options / frame-ancestors). Always open these in a new tab.
+const NO_EMBED = /^https?:\/\/([a-z0-9-]+\.)*(claude\.ai|anthropic\.com|github\.com|google\.com|atlassian\.net|figma\.com|notion\.so|slack\.com)(\/|$)/i;
+const embedFor = (url, embed) => (url && NO_EMBED.test(url) ? 'blocked' : embed || 'iframe');
+const L = (id, title, group, keywords, url = null, embed = 'iframe') => ({ id, title, group, keywords, url, embed: embedFor(url, embed) });
+const DECK = 'Alignment deck';
+const LINKS = [
+  // The deck
+  L('alignment-deck', 'Dealer OS Alignment Session (the deck)', 'The deck', 'deck alignment session everything meeting presentation', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  // Deck sections (open from the deck)
+  L('deck-4-wayfinder-questionnaire', 'Wayfinder discovery questionnaire v2', `${DECK} · §4 Discovery`, 'discovery wayfinder questionnaire v2 questions deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-4-towing-duplicate', 'Towing & duplicate criteria', `${DECK} · §4 Discovery`, 'towing duplicate criteria discovery deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-4-word-tracks', 'Word tracks', `${DECK} · §4 Discovery`, 'word tracks scripts discovery deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-5-receptionist-walkthrough', 'Receptionist walkthrough', `${DECK} · §5 Roles`, 'receptionist walkthrough role front desk deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-5-outfitter-walkthrough', 'Outfitter walkthrough', `${DECK} · §5 Roles`, 'outfitter walkthrough role sales deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-5-manager-walkthrough', 'Manager walkthrough', `${DECK} · §5 Roles`, 'manager walkthrough role deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-5-how-to-search', 'How-to search (20 clips)', `${DECK} · §5 Roles`, 'how to search clips video training deck', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV', 'blocked'),
+  L('deck-5-fw-interaction-inventory', 'Floor Workspace interaction inventory', `${DECK} · §5 Roles`, 'floor workspace interaction inventory deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-5-notification-spec', 'Notification spec v1', `${DECK} · §5 Roles`, 'notification spec push alerts deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-6-store-beta-dashboard', 'Store Beta Dashboard', `${DECK} · §6 Reporting`, 'store beta dashboard reporting kpi deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-6-pilot-metrics', 'Pilot reporting metrics M1–M29', `${DECK} · §6 Reporting`, 'pilot reporting metrics m1 m29 kpi deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-7-hit-list', 'Beta launch hit list', `${DECK} · §7 Risk`, 'beta launch hit list risk deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-7-readiness-checklist', 'Beta readiness checklist', `${DECK} · §7 Risk`, 'beta readiness checklist risk deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-7-exec-summary', 'Beta walkthrough executive summary', `${DECK} · §7 Risk`, 'beta walkthrough executive summary deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-8-print-pack', 'Rollout print pack', `${DECK} · §8 Rollout`, 'rollout print pack deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-8-training-guide', 'Pilot training guide', `${DECK} · §8 Rollout`, 'pilot training guide rollout deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-8-onboarding-tasks', 'Role onboarding & rollout tasks', `${DECK} · §8 Rollout`, 'role onboarding rollout tasks deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-8-screen-needs', 'Screen needs by role', `${DECK} · §8 Rollout`, 'screen needs by role deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-8-baseline-survey', 'Baseline survey', `${DECK} · §8 Rollout`, 'baseline survey rollout deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-9-role-playbooks', 'Role playbooks', `${DECK} · §9 Built`, 'role playbooks deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-9-beta-expectations', 'Beta expectations & objectives', `${DECK} · §9 Built`, 'beta expectations objectives deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  L('deck-9-meridian-agenda', 'Meridian visit agenda (Julian)', `${DECK} · §9 Built`, 'meridian visit agenda julian deck', 'https://claude.ai/artifact/TkDdrtBqjtpZXH4PZpuybG', 'blocked'),
+  // How-to clips (one index page, 20 clips)
+  L('how-to-clips', 'How-to clips (index)', 'How-to clips', 'how to clips video training index search 20', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV', 'blocked'),
+  L('clip-see-your-spot', 'See your spot in the rotation', 'How-to clips', 'how to clip video training rotation position spot queue', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#see-your-spot', 'blocked'),
+  L('clip-know-youre-up', 'Know you\'re up', 'How-to clips', 'how to clip video training up notification turn', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#know-youre-up', 'blocked'),
+  L('clip-accept-up', 'Accept the Up', 'How-to clips', 'how to clip video training accept up customer', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#accept-up', 'blocked'),
+  L('clip-see-whos-waiting', 'See who\'s waiting', 'How-to clips', 'how to clip video training waiting queue customers', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#see-whos-waiting', 'blocked'),
+  L('clip-decline-up', 'Decline the Up', 'How-to clips', 'how to clip video training decline up reason', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#decline-up', 'blocked'),
+  L('clip-start-discovery', 'Start discovery', 'How-to clips', 'how to clip video training discovery start', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#start-discovery', 'blocked'),
+  L('clip-open-questionnaire', 'Open the questionnaire', 'How-to clips', 'how to clip video training questionnaire discovery wayfinder', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#open-questionnaire', 'blocked'),
+  L('clip-review-learned', 'Review what you learned', 'How-to clips', 'how to clip video training review discovery learned', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#review-learned', 'blocked'),
+  L('clip-send-mcp', 'Send to MCP', 'How-to clips', 'how to clip video training mcp send phase', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#send-mcp', 'blocked'),
+  L('clip-advance-demo', 'Advance to demo', 'How-to clips', 'how to clip video training demo advance phase', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#advance-demo', 'blocked'),
+  L('clip-start-demo', 'Start the demo', 'How-to clips', 'how to clip video training demo start', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#start-demo', 'blocked'),
+  L('clip-unit-details', 'Unit details', 'How-to clips', 'how to clip video training unit details inventory', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#unit-details', 'blocked'),
+  L('clip-unit-tabs', 'Unit tabs', 'How-to clips', 'how to clip video training unit tabs inventory', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#unit-tabs', 'blocked'),
+  L('clip-move-worksheet', 'Move to worksheet', 'How-to clips', 'how to clip video training worksheet desking phase move', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#move-worksheet', 'blocked'),
+  L('clip-customer-left', 'Customer left', 'How-to clips', 'how to clip video training customer left exit reason', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#customer-left', 'blocked'),
+  L('clip-take-a-break', 'Take a break', 'How-to clips', 'how to clip video training break pause lunch', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#take-a-break', 'blocked'),
+  L('clip-cancel-break', 'Cancel a break', 'How-to clips', 'how to clip video training break cancel unpause', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#cancel-break', 'blocked'),
+  L('clip-clock-out', 'Clock out', 'How-to clips', 'how to clip video training clock out end shift', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#clock-out', 'blocked'),
+  L('clip-my-stats', 'My stats', 'How-to clips', 'how to clip video training stats performance', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#my-stats', 'blocked'),
+  L('clip-alerts-missed-turn', 'Alerts: missed turn', 'How-to clips', 'how to clip video training alerts missed turn notification', 'https://claude.ai/artifact/UA8QZtqjyJMW6WBnhwH5oV#alerts-missed-turn', 'blocked'),
+  // Beta launch and readiness
+  L('beta-launch-hit-list', 'Beta Launch Hit List', 'Beta launch & readiness', 'beta launch hit list', 'https://claude.ai/artifact/HbxBZrLopRN8LTWjsiRhtw', 'blocked'),
+  L('meridian-beta-readiness', 'Meridian Beta Readiness', 'Beta launch & readiness', 'meridian beta readiness', 'https://claude.ai/artifact/NMFJkpWQ9DpFW7WkZDJXkP', 'blocked'),
+  L('meridian-beta-success', 'Meridian Beta · What success looks like', 'Beta launch & readiness', 'meridian beta success what success looks like', 'https://claude.ai/artifact/9c1Twqw6VNVzBDqDh5cGrd', 'blocked'),
+  L('sales-process-walkthrough', 'Sales Process Walkthrough: Meeting Intelligence Analysis (Oct 8, 2026)', 'Beta launch & readiness', 'sales process walkthrough meeting intelligence analysis oct 8', 'https://claude.ai/artifact/R7igoZzNx31JceQucR6nAB', 'blocked'),
+  L('decision-board', 'Decision Board', 'Beta launch & readiness', 'decision board', 'https://claude.ai/artifact/84MvSapmzn49VghT4VnRxy', 'blocked'),
+  L('nexus-decision-board', 'Nexus Decision Board', 'Beta launch & readiness', 'nexus decision board', 'https://claude.ai/artifact/SSeMDe193bSUyZkAA8kFKV', 'blocked'),
+  // Discovery / Wayfinder
+  L('wayfinder-input-effect-register', 'Wayfinder Discovery: Input Effect Register & Questionnaire v2', 'Discovery / Wayfinder', 'wayfinder discovery input effect register questionnaire v2', 'https://claude.ai/artifact/QkKjyAUhh9K7WF1UoTwD9C', 'blocked'),
+  L('bish-rv-wayfinder', 'Bish RV Wayfinder', 'Discovery / Wayfinder', 'wayfinder bish rv', 'https://claude.ai/artifact/5zik4jgtgnTuT1qLZxeUYD', 'blocked'),
+  L('atlas-floor-discovery-answers', 'Atlas Floor Discovery Answers', 'Discovery / Wayfinder', 'atlas floor discovery answers', 'https://claude.ai/artifact/Mw5XsS7RVvQ4KMYP99wG8G', 'blocked'),
+  L('discovery-tool', 'Discovery Tool', 'Discovery / Wayfinder', 'discovery tool', 'https://claude.ai/artifact/Ly3MDZoEDAeEy1EY9kYYhw', 'blocked'),
+  L('discovery-questions', 'Discovery Questions', 'Discovery / Wayfinder', 'discovery questions', 'https://claude.ai/artifact/9vz3R8QTJM5xppQsoMjKpT', 'blocked'),
+  L('discovery-logic-explorer', 'Discovery Logic Explorer', 'Discovery / Wayfinder', 'discovery logic explorer', 'https://claude.ai/artifact/KCcivCHGq7kjCScfLEEPNN', 'blocked'),
+  L('discovery-to-inventory-map', 'Discovery-to-Inventory Map', 'Discovery / Wayfinder', 'discovery inventory map', 'https://claude.ai/artifact/Mzvo1wnfHP5o8ucvtuJnZm', 'blocked'),
+  // Reporting
+  L('pilot-reporting-gaps', 'Purchase Process Pilot Reporting: Gaps vs Store Beta Spec', 'Reporting', 'purchase process pilot reporting gaps store beta spec', 'https://claude.ai/artifact/2bvqbbxxXhCPJiTaJYqmFm', 'blocked'),
+  L('pilot-report-tech-ref', 'Purchase Process Pilot Report: Technical Reference', 'Reporting', 'purchase process pilot report technical reference', 'https://claude.ai/artifact/VRPViQtyzEGcX2kR1pAT41', 'blocked'),
+  // Screens, flows and the tool
+  L('design-atlas', 'Design Atlas (all screens, with Jira mapping)', 'Screens, flows & the tool', 'design atlas screens jira mapping', 'https://claude.ai/artifact/WkjiKFoPRV6D1tMQQ5CMqn', 'blocked'),
+  L('screen-flow-walkthrough', 'Screen Flow Walkthrough', 'Screens, flows & the tool', 'screen flow walkthrough', 'https://claude.ai/artifact/SE3KW7PZg53vSNrJ3u2e1B', 'blocked'),
+  L('line-up-demo', "Bish's RV · D · Line-Up & Demo (stops 09 · 10 · E1)", 'Screens, flows & the tool', 'line up lineup demo stops 09 10 e1', 'https://claude.ai/artifact/33MuxCHxtkm4aLm5PUBUAN', 'blocked'),
+  L('lund-line-up', 'Lund Line-Up', 'Screens, flows & the tool', 'lund line up lineup', 'https://claude.ai/artifact/LBToZ9jNE4oYTPVhwS4JP8', 'blocked'),
+  L('deal-desk-tabs', 'Dealer OS — Deal Desk Tabs', 'Screens, flows & the tool', 'deal desk tabs desking dealer os', 'https://claude.ai/artifact/SggvEZthcEuabPo32TJvR1', 'blocked'),
+  L('hub-admin', "Bish's RV · Hub · Admin", 'Screens, flows & the tool', 'hub admin', 'https://claude.ai/artifact/YVBDe4TZdvkT8UrG1848nW', 'blocked'),
+  L('fw-qc-findings', 'Floor Workspace QC Findings', 'Screens, flows & the tool', 'floor workspace qc findings quality', 'https://claude.ai/artifact/LByQUNjDM444vnFuVdePRT', 'blocked'),
+  L('inventory-feed-handoff', 'Inventory Feed Handoff — Connecting Prototypes to Live Inventory', 'Screens, flows & the tool', 'inventory feed handoff live inventory prototypes', 'https://claude.ai/artifact/CN3DyMLaGxG5oeFUhAxKd9', 'blocked'),
+  // Vision and roadmap
+  L('dealer-os-vision', 'Dealer OS Vision', 'Vision & roadmap', 'dealer os vision', 'https://claude.ai/artifact/YTfSAoaXxpvyGckaDdVits', 'blocked'),
+  L('dealer-os-roadmap', 'Dealer OS Roadmap', 'Vision & roadmap', 'dealer os roadmap', 'https://claude.ai/artifact/QehF9wt8vHzhi8G8ZEkbgD', 'blocked'),
+  L('dealer-os-state-dev', 'Dealer OS State — Dev Mode', 'Vision & roadmap', 'dealer os state dev mode', 'https://claude.ai/artifact/6seBgtjjwpmMPBhjBxsTKz', 'blocked'),
+  L('state-machine-coverage', 'State Machine Coverage', 'Vision & roadmap', 'state machine coverage', 'https://claude.ai/artifact/EjWRsxC9bENQLERK1b4zp7', 'blocked'),
+  L('role-screen-ledger', 'Role & Screen Ledger', 'Vision & roadmap', 'role screen ledger', 'https://claude.ai/artifact/S4x1sKSRKPzoLYEEhpJDvz', 'blocked'),
+  L('whiteboard-one-pagers', 'Whiteboard One-Pagers — Oct 2026', 'Vision & roadmap', 'whiteboard one pagers oct 2026', 'https://claude.ai/artifact/HcJ6vzF4qhM9XQrikkosjm', 'blocked'),
+  // Design system
+  L('design-system-page', 'Design System', 'Design system', 'design system page tokens components', 'https://claude.ai/artifact/4K1pqnn9jnoWffqXgMGVZD', 'blocked'),
+  L('design-system-repo', 'GitHub repo · bishs-design-system', 'Design system', 'github repo design system code', 'https://github.com/onboardianos/bishs-design-system', 'blocked'),
+];
+const KEY = 'fw-links-urls';
+const saved = () => { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } };
+const applySaved = () => { const s = saved(); LINKS.forEach((x) => { if (s[x.id]) { x.url = s[x.id].url; x.embed = embedFor(x.url, s[x.id].embed); } }); };
+applySaved();
+function setUrl(id, url, embed = 'iframe') { const s = saved(); s[id] = { url, embed }; localStorage.setItem(KEY, JSON.stringify(s)); applySaved(); }
+function exportList() { return LINKS.filter((x) => x.url).map((x) => `${x.id} | ${x.title} | ${x.url}`).join('\n'); }
+const norm = (s) => String(s || '').toLowerCase().replace(/[·—–:&()§]/g, ' ');
+function search(q) {
+  const t = norm(q).trim();
+  if (!t) return [];
+  const words = t.split(/\s+/).filter(Boolean);
+  return LINKS.map((l) => {
+    const title = norm(l.title), hay = `${title} ${norm(l.keywords)} ${norm(l.group)}`;
+    const hits = words.filter((w) => hay.includes(w)).length;
+    if (hits < words.length) return null;
+    return { ...l, score: hits + (title.startsWith(t) ? 3 : 0) + (title.includes(t) ? 1 : 0) };
+  }).filter(Boolean).sort((a, b) => b.score - a.score || a.title.localeCompare(b.title)).slice(0, 20);
+}
+window.FW_LINKS = { LINKS, search, setUrl, exportList, embedFor };
+})();

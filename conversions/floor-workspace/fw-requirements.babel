@@ -128,6 +128,12 @@ const REQ = {
   'frame-chat#{instance}': r('Message thread with one outfitter', 'Right sheet (bottom on phone); messages + composer', 'Opening it clears that outfitter\'s unread badge'),
   'input-chat#{instance}': r('Compose a message', 'Text input; Enter sends', 'Empty keeps Send disabled'),
   'btn-action-send-chat#{instance}': r('Send the message', 'Appends to the thread', 'The message appears on the right with "Now"', { event: 'chat.sent' }),
+  // Global search + link preview
+  'frame-search-results': r('Show matches from the link catalog as you type in the global search', 'Dropdown under the search; Enter opens the top result; Escape or scrim clears', 'Typing "inv" lists Inventory search; no match shows a “No results” note'),
+  'btn-action-open-link#{instance}': r('Open a catalog link inside the prototype', 'Opens the link preview overlay', 'The preview opens without leaving the prototype', { target: 'frame-link-preview#{instance}' }),
+  'frame-link-preview#{instance}': r('Preview an external page inside the prototype', 'Full-size overlay with the page in an iframe; Open in new tab; × / Escape / scrim close it', 'Closing returns to the exact prior state; sites that refuse embedding show a card with Open in new tab'),
+  'btn-action-open-link-external#{instance}': r('Open the link in a new browser tab', 'Standard link, new tab', 'Opens the URL in a new tab; the prototype stays'),
+  'btn-action-close-link-preview#{instance}': close,
   // Schedule overlays
   'frame-schedule-item#{instance}': r('Detail for one appointment or delivery', 'Right sheet; inspect-and-return', 'Shows scheduled time, type, outfitter, unit, status, to-dos and notes'),
   'btn-action-message-outfitter#{instance}': r("Message the item's outfitter", 'Opens the chat sheet', 'The chat opens for that outfitter', { target: 'frame-chat#{instance}' }),

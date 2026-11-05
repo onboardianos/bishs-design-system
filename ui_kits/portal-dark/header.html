@@ -1,10 +1,10 @@
-<!-- @dsCard group="Components" viewport="900x220" name="Header" subtitle="Branded portal header with gradient + meta" -->
+<!-- @dsCard group="Components" viewport="900x460" name="Header" subtitle="Branded portal header with gradient + meta · dark + light (theme prop)" -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../colors_and_type.css">
-<style>html,body{margin:0;background:#020000;padding:28px;font-family:'Source Sans 3',sans-serif;}#root{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;}</style>
+<style>html,body{margin:0;font-family:'Source Sans 3',sans-serif;}.pane{padding:24px 28px;}.pane.dark{background:#020000;}.pane.light{background:#F7F6F1;}.tag{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;}.dark .tag{color:#A2A59C;}.light .tag{color:#6B6B63;}</style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="../../_ds_bundle.js"></script>
@@ -19,7 +19,9 @@
   
   var Header = NS.Header;
   document.getElementById('root').style.padding='0';
-  root.render(e(Header,{}));
+  function V(theme){return e(Header,{theme:theme});}
+  function pane(t){return e('div',{className:'pane '+t,key:t},e('div',{className:'tag'},t==='light'?'theme="light"':'theme="dark" (default)'),V(t));}
+  root.render(e('div',null,pane('dark'),pane('light')));
 })();
 </script>
 </body>

@@ -1,0 +1,51 @@
+{
+  "source": "design-extract (9).zip",
+  "limitBytes": 20000000,
+  "screenRouteCount": 3,
+  "snapshotCount": 23,
+  "screens": [
+    {
+      "route": "/employee/manager/mcp/37",
+      "snapshots": 3,
+      "files": [
+        {
+          "file": "03-employee-manager-mcp-37.json",
+          "bytes": 14997927,
+          "snapshots": 3,
+          "sha256": "cdaf2ee4ecd1cc6389c6026031213c17fd63c4d9395e38152776396b10f86ba9"
+        }
+      ]
+    },
+    {
+      "route": "/employee/manager/mcp/45",
+      "snapshots": 19,
+      "files": [
+        {
+          "file": "04-employee-manager-mcp-45-part-01.json",
+          "bytes": 19207310,
+          "snapshots": 13,
+          "sha256": "52b1f85ece520a2612e222f04bee5bf0eb7b3caa279b7d156a03f519a6636492"
+        },
+        {
+          "file": "04-employee-manager-mcp-45-part-02.json",
+          "bytes": 14634066,
+          "snapshots": 6,
+          "sha256": "44a4122a145a0da74a786ad6ccbe6e70e512277a2350945789f19546a82b8a4b"
+        }
+      ]
+    },
+    {
+      "route": "/employee/manager/mcp/47",
+      "snapshots": 1,
+      "files": [
+        {
+          "file": "05-employee-manager-mcp-47.json",
+          "bytes": 1167636,
+          "snapshots": 1,
+          "sha256": "7cb08df9079d9bad3d844981cea9dc89a3c5db3dc765746f9d1c22706956aecc"
+        }
+      ]
+    }
+  ],
+  "jsonFileCount": 25
+}

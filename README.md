@@ -86,7 +86,7 @@ Six-color brand palette: **Black, Dark Green, Gold, Cream, Olive, White**. Role-
 - **Gold** → exactly three legal jobs, all lint-checkable (ratified 2026-10-21, see `documents/decisions-2026-10-21.md`):
   1. **COMMIT fill** — `--accent-gold`, near-black text, max one per screen
   2. **ACTION outline** — gold border + gold-lo text, any number
-  3. **Gold-lo wayfinding** — `--accent-gold-lo` (7.0:1 on cream) for the *current* nav item's text/icon/indicator bar only. Never a nav fill. Avatars are ink.
+  3. **Gold-lo wayfinding** — `--accent-gold-lo` (7.0:1 on cream) for the *current* nav item's text/icon/indicator bar only. Never a nav fill. Avatars contrast with their surface: **ink on light, white on dark** (`Avatar theme`); gold only for the signed-in user.
   Gold is never a card/surface fill — high-salience cards use ink fill + a gold accent edge.
 - **White** → text on dark; page background in light theme
 
@@ -121,7 +121,7 @@ Every interactive element carries a **content-colored overlay**:
 - Pressed: 12% opacity
 - Disabled: 38% opacity on content, no overlay
 
-Primary buttons hover from `#8B752E → #B89E4A` (gold → gold-hi). Ghost buttons hover with a 6% white overlay. No scale-on-press shrink — state is carried by color, not geometry.
+Primary buttons rest on `#B89E4A` (gold-hi) and hover **darker** to `#8B752E` (gold), with near-black `#020000` text in both states (8.0:1 rest, 4.68:1 hover). Dark text means a darkening hover, per the content-colored overlay rule above. Ghost buttons hover with a 6% white overlay. No scale-on-press shrink — state is carried by color, not geometry.
 
 ### Borders
 Hairline borders, never decorative: `rgba(255,255,255,0.07)` ghost, `rgba(255,255,255,0.13)` mid. Gold borders `rgba(139,117,46,0.28)` or `0.55` for emphasis. Borders on light theme are `rgba(0,0,0,0.08)` / `0.15`.
@@ -196,25 +196,60 @@ The 2022 brand guide specifies paid, commercially-licensed typefaces. Nexus subs
 
 ## Components
 
-Exported React components (bundled to `_ds_bundle.js`, namespace `window.BishSRVDesignSystem_26feec`), all in `ui_kits/portal-dark/`:
+Exported React components (bundled to `_ds_bundle.js`, namespace `window.BishSRVDesignSystem_26feec`).
 
-- **Button** — primary / secondary / ghost / danger × sm / md / lg
-- **Badge** — six semantic status pills (gold, success, warning, danger, info, neutral)
-- **Input** — labeled field with helper, error, and disabled states
-- **TabBar** — sticky underline tab navigation
-- **Header** — branded portal header with gradient, eyebrow, title, and meta row
-- **Card** — three-part container (header / body / footer)
-- **StatTile** — KPI tile with label, value, and delta
-- **UnitRow** — inventory list row with status badge
+**Which component to use and why:** `documents/component-selection-guide.md`.
 
-## Components
+### Portal primitives (`ui_kits/portal-dark/`)
 
-- **AppShell** — required navigation shell: header, role-driven side panel / drawer / mobile tab bar (`ui_kits/app-shell/`)
-- **ActionOverlay** — mobile Action overlay: role pills, terminal action, phase arc
-- **NavConfig** — global nav catalog + per-role assignments (with `NavIcon`, `NAV_ICONS`, `UI_ICONS`, `SHELL_THEME`)
-- **SpecLint** — spec-ready v2 stamp linter + `makeSpecId` helper; `SpecLint.run(root)` / `?speclint=1` (`ui_kits/spec-ready/`)
-- **RolesNavAdmin** — Admin › Roles & Navigation: add nav buttons/actions, switch them on per role, pick mobile slots, publish
-- **Badge**, **Button**, **Card**, **StatTile**, **UnitRow**, **Header**, **Input**, **TabBar** — portal primitives (`ui_kits/portal-dark/`)
+Every primitive takes **`theme="dark" | "light"`** (default `dark`). Use `theme="light"` on cream and white surfaces. Same variants, labels and stamps; colours remap to the light tokens (semantic `*-light` fill with `*-dark` text, gold-lo for gold text on light). Don't build local light copies. `ui_kits/portal-light/` is a reference page, not a component set.
+
+- **Button**: primary / secondary / ghost / danger × sm / md / lg
+- **Badge**: six semantic status pills (gold, success, warning, danger, info, neutral)
+- **Input**: labeled field with helper, error, and disabled states
+- **TabBar**: sticky underline tab navigation
+- **Header**: branded portal header with gradient, eyebrow, title, and meta row
+- **Card**: three-part container (header / body / footer)
+- **StatTile**: KPI tile with label, value, and delta
+- **UnitRow**: inventory list row with status badge
+- **Avatar**: initials or photo. `theme="light"` → ink fill; `theme="dark"` → white fill. Gold tone for the signed-in user only. 28 / 32 / 44px
+
+### Floor components (`ui_kits/floor/`)
+
+The higher-fidelity cards from the Floor Workspace, promoted so every build uses the same ones. Don't rebuild them per screen.
+
+- **PhaseAlert**: the floor interrupt card ("Pick me a winner", "Start the deal"). Ink header strip with eyebrow and dismiss, customer and outfitter rows, a WAITING timer that counts up and turns danger past `limitSeconds`, one COMMIT, and Snooze.
+- **CustomerCard**: the floor-traffic kanban card. Party tile, name and interest, ⋮ menu, outfitter row (dashed red "?" when unassigned), phase clock and total. Add `flag` and `cta` to make it a Needs-action card for the Action Hub rail. Its CTA is an ACTION and is never gold.
+- **QuestionCard**: white question surface. Gold-lo overline (STEP n · TOPIC), Bebas question, hint.
+- **ChoiceTile**: photo or icon answer card for questions where the picture carries the meaning (RV type, bed, bath, kitchen). `density="compact"` (also on QuestionCard and ChoiceGroup) for configurator steps where every option must be visible at once: 2.2:1 media, 14px label, 26–34px question title. `imageFit="contain"` for cut-out RV artwork (2:1 panel, padded, never cropped); artwork must not carry its own caption, the tile label is the only label. Label, live effect line (`hintTone` neutral / gate / rank / avoid), radio or `multi`, optional `footer` outside the button for a "Required" checkbox. Selected = 2px ink border + ink check, never gold.
+- **ChoiceChip**: pill picker, radio by default and `multi` for select-all-that-apply. Selected chips are ink with a check, never gold.
+- **ChoiceGroup**: wraps chips with an optional gold-lo overline label.
+
+### Intentional additions (confirmed, not in the source kit)
+
+These exports are deliberate Nexus additions with no counterpart in the original brand kit. The shell's internal data tables (`navIcons`, `uiIcons`, `iconAliases`, `shellTheme`) are bundle-internal, not components; `window.NAV_ICONS` etc. remain as legacy globals. The components below are kept under their current names because their IDs are published (spec-ready v2 lifecycle: published names are never renamed).
+
+| Export | File | Why it exists |
+|---|---|---|
+| **AppShell** | `ui_kits/app-shell/AppShell.jsx` | Required navigation shell: header, role-driven side panel / drawer / mobile tab bar |
+| **ActionOverlay** | `ui_kits/app-shell/AppShell.jsx` | Mobile Action overlay: role pills, terminal action, phase arc |
+| **NavConfig** | `ui_kits/app-shell/NavConfig.jsx` | Global nav catalog + per-role assignments, admin-owned |
+| **NavIcon** | `ui_kits/app-shell/NavConfig.jsx` | Lucide glyph renderer for nav buttons |
+| **RolesNavAdmin** | `ui_kits/app-shell/RolesNavAdmin.jsx` | Admin › Roles & Navigation editor |
+| **SpecLint** | `ui_kits/spec-ready/SpecLint.jsx` | Spec-ready v2 stamp linter: `SpecLint.run(root)` / `?speclint=1` |
+| **PhaseAlert** | `ui_kits/floor/PhaseAlert.jsx` | Floor interrupt card (MCP / Worksheet alerts) |
+| **CustomerCard** | `ui_kits/floor/CustomerCard.jsx` | Floor-traffic kanban card + Needs-action variant |
+| **QuestionCard** | `ui_kits/floor/ChoiceChip.jsx` | Discovery / intake question surface |
+| **ChoiceChip** | `ui_kits/floor/ChoiceChip.jsx` | Pill picker for question answers |
+| **ChoiceGroup** | `ui_kits/floor/ChoiceChip.jsx` | Labeled chip row |
+| **ChoiceTile** | `ui_kits/floor/ChoiceTile.jsx` | Photo / icon answer card with a live effect line (promoted 2026-10-27 from Floor Workspace check-in + Outfitter Discovery) |
+| **Card** | `ui_kits/portal-dark/Card.jsx` | Portal container (header / body / footer), `theme` dark/light |
+| **StatTile** | `ui_kits/portal-dark/Card.jsx` | KPI tile, `theme` dark/light |
+| **UnitRow** | `ui_kits/portal-dark/Card.jsx` | Inventory list row with status badge, `theme` dark/light |
+| **Header** | `ui_kits/portal-dark/Header.jsx` | Branded portal page header, `theme` dark/light |
+| **TabBar** | `ui_kits/portal-dark/TabBar.jsx` | Underline tab navigation, `theme` dark/light |
+
+`Card`, `StatTile`, `UnitRow`, `Header`, `TabBar`, `Input` and `Avatar` are the kit's own vocabulary, rebuilt to Nexus tokens. The kit's RV unit art (`img/travel_trailer.png`) is not built yet; see Caveats.
 
 ## UI Kits
 

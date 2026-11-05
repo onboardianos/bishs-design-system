@@ -1,0 +1,314 @@
+// Outfitter Discovery — converted screen. Mounts inside AppShell (outfitter role, Cases › Discovery phase).
+// Every control is a DS component or a stamped custom block listed in handoff/component-map.md.
+(function () {
+const NS = window.BishSRVDesignSystem_26feec;
+const P = (d) => ['path', { d }];
+const ICONS = {
+  check: [P('M20 6 9 17l-5-5')], x: [P('M18 6 6 18'), P('m6 6 12 12')], 'chevron-left': [P('m15 18-6-6 6-6')], 'arrow-right': [P('M5 12h14'), P('m12 5 7 7-7 7')],
+  circle: [['circle', { cx: 12, cy: 12, r: 10 }]], minus: [P('M5 12h14')], plus: [P('M5 12h14'), P('M12 5v14')],
+  truck: [P('M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2'), P('M15 18H9'), P('M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14'), ['circle', { cx: 17, cy: 18, r: 2 }], ['circle', { cx: 7, cy: 18, r: 2 }]],
+  bus: [P('M8 6v6'), P('M15 6v6'), P('M2 12h19.6'), P('M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3'), ['circle', { cx: 7, cy: 18, r: 2 }], P('M9 18h5'), ['circle', { cx: 16, cy: 18, r: 2 }]],
+  caravan: [P('M18 19V9a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v8a2 2 0 0 0 2 2h2'), P('M2 9h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2'), P('M22 17v1a1 1 0 0 1-1 1H10v-9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v9'), ['circle', { cx: 8, cy: 19, r: 2 }]],
+  'dollar-sign': [P('M12 2v20'), P('M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6')],
+  calendar: [['rect', { x: 3, y: 4, width: 18, height: 18, rx: 2 }], P('M16 2v4'), P('M8 2v4'), P('M3 10h18')],
+  'arrow-left-right': [P('M8 3 4 7l4 4'), P('M4 7h16'), P('m16 21 4-4-4-4'), P('M20 17H4')],
+  warehouse: [P('M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z'), P('M6 18h12'), P('M6 14h12'), ['rect', { x: 6, y: 10, width: 12, height: 12 }]],
+  'washing-machine': [P('M3 6h3'), P('M17 6h.01'), ['rect', { x: 3, y: 2, width: 18, height: 20, rx: 2 }], ['circle', { cx: 12, cy: 13, r: 5 }], P('M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5')],
+  flame: [P('M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z')],
+  tent: [P('M3.5 21 14 3'), P('M20.5 21 10 3'), P('M15.5 21 12 15l-3.5 6'), P('M2 21h20')],
+  scale: [P('m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'), P('m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'), P('M7 21h10'), P('M12 3v18'), P('M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2')],
+  feather: [P('M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z'), P('M16 8 2 22'), P('M17.5 15H9')],
+  layers: [P('M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z'), P('m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65'), P('m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65')],
+  info: [['circle', { cx: 12, cy: 12, r: 10 }], P('M12 16v-4'), P('M12 8h.01')],
+  'triangle-alert': [P('m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'), P('M12 9v4'), P('M12 17h.01')],
+  'rotate-ccw': [P('M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'), P('M3 3v5h5')],
+  lock: [['rect', { x: 3, y: 11, width: 18, height: 11, rx: 2 }], P('M7 11V7a5 5 0 0 1 10 0v4')],
+};
+function Icon({ name, size = 20, stroke = 2 }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{(ICONS[name] || ICONS.circle).map(([t, a], i) => React.createElement(t, { key: i, ...a }))}</svg>;
+}
+const ROLES = { outfitter: 'Outfitter', manager: 'Sales manager', receptionist: 'Receptionist' };
+// Confirmed 2026-10-27 (Q-OD-1): outfitters and managers run Discovery; reception has no access.
+const canRun = (role) => role === 'outfitter' || role === 'manager';
+
+// ── Custom blocks (component-map.md lists why no DS component fits) ──
+function Notice({ tone = 'warning', title, children, specId }) {
+  const t = { warning: ['var(--semantic-warning-light)', '#7A4C00', 'triangle-alert'], info: ['var(--semantic-info-light)', 'var(--semantic-info-dark)', 'info'], danger: ['var(--semantic-danger-light)', 'var(--semantic-danger-dark)', 'triangle-alert'], neutral: ['var(--surface-light-inset)', 'var(--text-light-secondary)', 'info'] }[tone];
+  return <div role={tone === 'danger' ? 'alert' : 'note'} data-spec-id={specId} className="od-notice" style={{ background: t[0], color: t[1] }}><Icon name={t[2]} size={18} /><p style={{ margin: 0 }}>{title && <b>{title} </b>}{children}</p></div>;
+}
+function Stepper({ label, value, min = 0, max = 8, onChange, id }) {
+  return (
+    <div className="od-field"><span className="od-lbl" id={`lbl-${id}`}>{label}</span>
+      <div className="od-stepper" role="group" aria-labelledby={`lbl-${id}`}>
+        <button type="button" data-spec-id={`btn-action-decrease#${id}`} data-bos-class="action" aria-label={`Fewer ${label.toLowerCase()}`} disabled={value <= min} onClick={() => onChange(value - 1)}><Icon name="minus" /></button>
+        <output aria-live="polite">{value}</output>
+        <button type="button" data-spec-id={`btn-action-increase#${id}`} data-bos-class="action" aria-label={`More ${label.toLowerCase()}`} disabled={value >= max} onClick={() => onChange(value + 1)}><Icon name="plus" /></button>
+      </div>
+    </div>
+  );
+}
+function Check({ label, checked, onChange, specId }) {
+  return <label className="od-check" data-spec-id={specId}><input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} /><span>{label}</span></label>;
+}
+const digits = (v) => String(v).replace(/[^\d.]/g, '');
+
+function StepRail({ M, S, c, cur, onGo }) {
+  const vis = M.visible(S, c);
+  const at = vis.indexOf(cur);
+  return (
+    <nav aria-label="Discovery steps" data-spec-id="nav-discovery-steps" data-bos-level="section" data-bos-section="S03" data-bos-type="nav" className="od-rail">
+      <ol>
+        {M.SCREENS.map((s) => {
+          const sk = s.skip && s.skip(S, c), i = vis.indexOf(s), on = s === cur, done = !sk && i >= 0 && i < at;
+          return (
+            <li key={s.id}>
+              <button type="button" data-spec-id={`nav-step#${s.id}`} data-bos-class="nav" aria-current={on ? 'step' : undefined} disabled={!!sk} onClick={() => onGo(s.id)} className={`od-step${on ? ' on' : ''}${done ? ' done' : ''}${sk ? ' skip' : ''}`} aria-label={sk ? `${M.txt(s.nav, S)}, skipped: ${sk}` : undefined}>
+                {done && <Icon name="check" size={14} stroke={3} />}
+                <span className="od-step-t">{M.txt(s.nav, S)}</span>
+                {sk && <span className="od-step-r">{sk}</span>}
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
+function Tiles({ M, S, c, screen, opts, selectedOf, onPick, onDetail, footerOf, instance }) {
+  const two = screen.wide || opts.length <= 2;
+  return (
+    <div className={`od-tiles${two ? ' two' : ''}`} role={screen.multi ? 'group' : 'radiogroup'} aria-label={M.txt(screen.title, S)}>
+      {opts.map((o) => { const [lt, tone] = c.live(o); return (
+        <NS.ChoiceTile key={o.id} theme="light" specId={`input-choice-${o.id.toLowerCase()}#${instance || screen.id}`} label={o.title} hint={lt} hintTone={tone} image={o.img} icon={o.img ? null : <Icon name={o.icon} size={44} stroke={1.5} />}
+          wide={screen.wide} multi={!!screen.multi} selected={selectedOf(o)} onClick={() => { onPick(o); onDetail(o); }} footer={footerOf ? footerOf(o) : null} />
+      ); })}
+    </div>
+  );
+}
+
+function Panel({ kind, M, S, set, c }) {
+  const E = M.E, n = M.n, sess = c.session;
+  if (kind === 'cash') return (
+    <div className="od-panel" data-spec-id="sec-budget-cash" aria-label="Cash ceiling"><h3 className="od-lbl">Their ceiling</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-max-spend" label="Maximum they would spend ($)" value={S.maxSpend} placeholder="45000" onChange={(v) => set({ maxSpend: digits(v) })} helper="Rounded to the nearest $500." />
+        {sess.gates.priceMax ? <p className="od-result">Ceiling {E.money(sess.gates.priceMax)}</p> : null}</div>
+    </div>);
+  if (kind === 'finance') { const solved = sess.budget.solved; return (
+    <div className="od-panel" data-spec-id="sec-budget-finance" aria-label="Payment details"><h3 className="od-lbl">Payment details</h3>
+      <div className="od-row">
+        <NS.Input theme="light" specId="input-monthly-payment" label="Monthly payment ($)" value={S.payment} placeholder="420" onChange={(v) => set({ payment: digits(v) })} />
+        <NS.Input theme="light" specId="input-down-payment" label="Down payment ($)" value={S.down} placeholder="0" onChange={(v) => set({ down: digits(v) })} />
+        <label className="od-field"><span className="od-lbl">Closest Bish’s store</span>
+          <select data-spec-id="input-closest-store" className="od-select" value={S.store} onChange={(e) => set({ store: e.target.value })}><option value="">Not sure yet · 6% tax estimate</option>{M.stores.map((r) => <option key={r.location} value={r.location}>{r.storeName}</option>)}</select></label>
+      </div>
+      <NS.ChoiceGroup theme="light" label="Credit tier">
+        {[['veryGood', 'Very good (6.99%)'], ['good', 'Good (9%)'], ['fair', 'Fair (12%)']].map(([k, l]) => <NS.ChoiceChip key={k} theme="light" size="md" specId={`input-choice-credit-${k.toLowerCase()}`} label={l} selected={S.tier === k} onClick={() => set({ tier: k })} />)}
+      </NS.ChoiceGroup>
+      {solved && <p className="od-result" role="status">{solved.valid ? `Buying range up to ${E.money(sess.budget.priceCeiling)}` : solved.message}{solved.valid && solved.taxIsFallback ? <small> Estimated with 6% tax until a store is picked.</small> : null}</p>}
+    </div>); }
+  if (kind === 'tow') return (
+    <div className="od-panel" data-spec-id="sec-tow-rating" aria-label="Tow rating"><h3 className="od-lbl">Tow rating</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-tow-rating" label="Their vehicle’s tow rating (lbs)" value={S.towRating} placeholder="7500" onChange={(v) => set({ towRating: digits(v) })} /></div>
+      <NS.ChoiceGroup theme="light" label="Compare against">
+        {[['derived', '90% of rating'], ['raw', 'The exact number']].map(([k, l]) => <NS.ChoiceChip key={k} theme="light" size="md" specId={`input-choice-tow-${k}`} label={l} selected={S.towMode === k} onClick={() => set({ towMode: k })} />)}
+      </NS.ChoiceGroup>
+      {sess.gates.gvwrMax ? <p className="od-result" role="status">GVWR ceiling {n(sess.gates.gvwrMax)} lbs</p> : null}
+    </div>);
+  if (kind === 'crew') return (
+    <div className="od-panel" data-spec-id="sec-crew" aria-label="Their crew"><h3 className="od-lbl">Their crew</h3>
+      <div className="od-row">
+        <Stepper id="adults" label="Adults" value={S.adults} onChange={(v) => set({ adults: v, childSetup: null })} />
+        <Stepper id="children" label="Children or guests" value={S.children} onChange={(v) => set({ children: v, childSetup: null })} />
+        <p className="od-result" role="status">Needs to sleep {S.adults + S.children}<small> {n(c.cand.verified.length)} verified, {n(c.cand.probable.length)} need verification</small></p>
+      </div>
+    </div>);
+  if (kind === 'length') return (
+    <div className="od-panel" data-spec-id="sec-length-limit" aria-label="Length limit"><h3 className="od-lbl">Their limit</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-max-length" label="Maximum length (feet)" value={S.lengthFt} placeholder="30" onChange={(v) => set({ lengthFt: digits(v) })} helper="Whole feet." /></div>
+    </div>);
+  if (kind === 'garage') return (
+    <div className="od-panel" data-spec-id="sec-garage-length" aria-label="Garage length"><h3 className="od-lbl">Longest toy</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-garage-length" label="Garage length needed (feet)" value={S.garageFt === '0' ? '' : S.garageFt} placeholder="12" onChange={(v) => set({ garageFt: digits(v) || '0' })} />
+        <p className="od-result" role="status">{n(c.pool.length)} units in play</p></div>
+    </div>);
+  if (kind === 'build') {
+    const sw = new Set(c.pool.map((u) => u.sidewallConstruction).filter((v) => v && v !== 'UNKNOWN'));
+    if (sw.size <= 1) return sw.size === 1 ? <Notice tone="neutral" specId="info-sidewall-not-asked">Every unit in play is {[...sw][0].toLowerCase()} construction, so sidewall is not asked.</Notice> : null;
+    const opts = [M.O.laminate, M.O.value, M.O.either];
+    return (
+      <div className="od-sub" data-spec-id="sec-sidewall" aria-label="Sidewall construction"><h3 className="od-lbl">Sidewall construction</h3>
+        <Tiles M={M} S={S} c={c} screen={{ id: 'build', title: 'Sidewall construction' }} instance="build" opts={opts} selectedOf={(o) => S.build === o.id} onPick={(o) => set({ build: o.id, buildMust: o.id === 'either' ? false : S.buildMust })} onDetail={() => {}} />
+        {S.build && S.build !== 'either' && <Check specId="input-sidewall-required" label="Make it required. Removes the other construction." checked={S.buildMust} onChange={(v) => set({ buildMust: v })} />}
+      </div>);
+  }
+  return null;
+}
+
+function Question({ M, S, setS, c, screen, pos, total, detail, setDetail }) {
+  const set = (patch) => setS((s) => Object.assign({}, s, patch));
+  const opts = screen.multi ? c.multiOpts(screen.multi) : screen.single(S, c);
+  const sel = screen.multi ? S[screen.multi] : null, must = screen.multi ? S[screen.multi + 'Must'] : null;
+  const warn = screen.warn ? screen.warn(S, c) : null;
+  const panel = screen.panel ? screen.panel(S) : null;
+  const subhead = screen.subhead ? screen.subhead(S) : null;
+  return (
+    <NS.QuestionCard theme="light" specId={`card-question#${screen.id}`} overline={`Step ${pos} of ${total} · ${M.txt(screen.nav, S)}`} title={M.txt(screen.title, S)} hint={M.txt(screen.sub, S)}>
+      {screen.pre && <Panel kind={screen.pre} M={M} S={S} set={set} c={c} />}
+      {subhead && <h3 className="od-lbl">{subhead}</h3>}
+      {opts.length > 0 && <Tiles M={M} S={S} c={c} screen={screen} opts={opts}
+        selectedOf={(o) => (screen.multi ? (o.id === 'open' ? sel.length === 0 : sel.includes(o.id)) : screen.get(S) === o.id)}
+        onPick={(o) => setS((s) => (screen.multi ? M.toggle(s, screen.multi, o.id) : screen.set(s, o.id)))} onDetail={setDetail}
+        footerOf={screen.multi ? (o) => (o.must && sel.includes(o.id) ? <Check specId={`input-required#${o.id}`} label="Required" checked={must.includes(o.id)} onChange={(v) => setS((s) => M.toggleMust(s, screen.multi, o.id, v))} /> : null) : null} />}
+      {panel && <Panel kind={panel} M={M} S={S} set={set} c={c} />}
+      {warn && <Notice tone={warn.tone} title={warn.title} specId={`info-notice#${screen.id}`}>{warn.text}</Notice>}
+      <p className="od-summary" data-spec-id={`info-selection-summary#${screen.id}`}>Current selection: <b>{M.summary(screen, S, c)}</b></p>
+    </NS.QuestionCard>
+  );
+}
+
+function Detail({ M, screen, detail, opts, S }) {
+  const first = opts[0];
+  const d = detail || { title: first ? first.title : M.txt(screen.title, S), ben: first ? first.ben : ['Pick a card'], kind: first ? first.kind : null };
+  return (
+    <aside className="od-aside" data-bos-level="section" data-bos-section="S05" data-bos-type="detail" aria-label="What this choice does">
+      <NS.Card theme="light" specId="card-step-detail" title={d.title} subtitle={d.kind ? M.KIND[d.kind] : 'Pick a card to see what it does to the matches.'}
+        footer={<div className="od-effects"><span className="od-lbl">What this step writes to the matches</span><div className="od-badges">{screen.effect.split(' · ').map((x) => <NS.Badge key={x} theme="light" type="neutral" specId={`info-effect#${screen.id}-${x.toLowerCase().replace(/[^a-z0-9]+/g, '-').slice(0, 32)}`}>{x}</NS.Badge>)}</div></div>}>
+        <ul className="od-bens">{d.ben.map((b) => <li key={b}><Icon name="check" size={16} stroke={2.5} />{b}</li>)}</ul>
+      </NS.Card>
+    </aside>
+  );
+}
+
+function Results({ M, S, c, onGo }) {
+  const E = M.E, snap = M.snap, n = M.n;
+  const r = E.rankResults(c.units, c.session);
+  const top = (g) => r.groups[g].slice(0, 6);
+  const zero = !c.pool.length;
+  const recovery = zero ? E.zeroResultRecovery(c.units, c.session, snap) : [];
+  const card = (x, prob) => { const u = x.unit; const cls = (snap.lookups.classes[u.class] || {}).description || u.class; return (
+    <li key={u.stocknumber}><NS.Card theme="light" specId={`card-match#${u.stocknumber}`} title={`${u.year} ${u.manufacturer} ${u.make} ${u.model}`}
+      subtitle={`${cls} · ${u.price ? E.money(u.price) : 'Price pending'} · Sleeps ${u.sleeps ?? '?'} · ${u.lengthIn ? Math.round(u.lengthIn / 12) + ' ft' : 'Length ?'} · ${u.slides ?? '?'} slides · ${(snap.lookups.rooftops[u.location] || {}).storeName || u.location}`}
+      footer={<div className="od-badges"><NS.Badge theme="light" type="neutral" specId={`info-match-score#${u.stocknumber}`}>Score {x.score.display}</NS.Badge><NS.Badge theme="light" type={prob ? 'warning' : 'success'} specId={`info-match-status#${u.stocknumber}`}>{prob ? 'Needs verification' : 'Verified'}</NS.Badge><span className="od-stock">Stock #{u.stocknumber}</span></div>}>
+      <ul className="od-reasons">{x.score.reasons.slice(0, 3).map((z) => <li key={z}>{z}</li>)}</ul>
+    </NS.Card></li>); };
+  return (
+    <section className="od-results" data-spec-id="sec-matches" data-bos-level="section" data-bos-section="S04" data-bos-type="list" aria-label="Matches">
+      <div><div className="od-over">Step {M.visible(S, c).length} of {M.visible(S, c).length} · Matches</div>
+        <h2 className="od-h">Their matches</h2>
+        <p className="od-sub-p">{n(r.groups.VERIFIED_AVAILABLE.length)} verified units, {n(r.groups.VERIFIED_L_STOCK_EXAMPLE.length)} floorplan examples, {n(r.groups.PROBABLE_NEEDS_VERIFICATION.length)} that need verification. Scored by engine {E.SCORING_VERSION} on snapshot {snap.meta.inventorySnapshotId}.</p></div>
+      {zero && (
+        <div className="od-recovery" data-spec-id="sec-zero-result-recovery" aria-label="No matches">
+          <Notice tone="warning" title="No units match every answer." specId="info-zero-results">The limiting combination is {E.limitingCombination(c.session, snap) || 'the current answers'}. Two changes that bring units back:</Notice>
+          <ul className="od-rec-list">{recovery.map((a) => { const step = M.GATE_STEP[a.key.split('+')[0]] || 'type'; const sc = M.SCREENS.find((s) => s.id === step); return (
+            <li key={a.key} data-spec-id={`info-recovery#${a.key.split('+')[0].toLowerCase()}`}><div><b>{a.label}</b><small>Brings back {n(a.unlocked)} units ({n(a.verified)} verified){a.qualifier ? `. ${a.qualifier}` : ''}</small></div>
+              <NS.Button theme="light" variant="secondary" specId={`btn-action-change-step#${a.key.split('+')[0].toLowerCase()}`} onClick={() => onGo(step)}>Change {M.txt(sc.nav, S)}</NS.Button></li>); })}</ul>
+        </div>
+      )}
+      {!zero && <>
+        <h3 className="od-lbl">Verified · top 6</h3>
+        {top('VERIFIED_AVAILABLE').length ? <ul className="od-matches" data-spec-id="list-matches-verified" data-bos-level="layer" data-bos-layer="L01">{top('VERIFIED_AVAILABLE').map((x) => card(x, false))}</ul> : <Notice tone="neutral" specId="info-no-verified">No verified units. Loosen a required card or the budget.</Notice>}
+        <h3 className="od-lbl">Needs verification · top 6</h3>
+        {top('PROBABLE_NEEDS_VERIFICATION').length ? <ul className="od-matches" data-spec-id="list-matches-probable" data-bos-level="layer" data-bos-layer="L02">{top('PROBABLE_NEEDS_VERIFICATION').map((x) => card(x, true))}</ul> : <Notice tone="neutral" specId="info-no-probable">None.</Notice>}
+      </>}
+    </section>
+  );
+}
+
+function Skeleton() {
+  return (
+    <div className="od-skel" role="status" aria-label="Loading the inventory snapshot" data-spec-id="info-loading-snapshot">
+      <div className="b" style={{ height: 20, width: 220 }} /><div className="b" style={{ height: 52, width: '70%' }} /><div className="b" style={{ height: 18, width: '50%' }} />
+      <div className="od-tiles two">{[0, 1].map((i) => <div key={i} className="b" style={{ aspectRatio: '1.6 / 1' }} />)}</div>
+      <p style={{ margin: 0, fontSize: 15, color: 'var(--text-light-secondary)' }}>Loading 6,881 units from the inventory snapshot…</p>
+    </div>
+  );
+}
+
+function DiscoveryApp({ initial = {}, role = 'outfitter' }) {
+  const [snap, setSnap] = React.useState(initial.loading || initial.error ? null : window.BISH_SNAPSHOT || null);
+  const [err, setErr] = React.useState(initial.error ? 'Network error' : null);
+  // Answers are saved to the customer's case (Q-OD-6). Prototype: localStorage stands in for POST /cases/{id}/discovery.
+  const SAVE_KEY = 'od-case-discovery';
+  const saved = initial.persist ? (() => { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); } catch (e) { return null; } })() : null;
+  const [S, setS] = React.useState(() => Object.assign({}, window.OD.INITIAL, (saved && saved.answers) || initial.answers || {}));
+  const [curId, setCurId] = React.useState((saved && saved.step) || initial.step || 'path');
+  React.useEffect(() => { if (initial.persist) try { localStorage.setItem(SAVE_KEY, JSON.stringify({ answers: S, step: curId })); } catch (e) {} }, [S, curId]);
+  const [detail, setDetail] = React.useState(null);
+  const load = React.useCallback(() => { setErr(null); window.OD.loadSnapshot().then(setSnap, (e) => setErr(String(e.message || e))); }, []);
+  React.useEffect(() => { if (!snap && !initial.loading && !initial.error) load(); }, []);
+  const scroller = React.useRef(null);
+  const goTo = (id) => { setCurId(id); setDetail(null); const el = scroller.current && scroller.current.closest('[data-shell-scroll]'); if (el) el.scrollTop = 0; };
+  const shell = (body, phaseLabel) => (
+    <div className="od-app" data-bos-role={role} style={{ height: '100%', width: '100%', position: 'relative' }}>
+      <NS.AppShell role={role === 'receptionist' ? 'receptionist' : role} activeId="customers" currentPhase="discovery" theme="light" height="100%" logoSrc={window.OD_RES("../../assets/logo-bishs-os.png")} logoSrcDark={window.OD_RES("../../assets/logo-bishs-os-white.png")}>
+        <main ref={scroller} className="od" data-spec-id="frame-outfitter-discovery" data-bos-level="frame" aria-label="Outfitter Discovery">
+          <NS.Header theme="light" specId="sec-discovery-header" logoSrc={window.OD_RES("../../assets/logo-tag-black-gold.png")} eyebrow="Customers · Discovery" title="Discovery" titleAccent="configurator" meta={snap ? [['Snapshot', snap.meta.inventorySnapshotId], ['Inventory date', snap.meta.sourceDate]] : [['Snapshot', phaseLabel || 'Loading']]} />
+          {body}
+        </main>
+      </NS.AppShell>
+    </div>
+  );
+  if (!canRun(role)) return shell(<div className="od-pad"><Notice tone="neutral" title="Discovery is run by the outfitter." specId="info-no-permission">Your role can’t open the configurator. Ask the outfitter on this case, or a sales manager, to run it with the customer.</Notice></div>, 'No access');
+  if (err) return shell(<div className="od-pad"><Notice tone="danger" title="The inventory snapshot didn’t load." specId="info-snapshot-error">Check the connection, then try again. Answers so far are kept.</Notice><div><NS.Button theme="light" variant="secondary" specId="btn-action-retry-snapshot" onClick={load}>Try again</NS.Button></div></div>, 'Not loaded');
+  if (!snap) return shell(<div className="od-pad"><Skeleton /></div>);
+  if (!NS.ChoiceTile) return shell(<div className="od-pad"><Notice tone="info" title="The design system is updating." specId="info-bundle-updating">ChoiceTile was just added to the shared components. Reload this page in a moment.</Notice></div>, 'Updating');
+  const M = window.OD.getModel(snap);
+  const c = M.compute(S);
+  const screen = M.SCREENS.find((s) => s.id === curId) || M.SCREENS[0];
+  const vis = M.visible(S, c);
+  const pos = Math.max(1, vis.indexOf(screen) + 1);
+  const idx = vis.indexOf(screen);
+  const next = vis[idx + 1], prev = vis[idx - 1];
+  const isLastQ = next && next.results;
+  const opts = screen.results ? [] : (screen.multi ? c.multiOpts(screen.multi) : screen.single(S, c));
+  return shell(
+    <>
+      <section className="od-stats" data-spec-id="sec-units-in-play" data-bos-level="section" data-bos-section="S02" data-bos-type="status" aria-label="Units in play" aria-live="polite">
+        <NS.StatTile theme="light" specId="metric-units-in-play" label="Units in play" value={M.n(c.pool.length)} />
+        <NS.StatTile theme="light" specId="metric-units-verified" label="Verified" value={M.n(c.cand.verified.length)} />
+        <NS.StatTile theme="light" specId="metric-units-need-verification" label="Need verification" value={M.n(c.cand.probable.length)} />
+      </section>
+      <StepRail M={M} S={S} c={c} cur={screen} onGo={goTo} />
+      <div className={`od-body${screen.results ? ' full' : ''}`} data-bos-level="section" data-bos-section="S04" data-bos-type="content" data-spec-id={`sec-step#${screen.id}`}>
+        {screen.results ? <Results M={M} S={S} c={c} onGo={goTo} /> : <>
+          <Question M={M} S={S} setS={setS} c={c} screen={screen} pos={pos} total={vis.length} detail={detail} setDetail={setDetail} />
+          <Detail M={M} screen={screen} detail={detail} opts={opts} S={S} />
+        </>}
+      </div>
+      <div className="od-actions" data-spec-id="sec-action-bar" data-bos-level="section" data-bos-section="S99" data-bos-type="action">
+        {prev ? <NS.Button theme="light" variant="ghost" specId="btn-action-back" onClick={() => goTo(prev.id)}>← Back</NS.Button> : <span />}
+        {screen.results
+          ? <NS.Button theme="light" variant="secondary" specId="btn-action-start-over" onClick={() => { setS(Object.assign({}, window.OD.INITIAL)); goTo('path'); }}>Start over</NS.Button>
+          : <NS.Button theme="light" variant="primary" specId="btn-commit-continue" disabled={screen.ok && !screen.ok(S)} onClick={() => next && goTo(next.id)}>{isLastQ ? 'See matches →' : 'Continue →'}</NS.Button>}
+      </div>
+    </>
+  );
+}
+
+// Prototype states (one per artboard). Seeds are answer sets, not invented data.
+const TOW_FAMILY = { path: 'TOW', type: 'TT', budget: 'finance', payment: '520', down: '5000', tier: 'good', store: '', tow: 'yes', towRating: '8500', adults: 2, children: 2, childSetup: 'must', bedroom: 'prefer' };
+const STATES = [
+  { id: 'loading', label: 'Loading snapshot', initial: { loading: true } },
+  { id: 'path', label: 'Path · live walkthrough (saves to case)', key: true, initial: { persist: true } },
+  { id: 'type-tow', label: 'Type · towable', initial: { step: 'type', answers: { path: 'TOW' } } },
+  { id: 'type-motor', label: 'Class · motorhome', initial: { step: 'type', answers: { path: 'MOTOR' } } },
+  { id: 'budget-cash', label: 'Budget · cash', initial: { step: 'budget', answers: { path: 'TOW', type: 'TT', budget: 'cash', maxSpend: '45000' } } },
+  { id: 'budget-finance', label: 'Budget · monthly payment', key: true, initial: { step: 'budget', answers: { path: 'TOW', type: 'TT', budget: 'finance', payment: '520', down: '5000', store: 'AUT' } } },
+  { id: 'tow', label: 'Towing · tow rating', initial: { step: 'tow', answers: Object.assign({}, TOW_FAMILY, { childSetup: null, bedroom: null, children: 0 }) } },
+  { id: 'sleep', label: 'Sleeping · family', key: true, initial: { step: 'sleep', answers: Object.assign({}, TOW_FAMILY, { bedroom: null }) } },
+  { id: 'sleep-motor', label: 'Sleeping · motorhome data gap', initial: { step: 'sleep', answers: { path: 'MOTOR', motor: 'ANY', budget: 'skip', adults: 2, children: 1 } } },
+  { id: 'bedroom', label: 'Bedroom privacy', initial: { step: 'bedroom', answers: TOW_FAMILY } },
+  { id: 'length', label: 'Length · hard limit', initial: { step: 'length', answers: Object.assign({}, TOW_FAMILY, { lengthMode: 'hard', lengthFt: '32' }) } },
+  { id: 'garage', label: 'Garage · toy hauler', initial: { step: 'garage', answers: { path: 'TOW', type: 'TTTH', budget: 'skip', tow: 'no', garageFt: '12' } } },
+  { id: 'bath', label: 'Bathroom · required card', key: true, initial: { step: 'bath', answers: Object.assign({}, TOW_FAMILY, { bath: ['bigger', 'two'], bathMust: ['two'] }) } },
+  { id: 'inside', label: 'Inside', initial: { step: 'inside', answers: Object.assign({}, TOW_FAMILY, { inside: ['cook', 'bedslide'] }) } },
+  { id: 'outside', label: 'Outside', initial: { step: 'outside', answers: Object.assign({}, TOW_FAMILY, { outside: ['cookout'] }) } },
+  { id: 'size', label: 'Size & build', initial: { step: 'size', answers: Object.assign({}, TOW_FAMILY, { size: 'space', build: 'laminate' }) } },
+  { id: 'results', label: 'Matches', key: true, initial: { step: 'results', answers: Object.assign({}, TOW_FAMILY, { inside: ['cook'], size: 'space' }) } },
+  { id: 'zero', label: 'Matches · zero results', initial: { step: 'results', answers: { path: 'TOW', type: 'TC', budget: 'cash', maxSpend: '9000', tow: 'yes', towRating: '1500', adults: 4, children: 2, childSetup: 'must' } } },
+  { id: 'error', label: 'Snapshot failed to load', initial: { error: true } },
+  { id: 'no-access', label: 'No access · receptionist', role: 'receptionist', initial: {} },
+];
+window.ODApp = DiscoveryApp; window.OD_STATES = STATES; window.OD_ROLES = ROLES;
+})();

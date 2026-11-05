@@ -1,0 +1,174 @@
+// Floor Workspace — New customer check-in (Module 05), converted from the original 4-step modal:
+// Lookup → Match → Assign → Sent. One COMMIT per step (label changes), Back is an ACTION.
+(function () {
+const FW = window.FW, { Icon, OUTFITTER_BY_ID } = FW;
+const { Avatar, slug } = window.FWScreen;
+const COLOR_HEX = { white: '#FFFFFF', red: '#D7263D', orange: '#F08A24', yellow: '#F2C94C', green: '#2F9E44', blue: '#1864AB', purple: '#6741D9', pink: '#E64980', tan: '#D2B48C', brown: '#7A4E2D', gray: '#868E96', black: '#0A0A09' };
+// Clothing pictograms are domain illustrations carried over from the original (not UI icons).
+const WEAR_PATH = { hat: ['M4 17h16', 'M7 17c0-4 2-8 5-8s5 4 5 8', 'M9 11l-2-2', 'M15 11l2-2'], hoodie: ['M4 11l3-3a4 4 0 0 1 3-1h4a4 4 0 0 1 3 1l3 3-2 2v7H6v-7l-2-2z', 'M10 7c0 2 1 3 2 3s2-1 2-3'], shirt: ['M5 8l4-3h6l4 3-2 3v9H7v-9L5 8z', 'M9 5c0 2 1 3 3 3s3-1 3-3'], pants: ['M6 4h12l-1 16h-4l-1-9-1 9H7L6 4z'], dress: ['M9 4h6l1 6 3 10H5l3-10 1-6z', 'M9 4l3 4 3-4'], skirt: ['M7 8h10l3 12H4l3-12z', 'M9 8c0-1 1-2 3-2s3 1 3 2'] };
+const Wear = ({ item, color }) => <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke={color || 'currentColor'} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{WEAR_PATH[item].map((d) => <path key={d} d={d} />)}</svg>;
+const G = (id, a, b) => <linearGradient id={id} x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor={a} /><stop offset="100%" stopColor={b} /></linearGradient>;
+const ART = {
+  single: <svg viewBox="0 0 96 80" width="96" height="80" aria-hidden="true"><defs>{G('ciA', '#3B5C5F', '#1F3636')}</defs><ellipse cx="48" cy="74" rx="34" ry="3" fill="rgba(0,0,0,.1)" /><circle cx="48" cy="22" r="11" fill="#E8C88B" /><path d="M48 36c-12 0-20 9-20 20v14h40V56c0-11-8-20-20-20z" fill="url(#ciA)" /><rect x="42" y="44" width="12" height="6" rx="2" fill="#8B752E" /></svg>,
+  couple: <svg viewBox="0 0 96 80" width="96" height="80" aria-hidden="true"><defs>{G('ciB', '#3B5C5F', '#1F3636')}{G('ciC', '#A0252B', '#6E1A1F')}</defs><ellipse cx="48" cy="74" rx="40" ry="3" fill="rgba(0,0,0,.1)" /><circle cx="32" cy="22" r="10" fill="#E8C88B" /><path d="M32 35c-11 0-18 8-18 18v17h36V53c0-10-7-18-18-18z" fill="url(#ciB)" /><circle cx="64" cy="22" r="10" fill="#F5D6A3" /><path d="M64 35c-11 0-18 8-18 18v17h36V53c0-10-7-18-18-18z" fill="url(#ciC)" /><path d="M44 50h8v6h-8z" fill="#FFCB66" /></svg>,
+  family: <svg viewBox="0 0 120 80" width="120" height="80" aria-hidden="true"><defs>{G('ciD', '#3B5C5F', '#1F3636')}{G('ciE', '#A0252B', '#6E1A1F')}{G('ciF', '#C8A65A', '#8B752E')}</defs><ellipse cx="60" cy="74" rx="52" ry="3" fill="rgba(0,0,0,.1)" /><circle cx="26" cy="22" r="9" fill="#E8C88B" /><path d="M26 33c-9 0-15 7-15 16v17h30V49c0-9-6-16-15-16z" fill="url(#ciD)" /><circle cx="94" cy="22" r="9" fill="#F5D6A3" /><path d="M94 33c-9 0-15 7-15 16v17h30V49c0-9-6-16-15-16z" fill="url(#ciE)" /><circle cx="48" cy="38" r="6" fill="#F1CFA0" /><path d="M48 46c-6 0-10 5-10 11v9h20v-9c0-6-4-11-10-11z" fill="url(#ciF)" /><circle cx="72" cy="40" r="5" fill="#FFE0B6" /><path d="M72 47c-5 0-9 4-9 10v9h18v-9c0-6-4-10-9-10z" fill="#5A3D14" /></svg>,
+};
+const Lbl = ({ children, req }) => <div className="fw-ci-lbl">{children}{req && <span style={{ color: 'var(--semantic-danger-dark)', letterSpacing: 0.5 }}> · required</span>}</div>;
+const Check = () => <span className="fw-tile-check" aria-hidden="true"><Icon name="check" size={14} stroke={3} /></span>;
+
+function OutfitPicker({ who, outfit, onChange }) {
+  const [active, setActive] = React.useState(null);
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+      {who && <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--text-light-secondary)' }}>{who}</div>}
+      <div className="fw-wear" role="group" aria-label={`${who || 'Buyer'} clothing`}>
+        {FW.WEAR.map((it) => <button key={it} type="button" aria-pressed={active === it} aria-label={`${it}${outfit[it] ? `, ${outfit[it]}` : ''}`} data-spec-id={`input-wear#${slug(who || 'buyer-01')}-${it}`} onClick={() => setActive(active === it ? null : it)}><Wear item={it} color={outfit[it] && outfit[it] !== 'white' ? COLOR_HEX[outfit[it]] : undefined} /></button>)}
+      </div>
+      {active && (
+        <div className="fw-swatches" role="radiogroup" aria-label={`${active} color`}>
+          {Object.keys(COLOR_HEX).map((c) => <button key={c} type="button" role="radio" aria-checked={outfit[active] === c} aria-label={`${c} ${active}`} data-spec-id={`input-wear-color#${slug(who || 'buyer-01')}-${active}-${c}`} style={{ background: COLOR_HEX[c] }} onClick={() => { const n = { ...outfit }; if (n[active] === c) delete n[active]; else n[active] = c; onChange(n); }} />)}
+        </div>
+      )}
+    </div>
+  );
+}
+const describe = (party, a, b) => { const f = (o) => FW.WEAR.filter((k) => o[k]).map((k) => `${o[k]} ${k}`); const l = [...f(a), ...(party === 'single' ? [] : f(b))]; return l.length ? `${party === 'single' ? 'Person' : party === 'couple' ? 'Two people' : 'Family'} with a ${l.join(', ')}.` : ''; };
+
+function CheckIn({ rotation, phone, onClose, onSubmit, initialStep = 0, seed = {} }) {
+  const [step, setStep] = React.useState(initialStep);
+  const [tel, setTel] = React.useState(seed.tel || '');
+  const [alt, setAlt] = React.useState(false);
+  const [email, setEmail] = React.useState('');
+  const [matches, setMatches] = React.useState(seed.matches || []);
+  const [picked, setPicked] = React.useState(seed.picked || []);
+  const [party, setParty] = React.useState(seed.party || '');
+  const [b1, setB1] = React.useState(seed.b1 || { f: '', l: '' });
+  const [b2, setB2] = React.useState({ f: '', l: '' });
+  const [o1, setO1] = React.useState({}); const [o2, setO2] = React.useState({});
+  const [unit, setUnit] = React.useState(seed.unit || '');
+  const [notes, setNotes] = React.useState('');
+  const up = rotation.find((r) => r.state === 'up_now');
+  const [out, setOut] = React.useState(seed.out || (up && up.outfitter));
+  const [reason, setReason] = React.useState('');
+  const pool = rotation.filter((r) => r.state !== 'benched').slice(0, 6);
+  const over = out && up && out !== up.outfitter;
+  const walkin = (p) => { const w = { id: 'walkin', name: 'Walk-in (no record)', phone: p || '—', walk: true }; setMatches([w]); setPicked([w]); setB1({ f: '', l: '' }); setStep(2); };
+  const lookup = () => { setMatches(FW.MATCHES[tel.replace(/\D/g, '')] || []); setPicked([]); setStep(1); };
+  const confirm = () => { const sp = (n) => { const p = n.split(' '); return { f: p.slice(0, -1).join(' '), l: p[p.length - 1] }; }; setB1(sp(picked[0].name)); if (picked[1]) { setB2(sp(picked[1].name)); setParty(party || 'couple'); } else setParty(party || 'single'); if (picked[0].owner) setOut(picked[0].owner); setStep(2); };
+  const name = picked.length === 2 && b1.l && b1.l === b2.l ? `${b1.l}s` : `${b1.f} ${b1.l}`.trim() || 'Walk-in';
+  const send = () => { onSubmit({ customer: name, type: party, interest: (FW.UNIT_TILES.find((u) => u.id === unit) || {}).label || '—', outfitter: out }); setStep(3); };
+  const valid = [tel.replace(/\D/g, '').length >= 4, picked.length > 0, !!(out && party && unit && (!over || reason)), true][step];
+  const commit = [lookup, confirm, send, onClose][step];
+  const commitLabel = ['Look up', 'Continue', 'Send customer link', 'Done'][step];
+  const sub = ['Look up by phone number. Email fallback below. Try (208) 809-0782.', matches.length ? `${matches.length} result${matches.length === 1 ? '' : 's'}. Pick the buyer, and optionally the co-buyer.` : 'No customer record matches that phone number.', 'Confirm the assigned outfitter and send the welcome link.', `Welcome link sent. ${out ? OUTFITTER_BY_ID[out].name : 'The outfitter'} is on the way.`][step];
+  const p0 = picked[0];
+  React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') onClose(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, [onClose]);
+  return (
+    <div data-spec-id="frame-check-in" data-bos-level="frame" role="dialog" aria-modal="true" aria-label="New customer check-in" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{ position: 'absolute', inset: 0, zIndex: 90, background: 'rgba(2,0,0,0.55)', display: 'flex', alignItems: phone ? 'flex-end' : 'center', justifyContent: 'center', padding: phone ? 0 : 16, boxSizing: 'border-box' }}>
+      <div className="fw-ci" style={phone ? { borderRadius: '16px 16px 0 0', maxHeight: '94%' } : null}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '20px 16px 14px 24px' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontFamily: 'var(--font-ui)', fontSize: 12, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase', color: 'var(--accent-olive)' }}>Module 05 · Reception check-in</div>
+            <h2 style={{ margin: '6px 0 0', fontFamily: 'var(--font-display)', fontWeight: 400, fontSize: 'clamp(28px, 5cqi, 36px)', letterSpacing: 0.5, lineHeight: 1, color: 'var(--text-light-primary)' }}>{step === 3 ? 'Sent.' : 'New customer check-in'}</h2>
+            <p style={{ margin: '8px 0 0', fontSize: 15, color: 'var(--text-light-secondary)' }}>{sub}</p>
+          </div>
+          <button type="button" data-spec-id="btn-action-close#check-in" data-bos-class="action" aria-label="Close" onClick={onClose} className="fw-icon-btn"><Icon name="x" size={20} /></button>
+        </div>
+        <ol className="fw-ci-steps" aria-label="Steps">
+          {['Lookup', 'Match', 'Assign', 'Sent'].map((s, i) => <li key={s} aria-current={i === step ? 'step' : undefined} className={i < step ? 'done' : ''}><span className="fw-ci-num">{i < step ? <Icon name="check" size={13} stroke={3} /> : i + 1}</span><span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{s}</span></li>)}
+        </ol>
+        <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 14, color: 'var(--text-light-secondary)' }}>
+          {step === 0 && (<>
+            <Lbl req>Phone number</Lbl>
+            <input data-spec-id="input-lookup-phone" type="tel" autoFocus value={tel} onChange={(e) => setTel(e.target.value)} placeholder="(208) 555-0148" aria-label="Phone number" className="fw-input" style={{ fontSize: 22, minHeight: 56, fontFamily: 'var(--font-mono)' }} />
+            <button type="button" data-spec-id="btn-action-alternate-lookups" data-bos-class="action" aria-expanded={alt} onClick={() => setAlt(!alt)} className="fw-btn fw-btn--quiet fw-btn--sm" style={{ alignSelf: 'flex-start' }}><Icon name={alt ? 'chevron-down' : 'chevron-right'} size={16} />Alternate look-ups</button>
+            {alt && (<div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <Lbl>Email</Lbl>
+              <input data-spec-id="input-lookup-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="customer@example.com" aria-label="Email" className="fw-input" />
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 14 }}>Or skip the lookup:<button type="button" data-spec-id="btn-action-create-walk-in" data-bos-class="action" onClick={() => walkin(tel)} className="fw-btn fw-btn--quiet fw-btn--sm">Create a walk-in profile</button></div>
+            </div>)}
+          </>)}
+          {step === 1 && (matches.length ? (
+            <div role="group" aria-label="Matches" style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ fontSize: 14 }}>Pick the buyer, and optionally the co-buyer. <b style={{ color: 'var(--text-light-primary)' }}>{picked.length} of 2</b> selected.</div>
+              {matches.map((m) => { const i = picked.findIndex((p) => p.id === m.id); return (
+                <button key={m.id} type="button" role="checkbox" aria-checked={i >= 0} data-spec-id={`input-match#${m.id}`} onClick={() => setPicked(i >= 0 ? picked.filter((p) => p.id !== m.id) : picked.length >= 2 ? [picked[0], m] : [...picked, m])} className="fw-match">
+                  <span className="fw-av" aria-hidden="true" style={{ width: 40, height: 40, flex: '0 0 40px', fontSize: 13 }}>{FW.initials(m.name)}</span>
+                  <span style={{ flex: 1, minWidth: 0 }}><span style={{ display: 'flex', gap: 8, alignItems: 'center', fontFamily: 'var(--font-body)', fontSize: 16, fontWeight: 700 }}>{m.name}{i >= 0 && <span className="fw-own manager">{i === 0 ? 'Buyer' : 'Co-buyer'}</span>}</span><span style={{ display: 'block', fontSize: 13, color: 'var(--text-light-tertiary)' }}>{m.phone} · {m.city} · AF score {m.score}</span></span>
+                  {i >= 0 && <Icon name="check" size={20} stroke={2.5} />}
+                </button>); })}
+            </div>
+          ) : (
+            <div role="status" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '24px 12px', textAlign: 'center' }}>
+              <Icon name="triangle-alert" size={28} />
+              <div style={{ fontFamily: 'var(--font-display)', fontSize: 26, color: 'var(--text-light-primary)' }}>No match found</div>
+              <div style={{ fontSize: 14 }}>Try the email look-up on the previous step, or create a walk-in profile now.</div>
+              <button type="button" data-spec-id="btn-action-create-walk-in-profile" data-bos-class="action" onClick={() => walkin(tel)} className="fw-btn fw-btn--action"><Icon name="plus" size={16} />Create walk-in profile</button>
+            </div>
+          ))}
+          {step === 2 && p0 && (<>
+            <div data-spec-id="info-check-in-customer" style={{ display: 'flex', alignItems: 'center', gap: 16, padding: 16, borderRadius: 12, background: 'var(--surface-light-inset)' }}>
+              <span className="fw-av" aria-hidden="true" style={{ width: 56, height: 56, flex: '0 0 56px', fontSize: 16 }}>{FW.initials(p0.name)}</span>
+              <span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 18, fontWeight: 700, textTransform: 'uppercase', color: 'var(--text-light-primary)' }}>{picked.length === 2 ? `${p0.name} & ${picked[1].name.split(' ')[0]}` : p0.name}</span><span style={{ fontSize: 13, color: 'var(--text-light-tertiary)' }}>{p0.phone}</span></span>
+            </div>
+            <Lbl req>Who’s here today?</Lbl>
+            <div className="fw-tiles party" role="radiogroup" aria-label="Party">
+              {FW.PARTY_TYPES.map((p) => <button key={p.id} type="button" role="radio" aria-checked={party === p.id} data-spec-id={`input-party#${p.id}`} onClick={() => setParty(p.id)} className="fw-tile"><span className="fw-tile-art">{ART[p.id]}</span><span className="fw-tile-l">{p.label}</span><span className="fw-tile-d">{p.sub}</span>{party === p.id && <Check />}</button>)}
+            </div>
+            {party && (<>
+              <Lbl req>Buyer 01</Lbl>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10 }}>
+                <input data-spec-id="input-buyer-first-name" value={b1.f} onChange={(e) => setB1({ ...b1, f: e.target.value })} placeholder="First name" aria-label="Buyer first name" className="fw-input" />
+                <input data-spec-id="input-buyer-last-name" value={b1.l} onChange={(e) => setB1({ ...b1, l: e.target.value })} placeholder="Last name" aria-label="Buyer last name" className="fw-input" />
+              </div>
+              {party !== 'single' && (<><Lbl>Buyer 02</Lbl>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 10 }}>
+                  <input data-spec-id="input-cobuyer-first-name" value={b2.f} onChange={(e) => setB2({ ...b2, f: e.target.value })} placeholder="First name" aria-label="Co-buyer first name" className="fw-input" />
+                  <input data-spec-id="input-cobuyer-last-name" value={b2.l} onChange={(e) => setB2({ ...b2, l: e.target.value })} placeholder="Last name" aria-label="Co-buyer last name" className="fw-input" />
+                </div></>)}
+              <Lbl>What are they wearing?</Lbl>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 14 }}>
+                <OutfitPicker who={party === 'single' ? null : 'Buyer 01'} outfit={o1} onChange={setO1} />
+                {party !== 'single' && <OutfitPicker who="Buyer 02" outfit={o2} onChange={setO2} />}
+              </div>
+              {describe(party, o1, o2) && <div data-spec-id="info-outfit-description" style={{ fontSize: 14, fontStyle: 'italic' }}>{describe(party, o1, o2)}</div>}
+            </>)}
+            <Lbl req>What type of unit are they here to look at?</Lbl>
+            <div className="fw-tiles units" role="radiogroup" aria-label="Unit type">
+              {FW.UNIT_TILES.map((u) => <button key={u.id} type="button" role="radio" aria-checked={unit === u.id} data-spec-id={`input-unit-type#${u.id}`} onClick={() => setUnit(u.id)} className="fw-tile"><img src={u.img} alt="" draggable="false" /><span className="fw-tile-l" style={{ fontSize: 13 }}>{u.label}</span>{unit === u.id && <Check />}</button>)}
+            </div>
+            <Lbl>Notes</Lbl>
+            <textarea data-spec-id="input-check-in-notes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="Add notes that follow the customer card: preferences, hot buttons, kids in the car" aria-label="Notes" className="fw-input" style={{ resize: 'vertical' }} />
+            <Lbl req>Assigned outfitter</Lbl>
+            <div className="fw-tiles outs" role="radiogroup" aria-label="Outfitter">
+              {pool.map((r, i) => { const o = OUTFITTER_BY_ID[r.outfitter]; const isUp = r.state === 'up_now'; return (
+                <button key={r.outfitter} type="button" role="radio" aria-checked={out === r.outfitter} data-spec-id={`input-outfitter#${r.outfitter}`} onClick={() => { setOut(r.outfitter); setReason(''); }} className={`fw-tile${isUp ? ' is-up' : ''}`}>
+                  <Avatar o={o} size={40} /><span className="fw-tile-l">{o.name}</span><span className="fw-tile-d" style={{ textTransform: 'uppercase', letterSpacing: 1, fontFamily: 'var(--font-ui)', fontWeight: 700 }}>{isUp ? 'Up now' : i === 1 ? 'On deck' : FW.REP_STATE[r.state].label}</span>{out === r.outfitter && <Check />}
+                </button>); })}
+            </div>
+            {over && (<div role="group" aria-label="Override reason" style={{ display: 'flex', flexDirection: 'column', gap: 8, padding: 14, borderRadius: 10, background: 'var(--semantic-warning-light)' }}>
+              <div style={{ fontWeight: 700, color: '#7A4C00' }}>{OUTFITTER_BY_ID[up.outfitter].first} is up now. Pick a reason for skipping the rotation. It goes in the audit log.</div>
+              <div role="radiogroup" aria-label="Override reason" style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>{FW.OVERRIDE_REASONS.map((x) => <window.BishSRVDesignSystem_26feec.ChoiceChip key={x} size="md" label={x} selected={reason === x} specId={`input-override-reason#${slug(x)}`} onClick={() => setReason(x)} />)}</div>
+            </div>)}
+          </>)}
+          {step === 3 && (
+            <div data-spec-id="info-check-in-sent" role="status" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, padding: '24px 12px', textAlign: 'center', fontSize: 15 }}>
+              <span style={{ width: 56, height: 56, borderRadius: '50%', display: 'grid', placeItems: 'center', background: 'var(--semantic-success-dark)', color: 'var(--brand-white)' }}><Icon name="check" size={28} stroke={3} /></span>
+              <div>Welcome link sent to <b style={{ color: 'var(--text-light-primary)' }}>{p0 ? p0.phone : 'the buyer'}</b></div>
+              <div>Outfitter notification queued to <b style={{ color: 'var(--text-light-primary)' }}>{out ? OUTFITTER_BY_ID[out].name : '—'}</b></div>
+              {over && reason && <div>Override reason logged: {reason}.</div>}
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 10, padding: '14px 24px 18px', borderTop: '1px solid var(--border-light)', background: 'var(--surface-light-inset)', flexWrap: 'wrap' }}>
+          {step > 0 && step < 3 && <button type="button" data-spec-id="btn-action-back#check-in" data-bos-class="action" onClick={() => setStep(step - 1)} className="fw-btn fw-btn--quiet"><Icon name="chevron-left" size={16} />Back</button>}
+          {step === 0 && <button type="button" data-spec-id="btn-action-cancel#check-in" data-bos-class="action" onClick={onClose} className="fw-btn fw-btn--quiet">Cancel</button>}
+          <button type="button" data-spec-id="btn-commit-check-in" data-bos-class="commit" disabled={!valid} onClick={commit} className="fw-btn fw-btn--commit" style={{ minWidth: 200, fontFamily: 'var(--font-ui)', fontWeight: 700, letterSpacing: 1.5, textTransform: 'uppercase' }}>{commitLabel}{step < 3 && <Icon name="arrow-right" size={18} />}</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+window.FWOverlays.CheckIn = CheckIn;
+})();

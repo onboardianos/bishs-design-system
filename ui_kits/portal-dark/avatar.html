@@ -1,0 +1,24 @@
+<!-- @dsCard group="Components" viewport="620x200" name="Avatar" subtitle="Contrasts with its surface: ink on light, white on dark · gold = signed-in user only · 28 / 32 / 44px" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>html,body{margin:0;font-family:'Source Sans 3',sans-serif;}.pane{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:22px 28px;}.light{background:#F7F6F1;}.dark{background:#020000;}.tag{width:100%;font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;}.light .tag{color:#6B6B63;}.dark .tag{color:#A2A59C;}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+  var NS=window.BishSRVDesignSystem_26feec||{},e=React.createElement,A=NS.Avatar;
+  function pane(t){return e('div',{key:t,className:'pane '+t},e('div',{className:'tag'},'theme="'+t+'"'),
+    e(A,{theme:t,size:'sm',initials:'SJ',name:'Sarah Jenkins'}),e(A,{theme:t,initials:'MW',name:'Marcus Wright'}),e(A,{theme:t,size:'lg',initials:'TM',name:'Tyler Menzie'}),
+    e(A,{theme:t,tone:'gold',initials:'ZM',name:'Zach McVicker (you)'}));}
+  ReactDOM.createRoot(document.getElementById('root')).render([pane('light'),pane('dark')]);
+})();
+</script>
+</body>
+</html>

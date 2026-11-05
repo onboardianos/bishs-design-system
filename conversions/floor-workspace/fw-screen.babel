@@ -156,57 +156,52 @@ function Schedule({ filter, setFilter, onItem }) {
 }
 
 // ── S12 · Floor traffic board ──────────────────────────────────
-function CaseCard({ c, onOpen }) {
+// Card anatomy = original cust-card-v2: party tile · name/interest · ⋮ | outfitter + avatar | phase clock ▏ total.
+const PARTY_PATH = { couple: 'M5 9a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Zm10 0a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5ZM2 16c0-2 1.5-4 3-4s3 2 3 4v2H2v-2Zm10 0c0-2 1.5-4 3-4s3 2 3 4v2h-6v-2Z', family: 'M5 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4ZM10 9a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3ZM3 17v-3c0-1.5 1-3 2-3s2 1.5 2 3v3H3Zm10 0v-3c0-1.5 1-3 2-3s2 1.5 2 3v3h-4Zm-4 1v-2c0-1 .8-2 1-2s1 1 1 2v2H9Z', single: 'M10 9a3 3 0 1 1 0-6 3 3 0 0 1 0 6Zm-5 9c0-3 2-5 5-5s5 2 5 5v1H5v-1Z' };
+const PartyGlyph = ({ type }) => <svg viewBox="0 0 20 20" width="15" height="15" fill="currentColor" aria-hidden="true"><path d={PARTY_PATH[type] || PARTY_PATH.single} /></svg>;
+
+// Adapter: the shared DS CustomerCard (ui_kits/floor). Published IDs are kept (card-case#id, btn-action-case-menu#id, btn-action-assign#id).
+function CustCard({ c, onOpen, open, specId, flag, meta, cta, onDismiss }) {
   const role = useRole();
-  const canDrag = acts(role, 'case.move');
+  const DS = window.BishSRVDesignSystem_26feec;
+  const canDrag = acts(role, 'case.move') && !flag;
   const o = c.outfitter ? OUTFITTER_BY_ID[c.outfitter] : null;
+  const oName = c.ofName || (o && o.name);
+  const cardEl = (e) => e.currentTarget.closest('[data-bos-level="component"]');
   return (
-    <li style={{ listStyle: 'none' }}>
-      <div data-spec-id={`card-case#${c.id}`} data-bos-level="component" draggable={canDrag} onDragStart={canDrag ? (e) => { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', c.id); } : undefined}
-        style={{ position: 'relative', background: 'var(--surface-light-card)', border: '1px solid var(--border-light)', borderLeft: o ? '1px solid var(--border-light)' : '3px solid var(--semantic-danger-dark)', borderRadius: 10, boxShadow: 'var(--shadow-sm)', padding: 12, display: 'flex', flexDirection: 'column', gap: 10 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <span style={{ width: 34, height: 34, flex: '0 0 34px', borderRadius: 8, background: 'var(--text-light-primary)', color: 'var(--brand-white)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Icon name={PARTY_ICON[c.type]} size={18} /></span>
-          <span style={{ minWidth: 0, flex: 1 }}>
-            <span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 16, fontWeight: 600, color: 'var(--text-light-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{c.customer}</span>
-            <span style={{ display: 'block', fontSize: 12, color: 'var(--text-light-tertiary)' }}>{c.interest}</span>
-          </span>
-          <button type="button" data-spec-id={`btn-action-case-menu#${c.id}`} data-bos-class="action" {...perm(role, 'case.view_detail')} aria-label={`Actions for ${c.customer}`} aria-haspopup="menu" onClick={(e) => onOpen(c, e.currentTarget)} className="fw-icon-btn"><Icon name="ellipsis-vertical" size={18} /></button>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, padding: '8px 0', borderTop: '1px solid var(--border-light)' }}>
-          {o ? (
-            <><span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 600, color: 'var(--text-light-primary)' }}>{o.name}</span><span style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>Assigned outfitter</span></span><Avatar o={o} size={30} /></>
-          ) : (
-            <><span><span style={{ display: 'block', fontFamily: 'var(--font-ui)', fontSize: 14, fontWeight: 700, color: 'var(--semantic-danger-dark)' }}>Unassigned</span><span style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>Awaiting outfitter</span></span>
-              {shows(role, 'case.assign') && <button type="button" data-spec-id={`btn-action-assign#${c.id}`} data-bos-class="action" {...perm(role, 'case.assign')} onClick={(e) => onOpen(c, e.currentTarget, 'assign')} className="fw-btn fw-btn--action fw-btn--sm"><Icon name="user-plus" size={15} />Assign</button>}</>
-          )}
-        </div>
-        <dl style={{ margin: 0, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, padding: '8px 10px', borderRadius: 8, background: 'var(--surface-light-inset)' }}>
-          <div><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>In phase</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-light-primary)' }}>{c.since}</dd></div>
-          <div style={{ textAlign: 'right' }}><dt style={{ fontFamily: 'var(--font-ui)', fontSize: 11, letterSpacing: 1, textTransform: 'uppercase', color: 'var(--text-light-tertiary)' }}>On floor</dt><dd style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 13, fontWeight: 600, color: 'var(--text-light-primary)' }}>{c.total}</dd></div>
-        </dl>
-      </div>
-    </li>
+    <DS.CustomerCard theme="light" instance={c.id} specId={specId || `card-case#${c.id}`}
+      customer={c.customer} interest={c.interest} partyType={c.type} meta={meta}
+      outfitter={oName ? { name: oName, initials: o && o.initials, src: o && o.photo } : null}
+      phaseTime={c.since} totalTime={c.total} selected={open} flag={flag} cta={cta} onDismiss={onDismiss}
+      onOpen={onOpen ? (e) => onOpen(c, cardEl(e) || e.currentTarget) : undefined}
+      onMenu={onOpen ? (e) => onOpen(c, cardEl(e)) : undefined}
+      onAssign={onOpen && shows(role, 'case.assign') ? (e) => onOpen(c, e.currentTarget, 'assign') : undefined}
+      controlProps={{ menu: perm(role, 'case.view_detail'), assign: perm(role, 'case.assign'), cta: flag ? perm(role, 'phase.hub') : undefined }}
+      rootProps={canDrag ? { draggable: true, onDragStart: (e) => { e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', c.id); } } : {}} />
   );
 }
+const CaseCard = ({ c, onOpen, openId }) => <li style={{ listStyle: 'none' }}><CustCard c={c} onOpen={onOpen} open={openId === c.id} /></li>;
 
-function Column({ phase, cards, onOpenCard, onExpand, onDropCard, hideHead }) {
+function Column({ phase, cards, onOpenCard, onExpand, onHub, onDropCard, hideHead, openId }) {
   const role = useRole();
   const canDrop = acts(role, 'case.move');
   const [over, setOver] = React.useState(false);
+  const hubOn = shows(role, 'phase.hub');
   return (
-    <section data-spec-id={`list-phase#${phase.id}`} data-bos-level="layer" aria-label={`${phase.label}, ${cards.length} customers`} className="fw-col"
-      onDragOver={canDrop ? (e) => { e.preventDefault(); setOver(true); } : undefined} onDragLeave={() => setOver(false)} onDrop={canDrop ? (e) => { e.preventDefault(); setOver(false); onDropCard(e.dataTransfer.getData('text/plain'), phase.id); } : undefined}
-      style={{ display: 'flex', flexDirection: 'column', minWidth: 0, minHeight: 0, background: over ? 'var(--surface-light-raised)' : 'var(--surface-light-inset)', borderRadius: 10, outline: over ? '2px dashed var(--accent-gold-hi)' : 'none' }}>
+    <section data-spec-id={`list-phase#${phase.id}`} data-bos-level="layer" aria-label={`${phase.label}, ${cards.length} customers`} className={`fw-pcol${over ? ' is-over' : ''}`}
+      onDragOver={canDrop ? (e) => { e.preventDefault(); setOver(true); } : undefined} onDragLeave={() => setOver(false)} onDrop={canDrop ? (e) => { e.preventDefault(); setOver(false); onDropCard(e.dataTransfer.getData('text/plain'), phase.id); } : undefined}>
       {!hideHead && (
-        <header style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 8px 10px 12px', borderBottom: '1px solid var(--border-light)' }}>
-          <span aria-hidden="true" style={{ width: 8, height: 8, borderRadius: 2, transform: 'rotate(45deg)', background: PHASE_TONE[phase.tone] }} />
-          <h3 style={{ margin: 0, flex: 1, fontFamily: 'var(--font-ui)', fontSize: 13, fontWeight: 700, letterSpacing: 2.5, textTransform: 'uppercase', color: 'var(--text-light-primary)' }}>{phase.label}</h3>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, fontWeight: 600, minWidth: 24, textAlign: 'center', padding: '2px 8px', borderRadius: 999, background: 'var(--surface-light-card)', border: '1px solid var(--border-light)', color: 'var(--text-light-primary)' }}>{cards.length}</span>
+        <header className={`fw-pcol-head tone-${phase.tone}`}>
+          <button type="button" data-spec-id={`btn-action-open-phase-hub#${phase.id}`} data-bos-class="action" {...perm(role, 'phase.hub')} disabled={!hubOn} onClick={() => onHub(phase)} className="fw-pcol-title" aria-label={hubOn ? `Open ${phase.label} action hub` : phase.label}>
+            <span className="fw-dia" aria-hidden="true" style={{ background: phase.tone === 'neutral' ? 'var(--accent-gold-hi)' : `var(--semantic-${phase.tone})` }} />
+            <span style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{phase.label}</span>
+            <span className="fw-pcol-count">{cards.length}</span>
+          </button>
           {shows(role, 'phase.stats') && <button type="button" data-spec-id={`btn-action-phase-detail#${phase.id}`} data-bos-class="action" {...perm(role, 'phase.stats')} aria-label={`${phase.label} phase detail`} onClick={() => onExpand(phase)} className="fw-icon-btn"><Icon name="maximize-2" size={16} /></button>}
         </header>
       )}
-      <ul style={{ margin: 0, padding: 10, display: 'flex', flexDirection: 'column', gap: 10, overflowY: 'auto', flex: 1, minHeight: 0 }}>
-        {cards.length ? cards.map((c) => <CaseCard key={c.id} c={c} onOpen={onOpenCard} />) : (
+      <ul className="fw-pcol-body">
+        {cards.length ? cards.map((c) => <CaseCard key={c.id} c={c} onOpen={onOpenCard} openId={openId} />) : (
           <li style={{ listStyle: 'none', padding: '20px 8px', textAlign: 'center', fontSize: 13, color: 'var(--text-light-tertiary)' }}>No customers in {phase.label}</li>
         )}
       </ul>
@@ -214,7 +209,7 @@ function Column({ phase, cards, onOpenCard, onExpand, onDropCard, hideHead }) {
   );
 }
 
-function Board({ cards, mode, phase, setPhase, onOpenCard, onExpand, onDropCard, onCheckIn }) {
+function Board({ cards, mode, phase, setPhase, onOpenCard, onExpand, onHub, onDropCard, onCheckIn, openId }) {
   const role = useRole();
   const byPhase = (id) => cards.filter((c) => c.phase === id);
   const cur = PHASES.find((p) => p.id === phase) || PHASES[0];
@@ -239,16 +234,17 @@ function Board({ cards, mode, phase, setPhase, onOpenCard, onExpand, onDropCard,
           </div>
           <div style={{ flex: 1, minHeight: 0, display: 'flex', padding: 10 }}>
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 6 }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, flexWrap: 'wrap', marginBottom: 6 }}>
+                {shows(role, 'phase.hub') && <button type="button" data-spec-id={`btn-action-open-phase-hub#${cur.id}`} data-bos-class="action" {...perm(role, 'phase.hub')} onClick={() => onHub(cur)} className="fw-btn fw-btn--quiet fw-btn--sm"><Icon name="bell" size={15} />{cur.label} hub</button>}
                 {shows(role, 'phase.stats') && <button type="button" data-spec-id={`btn-action-phase-detail#${cur.id}`} data-bos-class="action" {...perm(role, 'phase.stats')} onClick={() => onExpand(cur)} className="fw-btn fw-btn--quiet fw-btn--sm"><Icon name="chart-column" size={15} />{cur.label} detail</button>}
               </div>
-              <Column phase={cur} cards={byPhase(cur.id)} onOpenCard={onOpenCard} onExpand={onExpand} onDropCard={onDropCard} hideHead />
+              <Column phase={cur} cards={byPhase(cur.id)} onOpenCard={onOpenCard} onExpand={onExpand} onHub={onHub} onDropCard={onDropCard} openId={openId} hideHead />
             </div>
           </div>
         </>
       ) : (
-        <div className="fw-scroll-x" data-spec-id="list-board" style={{ flex: 1, minHeight: 0, display: 'grid', gridAutoFlow: 'column', gridAutoColumns: 'minmax(244px, 1fr)', gap: 10, padding: 12, overflowX: 'auto' }}>
-          {PHASES.map((p) => <Column key={p.id} phase={p} cards={byPhase(p.id)} onOpenCard={onOpenCard} onExpand={onExpand} onDropCard={onDropCard} />)}
+        <div className="fw-scroll-x" data-spec-id="list-board" style={{ flex: 1, minHeight: 0, display: 'grid', gridAutoFlow: 'column', gridAutoColumns: 'minmax(232px, 1fr)', gap: 10, padding: 12, overflowX: 'auto' }}>
+          {PHASES.map((p) => <Column key={p.id} phase={p} cards={byPhase(p.id)} onOpenCard={onOpenCard} onExpand={onExpand} onHub={onHub} onDropCard={onDropCard} openId={openId} />)}
         </div>
       )}
     </section>
@@ -265,5 +261,5 @@ function StatusFooter() {
   );
 }
 
-window.FWScreen = { Avatar, Chip, Rotation, Schedule, Board, StatusFooter, slug, PHASE_TONE, RoleCtx, useRole, perm };
+window.FWScreen = { CustCard, PartyGlyph, Avatar, Chip, Rotation, Schedule, Board, StatusFooter, slug, PHASE_TONE, RoleCtx, useRole, perm };
 })();

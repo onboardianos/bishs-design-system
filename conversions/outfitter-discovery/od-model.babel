@@ -1,0 +1,194 @@
+// Outfitter Discovery — question model. Ported from the source configurator's app script (option catalogue, buildSession,
+// screen list, skip rules, live effect text). The logic is unchanged; it now returns data instead of HTML strings.
+(function () {
+const E = window.Engine;
+const n = (v) => Number(v).toLocaleString('en-US');
+const R = (p) => (window.OD_RES ? window.OD_RES(p) : p);
+const IMG = (k) => R(`images/${k}.jpg`);
+const RV = (k) => R(`images/rv-${k}.png`);
+
+function createModel(snap) {
+  const UNITS = snap.units, I = E.IDS;
+  const present = new Set(snap.meta.shopperClasses || []);
+  const TOWABLE_TILES = [['TT', 'Travel Trailer', RV('travel-trailer')], ['FW', 'Fifth Wheel', RV('fifth-wheel')], ['TTTH', 'TT Toy Hauler', RV('toy-hauler')], ['FWTH', 'FW Toy Hauler', RV('toy-hauler')], ['TC', 'Truck Camper', RV('truck-camper')], ['DT', 'Destination Trailer', RV('destination')], ['HTT', 'Hybrid Trailer', null], ['FD', 'Pop-up / Fold-down', null], ['AT', 'Adventure Trailer', null]].filter((t) => present.has(t[0]));
+  const MOTOR_TILES = [['AG', 'Class A gas'], ['AD', 'Class A diesel'], ['B', 'Class B van'], ['C', 'Class C'], ['CD', 'Class C diesel']].filter((t) => present.has(t[0]));
+  const TOY = ['TTTH', 'FWTH'];
+  const classesNow = (S) => (S.path === 'MOTOR' ? (S.motor && S.motor !== 'ANY' ? [S.motor] : E.MOTORHOME_CLASSES.filter((c) => present.has(c))) : (S.type ? [S.type] : E.TOWABLE_CLASSES.filter((c) => present.has(c))));
+  const isB = (S) => S.path === 'MOTOR' && S.motor === 'B';
+
+  // Option catalogue: every card carries exactly what it writes into the engine (source: O{}).
+  const O = {
+    bunksMust: { id: 'must', title: 'Bunks required', img: IMG('sleeping-bunk-beds'), kind: 'gate', patch: { requiredAnyOf: [E.BUNK_IDS] }, ben: ['Dedicated beds, always made up', 'Removes anything without a bunk layout', 'Strongest family gate in the flow'] },
+    bunksPref: { id: 'prefer', title: 'Prefer bunks, flexible is okay', img: IMG('sitting-booth-dinette'), kind: 'rank', concept: 'child_sleep', ids: E.BUNK_IDS, strength: 'flexible', ben: ['Bunk layouts rank first', 'Nothing is ruled out', 'Best when guests are occasional'] },
+    flex: { id: 'flex', title: 'Flexible sleeping is fine', img: IMG('sleeping-convertible'), kind: 'rank', concept: 'child_sleep', ids: [I.LOFT, I.TWIN_CONV, I.MURPHY, I.DUAL_QUEEN], strength: 'nice', priority: 'sleepFlex', ben: ['Lofts, convertibles and Murphy beds', 'Lighter, cheaper, more living space', 'Extra sleep capacity earns a bonus'] },
+    loft: { id: 'loft', title: 'Cab-over bunk or loft', img: IMG('sleeping-bunk-beds'), kind: 'rank', concept: 'child_sleep', ids: [I.LOFT, I.SINGLE_BUNKS], strength: 'prefer', ben: ['The motorhome answer to bunks', 'Loft over the cab or a drop-down bunk', 'Keeps the floor plan open by day'] },
+    convert: { id: 'convert', title: 'Convertible beds are fine', img: IMG('sleeping-convertible'), kind: 'rank', concept: 'child_sleep', ids: [I.TWIN_CONV, I.DUAL_QUEEN], strength: 'nice', priority: 'sleepFlex', ben: ['Dinette or sofa converts at night', 'Extra sleep capacity earns a bonus', 'Most motorhome layouts qualify'] },
+    pmMust: { id: 'must', title: 'Must have a private bedroom', img: IMG('sleeping-king-bed'), kind: 'gate', patch: { requiredChars: [I.PRIVATE_MASTER] }, ben: ['Door-separated master required', 'Removes anything without one', 'Can thin out compact layouts'] },
+    pmPref: { id: 'prefer', title: 'Prefer a private bedroom', img: IMG('sleeping-queen-bed'), kind: 'rank', concept: 'adult_privacy', ids: [I.PRIVATE_MASTER], strength: 'flexible', avoid: { concept: 'murphy', ids: [I.MURPHY], strength: 'avoid' }, ben: ['Private master ranks first', 'Murphy-bed layouts rank lower', 'Alternatives stay in play'] },
+    openSpace: { id: 'space', title: 'Prefer open daytime space', img: IMG('sitting-jack-knife-sofa'), kind: 'rank', concept: 'adult_privacy', ids: [I.MURPHY, I.REAR_LIVING, I.FRONT_LIVING], strength: 'prefer', ben: ['Murphy beds and open lounges rank higher', 'Bed folds away for the day', 'Common in travel trailers'] },
+    anyBed: { id: 'open', title: 'Open to all options', img: IMG('sleeping-other'), kind: 'open', ben: ['Nothing removed, nothing boosted', 'Lifestyle defaults still apply', 'Fastest path to results'] },
+    bigger: { id: 'bigger', title: 'Bigger, more private bath', img: IMG('bathroom-rear-bathroom'), kind: 'rank', concept: 'bath', ids: [I.REAR_BATH, I.DUAL_VANITY, I.FRONT_BATH], strength: 'prefer', ben: ['Rear or front bath suites, dual vanities', 'Best everyday comfort', 'Separate shower, toilet and vanity'] },
+    two: { id: 'two', title: 'Two bathrooms', img: IMG('bathroom-half-bathroom'), kind: 'rank', concept: 'bath_second', ids: [I.DOUBLE_BATH], strength: 'prefer', must: { requiredChars: [I.DOUBLE_BATH] }, ben: ['Second toilet and vanity', 'Family and group friendly', 'Usually longer and heavier'] },
+    dual: { id: 'dual', title: 'Kids or pets in and out', img: IMG('bathroom-other'), kind: 'rank', concept: 'traffic', ids: [I.DUAL_ENTRY], strength: 'prefer', ben: ['Dual entry doors', 'Campground-day friendly', 'Less traffic through the living area'] },
+    walk: { id: 'walk', title: 'Not a pass-through bath', img: IMG('bathroom-split-bathroom'), kind: 'avoid', concept: 'bath_walkthru', ids: [I.WALK_THRU], strength: 'avoid', ben: ['Walk-through baths rank lower', 'Avoids the bathroom-as-hallway feel', 'Better with more than one person aboard'] },
+    compact: { id: 'compact', title: 'A compact bath is fine', img: IMG('bathroom-wet-bath'), kind: 'rank', concept: 'bath_compact', ids: [I.WETBATH], strength: 'nice', ben: ['Keeps wetbath layouts ranking well', 'Shower and toilet share one enclosure', 'Lighter and shorter units'] },
+    cook: { id: 'cook', title: 'I cook inside often', img: IMG('kitchen-kitchen-island'), kind: 'rank', concept: 'kitchen', ids: [I.ISLAND_KITCHEN, I.U_KITCHEN, I.L_KITCHEN, I.FRONT_KITCHEN], strength: 'prefer', ben: ['Island, U, L and front kitchens', 'Real counter and prep space', 'Residential kitchen feel'] },
+    living: { id: 'living', title: 'An open living room', img: IMG('sitting-tri-fold-sofa'), kind: 'rank', concept: 'living', ids: [I.REAR_LIVING, I.FRONT_LIVING, I.FRONT_CAP_WINDOW], strength: 'prefer', ben: ['Rear or front living rooms', 'Big windows and light', 'Social lounge feel'] },
+    bedslide: { id: 'bedslide', title: 'Walk-around bedroom', img: IMG('sleeping-queen-bed'), kind: 'rank', concept: 'slide_bed', ids: [I.BED_SLIDE], strength: 'prefer', ben: ['Bed slide opens the bedroom', 'Make the bed from both sides', 'One of the strongest splitters in stock'] },
+    murphy: { id: 'murphy', title: 'Fold-away bed for daytime space', img: IMG('sitting-jack-knife-sofa'), kind: 'rank', concept: 'murphy', ids: [I.MURPHY], strength: 'prefer', ben: ['Murphy bed folds into the wall', 'Lounge by day, bedroom by night', 'Half of Class B vans in stock'] },
+    wd: { id: 'wd', title: 'Washer / dryer prep', icon: 'washing-machine', kind: 'rank', concept: 'amenity_wd', ids: [I.WASH], strength: 'strongly', must: { requiredChars: [I.WASH] }, ben: ['Hookups ready', 'Extended-stay essential', 'Common in fifth wheels and diesel coaches'] },
+    cookout: { id: 'cookout', title: 'I cook outside often', icon: 'flame', kind: 'rank', concept: 'outdoor', ids: [I.OUTSIDE_KITCHEN], strength: 'prefer', must: { requiredChars: [I.OUTSIDE_KITCHEN] }, ben: ['Outside kitchens rank higher', 'Tailgate-style cooking', 'Keeps heat and smell outside'] },
+    rearkit: { id: 'rearkit', title: 'Kitchen near the outdoor action', img: IMG('kitchen-rear-kitchen'), kind: 'rank', concept: 'kitchen_outdoor', ids: [I.REAR_KITCHEN], strength: 'prefer', ben: ['Rear kitchens', 'Cooking away from the bedroom', 'Opens the center living area'] },
+    patio: { id: 'patio', title: 'Outdoor hangout or patio', icon: 'tent', kind: 'rank', concept: 'outdoor_patio', ids: [I.REAR_PATIO, I.SIDE_PATIO], strength: 'prefer', ben: ['Rear and side patios', 'Ramp converts to a deck', 'Rally and tailgate ready'] },
+    ramp: { id: 'ramp', title: 'I need the ramp door', icon: 'truck', kind: 'rank', concept: 'ramp', ids: [I.RAMP], strength: 'strongly', must: { requiredChars: [I.RAMP] }, ben: ['Ramp door layouts', 'Toys, bikes, big gear', 'Required removes everything else'] },
+    gsleep: { id: 'gsleep', title: 'The garage sleeps people too', img: IMG('sleeping-bunk-beds'), kind: 'rank', concept: 'garage_sleep', ids: E.TOY_BED_IDS, strength: 'prefer', ben: ['Fold-up garage beds', 'Extra sleeping without a bunkhouse', 'Single or double'] },
+    space: { id: 'space', title: 'More interior space', img: IMG('sitting-freestanding-dinette'), kind: 'rank', concept: 'space', ids: E.SLIDE_IDS, strength: 'prefer', priority: 'space', ben: ['Slide-outs and open layouts rank higher', 'Best for long stays', 'More room when parked'] },
+    balanced: { id: 'balanced', title: 'Balanced', icon: 'scale', kind: 'open', ben: ['No nudge either way', 'Layout decides', 'Most common answer'] },
+    simple: { id: 'simple', title: 'Lighter and simpler', icon: 'feather', kind: 'prio', priority: ['simple', 'lightweight', 'compact'], ben: ['Fewer slides, shorter, lighter', 'Easier to tow and set up', 'Lower price tends to follow'] },
+    laminate: { id: 'laminate', title: 'Pay more for laminate', icon: 'layers', kind: 'sidewall', sidewall: 'laminate', ben: ['Fiberglass sidewalls rank higher', 'Lighter, upgraded construction', 'Smooth exterior'] },
+    value: { id: 'value', title: 'Most bang for the buck', icon: 'dollar-sign', kind: 'sidewall', sidewall: 'value', priority: 'value', ben: ['Stick-and-tin and lower prices rank higher', 'Value construction path', 'Easier to repair'] },
+    either: { id: 'either', title: 'Open to either', icon: 'circle', kind: 'open', ben: ['No construction preference', 'Both paths stay in play', 'Compare in results'] },
+  };
+  const OPEN = (t) => ({ id: 'open', title: t || 'Open / no preference', icon: 'circle', kind: 'open', ben: ['No preference recorded', 'Lifestyle defaults still apply', 'Clears the cards above'] });
+
+  function applyPatch(s, patch) { Object.keys(patch).forEach((k) => { if (k === 'requiredChars') patch[k].forEach((id) => { if (!s.gates.requiredChars.includes(id)) s.gates.requiredChars.push(id); }); else if (k === 'requiredAnyOf') s.gates.requiredAnyOf.push(...patch[k]); else s.gates[k] = patch[k]; }); }
+  function multiOptsAll(S, key) {
+    if (key === 'bath') return [O.bigger, O.two, O.dual, O.walk, O.compact];
+    if (key === 'inside') return [O.cook, O.living, O.bedslide, ...(S.path === 'MOTOR' ? [O.murphy] : []), O.wd];
+    return [O.cookout, O.rearkit, O.patio, ...(TOY.includes(S.type) ? [O.ramp, O.gsleep] : [])];
+  }
+  function buildSession(S) {
+    const s = E.newSession(snap);
+    s.gates.classes = classesNow(S);
+    if (S.path === 'MOTOR' && S.motor === 'B') s.lifestylePaths.push('compact');
+    if (S.type && E.TOY_CLASSES.includes(S.type)) s.lifestylePaths.push('toy');
+    if (['TC', 'HTT', 'FD', 'AT'].includes(S.type)) s.lifestylePaths.push('compact');
+    if (S.type === 'DT') s.lifestylePaths.push('extended');
+    if (S.budget === 'cash' && Number(S.maxSpend) > 0) { const r = E.cashCeiling(Number(S.maxSpend)); if (r.valid) { s.gates.priceMax = r.ceiling; s.budget.priceCeiling = r.ceiling; s.budget.mode = 'cash'; } }
+    if (S.budget === 'finance' && Number(S.payment) > 0) { const tax = S.store && snap.lookups.rooftops[S.store] ? snap.lookups.rooftops[S.store].salesTaxRate : null; const r = E.solveFinanceCeiling(Object.assign({ monthlyPayment: Number(S.payment), downPayment: Number(S.down) || 0, creditTier: S.tier }, tax != null ? { taxRate: tax } : {})); s.budget.mode = 'finance'; s.budget.solved = r; if (r.valid) { s.gates.priceMax = r.ceiling; s.budget.priceCeiling = r.ceiling; } }
+    if (S.path === 'TOW' && S.tow === 'yes' && Number(S.towRating) > 0) { s.tow = { applies: true, rating: Number(S.towRating), mode: S.towMode }; s.gates.gvwrMax = Math.round(S.towMode === 'raw' ? Number(S.towRating) : Number(S.towRating) * 0.9); }
+    s.sleepers = { adults: S.adults, children: S.children }; const total = S.adults + S.children; if (total > 0) s.gates.sleepsMin = total;
+    if (S.children > 0) s.lifestylePaths.push('family'); else if (S.adults <= 2) s.lifestylePaths.push('couple');
+    const pushOpt = (o, qid) => { if (!o) return; if (o.kind === 'gate') applyPatch(s, o.patch); else if (o.kind === 'rank') { s.prefs.push({ key: qid + ':' + o.id, source: qid, concept: o.concept, label: o.title, ids: o.ids, strength: o.strength }); if (o.avoid) s.avoids.push({ key: qid + ':' + o.id + ':avoid', source: qid, concept: o.avoid.concept, label: 'Avoid Murphy bed', ids: o.avoid.ids, strength: o.avoid.strength }); } else if (o.kind === 'avoid') s.avoids.push({ key: qid + ':' + o.id, source: qid, concept: o.concept, label: o.title, ids: o.ids, strength: o.strength }); else if (o.kind === 'sidewall') s.sidewallPref = o.sidewall; if (o.priority) (Array.isArray(o.priority) ? o.priority : [o.priority]).forEach((p) => { s.numericPriorities[p] = true; }); };
+    const childOpts = S.path === 'MOTOR' ? [O.loft, O.convert] : [O.bunksMust, O.bunksPref, O.flex];
+    if (S.children > 0) pushOpt(childOpts.find((o) => o.id === S.childSetup), 'sleep');
+    pushOpt([O.pmMust, O.pmPref, O.openSpace, O.anyBed].find((o) => o.id === S.bedroom), 'bedroom');
+    if (S.lengthMode === 'hard' && Number(S.lengthFt) > 0) s.gates.lengthMaxFt = Math.floor(Number(S.lengthFt));
+    if (S.lengthMode === 'soft') s.numericPriorities.compact = true;
+    for (const key of ['bath', 'inside', 'outside']) { const opts = multiOptsAll(S, key); S[key].forEach((id) => { const o = opts.find((x) => x.id === id); if (!o) return; if (S[key + 'Must'].includes(id) && o.must) applyPatch(s, o.must); else pushOpt(o, key); }); }
+    pushOpt([O.space, O.balanced, O.simple].find((o) => o.id === S.size), 'size');
+    if (S.build && S.build !== 'either') { if (S.buildMust) s.gates.sidewall = S.build === 'laminate' ? 'LAMINATE' : 'STT'; else pushOpt(O[S.build], 'build'); }
+    return s;
+  }
+  // Garage length: a live-build gate not in this engine version, applied as a pre-filter (source comment, kept).
+  const unitsNow = (S) => { const ft = Number(S.garageFt); if (TOY.includes(S.type) && ft > 0) return UNITS.filter((u) => u.garageLength == null || u.garageLength >= ft * 12); return UNITS; };
+
+  function compute(S) {
+    const session = buildSession(S), units = unitsNow(S);
+    const cand = E.candidates(units, session.gates), pool = cand.verified.concat(cand.probable);
+    const share = (ids) => (pool.length ? E.previewBoost(pool, ids) / pool.length : 0);
+    const splits = (o) => { if (!o.ids) return true; const sh = share(o.ids); return sh >= 0.05 && sh <= 0.95; };
+    const live = (o) => {
+      if (o.kind === 'gate') { const c = E.previewGate(units, session.gates, o.patch).counts; return [`${n(c.total)} units remain`, 'gate']; }
+      if (o.kind === 'rank') return [`ranks ${n(E.previewBoost(pool, o.ids))} units higher`, 'rank'];
+      if (o.kind === 'avoid') return [`ranks ${n(E.previewBoost(pool, o.ids))} units lower`, 'avoid'];
+      if (o.kind === 'sidewall') { const k = o.sidewall === 'laminate' ? 'LAMINATE' : 'STT'; return [`ranks ${n(pool.filter((u) => u.sidewallConstruction === k).length)} units higher`, 'rank']; }
+      if (o.kind === 'prio') return ['re-orders by length, weight and slides', 'rank'];
+      return [`keeps all ${n(pool.length)} open`, 'neutral'];
+    };
+    const multiOpts = (key) => multiOptsAll(S, key).filter(splits).concat([OPEN(key === 'bath' ? 'Open to any bathroom' : undefined)]);
+    return { session, units, cand, pool, share, splits, live, multiOpts };
+  }
+
+  function stats(c) { const p = UNITS.filter((u) => u.class === c); const pct = (ids) => (p.length ? Math.round(100 * E.previewBoost(p, ids) / p.length) : 0) + '%'; return { p, pct }; }
+  function motorBen(c) { const { p, pct } = stats(c); return ({ AG: [`${n(p.length)} in stock · ${pct([I.PRIVATE_MASTER])} private master`, `${pct([I.FULL_WALL])} full-wall slides`, 'Largest coach, gas engine'], B: [`${n(p.length)} in stock · ${pct([I.WETBATH])} wetbath`, `${pct([I.MURPHY])} fold-away Murphy bed`, 'No slides; easiest to drive and park'], C: [`${n(p.length)} in stock · ${pct([I.BED_SLIDE])} bed slide`, `${pct([I.LOFT])} cab-over loft`, 'Cutaway chassis, most complete data'], CD: [`${n(p.length)} in stock · ${pct([I.REAR_BATH])} rear bath`, `${pct([I.WASH])} washer/dryer prep`, 'Class C on a diesel chassis'], AD: ['Diesel pusher', 'Largest coach', 'Not currently in stock'] })[c] || []; }
+  function towBen(c) { const { p, pct } = stats(c); return ({ TT: [`${n(p.length)} in stock, widest range`, `${pct([I.PRIVATE_MASTER])} private master`, 'Laminate and stick-and-tin both available'], FW: [`${n(p.length)} in stock`, `${pct([I.PRIVATE_MASTER])} private master`, 'Pickup with a bed hitch required'], TTTH: [`${n(p.length)} in stock`, `${pct([I.RAMP])} ramp door`, 'Lighter than a fifth-wheel hauler'], FWTH: [`${n(p.length)} in stock`, `${pct(E.TOY_BED_IDS)} garage sleeping`, `${pct([I.DOUBLE_BATH])} two bathrooms`], TC: [`${n(p.length)} in stock`, `${pct([I.WETBATH])} wetbath`, 'Rides in a pickup bed'], DT: [`${n(p.length)} in stock`, `${pct([I.WASH])} washer/dryer prep`, 'Residential, stays parked for a season'], HTT: [`${n(p.length)} in stock`, 'Fold-out tent beds', 'Light and roomy'], FD: [`${n(p.length)} in stock`, 'Lightest towable', 'Sets up at camp'], AT: [`${n(p.length)} in stock`, 'Off-road ready', 'Outside galley'] })[c] || []; }
+  const towClasses = () => E.TOWABLE_CLASSES.filter((c) => present.has(c)), motorClasses = () => E.MOTORHOME_CLASSES.filter((c) => present.has(c));
+  const stores = Object.values(snap.lookups.rooftops || {}).filter((r) => r.storeName && !['CRD', 'MSV', 'LIN'].includes(r.location)).sort((a, b) => a.storeName.localeCompare(b.storeName));
+
+  // Screen list (source: screens[]). `single(S,c)` returns options; `panels` names the inline field groups the UI renders.
+  const reset = (S, keys) => Object.assign({}, S, keys);
+  const SCREENS = [
+    { id: 'path', nav: 'Path', title: 'Which way are you going?', sub: 'Two very different inventories. Everything after this adapts.', effect: 'Hard gate on class group', trace: 'new first screen', wide: true,
+      single: () => [{ id: 'TOW', title: 'Towable', img: RV('travel-trailer'), kind: 'gate', patch: { classes: towClasses() }, ben: ['Travel trailers, fifth wheels, toy haulers, campers', 'Your tow vehicle sets the limit', 'Widest range of layouts and prices'] }, { id: 'MOTOR', title: 'Motorhome', img: RV('motorhome'), kind: 'gate', patch: { classes: motorClasses() }, ben: ['Drivable: Class A, B and C', 'No tow vehicle needed', 'Smaller inventory with more data gaps. Watch the notes as you go'] }],
+      get: (S) => S.path, set: (S, v) => reset(S, { path: v, type: null, motor: null, tow: null, childSetup: null, bedroom: null, bath: [], bathMust: [], inside: [], insideMust: [], outside: [], outsideMust: [], size: null, build: null }), ok: (S) => !!S.path },
+    { id: 'type', nav: (S) => (S.path === 'MOTOR' ? 'Class' : 'Type'), title: (S) => (S.path === 'MOTOR' ? 'Which kind of motorhome?' : 'What type of towable?'), sub: (S) => (S.path === 'MOTOR' ? 'Pick a class, or keep every motorhome in play. Only classes in stock are shown.' : 'The biggest branch point inside towables.'), effect: 'Hard gate on class · sets lifestyle defaults', trace: 'Q001 + Q001B',
+      single: (S) => (S.path === 'MOTOR' ? MOTOR_TILES.map(([id, t]) => ({ id, title: t, icon: 'bus', kind: 'gate', patch: { classes: [id] }, ben: motorBen(id) })).concat([{ id: 'ANY', title: 'Any motorhome', icon: 'circle', kind: 'gate', patch: { classes: motorClasses() }, ben: ['Keeps every class in play', 'Later screens sort them', 'Good when they have not driven one yet'] }])
+        : TOWABLE_TILES.map(([id, t, img]) => ({ id, title: t, img, icon: img ? null : 'caravan', kind: 'gate', patch: { classes: [id] }, ben: towBen(id) }))),
+      get: (S) => (S.path === 'MOTOR' ? S.motor : S.type), set: (S, v) => reset(S, S.path === 'MOTOR' ? { motor: v, tow: null, childSetup: null, bedroom: null } : { type: v, tow: null, childSetup: null, bedroom: null }), ok: (S) => (S.path === 'MOTOR' ? !!S.motor : !!S.type),
+      warn: (S, c) => (S.path === 'MOTOR' ? { tone: 'info', title: 'Inventory note.', text: `${n(c.pool.length)} motorhomes in play across ${MOTOR_TILES.map((t) => t[1]).join(', ')}. No Class A diesel in stock, so that tile is not offered.` } : null) },
+    { id: 'budget', nav: 'Budget', title: 'How do they want to set the budget?', sub: 'A cash ceiling or a monthly payment becomes the maximum sale price shown.', effect: 'Hard gate on price · store tax inside the payment path', trace: 'Q002 + Q019 store',
+      single: (S, c) => [{ id: 'cash', title: 'Cash / max spend', icon: 'dollar-sign', kind: 'gate', patch: { priceMax: Number(S.maxSpend) > 0 ? E.roundTo500(Number(S.maxSpend)) : null }, ben: ['Their maximum becomes the price ceiling', 'Rounded to the nearest $500', 'Unpriced units move to "needs verification"'] }, { id: 'finance', title: 'Monthly payment', icon: 'calendar', kind: 'gate', patch: { priceMax: (c.session.budget.priceCeiling) || null }, ben: ['Payment + down + credit tier solve to a price', 'The closest store sets the tax rate', 'Term follows the amount financed'] }, { id: 'skip', title: 'Skip budget', icon: 'circle', kind: 'open', ben: ['No price gate', 'Every price stays in play', 'Filter by price in results'] }],
+      get: (S) => S.budget, set: (S, v) => reset(S, { budget: v }), ok: (S) => !!S.budget, panel: (S) => (S.budget === 'cash' ? 'cash' : S.budget === 'finance' ? 'finance' : null) },
+    { id: 'tow', nav: 'Towing', title: 'Will they tow it with their own vehicle?', sub: 'The tow rating sets a weight limit. Nothing else is removed.', effect: 'Hard gate on GVWR', trace: 'Q003 + Q004', skip: (S) => (S.path !== 'TOW' ? 'Motorhomes are driven' : null),
+      single: (S) => [{ id: 'yes', title: 'Yes, with their own vehicle', icon: 'truck', kind: 'gate', patch: { gvwrMax: Number(S.towRating) > 0 ? Math.round(S.towMode === 'raw' ? Number(S.towRating) : Number(S.towRating) * 0.9) : null }, ben: ['Units over the limit are removed', 'GVWR vs 90% of the rating by default', 'Unknown weights move to "needs verification"'] }, { id: 'no', title: S.type === 'DT' ? 'Delivered / parked' : 'Not towing, or not sure yet', icon: 'circle', kind: 'open', ben: ['No weight limit applied', 'An advisor can verify towing later', 'Add a limit in results'] }],
+      get: (S) => S.tow, set: (S, v) => reset(S, { tow: v }), ok: (S) => !!S.tow, panel: (S) => (S.tow === 'yes' ? 'tow' : null) },
+    { id: 'sleep', nav: 'Sleeping', title: 'Who needs regular sleeping space?', sub: 'Adults plus children becomes the minimum sleep count.', effect: 'Hard gate on sleep count · child-bed gate or preference · family / couple defaults', trace: 'Q005 + Q006 + Q007', pre: 'crew',
+      single: (S, c) => (S.children > 0 ? (S.path === 'MOTOR' ? [O.loft, O.convert] : [O.bunksMust, O.bunksPref, O.flex]).filter((o) => o.kind === 'gate' || c.splits(o)) : []),
+      subhead: (S) => (S.children > 0 ? (S.path === 'MOTOR' ? 'Where do the kids sleep?' : 'For the children or guests, what sleeping setup works?') : null),
+      get: (S) => S.childSetup, set: (S, v) => reset(S, { childSetup: v }), ok: (S) => S.children === 0 || !!S.childSetup,
+      warn: (S, c) => { if (!c.pool.length) return null; const miss = c.pool.filter((u) => u.sleeps == null).length; return miss / c.pool.length > 0.25 ? { tone: 'warning', title: 'Data gap.', text: `${n(miss)} of ${n(c.pool.length)} units in play have no sleep count, so the sleep gate moves them to "needs verification" instead of ranking them.${S.path === 'MOTOR' ? ' Most are Grand Design Lineage (Class B and C diesel). Until the feed carries sleeps for them, answering this question buries the biggest motorhome line in stock.' : ''}` } : null; } },
+    { id: 'bedroom', nav: 'Bedroom', title: 'For the adults, how much does bedroom privacy matter?', sub: 'A door-separated bedroom can eliminate compact layouts. Flexible privacy keeps more inventory alive.', effect: 'Hard gate on Private Master, or a preference', trace: 'Q008 + Q009',
+      skip: (S, c) => { if (isB(S)) return 'Class B has no separate bedroom'; const sh = c.share([I.PRIVATE_MASTER]); if (sh >= 0.95) return 'Nearly every unit has one'; if (sh <= 0.05) return 'Almost none have one'; return null; },
+      single: (S, c) => (S.path === 'MOTOR' ? [O.pmMust, O.pmPref, O.anyBed] : [O.pmMust, O.pmPref, O.openSpace, O.anyBed].filter((o) => o.kind !== 'rank' || c.splits(o))),
+      get: (S) => S.bedroom, set: (S, v) => reset(S, { bedroom: v }), ok: (S) => !!S.bedroom,
+      warn: (S) => (S.path === 'MOTOR' ? { tone: 'info', title: 'Motorhome branch.', text: '"Prefer open daytime space" is not offered here: it keys on rear-living and front-living layouts, and no motorhome in stock carries either tag. The fold-away bed choice is on the Inside step instead, where it splits the vans.' } : null) },
+    { id: 'length', nav: 'Length', title: 'Is there a hard length limit?', sub: 'Storage spots, driveways and campsites often set one. Only a hard limit asks for a number.', effect: 'Hard gate on length, or shorter-is-better priority', trace: 'Q010',
+      single: (S) => [{ id: 'hard', title: 'Hard limit', icon: 'arrow-left-right', kind: 'gate', patch: { lengthMaxFt: Number(S.lengthFt) > 0 ? Math.floor(Number(S.lengthFt)) : null }, ben: ['Longer units are removed', 'Enter whole feet', 'Unknown lengths move to "needs verification"'] }, { id: 'soft', title: 'Shorter is better', icon: 'arrow-left-right', kind: 'prio', priority: 'compact', ben: ['Nothing removed', 'Shorter units earn up to 3 points', 'No number needed'] }, { id: 'none', title: 'Not a concern', icon: 'circle', kind: 'open', ben: ['Every length stays in play', 'Filter by length in results', 'Most common answer'] }],
+      get: (S) => S.lengthMode, set: (S, v) => reset(S, { lengthMode: v }), ok: () => true, panel: (S) => (S.lengthMode === 'hard' ? 'length' : null),
+      warn: (S, c) => { const r = c.pool.map((u) => u.lengthIn).filter((v) => v != null); if (!r.length) return null; return { tone: 'neutral', title: 'In play right now:', text: `${Math.round(Math.min(...r) / 12)}–${Math.round(Math.max(...r) / 12)} ft${c.pool.length - r.length > 0 ? `, with ${n(c.pool.length - r.length)} units missing a length` : ''}.` }; } },
+    { id: 'garage', nav: 'Garage', title: 'How long does the garage need to be?', sub: 'Measure the longest toy. Shorter garages are removed.', effect: 'Hard gate on garage length (live-build gate, applied as a pre-filter here)', trace: 'Q010B', skip: (S) => (!TOY.includes(S.type) ? 'Toy haulers only' : null),
+      single: () => [{ id: 'need', title: 'They know the length', icon: 'warehouse', kind: 'open', ben: ['Enter feet', 'Shorter garages are removed', 'Unknown garages stay in'] }, { id: 'any', title: 'Any garage is fine', icon: 'circle', kind: 'open', ben: ['No gate', 'Garage length shows on every result', 'Sort by it in results'] }],
+      get: (S) => (S.garageFt === 'any' ? 'any' : S.garageFt !== '' ? 'need' : null), set: (S, v) => reset(S, { garageFt: v === 'any' ? 'any' : '0' }), ok: () => true, panel: (S) => (S.garageFt !== 'any' && S.garageFt !== '' ? 'garage' : null) },
+    { id: 'bath', nav: 'Bathroom', title: 'What matters in the bathroom and getting in and out?', sub: 'Select all that apply. Mark a card as required to remove units without it.', multi: 'bath', effect: 'Ranking preferences · required cards become hard gates', trace: 'Q011 + Q012', skip: (S, c) => (c.multiOpts('bath').length <= 1 ? 'Nothing left to split' : null) },
+    { id: 'inside', nav: 'Inside', title: 'How will they live inside?', sub: 'Select all that apply. Only features that split the units still in play are shown.', multi: 'inside', effect: 'Ranking preferences · required cards become hard gates', trace: 'Q013 + Q015 + Q018 extras', skip: (S, c) => (c.multiOpts('inside').length <= 1 ? 'Nothing left to split' : null) },
+    { id: 'outside', nav: 'Outside', title: 'How will they live outside?', sub: 'Select all that apply.', multi: 'outside', effect: 'Ranking preferences · required cards become hard gates', trace: 'Q014 + Q018 toy hauler', skip: (S, c) => (c.multiOpts('outside').length <= 1 ? (S.path === 'MOTOR' ? 'No outside features in motorhome stock' : 'Nothing left to split') : null) },
+    { id: 'size', nav: 'Size & build', title: 'More room, or easier to handle?', sub: 'Ranking only. Filters after results handle exact slide counts.', effect: 'Ranking priorities · construction preference · optional construction gate', trace: 'Q016 + Q017', skip: (S, c) => (new Set(c.pool.map((u) => u.slides).filter((v) => v != null)).size <= 1 ? 'Slide counts do not vary' : null),
+      single: () => [O.space, O.balanced, O.simple], get: (S) => S.size, set: (S, v) => reset(S, { size: v }), ok: (S) => !!S.size, panel: () => 'build' },
+    { id: 'results', nav: 'Matches', title: 'Matches', results: true },
+  ];
+  const txt = (v, S) => (typeof v === 'function' ? v(S) : v);
+  const visible = (S, c) => SCREENS.filter((s) => !(s.skip && s.skip(S, c)));
+  function summary(s, S, c) {
+    if (s.multi) { const sel = S[s.multi]; if (!sel.length) return 'Open / no preference'; const names = Object.fromEntries(c.multiOpts(s.multi).map((o) => [o.id, o.title])); return sel.map((id) => (names[id] || id) + (S[s.multi + 'Must'].includes(id) ? ' (required)' : '')).join(' · '); }
+    const v = s.get && s.get(S); let t = v ? ((s.single(S, c).find((o) => o.id === v) || {}).title || v) : 'Nothing yet';
+    if (s.id === 'sleep') t = `${S.adults} adults · ${S.children} children` + (S.childSetup ? ' · ' + t : '');
+    if (s.id === 'length' && S.lengthMode === 'hard' && S.lengthFt) t += ' · under ' + S.lengthFt + ' ft';
+    if (s.id === 'size' && S.build) t += ' · ' + (O[S.build] || {}).title + (S.buildMust ? ' (required)' : '');
+    return t;
+  }
+  function toggle(S, key, id) {
+    const sel = S[key].slice(), must = S[key + 'Must'].slice();
+    if (id === 'open') return reset(S, { [key]: [], [key + 'Must']: [] });
+    const i = sel.indexOf(id);
+    if (i >= 0) { sel.splice(i, 1); const j = must.indexOf(id); if (j >= 0) must.splice(j, 1); } else sel.push(id);
+    return reset(S, { [key]: sel, [key + 'Must']: must });
+  }
+  function toggleMust(S, key, id, on) { const must = S[key + 'Must'].filter((x) => x !== id); if (on) must.push(id); return reset(S, { [key + 'Must']: must }); }
+  // Zero-result recovery (engine s16) → which step set the gate, so the outfitter can go back and change it.
+  const GATE_STEP = { gvwrMax: 'tow', lengthMaxFt: 'length', priceMax: 'budget', sleepsMin: 'sleep', slidesMin: 'size', bunks: 'sleep', requiredAnyOf: 'sleep', privateMaster: 'bedroom', outsideKitchen: 'outside', sidewall: 'size', classes: 'type', requiredChars: 'inside' };
+  const KIND = { gate: 'Removes units that don’t match.', rank: 'Ranks matching units higher.', avoid: 'Ranks matching units lower.', prio: 'Re-orders by a measured value.', sidewall: 'Ranks one construction higher.', open: 'No effect on ranking.' };
+  return { E, snap, UNITS, O, SCREENS, stores, compute, visible, summary, toggle, toggleMust, txt, unitsNow, GATE_STEP, KIND, n };
+}
+
+const INITIAL = { path: null, type: null, motor: null, budget: null, maxSpend: '', payment: '', down: '', tier: 'good', store: '', tow: null, towRating: '', towMode: 'derived', adults: 2, children: 0, childSetup: null, bedroom: null, lengthMode: 'none', lengthFt: '', garageFt: '', bath: [], bathMust: [], inside: [], insideMust: [], outside: [], outsideMust: [], size: null, build: null, buildMust: false };
+
+// Snapshot loader: fetch the columnar JSON once and rebuild the source's unit objects.
+let loading = null;
+function decode(j) {
+  const C = j.cols;
+  const units = j.rows.map((r) => { const o = {}; for (let i = 0; i < C.length; i++) { let v = r[i]; if (v === undefined) v = null; if (C[i] === 'isLStock') v = !!v; if ((C[i] === 'characteristicTypeIds' || C[i] === 'qaFlags') && v == null) v = []; o[C[i]] = v; } return o; });
+  window.BISH_SNAPSHOT = { meta: j.meta, lookups: j.lookups, units };
+  return window.BISH_SNAPSHOT;
+}
+// The snapshot ships as data/snapshot.jsonp (a script tag), so it also works inside the offline single-file build.
+function loadSnapshot() {
+  if (window.BISH_SNAPSHOT) return Promise.resolve(window.BISH_SNAPSHOT);
+  if (window.OD_SNAPSHOT_JSON) { try { return Promise.resolve(decode(window.OD_SNAPSHOT_JSON)); } catch (e) { return Promise.reject(e); } }
+  if (!loading) loading = fetch('data/snapshot.json').then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }).then(decode).catch((e) => { loading = null; throw e; });
+  return loading;
+}
+let model = null;
+const getModel = (snap) => model || (model = createModel(snap));
+window.OD = { INITIAL, loadSnapshot, getModel };
+})();

@@ -26,5 +26,9 @@ Built from the source app and review decisions. The machine-readable copy is `..
 | BR-09 | Assigning notifies the outfitter and sends the customer a welcome link | Source › Modals |
 | BR-10 | Benching returns the outfitter's active customers to Waiting | Zach, 2026-10-22 |
 | BR-11 | Receptionists can't move cases (**proposed, confirm in D-09**) | Conversion proposal |
+| BR-12 | A card entering MCP or Worksheet raises a recurring alert until a manager starts it; snooze = 60s | Source › phase-hub layer |
+| BR-13 | "New unit needed" items are always pinned to the top of the Needs-action rail | Source › phase-hub layer |
+| BR-14 | Receptionist access to the Phase Action Hub: read-only (**proposed, confirm in Q-HUB-1**) | Conversion proposal · `needs-rule` |
+| BR-15 | MCP KPI targets and floor max limits (77.7% target, 14 / 34 min) are mock values (**source of truth unknown, Q-HUB-2**) | Source mock · `needs-rule` |
 
 Sections 2 (roles), 5 (approvals and audit) and 6 (notifications) are in `roles-permissions.md` and `api-contract.md`. Section 4 (data sources) is open as D-06. Section 7 (known edge cases) has none provided yet.

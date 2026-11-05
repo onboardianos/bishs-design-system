@@ -1,0 +1,27 @@
+<!-- @dsCard group="Components" viewport="1040x620" name="Customer Card" subtitle="Floor-traffic kanban card · assigned, unassigned, selected, Needs-action (flag + ACTION bar)" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>html,body{margin:0;background:#F7F6F1;font-family:'Source Sans 3',sans-serif;}#root{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding:24px;align-items:start;}.tag{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#6B6B63;margin-bottom:10px;}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+  var NS=window.BishSRVDesignSystem_26feec||{},e=React.createElement,C=NS.CustomerCard,f=function(){};
+  function col(tag,el){return e('div',{key:tag},e('div',{className:'tag'},tag),el);}
+  ReactDOM.createRoot(document.getElementById('root')).render([
+    col('Assigned',e(C,{customer:'Jacksons',interest:'Fifth Wheel',partyType:'family',outfitter:{name:'Mike Henderson'},phaseTime:'12m 40s',totalTime:'48m',onOpen:f,onMenu:f})),
+    col('Unassigned',e(C,{customer:'Olsen Fam.',interest:'Travel Trailer',partyType:'couple',outfitter:null,phaseTime:'4m 12s',totalTime:'4m',onOpen:f,onMenu:f,onAssign:f})),
+    col('Selected',e(C,{customer:'Martinez',interest:'Toy Hauler',partyType:'single',outfitter:{name:'Alan Bryce'},phaseTime:'31m 05s',totalTime:'1h 32m',selected:true,onOpen:f,onMenu:f})),
+    col('Needs action · unit',e(C,{customer:'Ashley Green',interest:'Toy Hauler',partyType:'couple',meta:'#88C1 · rejected Unit 1',outfitter:{name:'Marcus Wright'},phaseTime:'2m 23s',totalTime:'1h 07m',flag:{label:'New unit needed',from:'Marcus Wright',tone:'danger'},cta:{label:'Find new unit',tone:'danger',onClick:f},onDismiss:f}))
+  ]);
+})();
+</script>
+</body>
+</html>

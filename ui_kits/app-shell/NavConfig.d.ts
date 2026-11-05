@@ -30,10 +30,10 @@ export const NavConfig: {
 };
 /** Lucide icon node data keyed by Lucide icon name (e.g. 'store', 'layout-dashboard'). */
 export type LucideNode = [string, Record<string, string | number>];
-export const NAV_ICONS: Record<string, LucideNode[]>;
-export const UI_ICONS: Record<string, LucideNode[]>;
+export const navIcons: Record<string, LucideNode[]>;
+export const uiIcons: Record<string, LucideNode[]>;
 /** Pre-Lucide v1 keys → Lucide names. */
-export const ICON_ALIASES: Record<string, string>;
-export const SHELL_THEME: Record<'light' | 'dark', Record<string, string>>;
+export const iconAliases: Record<string, string>;
+export const shellTheme: Record<'light' | 'dark', Record<string, string>>;
 export interface NavIconProps { /** Lucide icon name. */ name: string; size?: number; color?: string; stroke?: number; }
 export function NavIcon(props: NavIconProps): JSX.Element;

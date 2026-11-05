@@ -1,0 +1,248 @@
+// MCP — converted screen parts. Mounted inside AppShell; container-driven (RF05).
+(function () {
+const M = window.MCP, { Icon, money, payment, shows, acts, can, slug } = M;
+const RoleCtx = React.createContext('manager');
+const useRole = () => React.useContext(RoleCtx);
+const perm = (role, p) => ({ 'data-bos-perm': p, 'data-bos-access': can(role, p) });
+const Over = ({ children, dark }) => <div className={`mc-ov${dark ? ' dark' : ''}`}>{children}</div>;
+
+// ── S10 · Customer situation ───────────────────────────────────
+function StoryCard({ id, icon, title, meta, children }) {
+  return (
+    <section data-spec-id={`card-situation#${id}`} data-bos-level="component" className="mc-card" aria-label={title}>
+      <header className="mc-card-h"><span className="mc-card-ic"><Icon name={icon} size={18} /></span><h3>{title}</h3>{meta && <span className="mc-card-meta">{meta}</span>}</header>
+      {children}
+    </section>
+  );
+}
+const Trio = ({ id, items }) => <dl className="mc-trio">{items.map(([k, v]) => <div key={k} data-spec-id={`metric-${id}-${slug(k)}`}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>;
+
+function Story({ onDiscovery }) {
+  const c = M.CUSTOMER;
+  return (
+    <div className="mc-stack">
+      <StoryCard id="tow-vehicle" icon="truck" title="Tow vehicle" meta={c.tow.label}><Trio id="tow" items={[['Payload', c.tow.payload], ['Tow', c.tow.tow], ['GCWR', c.tow.gcwr]]} /></StoryCard>
+      <StoryCard id="financial-position" icon="wallet" title="Financial position" meta={c.fin.label}><Trio id="fin" items={[['Payment', c.fin.payment], ['Down', c.fin.down], ['Credit', c.fin.credit]]} /></StoryCard>
+      <StoryCard id="household" icon="users" title="Household"><p className="mc-p">{c.household}</p></StoryCard>
+      <StoryCard id="how-they-camp" icon="tent" title="How they camp"><ul className="mc-tags">{c.camp.map((t) => <li key={t}>{t}</li>)}</ul></StoryCard>
+      <StoryCard id="what-matters-most" icon="star" title="What matters most"><ol className="mc-rank">{c.matters.map((t, i) => <li key={t}><b>{i + 1}</b>{t}</li>)}</ol></StoryCard>
+      <button type="button" data-spec-id="btn-action-open-discovery" data-bos-class="action" data-bos-target="case:discovery" onClick={onDiscovery} className="mc-btn mc-btn--action" style={{ width: '100%' }}>Discovery · {c.discovery} answers<Icon name="arrow-right" size={16} /></button>
+    </div>
+  );
+}
+
+function Chips({ name, options, value, onToggle }) {
+  return (
+    <div role="group" aria-label={name} className="mc-chips">
+      {options.map((o) => <button key={o} type="button" aria-pressed={value.includes(o)} data-spec-id={`input-filter-${slug(name)}#${slug(o)}`} onClick={() => onToggle(o)} className="mc-chip">{o}</button>)}
+    </div>
+  );
+}
+function Range({ id, label, value, min, max, step = 1, fmt, onChange }) {
+  return (
+    <label className="mc-range"><span className="mc-lbl" style={{ display: 'flex', justifyContent: 'space-between' }}>{label}<span className="mc-mono">{fmt(value)}</span></span>
+      <input type="range" data-spec-id={`input-filter-${id}`} min={min} max={max} step={step} value={value} onChange={(e) => onChange(Number(e.target.value))} aria-label={label} />
+    </label>
+  );
+}
+function Filters({ f, setF, count, total }) {
+  const tog = (k) => (o) => setF({ ...f, [k]: f[k].includes(o) ? f[k].filter((x) => x !== o) : [...f[k], o] });
+  return (
+    <div className="mc-stack" style={{ gap: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}><h3 className="mc-h3">Filters</h3><span className="mc-badge">{count} active</span><span className="mc-mono" style={{ marginLeft: 'auto', color: 'var(--text-light-tertiary)' }}>{total} configs</span></div>
+      <label className="mc-field-l"><span className="mc-lbl">Stock #</span><input data-spec-id="input-filter-stock" value={f.stock} onChange={(e) => setF({ ...f, stock: e.target.value })} placeholder="e.g. 24587" className="mc-input" /></label>
+      <div className="mc-card" style={{ gap: 12 }}>
+        <span className="mc-lbl">Unit type</span><Chips name="Unit type" options={M.FILTER_OPTS.type} value={f.type} onToggle={tog('type')} />
+        <span className="mc-lbl">Condition</span><Chips name="Condition" options={M.FILTER_OPTS.condition} value={f.condition} onToggle={tog('condition')} />
+        <span className="mc-lbl">Build</span><Chips name="Build" options={M.FILTER_OPTS.build} value={f.build} onToggle={tog('build')} />
+      </div>
+      <div><span className="mc-lbl">Year / manufacturer / make</span>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(90px, 1fr))', gap: 8, marginTop: 6 }}>
+          {['Year', 'Manufacturer', 'Make'].map((k) => <input key={k} data-spec-id={`input-filter-${slug(k)}`} placeholder={k} aria-label={k} className="mc-input" />)}
+        </div>
+      </div>
+      <Range id="tow-weight" label="Tow weight" value={f.tow} min={2000} max={12000} step={500} fmt={(v) => `${v / 1000}k`} onChange={(v) => setF({ ...f, tow: v })} />
+      <Range id="sleeps" label="Sleeps" value={f.sleeps} min={1} max={10} fmt={(v) => `${v}+`} onChange={(v) => setF({ ...f, sleeps: v })} />
+      <Range id="max-length" label="Max length" value={f.len} min={16} max={40} fmt={(v) => `16′ – ${v}′`} onChange={(v) => setF({ ...f, len: v })} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
+        {[['Axle count', ['1', '2+']], ['Slide count', ['0', '1', '2+']]].map(([k, opts]) => (
+          <fieldset key={k} className="mc-card" style={{ margin: 0, gap: 8 }}><legend className="mc-lbl" style={{ padding: 0, float: 'left', width: '100%' }}>{k}</legend>
+            <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>{opts.map((o) => <label key={o} className="mc-check"><input type="checkbox" data-spec-id={`input-filter-${slug(k)}#${slug(o)}`} />{o}</label>)}</div>
+          </fieldset>
+        ))}
+      </div>
+      <span className="mc-lbl">Characteristics · include any</span><Chips name="Characteristics" options={M.FILTER_OPTS.chars} value={f.chars} onToggle={tog('chars')} />
+    </div>
+  );
+}
+
+function Situation({ tab, setTab, f, setF, fCount, total, onCollapse, onDiscovery, inline }) {
+  const c = M.CUSTOMER;
+  return (
+    <aside data-spec-id="sec-customer-situation" data-bos-level="section" data-bos-section="S10" data-bos-type="detail" aria-label="Customer situation" className="mc-panel mc-situation">
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
+        <div style={{ flex: 1, minWidth: 0 }}><Over>Customer situation</Over><h2 className="mc-h2">{c.name}</h2><div className="mc-sub">{c.store}</div></div>
+        <button type="button" data-spec-id="btn-action-collapse-situation" data-bos-class="action" aria-label={inline ? 'Collapse customer situation' : 'Close customer situation'} onClick={onCollapse} className="mc-icon-btn mc-icon-btn--box"><Icon name={inline ? 'chevrons-left' : 'x'} size={18} /></button>
+      </div>
+      <div role="tablist" aria-label="Situation view" className="mc-seg">
+        {[['story', 'Story'], ['filters', 'Filters']].map(([k, l]) => <button key={k} type="button" role="tab" aria-selected={tab === k} data-spec-id={`nav-tab-situation#${k}`} data-bos-class="nav" onClick={() => setTab(k)}>{l}{k === 'filters' && <span className="mc-count">{fCount}</span>}</button>)}
+      </div>
+      <div style={{ flex: 1, minHeight: 0, overflowY: 'auto', margin: '0 -4px', padding: '0 4px 4px' }}>
+        {tab === 'story' ? <Story onDiscovery={onDiscovery} /> : <Filters f={f} setF={setF} count={fCount} total={total} />}
+      </div>
+    </aside>
+  );
+}
+
+// ── S11 · Brief + response clock ──────────────────────────────
+function Brief({ elapsed }) {
+  const c = M.CUSTOMER, mm = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`, late = elapsed > M.RESPONSE_LIMIT;
+  return (
+    <section data-spec-id="sec-customer-brief" data-bos-level="section" data-bos-section="S11" data-bos-type="header" aria-label="Customer brief" className="mc-brief">
+      <p className="mc-brief-t">{c.name} needs a <b>Travel Trailer</b> that sleeps <b>3+</b>, <b>16–30 ft</b>, under <b>10,000 lbs</b> for the tow rig, around <b>$325–$425/mo</b> with <b>$3,000 down</b>. <b>Price / Value</b> matters most.</p>
+      <div data-spec-id="info-response-clock" role="timer" aria-label={`Response time ${mm(elapsed)} of ${mm(M.RESPONSE_LIMIT)}`} className="mc-clock" style={{ color: late ? 'var(--semantic-danger-dark)' : undefined }}><span className="mc-lbl">Response</span><b>{mm(elapsed)}</b><span>/ {mm(M.RESPONSE_LIMIT)}</span></div>
+    </section>
+  );
+}
+
+// ── S12 · Deal inputs ─────────────────────────────────────────
+function DealBar({ deal, setDeal, compact }) {
+  const role = useRole(), ro = !acts(role, 'mcp.edit_deal');
+  const [openD, setOpenD] = React.useState(false);
+  const fields = [['ceiling', 'Ceiling /mo', '$'], ['rate', 'Rate %', '', '%'], ['down', 'Down', '$'], ['tax', 'Tax %', '', '%'], ['term', 'Term', '', 'mo'], ['tradeAmt', 'Trade amt', '$'], ['tradePayoff', 'Trade payoff', '$'], ['tradeAcv', 'Trade ACV', '$']];
+  const equity = (deal.tradeAmt || 0) - (deal.tradePayoff || 0);
+  return (
+    <section data-spec-id="sec-deal-inputs" data-bos-level="section" data-bos-section="S12" data-bos-type="content" aria-label="Deal inputs" className="mc-deal" {...perm(role, 'mcp.edit_deal')}>
+      {compact && <button type="button" data-spec-id="btn-action-toggle-deal-inputs" data-bos-class="action" aria-expanded={openD} onClick={() => setOpenD(!openD)} className="mc-deal-sum"><span className="mc-mono">Ceiling ${deal.ceiling}/mo · {deal.rate}% · ${deal.down.toLocaleString()} down · {deal.term} mo</span><Icon name={openD ? 'chevron-down' : 'chevron-right'} size={18} /></button>}
+      {(!compact || openD) && <div className="mc-deal-grid">
+        {fields.map(([k, l, pre, post]) => (
+          <label key={k} className="mc-deal-f"><span className="mc-ov dark">{l}</span>
+            <span className="mc-deal-in">{pre && <i>{pre}</i>}<input data-spec-id={`input-deal-${slug(l)}`} inputMode="decimal" readOnly={ro} value={deal[k] || (k.startsWith('trade') ? '' : 0)} placeholder="—" onChange={(e) => setDeal({ ...deal, [k]: Number(e.target.value.replace(/[^\d.]/g, '')) || 0 })} aria-label={l} />{post && <i>{post}</i>}</span>
+          </label>
+        ))}
+        <label className="mc-deal-f mc-deal-chk"><input type="checkbox" data-spec-id="input-deal-tax-credit" disabled={ro} checked={deal.taxCredit} onChange={(e) => setDeal({ ...deal, taxCredit: e.target.checked })} /><span className="mc-ov dark" style={{ margin: 0 }}>Tax credit</span></label>
+        <div className="mc-deal-f" data-spec-id="metric-trade-equity"><span className="mc-ov dark">Trade equity</span><b className="mc-mono" style={{ fontSize: 16, color: 'var(--brand-white)' }}>{money(equity)}</b></div>
+      </div>}
+      <div className="mc-crit" data-spec-id="info-active-criteria"><span className="mc-ov dark" style={{ margin: 0 }}>Selected</span>{M.CRITERIA.map(([k, v]) => <span key={k} className="mc-crit-chip"><b>{k}</b> {v}</span>)}</div>
+      {ro && <p role="note" style={{ margin: 0, fontSize: 13, color: 'var(--text-muted)' }}>Deal inputs are set by the sales manager.</p>}
+    </section>
+  );
+}
+
+// ── S13 · Results ─────────────────────────────────────────────
+function UnitThumb() { return <span className="mc-thumb" aria-hidden="true"><img src="../floor-workspace/photos/rv-travel-trailer.png" alt="" /></span>; }
+function UnitRow({ u, deal, selected, slotOf, reasons, open, onToggleOpen, onSelect, onDetail, onDragStart, onDragEnd, dragging, single }) {
+  const role = useRole();
+  const pay = payment(u.dsrp, deal), fits = pay <= deal.ceiling, s = slotOf(u.id);
+  const canPick = acts(role, 'mcp.select'), canDrag = acts(role, 'mcp.place');
+  return (
+    <li className={`mc-row${selected ? ' is-sel' : ''}${dragging ? ' is-drag' : ''}${u.group > 1 ? ' is-group' : ''}`} data-spec-id={`card-unit#${u.id}`} data-bos-level="component"
+      draggable={canDrag} onDragStart={canDrag ? (e) => { e.dataTransfer.setData('text/plain', u.id); e.dataTransfer.effectAllowed = 'move'; onDragStart(u.id); } : undefined} onDragEnd={onDragEnd}>
+      <span className="mc-grip" aria-hidden="true">{canDrag && <Icon name="grip-vertical" size={18} />}</span>
+      {u.group > 1 ? <button type="button" data-spec-id={`btn-action-expand-group#${u.id}`} data-bos-class="action" aria-expanded={open} aria-label={`${open ? 'Collapse' : 'Expand'} ${u.group} units of ${u.model}`} onClick={onToggleOpen} className="mc-icon-btn"><Icon name={open ? 'chevron-down' : 'chevron-right'} size={18} /></button> : <UnitThumb />}
+      <div className="mc-row-main">
+        <button type="button" data-spec-id={`btn-action-open-unit#${u.id}`} data-bos-class="action" onClick={() => onDetail(u)} className="mc-row-title">{u.year} {u.make} {u.model}</button>
+        <span className="mc-row-tags">
+          {u.group > 1 && <span className="mc-tag ink">{u.group} units</span>}
+          {s && <span className="mc-tag">In {s.label.toLowerCase()}</span>}
+          {dragging && <span className="mc-tag">Dragging</span>}
+        </span>
+        <div className="mc-row-sub mc-mono">Stock #{u.stock}{u.group > 1 ? ` · oldest of ${u.group} shown` : ''} · {u.type} · {u.store}</div>
+        {reasons && <ul className="mc-reasons">{reasons.map((r) => <li key={r}>{r}</li>)}</ul>}
+      </div>
+      <dl className="mc-row-nums">
+        <div><dt>Age</dt><dd className="mc-mono" style={{ color: u.age >= M.AGED_DAYS ? 'var(--semantic-warning-dark)' : undefined }}>{u.age}d</dd></div>
+        <div><dt>Length</dt><dd className="mc-mono">{u.len} ft</dd></div>
+        <div><dt>DSRP</dt><dd className="mc-mono">{money(u.dsrp)}</dd></div>
+        <div className="mc-pay"><dt>Payment</dt><dd><b className="mc-mono">{money(pay)}/mo</b><span className={`mc-fit ${fits ? 'ok' : 'over'}`}>{fits ? 'Fits' : 'Over'}</span></dd></div>
+      </dl>
+      {shows(role, 'mcp.select') && <button type="button" data-spec-id={`btn-action-select-unit#${u.id}`} data-bos-class="action" {...perm(role, 'mcp.select')} aria-pressed={selected} disabled={!canPick} onClick={() => onSelect(u.id)} className={`mc-btn mc-btn--sel${selected ? ' on' : ''}`}>{selected && <Icon name="check" size={16} stroke={2.5} />}{selected ? 'Selected' : 'Select'}</button>}
+      {open && <div className="mc-row-more" role="note">{u.group - 1} more unit{u.group > 2 ? 's' : ''} of this config, same DSRP. Stock numbers load from the inventory feed (Q-MCP-3).</div>}
+    </li>
+  );
+}
+
+function Results({ view, setView, deal, selected, slotOf, onSelect, onDetail, drag, setDrag, q, setQ, fLen }) {
+  const role = useRole();
+  const [open, setOpen] = React.useState({});
+  const all = M.UNITS.filter((u) => u.len <= fLen && (!q || `${u.year} ${u.make} ${u.model} ${u.stock}`.toLowerCase().includes(q.toLowerCase())));
+  const configs = 39; // source total; the 12 rows here are the frames' visible set (Q-MCP-3)
+  const groups = view === 'shortlist'
+    ? [{ id: 'ai-shortlist', label: 'AI shortlist', tone: 'olive', note: `${M.SHORTLIST.length} suggested from ${configs} configs · reasons from ${M.CUSTOMER.name.split(' ')[0]}'s discovery answers`, rows: M.SHORTLIST.map(([id, r]) => ({ u: M.UNIT_BY_ID[id], r })).filter((x) => all.includes(x.u)) }]
+    : (() => { const src = view === 'selected' ? all.filter((u) => selected.includes(u.id)) : all; const inC = src.filter((u) => payment(u.dsrp, deal) <= deal.ceiling).sort((a, b) => b.age - a.age), out = src.filter((u) => payment(u.dsrp, deal) > deal.ceiling).sort((a, b) => b.age - a.age);
+      return [{ id: 'inside-the-ceiling', label: 'Inside the ceiling', tone: 'success', note: `${inC.reduce((s, u) => s + u.group, 0)} units · at or under $${deal.ceiling}/mo · oldest first`, rows: inC.map((u) => ({ u })) }, { id: 'over-the-ceiling', label: 'Over the ceiling', tone: 'danger', note: `${out.reduce((s, u) => s + u.group, 0)} units · over $${deal.ceiling}/mo · oldest first`, rows: out.map((u) => ({ u })) }].filter((g) => g.rows.length); })();
+  const tabs = [['all', `All results · ${configs}`], ['selected', `Selected · ${selected.length}`], ['shortlist', `AI shortlist · ${M.SHORTLIST.length}`]];
+  return (
+    <section data-spec-id="sec-results" data-bos-level="section" data-bos-section="S13" data-bos-type="list" aria-label="Matching units" className="mc-results">
+      <div className="mc-tools">
+        <div role="tablist" aria-label="Result views" className="mc-seg mc-seg--pill">
+          {tabs.map(([k, l]) => <button key={k} type="button" role="tab" aria-selected={view === k} data-spec-id={`nav-tab-results#${k}`} data-bos-class="nav" onClick={() => setView(k)}>{k === 'shortlist' && <Icon name="sparkles" size={14} />}{l}</button>)}
+        </div>
+        <span className="mc-p" style={{ flex: '1 1 160px' }}><b>{configs}</b> configs match the active case.</span>
+        <button type="button" data-spec-id="btn-action-expand-all" data-bos-class="action" onClick={() => { const any = Object.values(open).some(Boolean); setOpen(any ? {} : Object.fromEntries(M.UNITS.filter((u) => u.group > 1).map((u) => [u.id, true]))); }} className="mc-btn mc-btn--quiet mc-btn--sm"><Icon name="chevrons-up-down" size={16} />{Object.values(open).some(Boolean) ? 'Collapse all' : 'Expand all'}</button>
+        <label className="mc-field" style={{ flex: '0 1 180px' }}><select data-spec-id="input-results-store" aria-label="Store" defaultValue="Meridian"><option>Meridian</option><option>All stores</option></select><Icon name="chevron-down" size={16} /></label>
+        <label className="mc-field" style={{ flex: '1 1 200px' }}><Icon name="search" size={16} /><input data-spec-id="input-results-search" type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Model, stock, VIN" aria-label="Search units" /></label>
+      </div>
+      <div className="mc-table">
+        <div className="mc-thead" aria-hidden="true"><span /><span /><span>Year / make / model</span><span>Age</span><span>Length</span><span>DSRP</span><span>Payment</span><span /></div>
+        {groups.length ? groups.map((g) => (
+          <div key={g.id} role="group" aria-label={g.label}>
+            <div className="mc-group" data-spec-id={`info-group#${g.id}`}><span className="mc-ov" style={{ margin: 0, color: g.tone === 'success' ? 'var(--semantic-success-dark)' : g.tone === 'danger' ? 'var(--semantic-danger-dark)' : 'var(--accent-olive)' }}>{g.label}</span><span>{g.note}</span></div>
+            <ul data-spec-id={`list-units#${g.id}`} data-bos-level="layer" className="mc-rows">
+              {g.rows.map(({ u, r }) => <UnitRow key={u.id} u={u} deal={deal} selected={selected.includes(u.id)} slotOf={slotOf} reasons={r} open={!!open[u.id]} onToggleOpen={() => setOpen({ ...open, [u.id]: !open[u.id] })} onSelect={onSelect} onDetail={onDetail} onDragStart={setDrag} onDragEnd={() => setDrag(null)} dragging={drag === u.id} />)}
+            </ul>
+          </div>
+        )) : <p className="mc-empty">{view === 'selected' ? 'Nothing selected yet. Select units from All results or the AI shortlist.' : 'No units match these filters.'}</p>}
+      </div>
+    </section>
+  );
+}
+
+// ── S14 · Your 3 + 1 (S99 action bar holds the single COMMIT) ──
+function Slots({ deal, slots, setSlot, selected, drag, setDrag, onPlaceMenu, onSlotMenu, onSend, sent, compact }) {
+  const role = useRole(), canPlace = acts(role, 'mcp.place');
+  const [over, setOver] = React.useState(null);
+  const placed = Object.values(slots).filter(Boolean).length;
+  const drop = (sid) => (e) => { e.preventDefault(); setOver(null); const id = e.dataTransfer.getData('text/plain') || drag; if (id) setSlot(sid, id); setDrag(null); };
+  return (
+    <aside data-spec-id="sec-your-3-plus-1" data-bos-level="section" data-bos-section="S14" data-bos-type="list" aria-label="Your 3 plus 1" className="mc-slots">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><h2 className="mc-h2" style={{ margin: 0 }}>Your 3 + 1</h2><span className="mc-badge" style={{ marginLeft: 'auto' }} aria-label={`${placed} of 4 placed`}>{placed}/4</span></div>
+      <p className="mc-p" style={{ margin: 0, color: 'var(--text-light-tertiary)' }}>{canPlace ? 'Drag rows into slots, or use Place. Drag slots to reorder.' : 'The manager is building these picks.'}</p>
+      <ol className="mc-slot-list" data-spec-id="list-slots" data-bos-level="layer">
+        {M.SLOTS.map((s) => {
+          const u = slots[s.id] ? M.UNIT_BY_ID[slots[s.id]] : null;
+          const target = drag && over === s.id, hint = drag && !u && s.id === 'great-idea' && !over;
+          const pay = u ? payment(u.dsrp, deal) : 0, diff = u ? deal.ceiling - pay : 0;
+          return (
+            <li key={s.id} data-spec-id={`card-slot#${s.id}`} data-bos-level="component" className={`mc-slot${u ? ' is-full' : ''}${target || hint ? ' is-target' : ''}`}
+              onDragOver={canPlace ? (e) => { e.preventDefault(); setOver(s.id); } : undefined} onDragLeave={() => setOver(null)} onDrop={canPlace ? drop(s.id) : undefined}
+              draggable={canPlace && !!u} onDragStart={u ? (e) => { e.dataTransfer.setData('text/plain', u.id); setDrag(u.id); } : undefined}>
+              <div className="mc-slot-h"><span className="mc-ov" style={{ margin: 0 }}>{s.n} · {s.label}</span>
+                {u && canPlace && <button type="button" data-spec-id={`btn-action-slot-menu#${s.id}`} data-bos-class="action" aria-label={`${s.label} options`} aria-haspopup="menu" onClick={(e) => onSlotMenu(s, e.currentTarget)} className="mc-icon-btn"><Icon name="ellipsis-vertical" size={18} /></button>}
+              </div>
+              {u ? (
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <UnitThumb />
+                  <div style={{ minWidth: 0 }}>
+                    <div className="mc-slot-t">{u.year} {u.model}</div>
+                    <div className="mc-slot-p"><b className="mc-mono">{money(pay)}/mo</b> <span style={{ color: diff >= 0 ? 'var(--semantic-success-dark)' : 'var(--semantic-danger-dark)' }}>· {money(Math.abs(diff))} {diff >= 0 ? 'under' : 'over'}</span></div>
+                    <div className="mc-mono" style={{ fontSize: 12, color: 'var(--text-light-tertiary)' }}>#{u.stock} · {u.age} d on lot</div>
+                  </div>
+                </div>
+              ) : (target || hint) ? <div className="mc-drop">Drop to place as {s.label.toLowerCase()}</div> : canPlace && (
+                <button type="button" data-spec-id={`btn-action-place-in-slot#${s.id}`} data-bos-class="action" {...perm(role, 'mcp.place')} onClick={(e) => onPlaceMenu(s, e.currentTarget)} className="mc-btn mc-btn--quiet mc-btn--sm" style={{ alignSelf: 'flex-start' }}><Icon name="plus" size={15} />Place{selected.length ? ` · ${selected.length} selected` : ''}</button>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+      <div data-spec-id="sec-action-bar" data-bos-level="section" data-bos-section="S99" data-bos-type="action" className="mc-slot-foot">
+        <p className="mc-p" role="status" style={{ margin: 0 }}>{sent ? `Sent to ${M.CUSTOMER.name.split(' ')[0]}. Picks are locked; the outfitter is notified.` : placed ? `${placed} of 4 placed. Compare side by side, then send to ${M.CUSTOMER.name.split(' ')[0]}.` : 'Place at least 1 unit in a slot to compare and send.'}</p>
+        {shows(role, 'mcp.send') && <button type="button" data-spec-id="btn-commit-compare-and-send" data-bos-class="commit" {...perm(role, 'mcp.send')} disabled={!placed || sent} onClick={onSend} className="mc-btn mc-btn--commit" style={{ width: '100%', minHeight: 52 }}><Icon name={sent ? 'check' : 'send'} size={18} />{sent ? 'Sent' : 'Compare & send'}</button>}
+      </div>
+    </aside>
+  );
+}
+
+window.MCPScreen = { RoleCtx, useRole, perm, Situation, Brief, DealBar, Results, Slots, UnitThumb };
+})();

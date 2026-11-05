@@ -1,0 +1,2032 @@
+[
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#19ty0z",
+  "label": "Step 2 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Next · Stop Claude"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#1vqi5r",
+  "label": "Step 6 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Next · Stop Claude"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#1y2j5d",
+  "label": "Step 5 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Entertaining · Remote working · Crafting / Sewing · Hiking / Climbing · Relaxing · Skiing · Swimming · Biking"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#3uojsj",
+  "label": "Step 1 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Fifth Wheel · Toy Hauler · Destination Trailer · Adventure Style · Tear Drop · Pop-Up Camper · Truck Camper · Motorhomes"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#4icfsx",
+  "label": "Step 9 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Manufacturer · Year · Year · Brand · Brand · Dealer / where · 👍 What they liked · Add an amenity…"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#5nqgmt",
+  "label": "Step 3 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Next · Stop Claude"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#hrn0o1",
+  "label": "Step 4 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Extreme heat (105°F+) · Neither / mild · Previous · Next · Stop Claude"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#jw5wa3",
+  "label": "Step 8 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "RV type · Select type · Manufacturer · Manufacturer · Year · Year · Brand · Brand (e.g. Eagle)"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#wt9xzl",
+  "label": "Step 10 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Finish · Stop Claude"
+ },
+ {
+  "file": "01-customer-discovery.json",
+  "id": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295@1281#zyfn4g",
+  "label": "Step 7 of 10",
+  "title": "Discovery Questionnaire | Bish's RV",
+  "vp": "1281×847",
+  "expanded": true,
+  "portals": 5,
+  "hint": "Payload (lbs) — optional · Trim / Package · Previous · Next · Stop Claude"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#106w12~toggle-hide-benched1",
+  "label": "toggle:Hide Benched1",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 31m ago · Show Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#17d1vp",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 31m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1chhzv~toggle-hide-benched1",
+  "label": "toggle:Hide Benched1",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 12m ago · Show Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1dvefg",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": true,
+  "portals": 13,
+  "hint": "Floor Rotation · Updated 32m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1i2cns~toggle-hide-benched1",
+  "label": "toggle:Hide Benched1",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 24m ago · Show Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1jv97w~toggle-collapse-floor-rotation",
+  "label": "toggle:Collapse floor rotation",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 3:59 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1kjt61",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 24m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1lwfm4~toggle-0-deliveries",
+  "label": "toggle:0 Deliveries",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 17m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1np2en",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 17m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1rj3in",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": true,
+  "portals": 9,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 3:59 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1tps2j",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 11m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#1vf1xa",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": true,
+  "portals": 11,
+  "hint": "Floor Rotation · Updated 24m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#40t6r0~toggle-0-deliveries",
+  "label": "toggle:0 Deliveries",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 31m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#erig9g~toggle-0-deliveries",
+  "label": "toggle:0 Deliveries",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 24m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#lwtlca~toggle-hide-benched1",
+  "label": "toggle:Hide Benched1",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 17m ago · Show Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#nxgtn0~toggle-collapse-floor-rotation",
+  "label": "toggle:Collapse floor rotation",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 4:19 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#oyw706~toggle-0-deliveries",
+  "label": "toggle:0 Deliveries",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 3:59 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#xou7pg~toggle-collapse-floor-rotation",
+  "label": "toggle:Collapse floor rotation",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 4:05 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-01.json",
+  "id": "/employee/floor@1281#zdmoga",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": true,
+  "portals": 11,
+  "hint": "Floor Rotation · Updated 18m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1281#zyynvi~toggle-collapse-floor-rotation",
+  "label": "toggle:Collapse floor rotation",
+  "title": "Floor | Bish's RV",
+  "vp": "1281×903",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · 5 outfitters on shift · New Check-in · Today’s Schedule · Current time: 4:11 PM · 0 Deliveries · 0 Sales · Nothing scheduled today."
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#13ytl9",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 6,
+  "hint": "Floor Rotation · Updated 17m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#1bxbin",
+  "label": "Today’s Schedule",
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 6,
+  "hint": "Floor Rotation · Updated 1m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#1e9j6v",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 1m ago · Hide Benched · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#1iuskr",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 12s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 1:46 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#1q8m5i",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 33s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 1:26 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#1x6vpe",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 21s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 1:38 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#b35y6e",
+  "label": "Today’s Schedule",
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 6,
+  "hint": "Floor Rotation · Updated 1m ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 0:39 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#bk7la",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 43s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 1:16 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-02.json",
+  "id": "/employee/floor@1920#nnq7i6",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated 3s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 0:05 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-03.json",
+  "id": "/employee/floor@1920#q1ovam",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 6,
+  "hint": "Floor Rotation · Updated 39s ago · Hide Benched · Collapse · Pending Ack · PENDING ACK · 1:19 · Chris Johnson"
+ },
+ {
+  "file": "02-employee-floor-part-03.json",
+  "id": "/employee/floor@2133#1mvq8p",
+  "label": null,
+  "title": "Floor | Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Floor Rotation · Updated just now · Collapse · UP NOW · Chris Johnson · MTD · 0 units · UPFRONT · With Customers"
+ },
+ {
+  "file": "03-employee-manager-mcp-37.json",
+  "id": "/employee/manager/mcp/37@1920#1gzesr",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · CJ Johnson · Meridian · Story · Filters · Financial Position · Payment · Down"
+ },
+ {
+  "file": "03-employee-manager-mcp-37.json",
+  "id": "/employee/manager/mcp/37@1920#1l68fq",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 40,
+  "hint": "Customer Situation · CJ Johnson · Meridian · Story · Filters · Financial Position · Payment · Down"
+ },
+ {
+  "file": "03-employee-manager-mcp-37.json",
+  "id": "/employee/manager/mcp/37@1920#f6jnqk",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · CJ Johnson · Meridian · Story · Filters · Financial Position · Payment · Down"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#10j6di",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#112eph",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1ckgr3",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1k8gjh",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1k9f0w",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1kdwhr",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1klh21",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1nk858",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1rhbph",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1tqbs1",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#1z0986",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#2edmwx",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-01.json",
+  "id": "/employee/manager/mcp/45@2133#7kl68u",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#djun0t",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#dm9l5e",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#gwh7y9",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Financial Position · Finance · Payment"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#kcdutj",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#z3szqg",
+  "label": "test test",
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": true,
+  "portals": 40,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "04-employee-manager-mcp-45-part-02.json",
+  "id": "/employee/manager/mcp/45@2133#zb9owu",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · test test · Meridian · Story · Filters · Stock # · Unit Type · Travel Trailer"
+ },
+ {
+  "file": "05-employee-manager-mcp-47.json",
+  "id": "/employee/manager/mcp/47@2133#1dqef4",
+  "label": null,
+  "title": "MCP · Bish's RV",
+  "vp": "2133×1012",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Situation · Justin Walls · Meridian · Story · Filters · Tow Vehicle · 2026 FORD · Payload"
+ },
+ {
+  "file": "06-employee-outfitter-alerts.json",
+  "id": "/employee/outfitter/alerts@1013#1p9fsf",
+  "label": "Notifications",
+  "title": "Outfitter · Bish's RV",
+  "vp": "1013×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Update · 48s ago · Available → Available · by manager · Update · 54s ago · Available → Available · Update · 5m ago"
+ },
+ {
+  "file": "06-employee-outfitter-alerts.json",
+  "id": "/employee/outfitter/alerts@1013#f07bjw",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1013×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Update · 55s ago · Available → Available · by manager · Update · 1m ago · Available → Available · Update · 5m ago"
+ },
+ {
+  "file": "06-employee-outfitter-alerts.json",
+  "id": "/employee/outfitter/alerts@1920#16vjl6",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Notifications · Your rotation notifications. · Assignments · Misses · Breaks · Shift · No notifications yet · OUT ·"
+ },
+ {
+  "file": "06-employee-outfitter-alerts.json",
+  "id": "/employee/outfitter/alerts@1920#1ju2xe",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Notifications · Your rotation notifications. · Assignments · Misses · Breaks · Shift · Update · 17m ago"
+ },
+ {
+  "file": "06-employee-outfitter-alerts.json",
+  "id": "/employee/outfitter/alerts@1920#9suhti",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Notifications · Your rotation notifications. · Assignments · Misses · Breaks · Shift · Update · 17m ago"
+ },
+ {
+  "file": "07-employee-outfitter-cases-66.json",
+  "id": "/employee/outfitter/cases/66@1920#180zxl",
+  "label": null,
+  "title": "Case · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "test agent · Discovery record (read-only) · Back to cases · What you've learned · 3 answered · Lifestyle · What type of RV do you see yourself in? · Class C, Class A"
+ },
+ {
+  "file": "07-employee-outfitter-cases-66.json",
+  "id": "/employee/outfitter/cases/66@1920#1h6rdh",
+  "label": null,
+  "title": "Case · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": true,
+  "portals": 2,
+  "hint": "test agent · Discovery record (read-only) · Back to cases · What you've learned · 3 answered · Lifestyle · What type of RV do you see yourself in? · Class C, Class A"
+ },
+ {
+  "file": "07-employee-outfitter-cases-66.json",
+  "id": "/employee/outfitter/cases/66@1920#q1tind",
+  "label": null,
+  "title": "Case · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "test agent · Discovery record (read-only) · Back to cases · What you've learned · 3 answered · Lifestyle · What type of RV do you see yourself in? · Class C, Class A"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@1920#1a1oyo",
+  "label": null,
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Cases · Your walk-in case history. · Customer Name · Checked In · Furthest Phase · Record · test agent · 19 Oct 2026 · 8:56 AM"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@1920#1aabsv",
+  "label": null,
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Cases · Your walk-in case history. · Customer Name · Checked In · Furthest Phase · Record · test agent · 19 Oct 2026 · 8:56 AM"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@1920#46zihm",
+  "label": null,
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Cases · Your walk-in case history. · Customer Name · Checked In · Furthest Phase · Record · test agent · 19 Oct 2026 · 8:56 AM"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@1920#gchgcl",
+  "label": null,
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "1920×855",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Cases · Your walk-in case history. · Customer Name · Checked In · Furthest Phase · Record · test agent · 19 Oct 2026 · 8:56 AM"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@838#15vgly",
+  "label": null,
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "838×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Jake Rasmusen · 22 Oct 2026 · 4:31 PM · Lot Walk · Open · test test · 22 Oct 2026 · 11:20 AM · Open · abby mmmm"
+ },
+ {
+  "file": "08-employee-outfitter-cases.json",
+  "id": "/employee/outfitter/cases@838#1fzgqy",
+  "label": "Cases",
+  "title": "Cases · Outfitter | Bish's RV",
+  "vp": "838×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Jake Rasmusen · 22 Oct 2026 · 4:31 PM · Lot Walk · Open · test test · 22 Oct 2026 · 11:20 AM · Open · abby mmmm"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#11r752",
+  "label": "Step 3 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out · Break"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#1ji2bp",
+  "label": "Step 9 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Year · Year · Brand · Brand · Dealer / where · 👍 What they liked · Add an amenity… · 👎 What they disliked"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#1mzbhr",
+  "label": "Step 7 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Trim / Package · Previous · Next · Up Q · Cases · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#1wgchr",
+  "label": "Step 10 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out · Break"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#5whw1g",
+  "label": "Step 8 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Select type · Manufacturer · Manufacturer · Year · Year · Brand · Brand (e.g. Eagle) · Model / floorplan"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-01.json",
+  "id": "/employee/outfitter/discovery/66@818#a6p8by",
+  "label": "Step 5 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Remote working · Crafting / Sewing · Hiking / Climbing · Relaxing · Skiing · Swimming · Biking · Powersports"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-02.json",
+  "id": "/employee/outfitter/discovery/66@818#i8rdrw",
+  "label": "Step 2 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out · Break"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-02.json",
+  "id": "/employee/outfitter/discovery/66@818#jz6gap",
+  "label": null,
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Toy Hauler · Destination Trailer · Adventure Style · Tear Drop · Pop-Up Camper · Truck Camper · Motorhomes · Class A"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-02.json",
+  "id": "/employee/outfitter/discovery/66@818#lc28oz",
+  "label": "Step 4 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Neither / mild · Previous · Next · Up Q · Cases · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-02.json",
+  "id": "/employee/outfitter/discovery/66@818#spolql",
+  "label": "Step 6 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out · Break"
+ },
+ {
+  "file": "09-employee-outfitter-discovery-66-part-02.json",
+  "id": "/employee/outfitter/discovery/66@818#vw5tqv",
+  "label": "Step 1 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "818×1037",
+  "expanded": true,
+  "portals": 17,
+  "hint": "Toy Hauler · Destination Trailer · Adventure Style · Tear Drop · Pop-Up Camper · Truck Camper · Motorhomes · Class A"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@1584#1i3qt2",
+  "label": "Discovery complete",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "1584×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Close · OUT · · Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@556#15i6u8",
+  "label": null,
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "556×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@556#6zqsd9",
+  "label": null,
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "556×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@930#1ae4d0",
+  "label": "Step 4 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Neither / mild · Previous · Next · Up Q · Cases · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@930#1curre",
+  "label": "Step 3 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@930#1f3g92",
+  "label": "Step 1 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Toy Hauler · Destination Trailer · Adventure Style · Tear Drop · Pop-Up Camper · Truck Camper · Motorhomes · Class A"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-01.json",
+  "id": "/employee/outfitter/discovery/69@930#1myyl6",
+  "label": "Step 2 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#1nq1pd",
+  "label": "Step 7 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Previous · Next · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#1q3lfs",
+  "label": null,
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Toy Hauler · Destination Trailer · Adventure Style · Tear Drop · Pop-Up Camper · Truck Camper · Motorhomes · Class A"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#7w43ps",
+  "label": "Step 5 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Remote working · Crafting / Sewing · Hiking / Climbing · Relaxing · Skiing · Swimming · Biking · Powersports"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#gl3s32",
+  "label": "Step 10 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Fair (580–669) · Good (670–749) · Excellent (750+) · Monthly payment range · per month range · Target · $100 · Target max"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#ot5jc3",
+  "label": "Step 6 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Stats"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-02.json",
+  "id": "/employee/outfitter/discovery/69@930#wopi5o",
+  "label": "Step 8 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Select type · Manufacturer · Manufacturer · Year · Year · Brand · Brand (e.g. Eagle) · Model / floorplan"
+ },
+ {
+  "file": "10-employee-outfitter-discovery-69-part-03.json",
+  "id": "/employee/outfitter/discovery/69@930#xxu5ri",
+  "label": "Step 9 of 10",
+  "title": "Discovery · Outfitter | Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 19,
+  "hint": "Year · Year · Brand · Brand · Dealer / where · 👍 What they liked · Add an amenity… · 👎 What they disliked"
+ },
+ {
+  "file": "11-employee-outfitter-messenger.json",
+  "id": "/employee/outfitter/messenger@1900#79l0yh",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1900×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Messenger · Direct messages with your team. · Coming soon · SR-5312 · OUT · · Clock Out · Break · Stats"
+ },
+ {
+  "file": "11-employee-outfitter-messenger.json",
+  "id": "/employee/outfitter/messenger@1920#144haz",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Messenger · Direct messages with your team. · Coming soon · SR-5312 · OUT · · Clock Out · Break · Stats"
+ },
+ {
+  "file": "11-employee-outfitter-messenger.json",
+  "id": "/employee/outfitter/messenger@1920#1se5cc",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Messenger · Direct messages with your team. · Coming soon · SR-5312 · OUT · · Clock Out · Break · Stats"
+ },
+ {
+  "file": "11-employee-outfitter-messenger.json",
+  "id": "/employee/outfitter/messenger@1920#1t78es",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Messenger · Direct messages with your team. · Coming soon · SR-5312 · OUT · · Clock Out · Break · Stats"
+ },
+ {
+  "file": "11-employee-outfitter-messenger.json",
+  "id": "/employee/outfitter/messenger@930#1y3tm2",
+  "label": "Messenger",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Alerts · Messenger · OUT · · Clock Out · Break · Stats"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@1920#1mogea",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Checking for your assignment. · OUT ·"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@818#1hg9fq",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": false,
+  "portals": 0,
+  "hint": "# 66 · test agent · (804) 984-8882 · First visit · Looking for · Wearing · Bottom · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@818#7rbt4d",
+  "label": "Acknowledge check-in",
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 2,
+  "hint": "# 66 · test agent · (804) 984-8882 · First visit · Looking for · Wearing · Bottom · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@818#imfw2z",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×1037",
+  "expanded": false,
+  "portals": 0,
+  "hint": ""
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@818#lxzxpv",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 2,
+  "hint": "# 66 · test agent · (804) 984-8882 · First visit · Looking for · Wearing · Bottom · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@930#1b1w90",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "# 69 · test test · (555) 555-5555 · 2 visits · Looking for · Travel Trailer · Wearing · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@930#1b5o2m",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "# 69 · test test · (555) 555-5555 · 2 visits · Looking for · Travel Trailer · Wearing · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@930#1s6huz",
+  "label": "Acknowledge check-in",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "# 69 · test test · (555) 555-5555 · 2 visits · Looking for · Travel Trailer · Wearing · Location · Meridian"
+ },
+ {
+  "file": "12-employee-outfitter-my-turn.json",
+  "id": "/employee/outfitter/my-turn@930#2p9rme",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": ""
+ },
+ {
+  "file": "13-employee-outfitter-stats.json",
+  "id": "/employee/outfitter/stats@1920#1i00ue",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "My Stats · Your rotation performance. · Today · Week · Month · 90 days · Floor ranking arrives with . · SR-4865"
+ },
+ {
+  "file": "13-employee-outfitter-stats.json",
+  "id": "/employee/outfitter/stats@1920#1wpohy",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": true,
+  "portals": 2,
+  "hint": "My Stats · Your rotation performance. · Today · Week · Month · 90 days · Floor ranking arrives with . · SR-4865"
+ },
+ {
+  "file": "13-employee-outfitter-stats.json",
+  "id": "/employee/outfitter/stats@1920#4zo6nm",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "My Stats · Your rotation performance. · Today · Week · Month · 90 days · Floor ranking arrives with . · SR-4865"
+ },
+ {
+  "file": "13-employee-outfitter-stats.json",
+  "id": "/employee/outfitter/stats@1920#jh6spf",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "My Stats · Your rotation performance. · Today · Week · Month · 90 days · Floor ranking arrives with . · SR-4865"
+ },
+ {
+  "file": "13-employee-outfitter-stats.json",
+  "id": "/employee/outfitter/stats@1920#yrvykj",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "My Stats · Your rotation performance. · Today · Week · Month · 90 days · Floor ranking arrives with . · SR-4865"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#15428s",
+  "label": "abby's Winning Line-Up!",
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×829",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Used 2021 DYNAMAX · ISATA 24RWM · Stock # 64237BB · $93,995 · View details · Tour · New 2026 THOR · GEMINI TRIP 22MT"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#15ynsd",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": true,
+  "portals": 2,
+  "hint": "SR-5080 · Financial position · Down · Credit · Payment · The people · Adults · Kids"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#18sqxx",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#19suso",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#1sj7xk",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Used 2021 DYNAMAX · ISATA 24RWM · Stock # 64237BB · $93,995 · View details · Tour · New 2026 THOR · GEMINI TRIP 22MT"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#1vva7s",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Used 2021 DYNAMAX · ISATA 24RWM · Stock # 64237BB · $93,995 · View details · Tour · New 2026 THOR · GEMINI TRIP 22MT"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#4gc6j9",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#6x1oa4",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "SR-5080 · Financial position · Down · Credit · Payment · The people · Adults · Kids"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#ejk1j5",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#ekcyca",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#g3q44a",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Used 2021 DYNAMAX · ISATA 24RWM · Stock # 64237BB · $93,995 · View details · Tour · New 2026 THOR · GEMINI TRIP 22MT"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#rmvk25",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@628#vfd12c",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": ""
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@708#1gf8lv",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "708×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@708#1o6ryw",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "708×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@708#1wgiar",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "708×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@708#e99geq",
+  "label": "Why doesn’t this one work?",
+  "title": "Outfitter · Bish's RV",
+  "vp": "708×829",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Photos · Specs · Why doesn’t this one work? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@708#iy8lcz",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "708×829",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$118,995 · HERITAGE GLEN LTZ 286RL · $54,495 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@780#140vus",
+  "label": "How did this one feel?",
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Clear all"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+  "id": "/employee/outfitter/walkthrough/30@780#16cw9h",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · Coming soon · No floorplan available · Up Q · Cases · Alerts · Messenger"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#1m364g",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#1r5tn5",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Clear all"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#1ufngw",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · Why doesn’t this one work? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#1wayvj",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · Overview · Year · 2021 · Make · ISATA · Model"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#9jqmxz",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · Why doesn’t this one work? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#g4da0h",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#qbdf6t",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+  "id": "/employee/outfitter/walkthrough/30@780#vpxq7h",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "780×773",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@735#1hjunz",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "735×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$48,995 · JAY FLIGHT SLX 197MBW · $18,895 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@735#1jnkxb",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "735×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$48,995 · JAY FLIGHT SLX 197MBW · $18,895 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@735#1jpos8",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "735×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$48,995 · JAY FLIGHT SLX 197MBW · $18,895 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@735#1rmovx",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "735×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "$48,995 · JAY FLIGHT SLX 197MBW · $18,895 · JAY FLIGHT SLX 197MBW · $18,895 · Layout · Photos · Specs"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@735#8d3coh",
+  "label": "How did this one feel?",
+  "title": "Outfitter · Bish's RV",
+  "vp": "735×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@744#34mhwz",
+  "label": "test's Winning Line-Up!",
+  "title": "Outfitter · Bish's RV",
+  "vp": "744×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "New 2026 KEYSTONE · BULLET PREMIUM 265FKS · Stock # 1043521 · $45,895 · View details · Tour · New 2026 ALLIANCE · DELTA 294RK"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#12wxna",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "0/24 · 0% assessed · Answered checks only · Confidence · Not assessed · Coverage + evidence · positive · trade-off"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#14og9c",
+  "label": "2026 BULLET PREMIUM 265FKS",
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "0/24 · 0% assessed · Answered checks only · Confidence · Not assessed · Coverage + evidence · positive · trade-off"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#15tc9j",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "FINANCE · Down · $4,000 · Credit · Good · Payment · $100–$500 · The people"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#1ewu8l",
+  "label": "The Winner!",
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Rank 1 · Pros · Cons · New 2026 KEYSTONE · BULLET PREMIUM 265FKS · KEYSTONE · Stock #1043521 · Rank 2 · Pros"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#1jg84b",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "New 2026 KEYSTONE · BULLET PREMIUM 265FKS · Stock # 1043521 · $45,895 · View details · Tour · New 2026 ALLIANCE · DELTA 294RK"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#1jqrcq",
+  "label": "The Winner!",
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Rank 1 · Pros · Cons · New 2026 KEYSTONE · BULLET PREMIUM 265FKS · KEYSTONE · Stock #1043521 · Rank 2 · Pros"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#1xfl3q",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "FINANCE · Down · $4,000 · Credit · Good · Payment · $100–$500 · The people"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+  "id": "/employee/outfitter/walkthrough/33@983#58rchn",
+  "label": "How did this one feel?",
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Photos · Specs · How did this one feel? · Pass · Maybe · Favorite · Reasons why · Bathroom"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-02.json",
+  "id": "/employee/outfitter/walkthrough/33@983#hzhla7",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "FINANCE · Down · $4,000 · Credit · Good · Payment · $100–$500 · The people"
+ },
+ {
+  "file": "15-employee-outfitter-walkthrough-33-part-02.json",
+  "id": "/employee/outfitter/walkthrough/33@983#zgsg85",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "0/24 · 0% assessed · Answered checks only · Confidence · Not assessed · Coverage + evidence · positive · trade-off"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@1327#14y40l",
+  "label": "MCP",
+  "title": "Outfitter · Bish's RV",
+  "vp": "1327×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "test test · Discovery · # 69 · Journey · Step 2 of 7 · Next Step · Ready when you are · Move to MCP · Won't sit · What you've learned"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@1920#12mm01",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×911",
+  "expanded": false,
+  "portals": 0,
+  "hint": "You're on deck — Position 2 · Clock Out · Take a Break · Live Rotation · 6 outfitters · Updated 51s ago · Chris Johnson · Up now · UP NOW"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@1920#7qp50t",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Key objectives · OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@1920#8am1nn",
+  "label": "You're on deck — Position 2",
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×911",
+  "expanded": true,
+  "portals": 2,
+  "hint": "You're on deck — Position 2 · Clock Out · Take a Break · Live Rotation · 6 outfitters · Updated just now · Chris Johnson · Up now · UP NOW"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@1920#igcpi7",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "1920×855",
+  "expanded": false,
+  "portals": 0,
+  "hint": "You're on deck — Position 2 · Clock Out · Take a Break · Live Rotation · 6 outfitters · Updated 14s ago · Chris Johnson · Up now · UP NOW"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@2649#1s76xa",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "2649×1037",
+  "expanded": false,
+  "portals": 0,
+  "hint": "You're on deck — Position 2 · Clock Out · Take a Break · Live Rotation · 6 outfitters · Updated 1m ago · Chris Johnson · Up now · UP NOW"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#103iy1",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Advance to Worksheet · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#18b9ix",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#1hhwb0",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Advance to Worksheet · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#1hum3h",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#1wj2qr",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×773",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Advance to Worksheet · Alerts · Messenger · OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#3cadzr",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×829",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#7t1jyp",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": true,
+  "portals": 2,
+  "hint": "off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#gm5ace",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#nq8baf",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": true,
+  "portals": 2,
+  "hint": "OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#o363ul",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#w3z2a1",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Clock Out"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@628#yr0vqc",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "628×685",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Open Deal Card · SR-4603 · off rotation · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@744#17ccxy",
+  "label": "Worksheet",
+  "title": "Outfitter · Bish's RV",
+  "vp": "744×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@744#1blcut",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "744×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@744#1fz6wk",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "744×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@818#1h9kt0",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 2,
+  "hint": "OUT · · Stop Claude"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@818#1xw17t",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 2,
+  "hint": "UP NOW · Zach Mcvicker · Next up · ON DECK · Michael Green · With CJ Johnson · WITH CUST · Tyler Menzie"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@818#dnxytx",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×1037",
+  "expanded": false,
+  "portals": 0,
+  "hint": "OUT ·"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@818#s20pkn",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "818×981",
+  "expanded": true,
+  "portals": 2,
+  "hint": "OUT · · Stop Claude"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@838#ijbcpl",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "838×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Next up · ON DECK · Tyler Menzie · Waiting · IN HOLE · Zach Mcvicker · Waiting · IN HOLE"
+ },
+ {
+  "file": "16-employee-outfitter-part-01.json",
+  "id": "/employee/outfitter@930#1hoctq",
+  "label": "Discovery",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Up Q · Cases · Alerts · Messenger · OUT · · Customer Left · Stats"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@930#1hypzt",
+  "label": "One-off customer experience",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "If they're still confrontational · “Wait right here, I have a great idea.” · Up Q · Cases · Alerts · Messenger · OUT · · Customer Left"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@930#1no70k",
+  "label": "One-off customer experience",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Needs a manager turn or intervention · Customer Left · The disarm — use verbatim · The follow-up (after they say no) · If they're still confrontational · “Wait right here, I have a great idea.” · Up Q · Cases"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@930#1ten52",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Next up · ON DECK · Tyler Menzie · Waiting · IN HOLE · Zach Mcvicker · Waiting · IN HOLE"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@930#3pawt2",
+  "label": "MCP",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid · How do you see yourself using this RV? · Weekends & getaways"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@930#zrue3v",
+  "label": "MCP",
+  "title": "Outfitter · Bish's RV",
+  "vp": "930×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid · How do you see yourself using this RV? · Weekends & getaways"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@931#1d1cno",
+  "label": "Worksheet",
+  "title": "Outfitter · Bish's RV",
+  "vp": "931×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 17 answered · Lifestyle · What type of RV do you see yourself in? · Truck Camper · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@931#1n0jv8",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "931×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Next up · ON DECK · Tyler Menzie · Waiting · IN HOLE · Zach Mcvicker · Waiting · IN HOLE"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@931#xii0sp",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "931×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 17 answered · Lifestyle · What type of RV do you see yourself in? · Truck Camper · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@983#t8td98",
+  "label": null,
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": false,
+  "portals": 0,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid"
+ },
+ {
+  "file": "16-employee-outfitter-part-02.json",
+  "id": "/employee/outfitter@983#vcbujv",
+  "label": "Worksheet",
+  "title": "Outfitter · Bish's RV",
+  "vp": "983×1013",
+  "expanded": true,
+  "portals": 2,
+  "hint": "Move to Worksheet · Won't sit · What you've learned · 15 answered · Lifestyle · What type of RV do you see yourself in? · Travel Trailer · Boondocking / off-grid"
+ }
+]

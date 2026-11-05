@@ -1,4 +1,4 @@
-import { NavConfig, NavIcon, NAV_ICONS, SHELL_THEME } from './NavConfig.jsx';
+import { NavConfig, NavIcon, navIcons, shellTheme } from './NavConfig.jsx';
 
 // Admin › Roles & Navigation. Edits a draft of NavConfig; "Publish changes" (the screen's one COMMIT)
 // pushes it to every AppShell. Nothing a role sees is hardcoded in a screen.
@@ -62,7 +62,7 @@ function RemoveBtn({ label, onClick, T, spec }) {
 }
 
 export function RolesNavAdmin({ theme = 'light' }) {
-  const T = SHELL_THEME[theme] || SHELL_THEME.light;
+  const T = shellTheme[theme] || shellTheme.light;
   const live = NavConfig.useConfig();
   const [draft, setDraft] = React.useState(() => clone(live));
   const [navForm, setNavForm] = React.useState({ label: '', icon: 'layout-dashboard', group: 'Operate' });
@@ -193,7 +193,7 @@ export function RolesNavAdmin({ theme = 'light' }) {
             <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center', border: `1px solid ${T.line}`, borderRadius: 8, color: T.text }}><NavIcon name={navForm.icon} size={20} /></span>
               <select data-spec-id="input-new-nav-icon" value={navForm.icon} onChange={(e) => setNavForm({ ...navForm, icon: e.target.value })} style={ctl}>
-                {Object.keys(NAV_ICONS).map((k) => <option key={k} value={k}>{k}</option>)}
+                {Object.keys(navIcons).map((k) => <option key={k} value={k}>{k}</option>)}
               </select>
             </span>
           </Field>

@@ -1,4 +1,4 @@
-import { NavConfig, NavIcon, SHELL_THEME } from './NavConfig.jsx';
+import { NavConfig, NavIcon, shellTheme } from './NavConfig.jsx';
 import { SpecLint } from '../spec-ready/SpecLint.jsx';
 
 // REQUIRED navigation shell for every Bish's screen (SKILL.md Step 0A).
@@ -210,8 +210,9 @@ export function ActionOverlay({ actions = [], phases = [], currentPhase, onActio
 export function AppShell({
   role = 'outfitter', activeId, onNavigate, onRoleChange, onAction, onPhase, currentPhase,
   alerts = 0, logoSrc, logoSrcDark, theme = 'light', height = '100vh', children,
+  onSearch, onSearchSubmit,
 }) {
-  const T = SHELL_THEME[theme] || SHELL_THEME.light;
+  const T = shellTheme[theme] || shellTheme.light;
   const cfg = NavConfig.useConfig();
   const nav = NavConfig.navFor(cfg, role);
   const r = nav.role;
@@ -270,7 +271,7 @@ export function AppShell({
       <div style={{ flex: 1, minWidth: 0, display: 'flex', justifyContent: 'center' }}>
         <label style={{ display: 'flex', alignItems: 'center', gap: 6, width: '100%', maxWidth: 280, height: 44, padding: '0 10px', boxSizing: 'border-box', border: `1px solid ${qFocus ? 'var(--accent-gold-hi)' : T.input}`, borderRadius: 999, background: T.card }}>
           <NavIcon name="search" size={16} color={T.muted} />
-          <input ref={searchRef} data-spec-id="input-search" type="search" value={q} onChange={(e) => setQ(e.target.value)}
+          <input ref={searchRef} data-spec-id="input-search" type="search" value={q} onChange={(e) => { setQ(e.target.value); if (onSearch) onSearch(e.target.value); }} onKeyDown={(e) => { if (e.key === 'Enter' && onSearchSubmit) onSearchSubmit(q); if (e.key === 'Escape') { setQ(''); if (onSearch) onSearch(''); } }}
             onFocus={() => setQFocus(true)} onBlur={() => setQFocus(false)} placeholder="Search" aria-label="Global search"
             style={{ flex: 1, minWidth: 0, border: 'none', outline: 'none', background: 'transparent', fontFamily: FONT.body, fontSize: 16, color: T.text }} />
         </label>
@@ -296,7 +297,7 @@ export function AppShell({
       <div style={{ flex: 1, display: 'flex', justifyContent: 'center', minWidth: 0 }}>
         <label style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', maxWidth: band === 'dt' ? 576 : 400, height: 44, padding: '0 12px', boxSizing: 'border-box', border: `1px solid ${qFocus ? 'var(--accent-gold-hi)' : T.input}`, boxShadow: qFocus ? '0 0 0 3px rgba(139,117,46,0.15)' : 'none', borderRadius: 8, background: T.card }}>
           <NavIcon name="search" size={18} color={T.muted} />
-          <input ref={searchRef} data-spec-id="input-search" type="search" value={q} onChange={(e) => setQ(e.target.value)}
+          <input ref={searchRef} data-spec-id="input-search" type="search" value={q} onChange={(e) => { setQ(e.target.value); if (onSearch) onSearch(e.target.value); }} onKeyDown={(e) => { if (e.key === 'Enter' && onSearchSubmit) onSearchSubmit(q); if (e.key === 'Escape') { setQ(''); if (onSearch) onSearch(''); } }}
             onFocus={() => setQFocus(true)} onBlur={() => setQFocus(false)} placeholder={r.search || 'Search'} aria-label="Global search"
             style={{ flex: 1, minWidth: 0, border: 'none', outline: 'none', background: 'transparent', fontFamily: FONT.body, fontSize: 15, color: T.text }} />
           {band === 'dt' && <kbd style={{ fontFamily: FONT.mono, fontSize: 11, color: T.muted, border: `1px solid ${T.line}`, borderRadius: 4, padding: '2px 6px' }}>⌘K</kbd>}

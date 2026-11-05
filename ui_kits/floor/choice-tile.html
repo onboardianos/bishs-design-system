@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" viewport="1000x620" name="Choice Tile" subtitle="Photo / icon answer card with a live effect line · radio + multi · optional Required footer · ink selection, never gold" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>html,body{margin:0;background:#F7F6F1;font-family:'Source Sans 3',sans-serif;}#root{padding:28px;}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function(){
+  var NS=window.BishSRVDesignSystem_26feec||{},e=React.createElement,Q=NS.QuestionCard,Tile=NS.ChoiceTile;
+  var P='../../conversions/outfitter-discovery/images/';
+  var ICON=e('svg',{width:44,height:44,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.6,strokeLinecap:'round',strokeLinejoin:'round'},e('circle',{cx:12,cy:12,r:4}),e('path',{d:'M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4'}));
+  function Req(p){return e('label',{style:{display:'flex',alignItems:'center',gap:8,minHeight:44,fontSize:14,fontWeight:700,color:'#0A0A09',cursor:'pointer'}},e('input',{type:'checkbox',checked:p.on,onChange:p.onChange,style:{width:20,height:20,accentColor:'#0A0A09'}}),'Required');}
+  function Demo(){
+    var s=React.useState({bigger:true}),sel=s[0],set=s[1];var r=React.useState({}),req=r[0],setReq=r[1];
+    var t=function(k){var n=Object.assign({},sel);n[k]=!n[k];set(n);};
+    if(!Tile) return e('p',null,'ChoiceTile is compiling into the bundle. Reload in a moment.');
+    return e(Q,{overline:'Step 9 of 12 · Bathroom',title:'What matters in the bathroom?',hint:'Select all that apply. Mark a card as required to remove units without it.'},
+      e('div',{className:'grid'},
+        e(Tile,{label:'Bigger, more private bath',hint:'ranks 1,912 units higher',hintTone:'rank',image:P+'bathroom-rear-bathroom.jpg',multi:true,selected:!!sel.bigger,onClick:function(){t('bigger');}}),
+        e(Tile,{label:'Two bathrooms',hint:'ranks 486 units higher',hintTone:'rank',image:P+'bathroom-half-bathroom.jpg',multi:true,selected:!!sel.two,onClick:function(){t('two');},footer:sel.two?e(Req,{on:!!req.two,onChange:function(){setReq({two:!req.two});}}):null}),
+        e(Tile,{label:'Not a pass-through bath',hint:'ranks 702 units lower',hintTone:'avoid',image:P+'bathroom-split-bathroom.jpg',multi:true,selected:!!sel.walk,onClick:function(){t('walk');}}),
+        e(Tile,{label:'Open to any bathroom',hint:'keeps all 3,410 open',icon:ICON,multi:true,selected:false,onClick:function(){set({});}})));
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(e(Demo));
+})();
+</script>
+</body>
+</html>
