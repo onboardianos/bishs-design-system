@@ -4,7 +4,7 @@
 |---|---|
 | Build | OUTFITTER-DISCOVERY · v0.1 (conversion) |
 | Date | 2026-10-27 |
-| Source | `uploads/wayfinder_v2_connected_configurator.html` (Discovery Configurator v2, inventory-connected) |
+| Source | `uploads/wayfinder_v2_connected_configurator.html` (Discovery Configurator v2, inventory-connected) | · *source removed from the project on 2026-11-05; kept in the v2.0_2026-11-05 archive zip*
 | Roles | Outfitter (runs it with the customer), Sales manager. Receptionist: no access (proposed, Q-OD-1) |
 | Surface | Inside AppShell · Cases › **Discovery** phase · light theme |
 | Owner | Zach McVicker |

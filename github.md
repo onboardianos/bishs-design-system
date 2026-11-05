@@ -3,7 +3,8 @@ branch: main
 
 ## Last sync
 date: 2026-11-05T00:00:00Z
-version: v2.0_2026-11-05 (zip built here; push by Zach)
+commit: 70672868fbf6b19ba1adffba2b30e690b04f0c21
+version: v2.0_2026-11-05 (pushed by Zach from Windows via tools/push-to-github.ps1; 231 files, 0 deleted)
 
 ### Updated in this project
 - starter-kit/CLAUDE.md for projects using the design system

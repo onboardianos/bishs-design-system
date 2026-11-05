@@ -1,6 +1,6 @@
 # Floor Workspace — conversion report
 
-**Source:** `uploads/Floor Workspace - Full App (standalone).html` › Home › **Floor Workspace** (design A, the screenshot posture).
+**Source:** `uploads/Floor Workspace - Full App (standalone).html` › Home › **Floor Workspace** (design A, the screenshot posture). *(Source removed from the project on 2026-11-05; kept in the v2.0_2026-11-05 archive zip.)*
 **Output:** `conversions/floor-workspace/index.html` (Canvas ⇄ Prototype, 17 states, 3 device widths).
 **Date:** 2026-10-22 · **Role shown:** Manager · **Scope:** Floor Workspace flow only. Bullpen, Outfitter Mobile, Decline flow and Customer Mobile are not converted.
 

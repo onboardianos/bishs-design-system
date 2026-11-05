@@ -1,5 +1,7 @@
 # Design extract catalogue · portal-staging.bishs.com
 
+> The viewer page and the raw extracts (`uploads/`) were removed on 2026-11-05 to keep the project lean. This catalog is the record; the raw files are in the v2.0_2026-11-05 archive zip.
+
 Captured 2026-10-20 to 10-23 · **203 states across 16 routes** · source: `design-extract (9).zip`.
 
 **How to view:** open `tools/extract-viewer/index.html`, pick a file and a snapshot, then pick a captured overlay (popover, dialog or sheet) to lay on top. The viewer rebuilds each snapshot from its recorded DOM and computed styles, so it's a faithful reference of what rendered. It isn't a working app.

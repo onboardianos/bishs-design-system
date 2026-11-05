@@ -4,7 +4,7 @@
 |---|---|
 | Build | WAYFINDER · v0.2 (conversion of Wayfinder v2.1) |
 | Date | 2026-10-28 |
-| Source | `uploads/wayfinder_v2.1_figma_match.html` (Figma-matched discovery UI, inventory-connected) + `uploads/athena_init_raw_2026-10-27-25166a87.json` (Athena lookups) |
+| Source | `uploads/wayfinder_v2.1_figma_match.html` (Figma-matched discovery UI, inventory-connected) + `uploads/athena_init_raw_2026-10-27-25166a87.json` (Athena lookups) | · *source removed from the project on 2026-11-05; kept in the v2.0_2026-11-05 archive zip*
 | Inventory | Snapshot **INV-2026-10-27-D4D7297F606E** · 7,809 units (3,283 new on the lot, 4,526 L-stock floorplans) · 32 rooftops |
 | Audiences | **Customer** (welcome link, own device) and **Outfitter / Sales manager** (case mirror inside AppShell). Receptionist: no access |
 | Owner | Zach McVicker |
