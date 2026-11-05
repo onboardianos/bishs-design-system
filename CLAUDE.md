@@ -147,8 +147,7 @@ and `documents/wcag-audit.html` for the audit. Consequences to honor:
 `--text-muted` is `#A2A59C` (never `#7A7D76`); `--text-subtle` is disabled/decorative only;
 semantic base tokens are the on-dark tints (`#51CF66` / `#FFD43B` / `#FF8787` / `#74C0FC`);
 interactive control edges use `--border-input`; no persistent text below 11px; the gold
-overline uses `--accent-gold-hi`; links are underlined; primary buttons take near-black text
-on gold.
+overline uses `--accent-gold-hi`; links are underlined; primary buttons take a white label on `--accent-gold` (#8A742D).
 
 ## Spec-ready stamping (REQUIRED for every build and every review — v2)
 
