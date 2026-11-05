@@ -3,12 +3,12 @@ import { makeSpecId } from '../spec-ready/SpecLint.jsx';
 export function Header({ eyebrow = "Nexus Portal · Dealer Ops", title = "Inventory", titleAccent = "Dashboard", meta = [["Location", "Coeur d'Alene"], ["Units", "284"], ["Updated", "2 min ago"]], theme = "dark", specId, logoSrc }) {
   const L = theme === "light";
   const c = L
-    ? { bg: "#FFFFFF", ring: "rgba(139,117,46,0.12)", ring2: "rgba(139,117,46,0.06)", over: "#5E4F1F", title: "#0A0A09", accent: "#8B752E", k: "#3D3D38", v: "#6B6B63", logo: "../../assets/logo-tag-black-gold.png" }
+    ? { bg: "#FFFFFF", ring: "rgba(139,117,46,0.12)", ring2: "rgba(139,117,46,0.06)", over: "#5E4F1F", title: "#0A0A09", accent: "#8A742D", k: "#3D3D38", v: "#6B6B63", logo: "../../assets/logo-tag-black-gold.png" }
     : { bg: "linear-gradient(135deg, #020000 0%, #203232 65%, #2A4040 100%)", ring: "rgba(139,117,46,0.10)", ring2: "rgba(139,117,46,0.05)", over: "#B89E4A", title: "#fff", accent: "#B89E4A", k: "#E7DDB4", v: "#A2A59C", logo: "../../assets/logo-tag-gold.png" };
   return (
     <header data-spec-id={specId || "sec-page-header"} data-bos-level="section" data-bos-type="header" style={{
       background: c.bg,
-      borderBottom: "2px solid #8B752E",
+      borderBottom: "2px solid #8A742D",
       padding: "40px 32px 32px",
       position: "relative", overflow: "hidden",
     }}>

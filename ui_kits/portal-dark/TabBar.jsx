@@ -14,7 +14,7 @@ export function TabBar({ tabs, active, onChange, theme = "dark", specId }) {
             padding: "14px 18px 12px", minHeight: 44, border: "none", cursor: "pointer",
             background: "transparent",
             color: active === tab ? c.on : c.off,
-            borderBottom: active === tab ? "2px solid #8B752E" : "2px solid transparent",
+            borderBottom: active === tab ? "2px solid #8A742D" : "2px solid transparent",
             transition: "all 150ms cubic-bezier(0.2,0,0,1)",
             whiteSpace: "nowrap", flexShrink: 0,
           }}>{tab}</button>

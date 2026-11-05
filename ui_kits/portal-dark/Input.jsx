@@ -3,7 +3,7 @@ export function Input({ label, value, onChange, placeholder, error, helper, disa
   const [focus, setFocus] = React.useState(false);
   const L = theme === "light";
   const c = L
-    ? { edge: "#949494", focus: "#8B752E", err: "#B02525", errText: "#B02525", label: "#3D3D38", bg: "#FFFFFF", bgOff: "#EFEDE4", text: "#0A0A09", textOff: "#767670", helper: "#6B6B63" }
+    ? { edge: "#949494", focus: "#8A742D", err: "#B02525", errText: "#B02525", label: "#3D3D38", bg: "#FFFFFF", bgOff: "#EFEDE4", text: "#0A0A09", textOff: "#767670", helper: "#6B6B63" }
     : { edge: "rgba(255,255,255,0.30)", focus: "#B89E4A", err: "#E03131", errText: "#FF8787", label: "#E7DDB4", bg: "#111E1E", bgOff: "#0A1414", text: "#fff", textOff: "#4A4D46", helper: "#A2A59C" };
   const borderColor = error ? c.err : focus ? c.focus : c.edge;
   const shadow = focus ? (error ? "0 0 0 3px rgba(224,49,49,0.15)" : "0 0 0 3px rgba(139,117,46,0.15)") : "none";

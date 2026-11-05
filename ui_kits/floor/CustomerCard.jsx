@@ -19,7 +19,7 @@ export function CustomerCard({ customer, interest, partyType = 'single', meta, o
   const [hov, setHov] = React.useState(null);
   const inst = slug(instance || customer);
   const unassigned = !outfitter;
-  const flagColor = flag ? (flag.tone === 'danger' ? c.danger : flag.tone === 'info' ? c.info : '#8B752E') : null;
+  const flagColor = flag ? (flag.tone === 'danger' ? c.danger : flag.tone === 'info' ? c.info : '#8A742D') : null;
   const ctaTone = cta && cta.tone;
   const ctaBg = ctaTone === 'danger' ? (hov === 'cta' ? c.danger : c.dangerBg) : ctaTone === 'info' ? (hov === 'cta' ? c.info : c.infoBg) : (hov === 'cta' ? c.ink : c.inset);
   const ctaFg = hov === 'cta' ? (theme === 'dark' ? '#0A0A09' : '#FFFFFF') : ctaTone === 'danger' ? c.danger : ctaTone === 'info' ? c.info : c.ink;
