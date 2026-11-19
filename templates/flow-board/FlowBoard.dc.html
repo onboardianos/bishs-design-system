@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="Requirements & Flow Board" description="Visual requirements and screen flow: role swimlanes, one card per screen state, transitions labelled by trigger stamp ID, requirement cards and data states on each screen, gate summary. Reads flow.json, generated from the SpecLint manifest." -->
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<script src="./ds-base.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#020000}a{color:#B89E4A;text-decoration:underline}a:hover{color:#E7DDB4}</style>
+</helmet>
+<div data-spec-id="frame-flow-board" data-bos-level="frame" style="min-height:100vh;background:#020000;color:#FFFFFF;font-family:'Source Sans 3',sans-serif;padding:48px;box-sizing:border-box;width:max-content;min-width:100%">
+<sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+<div data-spec-id="info-flow-loading" role="status" style="display:flex;flex-direction:column;gap:12px;max-width:640px">
+<div style="height:16px;width:180px;border-radius:4px;background:#1C2E2E"></div>
+<div style="height:48px;width:420px;border-radius:4px;background:#1C2E2E"></div>
+<div style="font-size:16px;color:#A2A59C">Loading flow.json…</div>
+</div>
+</sc-if>
+<sc-if value="{{ error }}" hint-placeholder-val="{{ false }}">
+<div data-spec-id="info-flow-error" role="alert" style="max-width:640px;display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid rgba(255,255,255,0.30);border-radius:12px;background:#1C2E2E">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#FF8787">Flow data didn't load</div>
+<div style="font-size:16px;color:#FFFFFF">{{ errorText }}</div>
+<div style="font-size:14px;color:#E7DDB4">Put flow.json next to this page, or set the src prop to its path. Serve the folder over http; browsers block it on file://.</div>
+</div>
+</sc-if>
+<sc-if value="{{ ready }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:32px">
+<header data-spec-id="sec-flow-header" data-bos-level="section" data-bos-section="S01" data-bos-type="header" style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#B89E4A">Requirements &amp; flow · {{ version }}</div>
+<h1 style="margin:0;font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:48px;line-height:1;letter-spacing:1.5px;color:#FFFFFF">{{ build }}</h1>
+<div style="font-size:16px;color:#E7DDB4">{{ countsText }}</div>
+<div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#A2A59C">{{ sourcesText }}</div>
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:12px">
+<button type="button" data-spec-id="btn-action-toggle-requirements" data-bos-class="action" aria-pressed="{{ showReqsPressed }}" onClick="{{ toggleReqs }}" style="min-height:44px;padding:0 16px;border-radius:8px;border:1px solid #B89E4A;background:transparent;color:#FFFFFF;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer" style-hover="background:rgba(255,255,255,0.08)">{{ reqsLabel }}</button>
+<button type="button" data-spec-id="btn-action-toggle-data-states" data-bos-class="action" aria-pressed="{{ showStatesPressed }}" onClick="{{ toggleStates }}" style="min-height:44px;padding:0 16px;border-radius:8px;border:1px solid #B89E4A;background:transparent;color:#FFFFFF;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer" style-hover="background:rgba(255,255,255,0.08)">{{ statesLabel }}</button>
+<sc-if value="{{ hasFocus }}" hint-placeholder-val="{{ false }}"><button type="button" data-spec-id="btn-action-clear-focus" data-bos-class="action" onClick="{{ clearFocus }}" style="min-height:44px;padding:0 16px;border-radius:8px;border:1px solid rgba(255,255,255,0.30);background:transparent;color:#FFFFFF;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer" style-hover="background:rgba(255,255,255,0.08)">Show all · Esc</button></sc-if>
+</div>
+</header>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:stretch">
+<section data-spec-id="sec-flow-gates" data-bos-level="section" data-bos-section="S02" data-bos-type="status" aria-label="Gates" style="flex:1 1 520px;max-width:760px;background:#1C2E2E;border:1px solid rgba(255,255,255,0.13);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#B89E4A">Gates this board proves</div>
+<sc-for list="{{ gates }}" as="g" hint-placeholder-count="5">
+<div style="display:grid;grid-template-columns:72px minmax(0,1fr) 120px;gap:12px;align-items:center;padding:8px 0;border-top:1px solid rgba(255,255,255,0.07)">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#A2A59C">{{ g.code }}</div>
+<div style="display:flex;flex-direction:column"><div style="font-size:15px;font-weight:600;color:#FFFFFF">{{ g.label }}</div><div style="font-size:14px;color:#E7DDB4">{{ g.detail }}</div></div>
+<div><x-import component-from-global-scope="BishSRVDesignSystem_26feec.Badge" type="{{ g.badgeType }}" theme="dark" spec-id="{{ g.badgeId }}" hint-size="88px,24px">{{ g.status }}</x-import></div>
+</div>
+</sc-for>
+</section>
+<section data-spec-id="sec-flow-legend" data-bos-level="section" data-bos-section="S03" data-bos-type="content" aria-label="Legend" style="flex:1 1 360px;max-width:520px;background:#1C2E2E;border:1px solid rgba(255,255,255,0.13);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#B89E4A">Legend</div>
+<div style="display:grid;grid-template-columns:56px minmax(0,1fr);gap:8px 12px;align-items:center;font-size:14px;color:#E7DDB4">
+<svg width="56" height="12" aria-hidden="true"><line x1="2" y1="6" x2="54" y2="6" stroke="#A2A59C" stroke-width="2"></line></svg><div>Navigation to a screen or step</div>
+<svg width="56" height="12" aria-hidden="true"><line x1="2" y1="6" x2="54" y2="6" stroke="#A2A59C" stroke-width="2" stroke-dasharray="6 4"></line></svg><div>Opens an overlay (menu, sheet, dialog)</div>
+<svg width="56" height="12" aria-hidden="true"><line x1="2" y1="6" x2="54" y2="6" stroke="#74C0FC" stroke-width="3"></line></svg><div>Handoff to another role</div>
+<svg width="56" height="12" aria-hidden="true"><line x1="2" y1="6" x2="54" y2="6" stroke="#FF8787" stroke-width="2" stroke-dasharray="3 3"></line></svg><div>Open question, or trigger not stamped</div>
+</div>
+<div style="font-size:14px;color:#A2A59C">Arrow labels are the trigger's data-spec-id. Returns to an earlier screen are listed on each card as Exits. Select a screen title to show only its transitions.</div>
+</section>
+<sc-if value="{{ hasQuestions }}" hint-placeholder-val="{{ false }}">
+<section data-spec-id="sec-flow-questions" data-bos-level="section" data-bos-section="S04" data-bos-type="content" aria-label="Open questions" style="flex:1 1 360px;max-width:520px;background:#1C2E2E;border:1px solid rgba(255,255,255,0.30);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:8px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#B89E4A">Open questions</div>
+<sc-for list="{{ questions }}" as="q" hint-placeholder-count="1">
+<div data-spec-id="{{ q.specId }}" style="display:flex;flex-direction:column;gap:4px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.07)">
+<div style="display:flex;gap:8px;align-items:center"><span style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#FF8787">{{ q.id }}</span><span style="font-size:14px;color:#A2A59C">{{ q.ownerText }}</span></div>
+<div style="font-size:15px;color:#FFFFFF">{{ q.text }}</div>
+</div>
+</sc-for>
+</section>
+</sc-if>
+</div>
+<div ref="{{ boardRef }}" data-spec-id="sec-flow-lanes" data-bos-level="section" data-bos-section="S10" data-bos-type="content" style="position:relative;border:1px solid rgba(255,255,255,0.13);border-radius:12px;overflow:hidden;width:max-content">
+<div style="display:flex;gap:96px;padding:16px 32px;background:#020000;border-bottom:1px solid rgba(255,255,255,0.13)">
+<div style="flex:0 0 200px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#A2A59C">Role</div>
+<sc-for list="{{ colHeads }}" as="h" hint-placeholder-count="3"><div style="flex:0 0 320px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:#A2A59C">{{ h.text }}</div></sc-for>
+</div>
+<sc-for list="{{ lanes }}" as="lane" hint-placeholder-count="2">
+<section data-spec-id="{{ lane.secId }}" data-bos-level="layer" data-bos-type="list" aria-label="{{ lane.label }}" style="display:flex;gap:96px;align-items:flex-start;padding:32px;background:#0A1414;border-bottom:1px solid rgba(255,255,255,0.13)">
+<div style="flex:0 0 200px;display:flex;flex-direction:column;gap:4px;position:sticky;left:0">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;letter-spacing:1px;color:#FFFFFF">{{ lane.label }}</div>
+<div style="font-size:14px;color:#A2A59C">{{ lane.via }}</div>
+</div>
+<sc-for list="{{ lane.cells }}" as="cell" hint-placeholder-count="3">
+<div style="flex:0 0 320px;display:flex;flex-direction:column;gap:32px">
+<sc-for list="{{ cell.screens }}" as="s" hint-placeholder-count="1">
+<article data-flow-node="{{ s.key }}" data-spec-id="{{ s.cardId }}" data-bos-level="component" style="width:320px;background:#1C2E2E;border:1px solid rgba(255,255,255,0.13);border-radius:12px;overflow:hidden;transition:opacity 150ms">
+<div style="height:200px;background:#111E1E;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.13)">
+<sc-if value="{{ s.hasImage }}" hint-placeholder-val="{{ false }}"><img src="{{ s.image }}" alt="{{ s.label }}" style="width:100%;height:100%;object-fit:cover;object-position:top left;display:block"></sc-if>
+<sc-if value="{{ s.hasSrc }}" hint-placeholder-val="{{ false }}"><iframe src="{{ s.src }}" title="{{ s.label }}" tabindex="-1" loading="lazy" style="width:1280px;height:800px;border:0;transform:scale(0.25);transform-origin:0 0;pointer-events:none;background:#020000"></iframe></sc-if>
+<sc-if value="{{ s.noThumb }}" hint-placeholder-val="{{ true }}"><div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:8px;padding:16px">
+<div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:#E7DDB4;word-break:break-all">{{ s.frameText }}</div>
+<div style="font-size:14px;color:#A2A59C">{{ s.artText }}</div>
+<div style="font-size:14px;color:#A2A59C">Add image or src in flow.json to show the screen</div>
+</div></sc-if>
+</div>
+<button type="button" data-spec-id="{{ s.focusId }}" data-bos-class="action" aria-pressed="{{ s.pressed }}" onClick="{{ s.onFocus }}" style="width:100%;min-height:44px;display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:12px 16px;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,0.07);color:#FFFFFF;text-align:left;cursor:pointer;font-family:'Source Sans 3',sans-serif" style-hover="background:rgba(255,255,255,0.08)">
+<span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:#B89E4A">{{ s.overline }}</span>
+<span style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:600;letter-spacing:0.5px;line-height:1.1">{{ s.label }}</span>
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#A2A59C;word-break:break-all">{{ s.frameText }} · {{ s.artText }}</span>
+</button>
+<div style="display:flex;flex-direction:column;gap:12px;padding:12px 16px 16px">
+<sc-if value="{{ s.hasModules }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A2A59C">Data states · {{ s.moduleText }}</div>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px">
+<sc-for list="{{ s.states }}" as="d" hint-placeholder-count="6">
+<div title="{{ d.title }}" style="display:flex;align-items:center;gap:8px;min-height:24px;font-size:14px">
+<sc-if value="{{ d.ok }}" hint-placeholder-val="{{ false }}"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#51CF66" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#51CF66">{{ d.label }} {{ d.value }}</span></sc-if>
+<sc-if value="{{ d.gap }}" hint-placeholder-val="{{ false }}"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FF8787" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg><span style="color:#FF8787">{{ d.label }} {{ d.value }}</span></sc-if>
+<sc-if value="{{ d.na }}" hint-placeholder-val="{{ false }}"><svg class="lucide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A2A59C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path></svg><span style="color:#A2A59C">{{ d.label }} n/a</span></sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ s.hasExits }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;flex-direction:column;gap:4px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A2A59C">Exits</div>
+<sc-for list="{{ s.exits }}" as="x" hint-placeholder-count="1"><div style="font-size:14px;color:#E7DDB4">{{ x.text }}</div></sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ s.hasReqs }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#A2A59C">Requirements · {{ s.reqCount }}</div>
+<sc-for list="{{ s.reqs }}" as="r" hint-placeholder-count="1">
+<div data-spec-id="{{ r.cardId }}" style="display:flex;flex-direction:column;gap:8px;padding:12px;background:#243838;border-radius:8px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+<span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#E7DDB4;word-break:break-all">{{ r.id }}</span>
+<x-import component-from-global-scope="BishSRVDesignSystem_26feec.Badge" type="{{ r.badgeType }}" theme="dark" spec-id="{{ r.badgeId }}" hint-size="88px,22px">{{ r.sourceLabel }}</x-import>
+</div>
+<div style="font-size:15px;font-weight:600;color:#FFFFFF">{{ r.purpose }}</div>
+<sc-if value="{{ r.hasValidation }}" hint-placeholder-val="{{ false }}"><div style="font-size:14px;color:#E7DDB4"><span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A2A59C">Enabled when · </span>{{ r.validation }}</div></sc-if>
+<div style="font-size:14px;color:#E7DDB4"><span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#A2A59C">Acceptance · </span>{{ r.acceptanceText }}</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</article>
+</sc-for>
+</div>
+</sc-for>
+</section>
+</sc-for>
+{{ edgesLayer }}
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;src&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;./flow.json&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Data&quot;},&quot;showRequirements&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;showDataStates&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;},&quot;showTriggerLabels&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Display&quot;}}">
+class Component extends DCLogic {
+  state = { flow: null, error: null, focus: null, showReqs: null, showStates: null, geom: null };
+  boardRef = React.createRef();
+
+  componentDidMount() {
+    const src = this.props.src ?? './flow.json';
+    fetch(src, { cache: 'no-store' })
+      .then((r) => { if (!r.ok) throw new Error(src + ' returned ' + r.status); return r.json(); })
+      .then((flow) => this.setState({ flow }))
+      .catch((e) => this.setState({ error: e.message }));
+    this.onKey = (e) => { if (e.key === 'Escape' && this.state.focus) this.setState({ focus: null }); };
+    window.addEventListener('keydown', this.onKey);
+    this.ro = new ResizeObserver(() => this.measure());
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.measure());
+  }
+  componentDidUpdate() {
+    this.applyFocus();
+    const b = this.boardRef.current;
+    if (b && this.observed !== b) { this.ro.disconnect(); this.ro.observe(b); this.observed = b; }
+    this.measure();
+  }
+  componentWillUnmount() { if (this.ro) this.ro.disconnect(); window.removeEventListener('keydown', this.onKey); }
+
+  applyFocus() {
+    const b = this.boardRef.current, flow = this.state.flow, focus = this.state.focus; if (!b || !flow) return;
+    const on = focus ? new Set([focus, ...(flow.edges || []).filter((e) => e.from === focus || e.to === focus).flatMap((e) => [e.from, e.to])]) : null;
+    b.querySelectorAll('[data-flow-node]').forEach((el) => { el.style.opacity = on && !on.has(el.getAttribute('data-flow-node')) ? '0.35' : '1'; });
+  }
+  measure() {
+    const b = this.boardRef.current; if (!b) return;
+    const br = b.getBoundingClientRect(), k = br.width / (b.offsetWidth || 1) || 1;
+    const g = { w: b.offsetWidth, h: b.offsetHeight, n: {} };
+    b.querySelectorAll('[data-flow-node]').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      g.n[el.getAttribute('data-flow-node')] = { x: (r.left - br.left) / k, y: (r.top - br.top) / k, w: r.width / k, h: r.height / k };
+    });
+    const s = JSON.stringify(g);
+    if (s !== this._g) { this._g = s; this.setState({ geom: g }); }
+  }
+
+  edges(flow, byKey, focus, showLabels) {
+    const g = this.state.geom; if (!g) return null;
+    const h = React.createElement;
+    const COL = { nav: '#A2A59C', overlay: '#A2A59C', handoff: '#74C0FC', open: '#FF8787' };
+    const fam = (id) => String(id || '').split('#')[0];
+    const list = (flow.edges || []).filter((e) => byKey[e.from] && byKey[e.to] && g.n[e.from] && g.n[e.to]).map((e) => {
+      const A = g.n[e.from], B = g.n[e.to], els = byKey[e.from].elements;
+      const bad = Array.isArray(els) && !els.some((x) => fam(x) === fam(e.trigger));
+      const kind = e.open || bad ? 'open' : byKey[e.from].role !== byKey[e.to].role ? 'handoff' : (e.kind || 'nav');
+      const fwd = B.x >= A.x + A.w - 1;
+      return { e, A, B, kind, bad, fwd };
+    });
+    const spread = (arr, keyFn) => { const m = {}; arr.forEach((x) => { const k = keyFn(x); (m[k] = m[k] || []).push(x); }); Object.values(m).forEach((xs) => xs.forEach((x, i) => { x[keyFn.name] = (i - (xs.length - 1) / 2) * 16; })); };
+    const outK = function outK(x) { return x.e.from + (x.fwd ? 'r' : 'v'); }, inK = function inK(x) { return x.e.to + (x.fwd ? 'l' : 'v'); };
+    spread(list, outK); spread(list, inK);
+    const kids = [h('defs', { key: 'defs' }, Object.keys(COL).map((k) => h('marker', { key: k, id: 'fb-arrow-' + k, viewBox: '0 0 10 10', refX: 9, refY: 5, markerWidth: 8, markerHeight: 8, orient: 'auto-start-reverse' }, h('path', { d: 'M0 0 L10 5 L0 10 z', fill: COL[k] }))))];
+    list.forEach((x, i) => {
+      const { A, B, kind, e } = x; let p1, p2, c1, c2;
+      if (x.fwd) {
+        p1 = [A.x + A.w, A.y + 100 + x.outK]; p2 = [B.x - 2, B.y + 100 + x.inK];
+        const dx = Math.max(40, (p2[0] - p1[0]) / 2); c1 = [p1[0] + dx, p1[1]]; c2 = [p2[0] - dx, p2[1]];
+      } else {
+        const up = B.y + B.h < A.y;
+        p1 = [A.x + A.w / 2 + x.outK, up ? A.y : A.y + A.h]; p2 = [B.x + B.w / 2 + x.inK, up ? B.y + B.h + 2 : B.y - 2];
+        const dy = Math.max(48, Math.abs(p2[1] - p1[1]) / 2) * (up ? -1 : 1); c1 = [p1[0], p1[1] + dy]; c2 = [p2[0], p2[1] - dy];
+      }
+      const dim = focus && e.from !== focus && e.to !== focus;
+      const mid = [(p1[0] + 3 * c1[0] + 3 * c2[0] + p2[0]) / 8, (p1[1] + 3 * c1[1] + 3 * c2[1] + p2[1]) / 8];
+      const text = (e.open ? e.open + ' · ' : x.bad ? 'not stamped · ' : '') + e.trigger + (e.label ? ' · ' + e.label : '');
+      const w = text.length * 6.7 + 16;
+      kids.push(h('g', { key: 'e' + i, opacity: dim ? 0.12 : 1 },
+        h('path', { d: `M${p1} C${c1} ${c2} ${p2}`, fill: 'none', stroke: COL[kind], strokeWidth: kind === 'handoff' ? 3 : 2, strokeDasharray: kind === 'overlay' ? '6 4' : kind === 'open' ? '3 3' : null, markerEnd: `url(#fb-arrow-${kind})` }),
+        showLabels ? h('g', null,
+          h('rect', { x: mid[0] - w / 2, y: mid[1] - 11, width: w, height: 22, rx: 4, fill: '#020000', stroke: COL[kind], strokeOpacity: 0.5 }),
+          h('text', { x: mid[0], y: mid[1] + 4, textAnchor: 'middle', fill: COL[kind], style: { font: "500 11px 'JetBrains Mono', monospace" } }, text)) : null));
+    });
+    return h('svg', { 'aria-hidden': 'true', width: g.w, height: g.h, style: { position: 'absolute', left: 0, top: 0, pointerEvents: 'none', overflow: 'visible', zIndex: 3 } }, kids);
+  }
+
+  renderVals() {
+    const { flow, error, focus } = this.state;
+    const showReqs = this.state.showReqs ?? (this.props.showRequirements ?? true);
+    const showStates = this.state.showStates ?? (this.props.showDataStates ?? true);
+    const showLabels = this.props.showTriggerLabels ?? true;
+    const base = {
+      loading: !flow && !error, error: !!error, errorText: error || '', ready: !!flow,
+      boardRef: this.boardRef, hasFocus: !!focus,
+      toggleReqs: () => this.setState({ showReqs: !showReqs }), toggleStates: () => this.setState({ showStates: !showStates }), clearFocus: () => this.setState({ focus: null }),
+      reqsLabel: showReqs ? 'Hide requirements' : 'Show requirements', statesLabel: showStates ? 'Hide data states' : 'Show data states',
+      showReqsPressed: showReqs ? 'true' : 'false', showStatesPressed: showStates ? 'true' : 'false',
+    };
+    if (!flow) return base;
+    const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'x';
+    const screens = flow.screens || [], roles = flow.roles || [];
+    const byKey = Object.fromEntries(screens.map((s) => [s.key, s]));
+    const cols = Math.max(1, ...screens.map((s) => s.col || 1));
+    const STATES = [['loading', 'Loading'], ['empty', 'Empty'], ['error', 'Error'], ['partial', 'Partial'], ['stale', 'Stale'], ['permission', 'Permission']];
+    let todo = 0, moduleCells = 0, needsRule = 0, reqCount = 0;
+    const noReq = [], noArt = [];
+    const toScreen = (s) => {
+      const reqs = (s.requirements || []).map((r) => {
+        const traced = !!r.source; if (!traced) needsRule++; reqCount++;
+        const k = slug(s.key + '-' + r.id);
+        return { ...r, badgeType: traced ? 'success' : 'danger', sourceLabel: traced ? r.source : 'needs-rule', badgeId: 'badge-source#' + k, cardId: 'card-requirement#' + k, hasValidation: !!r.validation, validation: r.validation || '', acceptanceText: r.acceptance || 'Missing — G10 fails' };
+      });
+      if (!reqs.length) noReq.push(s.label);
+      if (!(s.artboards || []).length) noArt.push(s.label);
+      const mods = s.modules || [];
+      const states = STATES.map(([k, l]) => {
+        const vals = mods.map((m) => (m.states && m.states[k]) || 'todo'), app = vals.filter((v) => v !== 'n/a'), built = app.filter((v) => v === 'built').length;
+        todo += app.length - built; moduleCells += app.length;
+        return { key: k, label: l, ok: app.length > 0 && built === app.length, gap: built < app.length, na: app.length === 0, value: built + '/' + app.length, title: mods.map((m) => m.name + ': ' + ((m.states && m.states[k]) || 'todo')).join(' · ') };
+      });
+      const exits = (s.exits || []).map((x) => { const t = byKey[x.to]; return { text: x.label + (t ? ' → ' + [t.num, t.label].filter(Boolean).join(' ') : '') }; });
+      return {
+        ...s, cardId: 'card-flow-screen#' + slug(s.key), focusId: 'btn-action-focus-screen#' + slug(s.key),
+        overline: [s.num, s.kind].filter(Boolean).join(' · '), frameText: s.frame || s.state || '',
+        artText: (s.artboards || []).length ? s.artboards.join(' · ') + 'px' : 'no artboard', hasImage: !!s.image, hasSrc: !s.image && !!s.src, noThumb: !s.image && !s.src,
+        reqs, reqCount: reqs.length, hasReqs: showReqs && reqs.length > 0, hasModules: showStates && mods.length > 0, moduleText: mods.map((m) => m.name).join(', '),
+        states, exits, hasExits: exits.length > 0,
+        pressed: focus === s.key ? 'true' : 'false',
+        onFocus: () => this.setState({ focus: focus === s.key ? null : s.key }),
+      };
+    };
+    const lanes = roles.map((r) => {
+      const cells = []; for (let c = 1; c <= cols; c++) cells.push({ screens: screens.filter((s) => s.role === r.id && (s.col || 1) === c).map(toScreen) });
+      return { ...r, via: r.via || '', secId: 'sec-lane#' + slug(r.id), cells };
+    });
+    const fam = (id) => String(id || '').split('#')[0];
+    const checked = (flow.edges || []).filter((e) => byKey[e.from] && Array.isArray(byKey[e.from].elements));
+    const unstamped = checked.filter((e) => !byKey[e.from].elements.some((x) => fam(x) === fam(e.trigger)));
+    const qs = flow.questions || [];
+    const gate = (code, label, ok, detail, na) => ({ code, label, detail, status: na ? 'not checked' : ok ? 'pass' : 'fail', badgeType: na ? 'neutral' : ok ? 'success' : 'danger', badgeId: 'badge-gate#' + slug(code + '-' + label) });
+    const gates = [
+      gate('G8', 'Six data states for every module', todo === 0, moduleCells ? (moduleCells - todo) + ' of ' + moduleCells + ' module states designed' : 'No modules listed', !moduleCells),
+      gate('G9', 'Every screen has a Canvas artboard', !noArt.length, noArt.length ? 'Missing: ' + noArt.join(', ') : screens.length + ' screens, all with artboards'),
+      gate('G10', 'Requirement text on every screen', !noReq.length, noReq.length ? 'No requirement: ' + noReq.join(', ') : reqCount + ' requirements across ' + screens.length + ' screens'),
+      gate('G12', 'Every requirement traces to a source', needsRule === 0 && qs.length === 0, (needsRule ? needsRule + ' needs-rule' : 'All traced') + (qs.length ? ' · ' + qs.length + ' open question(s)' : '')),
+      gate('G2', 'Every trigger is a stamped element', !unstamped.length, checked.length ? (unstamped.length ? 'Not stamped: ' + unstamped.map((e) => e.trigger).join(', ') : checked.length + ' triggers found in the manifest') : 'Add the manifest with fromManifest() to check', !checked.length),
+    ];
+    const heads = flow.columns || [];
+    return {
+      ...base, build: flow.build || 'Untitled build', version: flow.version || 'unversioned',
+      countsText: [screens.length + ' screens', (flow.edges || []).length + ' transitions', reqCount + ' requirements', roles.length + ' roles'].join(' · '),
+      sourcesText: (flow.sources || []).join(' · '), gates,
+      questions: qs.map((q) => ({ ...q, specId: 'info-question#' + slug(q.id), ownerText: q.owner ? 'Owner: ' + q.owner : 'No owner yet' })), hasQuestions: qs.length > 0,
+      colHeads: Array.from({ length: cols }, (_, i) => ({ text: heads[i] || 'Step ' + (i + 1) })),
+      lanes, edgesLayer: this.edges(flow, byKey, focus, showLabels),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "build": "Floor Workspace",
+  "version": "example",
+  "generated": "2026-11-12",
+  "sources": ["handoff/state-map.md", "handoff/requirements.md", "handoff/roles-permissions.md"],
+  "columns": ["Screen", "Menu or step", "Dialog"],
+  "roles": [
+    { "id": "manager", "label": "Sales manager", "via": "NavConfig › floor (Sales Floor)" },
+    { "id": "receptionist", "label": "Receptionist", "via": "NavConfig › floor" }
+  ],
+  "screens": [
+    { "key": "manager-floor", "state": "floor", "num": "01", "label": "Floor workspace", "kind": "screen", "role": "manager", "col": 1,
+      "frame": "frame-app-shell", "artboards": [1920, 1280, 834, 390],
+      "modules": [
+        { "name": "Ups rotation", "states": { "loading": "todo", "empty": "todo", "error": "todo", "partial": "todo", "stale": "todo", "permission": "n/a" } },
+        { "name": "Today's schedule", "states": { "loading": "todo", "empty": "built", "error": "todo", "partial": "todo", "stale": "todo", "permission": "n/a" } },
+        { "name": "Floor traffic", "states": { "loading": "todo", "empty": "built", "error": "todo", "partial": "todo", "stale": "todo", "permission": "n/a" } }
+      ],
+      "requirements": [
+        { "id": "btn-commit-new-check-in", "purpose": "Start a check-in", "acceptance": "It's the screen's only gold fill, with near-black text. When clicked, check-in opens at step 1", "source": "requirements.md" },
+        { "id": "card-case#{case}", "purpose": "One customer on the floor", "acceptance": "Given a case is unassigned, it shows a danger edge and an Assign button", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-case-menu", "state": "case-menu", "num": "02", "label": "Case actions", "kind": "popover / sheet", "role": "manager", "col": 2,
+      "frame": "frame-case-menu#{case}", "artboards": [1280, 390],
+      "exits": [{ "label": "Escape / scrim", "to": "manager-floor" }],
+      "requirements": [
+        { "id": "frame-case-menu#{case}", "purpose": "Route to a case action", "acceptance": "\"Customer left\" is in danger text; when Message is chosen, the chat sheet opens", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-rep-menu", "state": "rep-menu", "num": "09", "label": "Outfitter actions", "kind": "popover / sheet", "role": "manager", "col": 2,
+      "frame": "frame-rep-menu#{o}", "artboards": [1280, 390],
+      "modules": [
+        { "name": "Rep menu", "states": { "loading": "todo", "empty": "n/a", "error": "todo", "partial": "n/a", "stale": "todo", "permission": "built" } }
+      ],
+      "requirements": [
+        { "id": "frame-rep-menu#{o}", "purpose": "Route to an outfitter action. Bench is Manager-only; Pause and Move are disabled when benched", "acceptance": "A non-manager sees Bench disabled with \"Only a manager can bench or un-bench\"", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-assign", "state": "assign", "num": "04", "label": "Assign outfitter", "kind": "dialog", "role": "manager", "col": 3,
+      "frame": "frame-assign-outfitter", "artboards": [1280],
+      "exits": [{ "label": "commit + toast", "to": "manager-floor" }],
+      "requirements": [
+        { "id": "btn-commit-assign-outfitter", "purpose": "Set the outfitter; Waiting → Assigned; toast \"notification sent\"", "validation": "An outfitter, plus a reason if it's not the up outfitter", "acceptance": "Assigning Mike to Jacksons moves the card to Assigned", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-move", "state": "move", "num": "05", "label": "Move to phase", "kind": "dialog", "role": "manager", "col": 3,
+      "frame": "frame-move-case", "artboards": [1280],
+      "exits": [{ "label": "commit + Undo toast", "to": "manager-floor" }],
+      "requirements": [
+        { "id": "btn-commit-move-case", "purpose": "Move the card, with an Undo toast", "validation": "A phase other than the current one", "acceptance": "The current phase can't be committed", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-left", "state": "left", "num": "07", "label": "Customer left", "kind": "dialog", "role": "manager", "col": 3,
+      "frame": "frame-customer-left", "artboards": [1280],
+      "exits": [{ "label": "commit, card removed, exit logged", "to": "manager-floor" }],
+      "requirements": [
+        { "id": "btn-commit-customer-left", "purpose": "Remove the card and log an exit for the phase", "validation": "A reason", "acceptance": "The exit appears in that phase's detail", "source": "requirements.md" }
+      ]
+    },
+    { "key": "manager-bench", "state": "rep-bench", "num": "12", "label": "Bench outfitter", "kind": "dialog · danger commit", "role": "manager", "col": 3,
+      "frame": "frame-bench-outfitter", "artboards": [1280],
+      "exits": [{ "label": "commit", "to": "manager-floor" }],
+      "requirements": [
+        { "id": "btn-commit-bench-outfitter", "purpose": "Set the outfitter to benched (Manager only)", "validation": "A reason and a coaching note", "acceptance": "A warning explains that customers move to Waiting", "source": "requirements.md" }
+      ]
+    },
+    { "key": "receptionist-floor", "state": "floor", "num": "01", "label": "Floor workspace", "kind": "screen · receptionist posture", "role": "receptionist", "col": 1,
+      "frame": "frame-app-shell", "artboards": [1920, 1280, 834, 390],
+      "requirements": [
+        { "id": "frame-rep-menu#* stats block", "purpose": "Outfitter stats are hidden from the receptionist", "acceptance": "Matrix A: manager act, receptionist hidden", "source": "roles-permissions.md › Matrix A" }
+      ]
+    },
+    { "key": "receptionist-checkin", "state": "checkin", "num": "03", "label": "New check-in", "kind": "dialog · 4 steps", "role": "receptionist", "col": 2,
+      "frame": "frame-check-in", "artboards": [1280, 390],
+      "exits": [{ "label": "Done, new card in Assigned", "to": "receptionist-floor" }, { "label": "Cancel", "to": "receptionist-floor" }],
+      "requirements": [
+        { "id": "btn-commit-check-in", "purpose": "Look up → Continue → Assign & send link → Done", "validation": "Assign step: an outfitter, plus a reason when it's not the up outfitter", "acceptance": "With a 10-digit phone, the McVicker match prefills the names. Picking Sarah while Mike is up requires an override reason", "source": "requirements.md" }
+      ]
+    },
+    { "key": "receptionist-rep-menu", "state": "rep-menu", "num": "09", "label": "Outfitter actions", "kind": "popover / sheet", "role": "receptionist", "col": 2,
+      "frame": "frame-rep-menu#{o}", "artboards": [1280, 390],
+      "requirements": [
+        { "id": "btn-action-rep-bench#{o}", "purpose": "Bench is shown but disabled for this role", "acceptance": "A non-manager sees Bench disabled with \"Only a manager can bench or un-bench\"", "source": "requirements.md" }
+      ]
+    },
+    { "key": "receptionist-pause", "state": "rep-pause", "num": "10", "label": "Pause outfitter (request)", "kind": "dialog", "role": "receptionist", "col": 3,
+      "frame": "frame-pause-outfitter", "artboards": [1280],
+      "requirements": [
+        { "id": "btn-commit-pause-outfitter", "purpose": "Submit a pause request with a reason and duration", "acceptance": "The outfitter stays available until the sales manager approves", "source": "roles-permissions.md › Approval chains" }
+      ]
+    }
+  ],
+  "edges": [
+    { "from": "manager-floor", "to": "manager-case-menu", "trigger": "btn-action-case-menu#{case}", "kind": "overlay" },
+    { "from": "manager-floor", "to": "manager-rep-menu", "trigger": "btn-action-rep#{o}", "kind": "overlay" },
+    { "from": "manager-case-menu", "to": "manager-assign", "trigger": "menuitem-assign#{case}" },
+    { "from": "manager-case-menu", "to": "manager-move", "trigger": "menuitem-move#{case}" },
+    { "from": "manager-case-menu", "to": "manager-left", "trigger": "menuitem-left#{case}" },
+    { "from": "manager-rep-menu", "to": "manager-bench", "trigger": "btn-action-rep-bench#{o}" },
+    { "from": "receptionist-floor", "to": "receptionist-checkin", "trigger": "btn-commit-new-check-in", "kind": "overlay" },
+    { "from": "receptionist-floor", "to": "receptionist-rep-menu", "trigger": "btn-action-rep#{o}", "kind": "overlay" },
+    { "from": "receptionist-rep-menu", "to": "receptionist-pause", "trigger": "btn-action-rep-pause#{o}" },
+    { "from": "receptionist-pause", "to": "manager-floor", "trigger": "btn-commit-pause-outfitter", "label": "pause request → manager approves or declines", "open": "Q-01" }
+  ],
+  "questions": [
+    { "id": "Q-01", "text": "Where does the sales manager approve or decline a receptionist's pause request? roles-permissions.md describes the approval chain, but state-map.md has no state for it.", "owner": null }
+  ]
+}

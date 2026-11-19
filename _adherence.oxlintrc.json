@@ -18,6 +18,8 @@
             "group": [
               "conversions/outfitter-discovery/data/**",
               "conversions/wayfinder/data/**",
+              "selfcheck/**",
+              "tools/**",
               "ui_kits/app-shell/**",
               "ui_kits/floor/**",
               "ui_kits/portal-dark/**",
@@ -275,6 +277,7 @@
       "--brand-gold",
       "--brand-olive",
       "--brand-white",
+      "--ds-version",
       "--duration-fast",
       "--duration-normal",
       "--duration-slow",
@@ -361,6 +364,7 @@
       "--z-tooltip"
     ],
     "tokenKinds": {
+      "--ds-version": "other",
       "--brand-black": "color",
       "--brand-dark-green": "color",
       "--brand-gold": "color",

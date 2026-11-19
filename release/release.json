@@ -1,0 +1,25 @@
+{
+  "name": "bishs-rv-design-system",
+  "version": "2.2.0",
+  "date": "2026-11-12",
+  "zipRoot": "bishs-rv-design-system",
+  "include": [
+    "START-HERE.md", "VERSION", "CHANGELOG.md", "SKILL.md", "CLAUDE.md", "README.md", "COMPONENTS.md",
+    "colors_and_type.css", "styles.css", "_ds_bundle.js", "_ds_manifest.json", "_adherence.oxlintrc.json",
+    "design-system-viewer.html", "thumbnail.html",
+    "assets/", "preview/", "ui_kits/", "templates/", "documents/", "shadcn/", "starter-kit/", "selfcheck/",
+    "conversions/floor-workspace/",
+    "release/release.json", "release/README.md"
+  ],
+  "exclude": ["\\.zip$", "(^|/)\\.bundles/", "(^|/)\\.DS_Store$"],
+  "leftOut": {
+    "scratch/": "working notes",
+    "uploads/": "user source material for past tasks",
+    "reviews/": "scored reviews of specific builds (history, not canon)",
+    "handoff-packs/": "per-build packs; the standard lives in documents/",
+    "conversions/* except floor-workspace": "other builds; floor-workspace is the one reference",
+    "tools/": "maintainer scripts",
+    "Comparison Desk v3.html, Comparison Desk v4.html, Nexus Design System Viewer.html": "build entry points and an old bundled viewer",
+    "github.md, .bundles/": "sync record and export snapshots"
+  }
+}

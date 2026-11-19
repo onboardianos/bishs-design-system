@@ -1,4 +1,4 @@
-/* @ds-bundle: {"format":4,"namespace":"BishSRVDesignSystem_26feec","components":[{"name":"ActionOverlay","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"AppShell","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"NavIcon","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"NavConfig","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"RolesNavAdmin","sourcePath":"ui_kits/app-shell/RolesNavAdmin.jsx"},{"name":"ChoiceChip","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceGroup","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"QuestionCard","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceTile","sourcePath":"ui_kits/floor/ChoiceTile.jsx"},{"name":"CustomerCard","sourcePath":"ui_kits/floor/CustomerCard.jsx"},{"name":"PhaseAlert","sourcePath":"ui_kits/floor/PhaseAlert.jsx"},{"name":"Avatar","sourcePath":"ui_kits/portal-dark/Avatar.jsx"},{"name":"Badge","sourcePath":"ui_kits/portal-dark/Badge.jsx"},{"name":"Button","sourcePath":"ui_kits/portal-dark/Button.jsx"},{"name":"Card","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"StatTile","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"UnitRow","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"Header","sourcePath":"ui_kits/portal-dark/Header.jsx"},{"name":"Input","sourcePath":"ui_kits/portal-dark/Input.jsx"},{"name":"TabBar","sourcePath":"ui_kits/portal-dark/TabBar.jsx"},{"name":"SpecLint","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"}],"sourceHashes":{"conversions/outfitter-discovery/data/engine.js":"68fba665ea00","conversions/wayfinder/data/engine.js":"68fba665ea00","conversions/wayfinder/data/tow-vehicles.js":"0f3fffa00f7f","ui_kits/app-shell/AppShell.jsx":"ba25d24549c1","ui_kits/app-shell/NavConfig.jsx":"2f6891f69793","ui_kits/app-shell/RolesNavAdmin.jsx":"3427b4c9753d","ui_kits/floor/ChoiceChip.jsx":"436e1d6c567b","ui_kits/floor/ChoiceTile.jsx":"195661ffffd6","ui_kits/floor/CustomerCard.jsx":"a28ac9349e93","ui_kits/floor/PhaseAlert.jsx":"07f617624726","ui_kits/portal-dark/Avatar.jsx":"54a9c5594c65","ui_kits/portal-dark/Badge.jsx":"ad2a32ae6037","ui_kits/portal-dark/Button.jsx":"4b0ac21e0a48","ui_kits/portal-dark/Card.jsx":"41f0387853c2","ui_kits/portal-dark/Header.jsx":"b939727491db","ui_kits/portal-dark/Input.jsx":"e9c9bb12c467","ui_kits/portal-dark/TabBar.jsx":"7d5e19c42232","ui_kits/spec-ready/SpecLint.jsx":"b77760bf8d6f"},"inlinedExternals":[],"unexposedExports":[{"name":"iconAliases","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"makeSpecId","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"},{"name":"navIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"shellTheme","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"uiIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"}]} */
+/* @ds-bundle: {"format":4,"namespace":"BishSRVDesignSystem_26feec","components":[{"name":"ActionOverlay","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"AppShell","sourcePath":"ui_kits/app-shell/AppShell.jsx"},{"name":"NavIcon","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"NavConfig","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"RolesNavAdmin","sourcePath":"ui_kits/app-shell/RolesNavAdmin.jsx"},{"name":"ChoiceChip","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceGroup","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"QuestionCard","sourcePath":"ui_kits/floor/ChoiceChip.jsx"},{"name":"ChoiceTile","sourcePath":"ui_kits/floor/ChoiceTile.jsx"},{"name":"CustomerCard","sourcePath":"ui_kits/floor/CustomerCard.jsx"},{"name":"PhaseAlert","sourcePath":"ui_kits/floor/PhaseAlert.jsx"},{"name":"Avatar","sourcePath":"ui_kits/portal-dark/Avatar.jsx"},{"name":"Badge","sourcePath":"ui_kits/portal-dark/Badge.jsx"},{"name":"Button","sourcePath":"ui_kits/portal-dark/Button.jsx"},{"name":"Card","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"StatTile","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"UnitRow","sourcePath":"ui_kits/portal-dark/Card.jsx"},{"name":"Header","sourcePath":"ui_kits/portal-dark/Header.jsx"},{"name":"Input","sourcePath":"ui_kits/portal-dark/Input.jsx"},{"name":"TabBar","sourcePath":"ui_kits/portal-dark/TabBar.jsx"},{"name":"SpecLint","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"}],"sourceHashes":{"conversions/outfitter-discovery/data/engine.js":"68fba665ea00","conversions/wayfinder/data/engine.js":"68fba665ea00","conversions/wayfinder/data/tow-vehicles.js":"0f3fffa00f7f","selfcheck/selfcheck.js":"48542f77d005","tools/build-release.js":"a42a49b771b3","ui_kits/app-shell/AppShell.jsx":"ba25d24549c1","ui_kits/app-shell/NavConfig.jsx":"2f6891f69793","ui_kits/app-shell/RolesNavAdmin.jsx":"3427b4c9753d","ui_kits/floor/ChoiceChip.jsx":"436e1d6c567b","ui_kits/floor/ChoiceTile.jsx":"195661ffffd6","ui_kits/floor/CustomerCard.jsx":"a28ac9349e93","ui_kits/floor/PhaseAlert.jsx":"07f617624726","ui_kits/portal-dark/Avatar.jsx":"54a9c5594c65","ui_kits/portal-dark/Badge.jsx":"ad2a32ae6037","ui_kits/portal-dark/Button.jsx":"4b0ac21e0a48","ui_kits/portal-dark/Card.jsx":"41f0387853c2","ui_kits/portal-dark/Header.jsx":"b939727491db","ui_kits/portal-dark/Input.jsx":"e9c9bb12c467","ui_kits/portal-dark/TabBar.jsx":"7d5e19c42232","ui_kits/spec-ready/SpecLint.jsx":"b77760bf8d6f"},"inlinedExternals":[],"unexposedExports":[{"name":"iconAliases","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"makeSpecId","sourcePath":"ui_kits/spec-ready/SpecLint.jsx"},{"name":"navIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"shellTheme","sourcePath":"ui_kits/app-shell/NavConfig.jsx"},{"name":"uiIcons","sourcePath":"ui_kits/app-shell/NavConfig.jsx"}]} */
 
 (() => {
 
@@ -2281,6 +2281,636 @@ window.WF_TOW_VEH = {
   rows: [["Acura", "MDX", "3.5L V-6", 3500, "requires tow/HD package"], ["Acura", "MDX SH-AWD", "3.5L V-6", 5000, "requires tow/HD package"], ["Acura", "ZDX", "Electric", 3500, ""], ["Audi", "Q4 e-tron, Sportback", "Electric (HO)", 2650, ""], ["Audi", "Q5", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["Audi", "Q5", "Hybrid", 2000, "requires tow/HD package"], ["Audi", "Q6", "Electric", 4400, "requires tow/HD package"], ["Audi", "Q7", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["Audi", "Q7", "3.0L V-6 TC", 7700, "requires tow/HD package"], ["Audi", "Q8/SQ8", "3.0L V-6 TC", 7700, "requires tow/HD package"], ["Audi", "RS Q8", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["Audi", "SQ5", "3.0L V-6 TC", 4400, "requires tow/HD package"], ["Audi", "SQ7", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["BMW", "X1", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X2", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X3", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X3", "3.0L I-6 TC", 4850, "requires tow/HD package"], ["BMW", "X4", "2.0L I-4 TC", 4400, "requires tow/HD package"], ["BMW", "X4", "3.0L I-6 TC", 5700, "requires tow/HD package"], ["BMW", "X5", "3.0L I-6 TC", 7200, "requires tow/HD package"], ["BMW", "X5", "3.0L I-6 TC Hybrid", 5952, "requires tow/HD package"], ["BMW", "X5", "4.4L V-8 TC", 7200, "requires tow/HD package"], ["BMW", "X6", "All", 7200, "requires tow/HD package"], ["BMW", "X7", "All", 7500, "requires tow/HD package"], ["BMW", "iX", "Electric", 3500, "requires tow/HD package"], ["Bentley", "Bentayga", "3.0L V-6 TC Hybrid", 3500, "requires tow/HD package"], ["Bentley", "Bentayga", "4.0L V-8 TC", 7700, "requires tow/HD package"], ["Buick", "Enclave", "3.6L V-6", 5000, "requires tow/HD package"], ["Cadillac", "Escalade 2WD", "6.2L V-8", 8100, ""], ["Cadillac", "Escalade 4WD", "6.2L V-8", 8000, ""], ["Cadillac", "Escalade ESV 2WD", "6.2L V-8", 8000, ""], ["Cadillac", "Escalade ESV 4WD", "6.2L V-8", 7900, ""], ["Cadillac", "Escalade IQ", "Electric", 8000, ""], ["Cadillac", "Escalade IQL", "Electric", 7500, ""], ["Cadillac", "Escalade-V AWD", "6.2L V-8", 7000, ""], ["Cadillac", "Lyriq AWD", "Electric", 3500, "requires tow/HD package"], ["Cadillac", "Vistiq", "Electric", 5000, "requires tow/HD package"], ["Cadillac", "XT4 AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Cadillac", "XT5", "3.6L V-6", 3500, "requires tow/HD package"], ["Cadillac", "XT6", "3.6L V-6", 4000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "3.0L I-6 TD", 9300, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "3.0L I-6 TD", 13300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 CC Short Bed 2WD", "5.3L V-8", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "3.0L I-6 TD", 9000, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "3.0L I-6 TD", 13000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "5.3L V-8", 9300, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "6.2L V-8", 9200, ""], ["Chevrolet/GMC", "1500 CC Short Bed 4WD", "6.2L V-8", 13200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Short Bed 4WD ZR2", "6.2L V-8", 8800, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 CC Std Bed 2WD", "5.3L V-8", 11200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "3.0L I-6 TD", 9000, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "3.0L I-6 TD", 12900, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "5.3L V-8", 9200, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "6.2L V-8", 9100, ""], ["Chevrolet/GMC", "1500 CC Std Bed 4WD", "6.2L V-8", 13200, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 2WD", "2.7L I-4 TC", 9200, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "3.0L I-6 TD", 9400, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "3.0L I-6 TD", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 2WD", "5.3L V-8", 9500, ""], ["Chevrolet/GMC", "1500 Double Cab 2WD", "5.3L V-8", 11300, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 4WD", "2.7L I-4 TC", 9000, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "3.0L I-6 TD", 9100, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "3.0L I-6 TD", 13000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Double Cab 4WD", "5.3L V-8", 9300, ""], ["Chevrolet/GMC", "1500 Double Cab 4WD", "5.3L V-8", 11000, "requires tow/HD package"], ["Chevrolet/GMC", "1500 Reg Cab LB 2WD", "2.7L I-4 TC", 9500, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 2WD", "5.3L V-8", 9900, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 4WD", "2.7L I-4 TC", 9300, ""], ["Chevrolet/GMC", "1500 Reg Cab LB 4WD", "5.3L V-8", 9600, ""], ["Chevrolet/GMC", "1500 Reg Cab Std Bed 2WD", "2.7L I-4 TC", 9100, ""], ["Chevrolet/GMC", "1500 Reg Cab Std Bed 4WD", "2.7L I-4 TC", 8900, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 2WD", "6.6L V-8 TD", 22070, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8", 18370, ""], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC LB 4WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 2WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8 TD", 20000, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD CC Std Bed 4WD", "6.6L V-8 TD", 21600, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8 TD", 17900, ""], ["Chevrolet/GMC", "2500HD DC LB 2WD", "6.6L V-8 TD", 18000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8", 18000, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8 TD", 17600, ""], ["Chevrolet/GMC", "2500HD DC LB 4WD", "6.6L V-8 TD", 17700, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8", 18500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 2WD", "6.6L V-8 TD", 18200, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8", 18200, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD DC Std Bed 4WD", "6.6L V-8 TD", 17900, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8", 18700, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 2WD", "6.6L V-8 TD", 22430, "requires tow/HD package"], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "2500HD Reg Cab LB 4WD", "6.6L V-8 TD", 22050, "requires tow/HD package"], ["Chevrolet/GMC", "2X Pickup 4WD", "Electric", 12100, "requires tow/HD package"], ["Chevrolet/GMC", "2X SUV", "Electric", 12000, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8", 18200, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8", 18240, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 2WD", "6.6L V-8 TD", 31450, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8", 17800, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8", 17800, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB DRW 4WD", "6.6L V-8 TD", 31000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8", 18510, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 2WD", "6.6L V-8 TD", 22070, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8", 18230, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC LB SRW 4WD", "6.6L V-8 TD", 21510, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 2WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 2WD", "6.6L V-8 TD", 31580, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 4WD", "6.6L V-8", 17990, ""], ["Chevrolet/GMC", "3500HD CC Std Bed DRW 4WD", "6.6L V-8 TD", 31280, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 18620, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8", 18650, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 21900, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 2WD", "6.6L V-8 TD", 21900, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8", 18310, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 21590, ""], ["Chevrolet/GMC", "3500HD CC Std Bed SRW 4WD", "6.6L V-8 TD", 21600, "requires tow/HD package"], ["Chevrolet/GMC", "3500HD DC LB DRW 2WD", "6.6L V-8", 18300, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 4WD", "6.6L V-8", 18000, ""], ["Chevrolet/GMC", "3500HD DC LB DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 2WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 4WD", "6.6L V-8", 16000, ""], ["Chevrolet/GMC", "3500HD DC LB SRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8", 18760, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 2WD", "6.6L V-8 TD", 36000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8", 18380, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8", 18400, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8 TD", 20000, ""], ["Chevrolet/GMC", "3500HD Reg Cab DRW 4WD", "6.6L V-8 TD", 31500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8", 19080, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 2WD", "6.6L V-8 TD", 22430, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8", 18700, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8 TD", 14500, ""], ["Chevrolet/GMC", "3500HD Reg Cab SRW 4WD", "6.6L V-8 TD", 22050, ""], ["Chevrolet/GMC", "3X Pickup", "Electric", 10600, "requires tow/HD package"], ["Chevrolet/GMC", "3X SUV", "Electric", 8500, "requires tow/HD package"], ["Chevrolet/GMC", "Blazer FWD/AWD", "2.0L I-4 TC", 3250, "requires tow/HD package"], ["Chevrolet/GMC", "Blazer FWD/AWD", "3.6L V-6", 4500, "requires tow/HD package"], ["Chevrolet/GMC", "Canyon AT4X Edition 1", "2.7L I-4 TC", 5500, ""], ["Chevrolet/GMC", "Chevy Traverse/GMC Acadia", "2.5L I-4 TC", 5000, "requires tow/HD package"], ["Chevrolet/GMC", "Colorado WT, LT", "2.7L I-4 TC", 3500, ""], ["Chevrolet/GMC", "Colorado Z71, Trail Boss/Canyon Elevation, AT4, Denali", "2.7L I-4 TC", 7700, ""], ["Chevrolet/GMC", "Colorado ZR2/Canyon AT4X", "2.7L I-4 TC", 6000, ""], ["Chevrolet/GMC", "Express/Savana 2500 LWB CV", "4.3L V-6", 7100, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 LWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB CV", "4.3L V-6", 7400, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB PV", "4.3-L V-6", 6700, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 2500 SWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB CV", "4.3L V-6", 7200, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB PV", "4.3L V-6", 6300, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 LWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB CV", "4.3L V-6", 7400, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB CV", "6.6L V-8", 10000, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB PV", "4.3L V-6", 6700, "requires tow/HD package"], ["Chevrolet/GMC", "Express/Savana 3500 SWB PV", "6.6L V-8", 9600, "requires tow/HD package"], ["Chevrolet/GMC", "Silverado EV", "Electric", 12500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "3.0 I-6 TD", 7800, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "5.3L V-8", 7700, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "5.3L V-8", 8200, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "6.2L V-8", 7500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 2WD", "6.2L V-8", 8000, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "3.0 I-6 TD", 7800, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "5.3L V-8", 7500, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "5.3L V-8", 8000, "requires tow/HD package"], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "6.2L V-8", 7400, ""], ["Chevrolet/GMC", "Suburban/Yukon XL 4WD", "6.2L V-8", 7900, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "3.0 I-6 TD", 8200, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "5.3L V-8", 7900, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "5.3L V-8", 8400, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "6.2L V-8", 7800, ""], ["Chevrolet/GMC", "Tahoe/Yukon 2WD", "6.2L V-8", 8300, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "3.0 I-6 TD", 8100, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "5.3L V-8", 7700, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "5.3L V-8", 8200, "requires tow/HD package"], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "6.2L V-8", 7600, ""], ["Chevrolet/GMC", "Tahoe/Yukon 4WD", "6.2L V-8", 8100, "requires tow/HD package"], ["Chrysler", "Pacifica", "3.6L V-6", 3600, ""], ["Chrysler", "Voyager", "3.6L V-6", 3600, ""], ["Dodge", "Dodge Hornet", "2.0L TC, Hybrid", 2000, ""], ["Dodge", "Durango", "3.6 V-6", 6200, "requires tow/HD package"], ["Dodge", "Durango", "5.7 V-8", 7400, "requires tow/HD package"], ["Dodge", "Durango", "6.4L V-8", 8700, "requires tow/HD package"], ["Ford", "Bronco Raptor", "3.0L V-6 TC", 4500, ""], ["Ford", "Bronco Sport", "1.5L I-3 TC", 2200, "requires tow/HD package"], ["Ford", "Bronco Sport", "2.0L I-4 TC", 2700, "requires tow/HD package"], ["Ford", "Edge AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Ford", "Edge ST", "2.7L V-6 TC", 3500, "requires tow/HD package"], ["Ford", "Escape FWD/AWD", "1.5L I-3", 2000, ""], ["Ford", "Escape FWD/AWD", "2.0L I-4 TC", 3500, "requires tow/HD package"], ["Ford", "Expedition 2WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "Expedition 2WD", "3.5L V-6 TC", 9300, "requires tow/HD package"], ["Ford", "Expedition 4WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "Expedition 4WD", "3.5L V-6 TC", 9200, "requires tow/HD package"], ["Ford", "Expedition Max 2WD", "3.5L V-6 TC", 6300, ""], ["Ford", "Expedition Max 2WD", "3.5L V-6 TC", 9000, "requires tow/HD package"], ["Ford", "Expedition Max 4WD", "3.5L V-6 TC", 6000, "final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "Expedition Max 4WD", "3.5L V-6 TC", 9000, "requires tow/HD package"], ["Ford", "Explorer", "All", 5000, "requires tow/HD package"], ["Ford", "F-150 Lightning Extended Range", "Dual Motor Electric", 10000, "requires tow/HD package"], ["Ford", "F-150 Lightning Standard Range", "Dual Motor Electric", 7700, "requires tow/HD package"], ["Ford", "F-150 Reg Cab LB 2WD", "5.0L V-8", 10100, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 2WD", "5.0L V-8", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 9500, "final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 9600, "final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab LB 4WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 7300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 8300, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "2.7L V-6 TC", 8400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "3.5L V-6 TC", 10900, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "3.5L V-6 TC", 13500, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "5.0L V-8", 8300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 2WD", "5.0L V-8", 8800, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 8100, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "3.5L V-6 TC", 10300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "3.5L V-6 TC", 11000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "5.0L V-8", 8400, "final-drive ratio 3.73:1"], ["Ford", "F-150 Reg Cab Std Bed 4WD", "5.0L V-8", 9400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 9600, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 9400, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab LB 4WD", "5.0L V-8", 12200, "requires tow/HD package"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "3.5L V-6 TC", 8500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "3.5L V-6 TC", 10800, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 9600, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7300, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "2.7L V-6 TC", 8000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "3.5L V-6 TC", 8300, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCab Std Bed 4WD", "3.5L V-6 TC", 10600, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 8300, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 9200, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 10400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC", 13500, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 7000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 10800, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "3.5L V-6 TC Hybrid", 11000, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 9100, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 9200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Long Bed 4WD", "5.0L V-8", 12800, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "2.7L V-6 TC", 7400, "final-drive ratio 3.15:1; final-drive ratio 3.55:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 8200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 10100, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 10600, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "3.5L V-6 TC", 12800, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 9500, "final-drive ratio 3.15:1; final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 10400, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 11600, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 2WD", "5.0L V-8", 12700, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 7200, "final-drive ratio 3.15:1; final-drive ratio 3.55:1; final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 7500, "final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "2.7L V-6 TC", 8000, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 7900, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 8800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 10200, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 10400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 13100, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC", 13500, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC Hybrid", 7100, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "3.5L V-6 TC Hybrid", 11200, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 9200, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 9300, "final-drive ratio 3.31:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 10300, "final-drive ratio 3.73:1"], ["Ford", "F-150 SuperCrew Cab Std Bed 4WD", "5.0L V-8", 12900, "requires tow/HD package"], ["Ford", "F-150 SuperCrew Cab Std Bed Raptor 4WD", "3.5L V-6 TC H.O", 8200, "final-drive ratio 4.10:1"], ["Ford", "F-150 SuperCrew Cab Std Bed Raptor R 4WD", "5.2L V-8 SC", 8700, "final-drive ratio 4.10:1"], ["Ford", "F-150 SuperCrew Std Bed 2WD", "2.7L V-6 TC", 7600, "final-drive ratio 3.15:1; final-drive ratio 3.55:1"], ["Ford", "F-150 SuperCrew Std Bed 2WD", "2.7L V-6 TC", 8200, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD", 21200, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 2WD", "6.7L V-8 TD HO", 21200, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 2WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "6.8L V-8", 16700, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 2WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 2WD", "7.3L V-8", 19200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 15400, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 15500, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 20400, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD HO", 20800, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.7L V-8 TD HO", 22000, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 13700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 13800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 16200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "6.8L V-8", 16300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 16400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 17400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 17500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab LB 4WD", "7.3L V-8", 18800, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 19500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "6.8L V-8", 16800, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "7.3L V-8", 17900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 15900, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 22000, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "7.3L V-8", 16700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Bed 4WD", "7.3L V-8", 17800, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Bed 4WD Tremor", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD", 16100, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.7L V-8 TD HO", 21900, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 2WD", "7.3L V-8", 19400, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD", 15800, "final-drive ratio 3.31:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD", 21500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.7L V-8 TD HO", 21500, "requires tow/HD package"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "7.3L V-8", 17700, "final-drive ratio 3.73:1"], ["Ford", "F-250 Crew Cab Std Box 4WD", "7.3L V-8", 19100, "final-drive ratio 4.30:1"], ["Ford", "F-250 Crew Cab Std Box Tremor 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 16500, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 16600, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 18200, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD", 22900, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.7L V-8 TD HO", 21600, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 14800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 14800, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1; final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 18400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 16100, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 16200, "final-drive ratio 3.31:1"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 20000, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD", 22500, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.7L V-8 TD HO", 22700, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 16900, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 16900, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18000, "requires tow/HD package"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-250 Reg Cab 4WD", "7.3L V-8", 19400, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 2WD", "6.7L V-8 TD HO", 21900, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 2WD", "6.8L V-8", 16900, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 15700, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.7L V-8 TD HO", 21600, "requires tow/HD package"], ["Ford", "F-250 SuperCab LB 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 4WD", "6.8L V-8", 16500, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab LB 4WD", "7.3L V-8", 17600, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab LB 4WD", "7.3L V-8", 19000, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.7L V-8 TD", 16200, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.7L V-8 TD", 19500, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.8L V-8", 14500, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 2WD", "6.8L V-8", 17000, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.7L V-8 TD", 18500, "final-drive ratio 3.31:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.7L V-8 TD", 22000, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "6.8L V-8", 16600, "final-drive ratio 4.30:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 16600, "final-drive ratio 3.73:1"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 17700, "requires tow/HD package"], ["Ford", "F-250 SuperCab Std Bed 4WD", "7.3L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 27000, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 31800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD", 35700, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 27000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 28000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 2WD", "6.7L V-8 TD HO", 32300, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 2WD", "7.3L V-8", 22500, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 27000, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 31400, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD", 35300, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 27000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 28000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 31800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab 4WD", "6.7L V-8 TD HO", 35900, "final-drive ratio 4.10:1"], ["Ford", "F-350 Crew Cab 4WD", "6.8L V-8", 17600, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 17900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 21600, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD HO", 24000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.7L V-8 TD, HO", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 14100, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 16700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "6.8L V-8", 17500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 18100, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 2WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD", 22800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD", 22900, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23500, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 23600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.7L V-8 TD HO", 26600, "final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 13700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 13800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 17000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "6.8L V-8", 17200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 17700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 17800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab LB 4WD", "7.3L V-8", 21500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "6.8L V-8", 17800, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 2WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD HO", 23500, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.7L V-8 TD HO", 23800, "final-drive ratio 3.31:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.8L V-8", 13900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 21000, "final-drive ratio 3.73:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Crew Cab Std Bed 4WD Tremor", "6.7L V-8 TD HO", 23000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 23800, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 32600, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD", 36500, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 24600, "final-drive ratio 3.31:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 25800, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 32900, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD HO", 38000, "final-drive ratio 4.10:1"], ["Ford", "F-350 Reg Cab 2WD", "6.7L V-8 TD, HO", 20000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 14600, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 14700, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "6.8L V-8", 18900, "requires tow/HD package"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1; final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18600, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 18800, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 22400, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 2WD", "7.3L V-8", 22500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 32000, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD", 35900, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 24200, "final-drive ratio 3.31:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 27600, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 32500, "final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD HO", 37600, "final-drive ratio 4.10:1"], ["Ford", "F-350 Reg Cab 4WD", "6.7L V-8 TD, HO", 20000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 14200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 17700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 17800, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "6.8L V-8", 18200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18200, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18300, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 18400, "final-drive ratio 3.73:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 22100, "final-drive ratio 4.30:1"], ["Ford", "F-350 Reg Cab 4WD", "7.3L V-8", 22200, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 2WD", "6.7L V-8 TD, HO", 24800, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Regular Cab 2WD", "6.8L V-8", 18700, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 2WD", "7.3L V-8", 18900, "final-drive ratio 3.73:1"], ["Ford", "F-350 Regular Cab 2WD", "7.3L V-8", 22000, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 4WD", "6.7L V-8 TD, HO", 24800, "final-drive ratio 3.55:1; final-drive ratio 4.10:1"], ["Ford", "F-350 Regular Cab 4WD", "6.8L V-8", 18300, "final-drive ratio 4.30:1"], ["Ford", "F-350 Regular Cab 4WD", "7.3L V-8", 18500, "final-drive ratio 3.73:1"], ["Ford", "F-350 Regular Cab 4WD", "7.3L V-8", 22000, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD", 23400, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD HO", 25900, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.7L V-8 TD, HO", 23000, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.8L V-8", 14300, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 2WD", "6.8L V-8", 14400, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD", 23000, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD", 23200, "final-drive ratio 3.31:1; final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23700, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23800, "final-drive ratio 3.31:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 23900, "final-drive ratio 3.31:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.7L V-8 TD HO", 27200, "final-drive ratio 3.55:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 13900, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 14000, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 17300, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "6.8L V-8", 17400, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 18000, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 18300, "final-drive ratio 3.73:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 19500, "final-drive ratio 4.30:1"], ["Ford", "F-350 SuperCab LB 4WD", "7.3L V-8", 21700, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 2WD", "6.7L V-8 TD, HO", 30000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 2WD", "6.7L V-8 TD, HO", 37400, "final-drive ratio 4.10:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD", 33000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD HO", 32900, "final-drive ratio 4.30:1"], ["Ford", "F-450 Crew Cab 4WD", "6.7L V-8 TD, HO", 30000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 2WD", "6.7L V-8 TD", 38600, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 2WD", "6.7L V-8 TD HO", 40000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 4WD", "6.7L V-8 TD", 37200, "final-drive ratio 4.30:1"], ["Ford", "F-450 Reg Cab 4WD", "6.7L V-8 TD HO", 37100, "final-drive ratio 4.30:1"], ["Ford", "F-450 Regular Cab 2WD", "6.7L V-8 TD", 25000, "final-drive ratio 4.30:1"], ["Ford", "F-450 Regular Cab 4WD", "6.7L V-8 TD", 25000, "final-drive ratio 4.30:1"], ["Ford", "Maverick SuperCrew Cab", "2.5L I-4 Hybrid", 2000, ""], ["Ford", "Maverick SuperCrew Cab AWD", "2.0L I-4", 2000, ""], ["Ford", "Maverick SuperCrew Cab AWD", "2.0L I-4", 4000, "requires tow/HD package"], ["Ford", "Maverick SuperCrew Cab AWD", "2.5L I-4 Hybrid", 4000, "requires tow/HD package"], ["Ford", "Most Models", "2.3L I-4 TC, 2.7L V-6 TC", 3500, "requires tow/HD package"], ["Ford", "SuperCrew 2WD, 4WD", "2.3L I-4 TC", 7500, "requires tow/HD package"], ["Ford", "SuperCrew 4WD", "2.7L V-6 TC", 7500, "requires tow/HD package"], ["Ford", "SuperCrew Raptor 4WD Auto", "3.0L V-6 TC", 5510, "requires tow/HD package"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6", 4700, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR AWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR Ext AWD", "3.5L V-6", 5600, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6 TC", 6100, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR Ext RWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6", 4900, "final-drive ratio 3.73:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 250/350 RWB HR RWD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 HR Ext AWD", "3.5L V-6 TC", 3400, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 HR Ext RWD", "3.5L V-6", 3700, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 HR Ext RWD", "3.5L V-6 TC", 3600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 LWB HR AWD", "3.5L V-6 TC", 3900, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR AWD", "3.5L V-6", 3700, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR AWD", "3.5L V-6", 4000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6", 3900, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6", 4200, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB HR RWD", "3.5L V-6 TC", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6", 4000, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6", 4300, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB LR AWD", "3.5L V-6 TC", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6", 4200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6", 4500, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB LR RWD", "3.5L V-6 TC", 4400, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6", 3900, "requires tow/HD package"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6", 4200, "requires tow/HD package"], ["Ford", "Transit 350 RWB MR AWD", "3.5L V-6 TC", 4100, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6", 4100, "final-drive ratio 3.73:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6", 4400, "final-drive ratio 4.10:1"], ["Ford", "Transit 350 RWB MR RWD", "3.5L V-6 TC", 4300, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR 2WD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR 2WD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR AWD", "3.5L V-6", 5800, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR AWD", "3.5L V-6 TC", 6300, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext 2WD DRW", "3.5L V-6", 5600, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext 2WD DRW", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext AWD", "3.5L V-6", 5500, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext AWD", "3.5L V-6 TC", 6500, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext AWD DRW", "3.5L V-6", 5300, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext AWD DRW", "3.5L V-6 TC", 6200, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB HR Ext RWD", "3.5L V-6", 5700, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB HR Ext RWD", "3.5L V-6 TC", 6700, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB LR AWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB LR AWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB LR RWD", "3.5L V-6", 6200, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB LR RWD", "3.5L V-6 TC", 6800, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB MR 2WD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB MR 2WD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit 350HD RWB MR AWD", "3.5L V-6", 5900, "final-drive ratio 4.10:1"], ["Ford", "Transit 350HD RWB MR AWD", "3.5L V-6 TC", 6400, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6", 4900, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6", 6000, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB LR AWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6", 5100, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6", 6200, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB LR RWD", "3.5L V-6 TC", 6800, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6", 4800, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6", 5900, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR AWD", "3.5L V-6 TC", 6400, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6", 5000, "final-drive ratio 3.73:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit RWB MR RWD", "3.5L V-6 TC", 6600, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6", 5000, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6", 6100, "final-drive ratio 4.10:1"], ["Ford", "Transit SWB LR AWD", "3.5L V-6 TC", 6700, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6", 5200, "final-drive ratio 3.73:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6", 6300, "final-drive ratio 4.10:1"], ["Ford", "Transit SWB LR RWD", "3.5L V-6 TC", 6900, "final-drive ratio 3.73:1"], ["Genesis", "GV60", "Electric", 2000, "requires tow/HD package"], ["Genesis", "GV70", "All", 3500, "requires tow/HD package"], ["Genesis", "GV80", "All", 6000, "requires tow/HD package"], ["Honda", "Odyssey", "3.5L V-6", 3500, "requires tow/HD package"], ["Honda", "Passport", "3.5L V-6", 5000, "requires tow/HD package"], ["Honda", "Pilot 2WD", "3.5L V-6", 3500, "requires tow/HD package"], ["Honda", "Pilot AWD", "3.5L V-6", 5000, "requires tow/HD package"], ["Honda", "Ridgeline", "3.5L V-6", 5000, "requires tow/HD package"], ["Hyundai", "Palisade", "3.5L V-6", 5000, "requires tow/HD package"], ["Hyundai", "Palisade Hybrid", "2.5L I-4 TC", 4000, "requires tow/HD package"], ["Hyundai", "Santa Cruz AWD", "2.5L I-4 TC", 5000, "requires tow/HD package"], ["Hyundai", "Santa Cruz FWD", "2.5L I-4", 3500, ""], ["Hyundai", "Santa Fe", "2.5L I-4 TC", 3500, ""], ["Hyundai", "Santa Fe Hybrid", "1.6L I-4 HEV TC", 2000, "requires tow/HD package"], ["Hyundai", "Santa Fe XRT AWD", "2.5L I-4 TC", 4500, ""], ["Hyundai", "Tucson", "2.5L I-4 TC", 2750, "requires tow/HD package"], ["Hyundai", "Tucson", "Hybrid", 2000, ""], ["Infiniti", "QX50", "2.0L I-4 TC", 3000, "requires tow/HD package"], ["Infiniti", "QX60", "3.5L V-6", 6000, "requires tow/HD package"], ["Infiniti", "QX80", "5.6L V-8", 8500, "requires tow/HD package"], ["Jaguar", "E-Pace", "2.0L I-4", 3968, "requires tow/HD package"], ["Jaguar", "F-Pace", "All", 5291, "requires tow/HD package"], ["Jeep", "Compass 4WD", "2.0L I-4", 2000, ""], ["Jeep", "Gladiator Big Bear, Nighthawk, Sport, Willys", "3.6L V-6", 6000, ""], ["Jeep", "Gladiator Mojave, Rubicon", "3.6L V-6", 7000, ""], ["Jeep", "Grand Cherokee 2WD/4WD", "3.6L V-6", 6200, ""], ["Jeep", "Grand Cherokee 4xe 4WD", "2.0L I-4 TC Hybrid", 6000, ""], ["Jeep", "Grand Wagoneer/Wagoneer 4WD", "3.0L I-6 TC", 10000, ""], ["Jeep", "Wagoneer 2WD", "3.0L I-6 TC", 5890, ""], ["Jeep", "Wagoneer 4WD", "3.0L I-6 TC", 6120, ""], ["Jeep", "Wagoneer S", "Electric", 3400, ""], ["Jeep", "Wrangler 2-door", "3.6L V-6", 2000, ""], ["Jeep", "Wrangler 4-door", "2.0L I-4 TC, 3.6L V-6", 3500, ""], ["Kia", "Carnival", "1.6L I-4 TC Hybrid", 2500, "requires tow/HD package"], ["Kia", "Carnival", "3.5L V-6", 3500, "requires tow/HD package"], ["Kia", "EV9 Land/GT-Line/GT", "Electric", 5000, "requires tow/HD package"], ["Kia", "Sorento AWD", "2.5L TC", 4500, "requires tow/HD package"], ["Kia", "Sportage FWD/AWD", "2.5L I-4", 2500, "requires tow/HD package"], ["Kia", "Sportage Hybrid/PHEV", "1.6L I-4 TC", 2000, ""], ["Kia", "Telluride", "3.8L V-6", 5000, ""], ["Lamborghini", "Urus", "4.0L V-8 TC", 7000, ""], ["Land Rover/Range Rover", "Land Rover Defender", "2.0L I-4 TC", 7716, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Defender", "3.0L I-6, 5.0L V-8 SC", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Discovery", "2.0L I-4 TC", 5952, "requires tow/HD package"], ["Land Rover/Range Rover", "Land Rover Discovery", "3.0L I-6", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Evoque", "2.0L I-4 TC", 3968, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Sport Autobiography, SV", "4.4L V-8 TC", 8200, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Sport SE", "3.0L I-6 TC", 7716, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Velar", "2.0L I-4 TC", 5291, "requires tow/HD package"], ["Land Rover/Range Rover", "Range Rover Velar", "3.0L V-6 SC", 5511, "requires tow/HD package"], ["Lexus", "GX 550", "3.4L V-6 TC", 9096, "requires tow/HD package"], ["Lexus", "LX 600", "3.4L V-6 TC", 8000, ""], ["Lexus", "NX", "2.4L I-4 TC", 2000, "requires tow/HD package"], ["Lexus", "RX 350", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Lexus", "RX 350h/500h/450h+ AWD", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Lexus", "TX 350", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Lexus", "TX 500h Hybrid/Plug-In Hybrid", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Lincoln", "Aviator", "3.0L V-6 TC", 5000, "requires tow/HD package"], ["Lincoln", "Corsair", "All", 3000, "requires tow/HD package"], ["Lincoln", "Navigator", "3.5L V-6 TC", 8700, "requires tow/HD package"], ["Lucid", "Gravity", "Electric", 6000, ""], ["Mazda", "CX-5", "2.5L I-4", 2000, ""], ["Mazda", "CX-50", "2.5L I-4", 2000, ""], ["Mazda", "CX-50", "2.5L I-4 TC", 3500, ""], ["Mazda", "CX-70", "2.5L I-4 PHEV", 3500, "requires tow/HD package"], ["Mazda", "CX-70", "3.3L I-6 TC", 5000, "requires tow/HD package"], ["Mazda", "CX-90", "2.5L I-4 PHEV", 3500, "requires tow/HD package"], ["Mazda", "CX-90", "3.3L I-6 TC MHEV", 5000, "requires tow/HD package"], ["Mercedes-Benz", "G-Class SUV", "All", 7716, ""], ["Mercedes-Benz", "GLC", "All", 3500, ""], ["Mercedes-Benz", "GLE", "All", 7700, ""], ["Mercedes-Benz", "GLS", "All", 7700, ""], ["Mercedes-Benz", "Sprinter", "2.0L TDI", 5000, ""], ["Mercedes-Benz", "Sprinter", "2.0L TDI HO", 7500, ""], ["Mitsubishi", "Outlander 2WD/4WD", "2.5L I-4", 2000, ""], ["Nissan", "Armada", "3.5L V-6 TC", 8500, ""], ["Nissan", "Frontier Pro-4X CC 2WD", "3.8L V-6", 6910, ""], ["Nissan", "Frontier Pro-4X CC 4WD", "3.8L V-6", 6680, ""], ["Nissan", "Frontier Pro-4X CC 4WD LWB", "3.8L V-6", 6310, ""], ["Nissan", "Frontier S CC 2WD", "3.8L V-6", 7070, ""], ["Nissan", "Frontier S CC 4WD", "3.8L V-6", 6390, ""], ["Nissan", "Frontier S KC 2WD", "3.8L V-6", 7150, ""], ["Nissan", "Frontier S KC 4WD", "3.8L V-6", 7000, ""], ["Nissan", "Frontier SL CC 2WD", "3.8L V-6", 6920, ""], ["Nissan", "Frontier SL CC 2WD LWB", "3.8L V-6", 7150, ""], ["Nissan", "Frontier SL CC 4WD", "3.8L V-6", 6810, ""], ["Nissan", "Frontier SL CC 4WD LWB", "3.8L V-6", 6710, ""], ["Nissan", "Frontier SV CC 2WD", "3.8L V-6", 7000, ""], ["Nissan", "Frontier SV CC 4WD", "3.8L V-6", 6880, ""], ["Nissan", "Frontier SV CC LWB 2WD", "3.8L V-6", 6930, ""], ["Nissan", "Frontier SV CC LWB 4WD", "3.8L V-6", 6760, ""], ["Nissan", "Frontier SV KC 2WD", "3.8L V-6", 7130, ""], ["Nissan", "Frontier SV KC 4WD", "3.8L V-6", 7000, ""], ["Nissan", "Pathfinder", "3.5L V-6", 6000, ""], ["Polestar", "Polestar 2", "Electric", 2000, ""], ["Polestar", "Polestar 3", "Electric", 3500, ""], ["Polestar", "Polestar 4", "Electric", 3500, ""], ["Porsche", "Cayenne", "4.0L V-8 TC, Hybrid", 7716, ""], ["Porsche", "Cayenne", "Electric", 7716, ""], ["Porsche", "Cayenne Turbo E-Hybrid", "Hybrid", 6614, ""], ["Porsche", "Macan", "2.0L I-4 TC", 4409, ""], ["Porsche", "Macan", "Turbo Electric", 5512, ""], ["Ram", "1500 CC SB 2WD", "3.0L I-6", 8410, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 2WD", "3.0L I-6", 11510, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 2WD", "3.6L V-6", 6580, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 2WD", "3.6L V-6", 7580, "final-drive ratio 3.55:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6", 8240, "final-drive ratio 3.55:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6", 11340, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 4WD", "3.0L I-6 HO", 9340, "final-drive ratio 3.92:1"], ["Ram", "1500 CC SB 4WD", "3.6L V-6", 6370, "final-drive ratio 3.21:1"], ["Ram", "1500 CC SB 4WD", "3.6L V-6", 7370, "final-drive ratio 3.55:1"], ["Ram", "1500 CC Std Bed 2WD", "3.0L I-6", 8380, "final-drive ratio 3.21:1"], ["Ram", "1500 CC Std Bed 2WD", "3.0L I-6", 11480, "final-drive ratio 3.92:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6", 8160, "final-drive ratio 3.55:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6", 11260, "final-drive ratio 3.92:1"], ["Ram", "1500 CC Std Bed 4WD", "3.0L I-6 HO", 9920, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.0L I-6", 8480, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.0L I-6", 11610, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.6L V-6", 6720, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 2WD", "3.6L V-6", 8110, "final-drive ratio 3.55:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.0L I-6", 8350, "final-drive ratio 3.55:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.0L I-6", 11450, "final-drive ratio 3.92:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.6L V-6", 6480, "final-drive ratio 3.21:1"], ["Ram", "1500 Quad Cab Std Bed 4WD", "3.6L V-6", 7480, "final-drive ratio 3.55:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.4L V-8", 15080, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.4L V-8", 17280, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab LB 2WD", "6.7L I-6 TD", 20000, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.4L V-8", 14730, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.4L V-8", 16930, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab LB 4WD", "6.7L I-6 TD", 18230, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.4L V-8", 15220, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.4L V-8", 17420, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab SB 2WD", "6.7L I-6 TD", 19960, "final-drive ratio 3.31:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.4L V-8", 14930, "final-drive ratio 3.73:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.4L V-8", 17130, "final-drive ratio 4.10:1"], ["Ram", "2500 Crew Cab SB 4WD", "6.7L I-6 TD", 19970, "final-drive ratio 3.31:1"], ["Ram", "2500 Mega Cab 4WD", "6.7L I-6 TD", 15680, "final-drive ratio 3.31:1"], ["Ram", "2500 Power Wagon Crew Cab SB 4WD", "6.4L V-8", 10530, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 2WD", "6.4L V-8", 15500, "final-drive ratio 3.73:1"], ["Ram", "2500 Reg Cab 2WD", "6.4L V-8", 17750, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 4WD", "6.4L V-8", 15240, "final-drive ratio 3.73:1"], ["Ram", "2500 Reg Cab 4WD", "6.4L V-8", 17440, "final-drive ratio 4.10:1"], ["Ram", "2500 Reg Cab 4WD", "6.7L I-6 TD", 19900, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB DRW 2WD", "6.4L V-8", 15150, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB DRW 2WD", "6.4L V-8", 17550, "final-drive ratio 4.10:1"], ["Ram", "3500 Crew Cab LB DRW 4WD", "6.4L V-8", 14800, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB DRW 4WD", "6.7L I-6 TD", 33890, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.4L V-8", 14930, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.4L V-8", 17170, "final-drive ratio 4.10:1"], ["Ram", "3500 Crew Cab LB SRW 2WD", "6.7L I-6 TD", 25490, "final-drive ratio 3.31:1"], ["Ram", "3500 Crew Cab LB SRW 4WD", "6.4L V-8", 14560, "final-drive ratio 3.73:1"], ["Ram", "3500 Crew Cab LB SRW 4WD", "6.4L V-8", 16800, "final-drive ratio 4.10:1"], ["Ram", "3500 Mega Cab DRW 4WD", "6.7L I-6 TD", 32880, "final-drive ratio 3.31:1"], ["Ram", "3500 Mega Cab SRW 4WD", "6.7L I-6 TD", 24080, "final-drive ratio 3.31:1"], ["Ram", "3500 Regular Cab DRW 2WD", "6.4L V-8", 15750, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab DRW 2WD", "6.4L V-8", 18110, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.4L V-8", 15360, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.4L V-8", 17760, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab DRW 4WD", "6.7L I-6 TD", 36610, "final-drive ratio 3.31:1"], ["Ram", "3500 Regular Cab SRW 2WD", "6.4L V-8", 15490, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab SRW 2WD", "6.4L V-8", 17730, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.4L V-8", 15100, "final-drive ratio 3.73:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.4L V-8", 17330, "final-drive ratio 4.10:1"], ["Ram", "3500 Regular Cab SRW 4WD", "6.7L I-6 TD", 26080, "final-drive ratio 3.31:1"], ["Ram", "ProMaster (all)", "3.6L V-6", 6910, "requires tow/HD package"], ["Ram", "ProMaster City Cargo", "2.4L I-4", 2000, ""], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.4L V-8", 15100, "final-drive ratio 3.73:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.4L V-8", 17340, "final-drive ratio 4.10:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 2WD", "6.7L I-6 TD", 23950, "final-drive ratio 3.31:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.4L V-8", 14770, "final-drive ratio 3.73:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.4L V-8", 17010, "final-drive ratio 4.10:1"], ["Ram", "Ram 3500 Crew Cab SB SRW 4WD", "6.7L I-6 TD", 23550, "final-drive ratio 3.31:1"], ["Rivian", "R1S", "All", 7700, "requires tow/HD package"], ["Rivian", "R1T", "Dual-Motor", 7700, "requires tow/HD package"], ["Rivian", "R1T", "Dual-Motor Max, Tri-Motor", 11000, "requires tow/HD package"], ["Rolls-Royce", "Cullinan", "6.7L V-12 TC", 5952, ""], ["Subaru", "Ascent", "2.4L I-4 TC", 5000, "requires tow/HD package"], ["Subaru", "Forester Wilderness", "2.5L I-4", 3500, "requires tow/HD package"], ["Subaru", "Outback", "2.5L I-4", 2700, "requires tow/HD package"], ["Subaru", "Outback XT, Wilderness", "2.4L I-4 TC", 3500, "requires tow/HD package"], ["Tesla", "Cybertruck AWD, Cyberbeast", "Dual Motor", 11000, ""], ["Tesla", "Cybertruck RWD", "Single Motor", 7500, ""], ["Toyota", "4Runner (all)", "2.4L I-4 TC", 6000, ""], ["Toyota", "Grand Highlander Hybrid", "2.5L I-4", 3500, ""], ["Toyota", "Grand Highlander Hybrid Max", "2.4L I-4 TC", 5000, ""], ["Toyota", "Highlander", "2.4L I-4 TC", 5000, ""], ["Toyota", "Highlander Hybrid", "2.5L I-4", 3500, ""], ["Toyota", "Land Cruiser", "2.4L I-4 TC", 6000, ""], ["Toyota", "Sequoia 1794 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sequoia Capstone 4WD", "3.5L V-6 TC", 9280, ""], ["Toyota", "Sequoia Limited 2WD", "3.5L V-6 TC", 9300, ""], ["Toyota", "Sequoia Limited 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sequoia Platinum 2WD", "3.5L V-6 TC", 9310, ""], ["Toyota", "Sequoia Platinum 4WD", "3.5L V-6 TC", 9010, ""], ["Toyota", "Sequoia SR5 2WD", "3.5L V-6 TC", 9520, ""], ["Toyota", "Sequoia SR5 4WD", "3.5L V-6 TC", 9120, ""], ["Toyota", "Sequoia TRD Pro 4WD", "3.5L V-6 TC", 9020, ""], ["Toyota", "Sienna", "2.5L I-4 Hybrid", 3500, "requires tow/HD package"], ["Toyota", "Tacoma Double Cab 2WD", "2.4L I-4 TC", 6400, ""], ["Toyota", "Tacoma Double Cab 4WD", "2.4L I-4 TC", 6400, ""], ["Toyota", "Tacoma Double Cab 4WD", "2.4L I-4 TC Hybrid", 6000, ""], ["Toyota", "Tacoma XtraCab 2WD", "2.4L I-4 TC", 6500, ""], ["Toyota", "Tacoma XtraCab 4WD", "2.4L I-4 TC", 6500, ""], ["Toyota", "Tundra CrewMax 2WD", "3.4L V-6 TC", 12000, "requires tow/HD package"], ["Toyota", "Tundra CrewMax 2WD", "3.4L V-6 TC Hybrid", 11380, ""], ["Toyota", "Tundra CrewMax 4WD", "3.4L V-6 TC", 11170, ""], ["Toyota", "Tundra CrewMax 4WD", "3.4L V-6 TC Hybrid", 11175, ""], ["Toyota", "Tundra Double Cab 2WD", "3.4L V-6 TC", 12000, "requires tow/HD package"], ["Toyota", "Tundra Double Cab 4WD", "3.4L V-6 TC", 11200, ""], ["VinFast", "VF8", "Electric", 3968, "requires tow/HD package"], ["VinFast", "VF9", "Electric", 3968, "requires tow/HD package"], ["Volkswagen", "Atlas AWD, FWD", "2.0L I-4 TC", 5000, "requires tow/HD package"], ["Volkswagen", "ID.4 AWD", "Electric", 2700, "requires tow/HD package"], ["Volkswagen", "ID.4 RWD", "Electric", 2200, "requires tow/HD package"], ["Volkswagen", "ID.Buzz AWD", "Electric", 3500, "requires tow/HD package"], ["Volkswagen", "ID.Buzz RWD", "Electric", 2600, "requires tow/HD package"], ["Volvo", "EX30 AWD", "Twin Motor", 2000, "requires tow/HD package"], ["Volvo", "EX30 RWD", "Single Motor", 2000, "requires tow/HD package"], ["Volvo", "EX40 AWD", "Twin Motor", 2000, "requires tow/HD package"], ["Volvo", "EX40 RWD", "Single Motor", 2000, "requires tow/HD package"], ["Volvo", "EX90", "Twin Motor", 4850, "requires tow/HD package"], ["Volvo", "S60", "All", 2000, "requires tow/HD package"], ["Volvo", "S90 T8 AWD", "2.0L I-4 TC/SC Hybrid", 4850, "requires tow/HD package"], ["Volvo", "V60", "All", 2000, "requires tow/HD package"], ["Volvo", "V90 B6 AWD", "2.0L I-4 TC/SC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC60 B5 AWD", "2.0L I-4 TC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC60 T8", "2.0L I-4 TC/SC Hybrid", 3500, "requires tow/HD package"], ["Volvo", "XC90 AWD", "All", 5000, "requires tow/HD package"]]
 };
 })(); } catch (e) { __ds_ns.__errors.push({ path: "conversions/wayfinder/data/tow-vehicles.js", error: String((e && e.message) || e) }); }
+
+// selfcheck/selfcheck.js
+try { (() => {
+/* Bish's RV design system · self-check · v2.2.0
+   Proves a screen was built from the right material and to the rules.
+   Use:   <script src="<ds>/selfcheck/selfcheck.js"></script>
+          BishSelfCheck.run()            → report object
+          BishSelfCheck.panel()          → run + show the report on the page
+          BishSelfCheck.markdown(report) → paste into handoff/qa-gates.md
+   Or add ?selfcheck=1 to the page URL.  Multi-width run: selfcheck/index.html · Reference: selfcheck/README.md */
+(function () {
+  'use strict';
+
+  var VERSION = '2.2.0';
+  var CANARY = {
+    '--ds-version': VERSION,
+    '--text-muted': '#a2a59c',
+    '--accent-gold': '#8b752e',
+    '--accent-gold-hi': '#b89e4a',
+    '--accent-gold-lo': '#5e4f1f',
+    '--semantic-danger': '#ff8787',
+    '--border-input-light': '#949494'
+  };
+  var PALETTE = ['#020000', '#203232', '#8b752e', '#e7ddb4', '#545750', '#ffffff', '#0a1414', '#111e1e', '#1c2e2e', '#243838', '#f7f6f1', '#efede4', '#fafaf6', '#a2a59c', '#4a4d46', '#0a0a09', '#3d3d38', '#6b6b63', '#767670', '#b89e4a', '#5e4f1f', '#6e7268', '#51cf66', '#d3f9d8', '#1b7a2e', '#ffd43b', '#fff3bf', '#c77c00', '#ff8787', '#ffe3e3', '#b02525', '#74c0fc', '#d0ebff', '#1864ab', '#949494', '#000000'];
+  var MARKETING_ONLY = ['#a0252b', '#dcd334', '#c9e9eb', '#005568'];
+  var EXPECTED = ['AppShell', 'ActionOverlay', 'NavConfig', 'NavIcon', 'RolesNavAdmin', 'Button', 'Badge', 'Card', 'StatTile', 'UnitRow', 'Header', 'Input', 'TabBar', 'Avatar', 'PhaseAlert', 'CustomerCard', 'QuestionCard', 'ChoiceChip', 'ChoiceGroup', 'ChoiceTile', 'SpecLint'];
+  var BRAND_FONTS = ['bebas neue', 'barlow condensed', 'source sans 3', 'jetbrains mono'];
+  var GOLD_FILL = ['#8b752e', '#b89e4a'],
+    GOLD_LO = '#5e4f1f',
+    CREAM = '#e7ddb4',
+    SUBTLE = '#4a4d46';
+  var INTERACTIVE = 'button,a[href],input:not([type="hidden"]),select,textarea,summary,[role="button"],[role="link"],[role="tab"],[role="switch"],[role="menuitem"],[role="option"],[role="checkbox"],[role="radio"],[tabindex]:not([tabindex="-1"])';
+  var CATS = [['material', '—', 'Right material (release + tokens + bundle)'], ['tokens', 'G5', 'Tokens and colors (WCAG AA)'], ['gold', 'G6', 'Gold rule'], ['type', '—', 'Typography'], ['spacing', '—', 'Spacing (4px scale)'], ['icons', 'G7', 'Icons (Lucide only)'], ['shell', 'G1', 'AppShell + NavConfig'], ['states', 'G8', 'Six data states'], ['responsive', 'G3', 'Responsiveness (RF01–RF12)'], ['stamping', 'G2', 'Stamping (spec-ready v2)']];
+  var MANUAL = [['G3', 'Shrink test 1440 → 375 by dragging, not just the widths sampled here'], ['G4', '200% browser text zoom (the harness approximation only covers rem-based type)'], ['G8', 'All six data states (loading · empty · error · stale · permission · partial) designed for every module — evidence in state-map.md'], ['G9', 'Canvas ⇄ Prototype match 1:1 — evidence in state-map.md'], ['G10', 'Every element family has a filled requirement row — requirements.md'], ['G11', 'Every reaching role has a designed posture and matrix row — roles-permissions.md'], ['G12', 'Every ticket traces to a source; no needs-rule story is Ready — Jira CSV'], ['NavConfig', 'The screen never writes nav itself (no NavConfig.save from screen code)']];
+  function hex(c) {
+    return '#' + [c.r, c.g, c.b].map(function (v) {
+      return ('0' + Math.round(v).toString(16)).slice(-2);
+    }).join('');
+  }
+  function rgbOf(h) {
+    h = h.replace('#', '');
+    return {
+      r: parseInt(h.slice(0, 2), 16),
+      g: parseInt(h.slice(2, 4), 16),
+      b: parseInt(h.slice(4, 6), 16),
+      a: 1
+    };
+  }
+  function parse(s) {
+    if (!s || s === 'transparent') return null;
+    var m = s.match(/rgba?\(\s*([\d.]+)[,\s]+([\d.]+)[,\s]+([\d.]+)(?:\s*[,/]\s*([\d.]+%?))?\s*\)/);
+    if (!m) return null;
+    var a = m[4] == null ? 1 : m[4].indexOf('%') > -1 ? parseFloat(m[4]) / 100 : parseFloat(m[4]);
+    return {
+      r: +m[1],
+      g: +m[2],
+      b: +m[3],
+      a: a
+    };
+  }
+  function dist(a, b) {
+    return Math.max(Math.abs(a.r - b.r), Math.abs(a.g - b.g), Math.abs(a.b - b.b));
+  }
+  function near(c, list, tol) {
+    for (var i = 0; i < list.length; i++) if (dist(c, rgbOf(list[i])) <= (tol || 6)) return list[i];
+    return null;
+  }
+  function lum(c) {
+    var f = function (v) {
+      v /= 255;
+      return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    };
+    return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+  }
+  function ratio(a, b) {
+    var x = lum(a),
+      y = lum(b);
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  }
+  function over(top, under) {
+    var a = top.a;
+    return {
+      r: top.r * a + under.r * (1 - a),
+      g: top.g * a + under.g * (1 - a),
+      b: top.b * a + under.b * (1 - a),
+      a: 1
+    };
+  }
+  function cs(el) {
+    return getComputedStyle(el);
+  }
+  function own(el) {
+    return el.closest('[data-bos-selfcheck]');
+  }
+  function visible(el) {
+    if (own(el) || el.closest('[aria-hidden="true"],[hidden],[inert]')) return false;
+    var r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return false;
+    var s = cs(el);
+    return s.visibility !== 'hidden' && s.display !== 'none' && +s.opacity > 0.05;
+  }
+  function where(el) {
+    var id = el.getAttribute && el.getAttribute('data-spec-id');
+    if (id) return id;
+    var p = el.closest && el.closest('[data-spec-id]');
+    var t = (el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 28);
+    return el.tagName.toLowerCase() + (t ? ' "' + t + '"' : '') + (p ? ' in ' + p.getAttribute('data-spec-id') : '');
+  }
+  function bgOf(el) {
+    var stack = [],
+      n = el;
+    while (n && n.nodeType === 1) {
+      var s = cs(n);
+      if (s.backgroundImage && s.backgroundImage !== 'none') return null;
+      var c = parse(s.backgroundColor);
+      if (c && c.a > 0) {
+        stack.push(c);
+        if (c.a >= 0.99) break;
+      }
+      n = n.parentElement;
+    }
+    var base = {
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1
+    };
+    if (!stack.length || stack[stack.length - 1].a < 0.99) stack.push(base);
+    var out = stack.pop();
+    while (stack.length) out = over(stack.pop(), out);
+    return out;
+  }
+  function hasText(el) {
+    for (var i = 0; i < el.childNodes.length; i++) {
+      var c = el.childNodes[i];
+      if (c.nodeType === 3 && c.textContent.trim()) return true;
+    }
+    return false;
+  }
+  function ownText(el) {
+    var t = '';
+    for (var i = 0; i < el.childNodes.length; i++) if (el.childNodes[i].nodeType === 3) t += el.childNodes[i].textContent;
+    return t.trim();
+  }
+  function isCommit(el) {
+    var b = el.closest('[data-bos-class]');
+    var id = el.getAttribute('data-spec-id') || '';
+    return b && b.getAttribute('data-bos-class') === 'commit' || /^btn-commit/.test(id);
+  }
+  function isCurrentNav(el) {
+    var c = el.closest('[aria-current],[aria-selected="true"],[data-current="true"]');
+    return !!(c && c.getAttribute('aria-current') !== 'false');
+  }
+  function ns() {
+    var k = Object.keys(window).filter(function (k) {
+      return /^BishSRVDesignSystem/.test(k) && window[k] && window[k].AppShell;
+    });
+    return k.length ? {
+      key: k[0],
+      lib: window[k[0]]
+    } : null;
+  }
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace(/^["']|["']$/g, '').toLowerCase();
+  }
+  function run(opts) {
+    opts = opts || {};
+    var root = opts.root || document.body,
+      W = opts.width || document.documentElement.clientWidth;
+    var F = {};
+    CATS.forEach(function (c) {
+      F[c[0]] = {};
+    });
+    function add(cat, sev, rule, el, extra) {
+      var key = sev + '|' + rule;
+      var g = F[cat][key] || (F[cat][key] = {
+        sev: sev,
+        rule: rule,
+        count: 0,
+        where: []
+      });
+      g.count++;
+      var w = el ? where(el) : extra;
+      if (w && g.where.length < 6 && g.where.indexOf(w) < 0) g.where.push(w);
+    }
+    var all = Array.prototype.slice.call(root.querySelectorAll('*')).filter(function (el) {
+      return !(el.closest('svg') && el.tagName.toLowerCase() !== 'svg') && visible(el);
+    }).slice(0, 6000);
+
+    // Right material
+    var lib = ns();
+    if (!lib) add('material', 'error', 'Design-system bundle not loaded (no window.BishSRVDesignSystem_*). Load _ds_bundle.js via ds-base.js', null, 'window');else {
+      var miss = EXPECTED.filter(function (n) {
+        return !lib.lib[n];
+      });
+      if (miss.length) add('material', 'error', 'Bundle is missing components: ' + miss.join(', ') + ' — stale or partial copy', null, lib.key);
+    }
+    Object.keys(CANARY).forEach(function (k) {
+      var v = cssVar(k);
+      if (!v) add('material', 'error', k === '--ds-version' ? 'Token stylesheet is unversioned — a stale (v1.x) copy, or colors_and_type.css is not linked' : 'Token ' + k + ' missing — colors_and_type.css not linked', null, k);else if (v !== CANARY[k]) add('material', 'error', 'Token ' + k + ' = ' + v + ', release ' + VERSION + ' says ' + CANARY[k] + ' — wrong or stale material', null, k);
+    });
+    if (document.fonts && document.fonts.check) ['Bebas Neue', 'Barlow Condensed', 'Source Sans 3'].forEach(function (f) {
+      if (!document.fonts.check('16px "' + f + '"')) add('material', 'warn', 'Brand font not loaded: ' + f, null, f);
+    });
+
+    // Tokens + contrast + gold + type + icons + spacing per element
+    var commitsByFrame = new Map();
+    all.forEach(function (el) {
+      var s = cs(el),
+        tag = el.tagName.toLowerCase(),
+        interactive = el.matches(INTERACTIVE);
+      var col = parse(s.color),
+        bg = parse(s.backgroundColor),
+        text = hasText(el);
+      if (bg && bg.a > 0.5) {
+        var bh = hex(bg);
+        if (!near(bg, PALETTE)) add('tokens', 'error', 'Off-token fill ' + bh, el);
+        if (near(bg, MARKETING_ONLY)) add('tokens', 'warn', 'Heritage marketing accent used as UI fill ' + bh, el);
+        if (near(bg, GOLD_FILL, 8)) {
+          if (!interactive && !el.closest('button,[role="button"],a[href]')) add('gold', 'error', 'Gold fill on a non-control (card, chip, progress, surface)', el);else if (!isCommit(el)) add('gold', 'error', 'Gold fill on a control that is not the COMMIT', el);else if (interactive) {
+            var fr = el.closest('[data-bos-level="frame"],[role="dialog"]') || root;
+            commitsByFrame.set(fr, (commitsByFrame.get(fr) || 0) + 1);
+          }
+        }
+        if (near(bg, [GOLD_LO], 6) && !isCurrentNav(el)) add('gold', 'error', 'Gold-lo fill outside the current nav item', el);
+        if (near(bg, [CREAM], 6)) add('gold', 'error', 'Cream used as a fill (cream is text-only)', el);
+      }
+      ['Top', 'Right', 'Bottom', 'Left'].forEach(function (side) {
+        if (parseFloat(s['border' + side + 'Width']) > 0) {
+          var b = parse(s['border' + side + 'Color']);
+          if (b && b.a > 0.2 && !near(b, PALETTE, 8)) add('tokens', 'warn', 'Off-token border ' + hex(b), el);
+        }
+      });
+      if (text && col) {
+        var t = ownText(el),
+          size = parseFloat(s.fontSize),
+          weight = parseInt(s.fontWeight, 10) || 400,
+          upper = s.textTransform === 'uppercase';
+        if (col.a > 0.5 && !near(col, PALETTE)) add('tokens', 'error', 'Off-token text color ' + hex(col), el);
+        if (near(col, [SUBTLE], 4) && !el.closest('[disabled],[aria-disabled="true"]')) add('tokens', 'warn', '--text-subtle used for informational text (decorative/disabled only)', el);
+        if (near(col, [GOLD_LO], 6) && !isCurrentNav(el)) add('gold', 'error', 'Gold-lo used as text', el);
+        var back = bgOf(el);
+        if (back && !el.closest('[disabled],[aria-disabled="true"]')) {
+          var fg = col.a < 1 ? over(col, back) : col,
+            r = ratio(fg, back),
+            large = size >= 24 || size >= 18.66 && weight >= 700;
+          if (r < (large ? 3 : 4.5)) add('tokens', 'error', 'Contrast below AA (' + r.toFixed(2) + ':1, needs ' + (large ? '3' : '4.5') + ')', el);
+        }
+        var fam = s.fontFamily.split(',')[0].replace(/["']/g, '').trim().toLowerCase();
+        if (BRAND_FONTS.indexOf(fam) < 0) add('type', 'error', 'Non-brand font: ' + fam, el);
+        if (size < 10) add('type', 'error', 'Text below 10px (' + size + 'px)', el);else if (size < 11 && !(upper && weight >= 600)) add('type', 'error', 'Text below the 11px label floor (' + size + 'px)', el);
+        if (/^(p|li|dd|td|blockquote)$/.test(tag) && size < 14 && t.length > 40) add('type', 'warn', 'Reading text below 14px', el);
+        if (parseFloat(s.letterSpacing) > 6) add('type', 'warn', 'Tracking wider than 6px', el);
+        if (/^[▸▾▼▲►◄◀▶‣›»✓✔✕✖×★☆→←↑↓⌄⌃+]$/.test(t)) add('icons', 'error', 'Text glyph "' + t + '" used as an icon (use Lucide)', el);
+        try {
+          if (/\p{Extended_Pictographic}/u.test(t)) add('icons', 'error', 'Emoji in UI text', el);
+        } catch (e) {}
+      }
+      if (tag === 'svg') {
+        var r2 = el.getBoundingClientRect();
+        var lucide = /\blucide\b/.test(el.getAttribute('class') || '') || el.hasAttribute('data-lucide') || el.getAttribute('viewBox') === '0 0 24 24' && el.getAttribute('fill') === 'none' && el.getAttribute('stroke-linecap') === 'round';
+        var exempt = el.closest('[data-bos-icon-exception],[data-bos-brand]') || /logo|bish|wayfinder|hexagon/i.test((el.getAttribute('aria-label') || '') + (el.getAttribute('class') || ''));
+        if (r2.width <= 48 && r2.height <= 48 && !lucide && !exempt) add('icons', 'error', 'Non-Lucide SVG icon', el);
+      }
+      if (/(^|\s)(material-icons|material-symbols|fa|fas|far|fa-[a-z-]+|bi|bi-[a-z-]+|glyphicon|ph|ph-[a-z-]+|heroicon)(\s|$)/.test(el.getAttribute('class') || '')) add('icons', 'error', 'Icon font / non-Lucide icon library', el);
+      if (s.display !== 'inline' && tag !== 'svg') {
+        ['paddingTop', 'paddingRight', 'paddingBottom', 'paddingLeft', 'marginTop', 'marginBottom', 'rowGap', 'columnGap'].forEach(function (p) {
+          var v = parseFloat(s[p]);
+          if (!v || isNaN(v) || v % 1 !== 0) return;
+          v = Math.abs(v);
+          F.spacing.__n = (F.spacing.__n || 0) + 1;
+          if (v > 2 && v % 2 !== 0) {
+            F.spacing.__off = (F.spacing.__off || 0) + 1;
+            add('spacing', 'warn', 'Off-scale spacing ' + v + 'px (' + p.replace(/[A-Z].*/, '') + ')', el);
+          }
+        });
+      }
+    });
+    commitsByFrame.forEach(function (n, fr) {
+      if (n > 1) add('gold', 'error', n + ' gold COMMIT fills in one frame (max 1)', fr);
+    });
+    var sn = F.spacing.__n || 0,
+      so = F.spacing.__off || 0;
+    delete F.spacing.__n;
+    delete F.spacing.__off;
+    if (sn && so / sn > 0.1) add('spacing', 'error', Math.round(100 * so / sn) + '% of spacing values are odd-pixel (off the 4px scale)', null, 'page');
+
+    // AppShell
+    var shell = root.querySelector('[data-spec-id="frame-app-shell"]');
+    if (opts.singleSurface) {} else if (!shell) add('shell', 'error', 'Screen is not mounted in AppShell (G1)', null, 'page');
+    root.querySelectorAll('header,nav,[role="navigation"]').forEach(function (el) {
+      if (!visible(el) || el.closest('[data-bos-level="shell"],[data-bos-level="layer"][data-bos-type="action"],[data-bos-selfcheck]')) return;
+      var r = el.getBoundingClientRect();
+      if (el.tagName === 'HEADER' && r.top < 12 && r.width > W * 0.9) add('shell', 'error', 'Hand-built app header outside AppShell', el);else if (!opts.singleSurface) add('shell', 'warn', 'Navigation landmark outside AppShell — confirm it is in-page wayfinding, not app nav', el);
+    });
+    if (root.querySelector('main main')) add('shell', 'error', '<main> nested inside <main> (mount screen content in a <section>, not <main>)', root.querySelector('main main'));
+
+    // Responsiveness at this width
+    var de = document.documentElement;
+    if (de.scrollWidth > de.clientWidth + 1) add('responsive', 'error', 'Horizontal page scroll at ' + W + 'px (' + de.scrollWidth + ' > ' + de.clientWidth + ')', null, 'page');
+    root.querySelectorAll('[data-bos-level="canvas"],[data-bos-level="section"],[data-bos-level="frame"],main,form').forEach(function (el) {
+      if (!visible(el)) return;
+      var ox = cs(el).overflowX;
+      if (el.scrollWidth > el.clientWidth + 1 && ox !== 'auto' && ox !== 'scroll') add('responsive', 'error', 'Content wider than its container at ' + W + 'px (' + el.scrollWidth + ' > ' + el.clientWidth + ')', el);else if (el.scrollWidth > el.clientWidth + 1 && el.matches('[data-bos-level="canvas"],main')) add('responsive', 'error', 'Screen scrolls sideways inside the shell at ' + W + 'px (' + el.scrollWidth + ' > ' + el.clientWidth + ')', el);
+    });
+    var minT = W <= 1023 ? 44 : 28;
+    all.filter(function (el) {
+      return el.matches(INTERACTIVE);
+    }).forEach(function (el) {
+      if (el.closest('p,li') && el.tagName === 'A' && cs(el).display === 'inline') return;
+      var r = el.getBoundingClientRect();
+      if (r.width < minT - 0.5 || r.height < minT - 0.5) add('responsive', 'error', 'Target under ' + minT + '×' + minT + 'px at ' + W + 'px', el);
+    });
+    var cq = all.some(function (el) {
+      var c = cs(el).containerType;
+      return c && c !== 'normal';
+    });
+    if (!cq) add('responsive', 'warn', 'No container queries found (RF05) — screens mounted in artboards/stages must use container-type + @container', null, 'page');
+    var commit = all.filter(function (el) {
+      return el.matches(INTERACTIVE) && isCommit(el);
+    })[0];
+    if (commit) {
+      var cr = commit.getBoundingClientRect();
+      if (cr.top > innerHeight || cr.bottom < 0) add('responsive', 'warn', 'The COMMIT is off screen at ' + W + 'px (keep it in the sticky action bar S99)', commit);
+    }
+
+    // Stamping
+    var SL = lib && lib.lib.SpecLint;
+    if (SL) {
+      var rep = SL.run(root);
+      if (rep.unstamped.length) rep.unstamped.forEach(function (u) {
+        add('stamping', 'error', 'Unstamped interactive element (suggested: ' + (u.suggested || '—') + ')', u.el);
+      });
+      rep.duplicates.forEach(function (u) {
+        add('stamping', 'error', 'Duplicate data-spec-id in one frame', u.el);
+      });
+      rep.invalid.forEach(function (u) {
+        add('stamping', 'error', 'Invalid data-spec-id format', u.el);
+      });
+      if (rep.commitViolations) add('stamping', 'error', 'More than one data-bos-class="commit" in a frame', null, rep.commitViolations + ' frame(s)');
+      if (rep.nestedLayers) add('stamping', 'error', 'Nested data-bos-level="layer"', null, rep.nestedLayers + ' layer(s)');
+      F.stamping.__coverage = Math.round(rep.coverage * 100);
+    } else {
+      all.filter(function (el) {
+        return el.matches(INTERACTIVE) && !el.getAttribute('data-spec-id');
+      }).forEach(function (el) {
+        add('stamping', 'error', 'Unstamped interactive element', el);
+      });
+      add('stamping', 'warn', 'SpecLint not available — fallback stamp check only', null, 'bundle');
+    }
+    root.querySelectorAll('[data-spec-id]').forEach(function (el) {
+      if (own(el)) return;
+      var id = el.getAttribute('data-spec-id'),
+        base = id.split('#')[0],
+        inst = id.split('#')[1];
+      if (/-\d+$/.test(base)) add('stamping', 'warn', 'ID ends in a number — looks index-derived, not a stable domain key', el);
+      if (/\d+-\d{3}(\b|-)/.test(base)) add('stamping', 'warn', 'ID contains a price/count — derived from live data, will drift', el);
+      if (inst && /^\d{1,2}$/.test(inst)) add('stamping', 'warn', 'Instance key looks like an index (#' + inst + ') — use a stable domain key', el);
+    });
+    var coverage = F.stamping.__coverage;
+    delete F.stamping.__coverage;
+
+    // Score
+    var cats = CATS.map(function (c) {
+      var groups = Object.keys(F[c[0]]).map(function (k) {
+        return F[c[0]][k];
+      });
+      var errs = groups.filter(function (g) {
+          return g.sev === 'error';
+        }),
+        warns = groups.filter(function (g) {
+          return g.sev === 'warn';
+        });
+      var score = 100;
+      errs.forEach(function (g) {
+        score -= 15 + Math.min(10, g.count - 1);
+      });
+      warns.forEach(function (g) {
+        score -= 4;
+      });
+      var manual = c[0] === 'states';
+      return {
+        key: c[0],
+        gate: c[1],
+        name: c[2],
+        status: manual ? 'manual' : errs.length ? 'fail' : warns.length ? 'warn' : 'pass',
+        score: manual ? null : Math.max(0, score),
+        findings: groups.sort(function (a, b) {
+          return (a.sev === 'error' ? 0 : 1) - (b.sev === 'error' ? 0 : 1) || b.count - a.count;
+        })
+      };
+    });
+    var scored = cats.filter(function (c) {
+      return c.score != null && c.key !== 'material';
+    });
+    var materialOk = cats[0].status !== 'fail';
+    var score = Math.round(scored.reduce(function (s, c) {
+      return s + c.score;
+    }, 0) / scored.length);
+    var blockers = [];
+    cats.forEach(function (c) {
+      c.findings.forEach(function (f) {
+        if (f.sev === 'error') blockers.push('[' + c.name + '] ' + f.rule + (f.count > 1 ? ' ×' + f.count : ''));
+      });
+    });
+    return {
+      tool: 'bishs-selfcheck',
+      version: VERSION,
+      url: location.href,
+      width: W,
+      at: new Date().toISOString(),
+      pass: materialOk && !blockers.length,
+      materialOk: materialOk,
+      score: materialOk ? score : Math.min(score, 40),
+      coverage: coverage,
+      categories: cats,
+      blockers: blockers,
+      manual: MANUAL.map(function (m) {
+        return {
+          gate: m[0],
+          check: m[1]
+        };
+      })
+    };
+  }
+  function markdown(r) {
+    var L = ['## Self-check — ' + (r.pass ? 'PASS' : 'FAIL') + ' · ' + r.score + '/100', '', '- Release: v' + r.version + ' · width ' + (r.widths ? r.widths.join(' / ') : r.width) + 'px · ' + r.at, '- Page: ' + r.url, r.coverage != null ? '- SpecLint coverage: ' + r.coverage + '%' : '', '', '| Gate | Category | Status | Score |', '|---|---|---|---|'];
+    r.categories.forEach(function (c) {
+      L.push('| ' + c.gate + ' | ' + c.name + ' | ' + c.status + ' | ' + (c.score == null ? '—' : c.score) + ' |');
+    });
+    L.push('', '### Blockers', r.blockers.length ? '' : 'None.');
+    r.categories.forEach(function (c) {
+      c.findings.forEach(function (f) {
+        L.push('- **' + f.sev + '** · ' + c.name + ' · ' + f.rule + (f.count > 1 ? ' ×' + f.count : '') + (f.where.length ? ' — `' + f.where.join('`, `') + '`' : ''));
+      });
+    });
+    L.push('', '### Still to prove by hand');
+    r.manual.forEach(function (m) {
+      L.push('- [ ] ' + m.gate + ' — ' + m.check);
+    });
+    return L.filter(function (x) {
+      return x !== null;
+    }).join('\n');
+  }
+  function panel(r) {
+    r = r || run();
+    var old = document.querySelector('[data-bos-selfcheck="panel"]');
+    if (old) old.remove();
+    var d = document.createElement('aside');
+    d.setAttribute('data-bos-selfcheck', 'panel');
+    d.setAttribute('data-spec-lint-ignore', '');
+    d.setAttribute('aria-label', 'Design-system self-check');
+    d.style.cssText = 'position:fixed;top:12px;right:12px;bottom:12px;width:min(420px,calc(100vw - 24px));z-index:2147483646;overflow:auto;background:#111E1E;color:#FFFFFF;border:1px solid rgba(255,255,255,0.30);border-radius:12px;padding:16px;font:14px/1.5 "Source Sans 3",system-ui,sans-serif;box-shadow:0 20px 25px -5px rgb(0 0 0 / .4)';
+    var esc = function (s) {
+      return String(s).replace(/[&<>]/g, function (c) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;'
+        }[c];
+      });
+    };
+    var tone = {
+      pass: '#51CF66',
+      warn: '#FFD43B',
+      fail: '#FF8787',
+      manual: '#74C0FC'
+    };
+    var h = '<div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><div style="font:600 11px/1 \'Barlow Condensed\',sans-serif;letter-spacing:3px;text-transform:uppercase;color:#B89E4A">Self-check · v' + r.version + '</div><button type="button" data-close style="min-width:44px;min-height:44px;background:none;border:1px solid rgba(255,255,255,0.30);border-radius:8px;color:#fff;cursor:pointer">Close</button></div>';
+    h += '<div style="font:400 40px/1 \'Bebas Neue\',sans-serif;margin:8px 0 4px;color:' + (r.pass ? '#51CF66' : '#FF8787') + '">' + (r.pass ? 'PASS' : 'FAIL') + ' · ' + r.score + '/100</div><div style="color:#A2A59C">' + r.width + 'px · ' + r.blockers.length + ' blocker(s)' + (r.coverage != null ? ' · coverage ' + r.coverage + '%' : '') + '</div>';
+    r.categories.forEach(function (c) {
+      h += '<div style="margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.13)"><div style="display:flex;justify-content:space-between;gap:8px"><strong>' + esc(c.gate !== '—' ? c.gate + ' · ' : '') + esc(c.name) + '</strong><span style="color:' + tone[c.status] + ';font-weight:600">' + c.status.toUpperCase() + (c.score != null ? ' ' + c.score : '') + '</span></div>';
+      c.findings.forEach(function (f) {
+        h += '<div style="margin-top:4px;color:' + (f.sev === 'error' ? '#FF8787' : '#E7DDB4') + '">' + (f.sev === 'error' ? '✕ ' : '! ') + esc(f.rule) + (f.count > 1 ? ' ×' + f.count : '') + '</div>' + (f.where.length ? '<div style="color:#A2A59C;font:12px/1.4 \'JetBrains Mono\',monospace;word-break:break-all">' + esc(f.where.join(' · ')) + '</div>' : '');
+      });
+      if (c.key === 'states') h += '<div style="color:#A2A59C">Not machine-checkable — prove it in state-map.md.</div>';
+      h += '</div>';
+    });
+    d.innerHTML = h;
+    document.body.appendChild(d);
+    d.querySelector('[data-close]').onclick = function () {
+      d.remove();
+    };
+    return r;
+  }
+  window.BishSelfCheck = {
+    VERSION: VERSION,
+    run: run,
+    panel: panel,
+    markdown: markdown,
+    CATEGORIES: CATS,
+    MANUAL: MANUAL
+  };
+  if (/[?&]selfcheck=1/.test(location.search)) addEventListener('load', function () {
+    setTimeout(function () {
+      panel();
+    }, 1500);
+  });
+})();
+})(); } catch (e) { __ds_ns.__errors.push({ path: "selfcheck/selfcheck.js", error: String((e && e.message) || e) }); }
+
+// tools/build-release.js
+try { (() => {
+// Maintainer script: cuts the release zip from release/release.json.
+// Runs in the project's script runner: eval(await readFile('tools/build-release.js')); await buildRelease({ readFile, readFileBinary, ls, saveFile, log });
+async function buildRelease(h) {
+  const cfg = JSON.parse(await h.readFile('release/release.json'));
+  const ex = cfg.exclude.map(s => new RegExp(s));
+  const files = [];
+  const isDirName = n => !/[^.]\.[A-Za-z0-9]+$/.test(n);
+  async function walk(p) {
+    let names;
+    try {
+      names = await h.ls(p);
+    } catch (e) {
+      return;
+    }
+    const subs = await Promise.all(names.map(async n => {
+      if (!isDirName(n)) return null;
+      try {
+        const s = await h.ls(p + '/' + n);
+        return s && s.length ? s : null;
+      } catch (e) {
+        return null;
+      }
+    }));
+    for (let i = 0; i < names.length; i++) {
+      const full = p + '/' + names[i];
+      if (subs[i]) await walk(full);else files.push(full);
+    }
+  }
+  for (const inc of cfg.include) {
+    if (inc.endsWith('/')) await walk(inc.slice(0, -1));else files.push(inc);
+  }
+  h.log('listed ' + files.length);
+  const list = [...new Set(files)].filter(f => !ex.some(r => r.test(f)) && f !== 'release/files.json').sort();
+  const manifest = {
+    name: cfg.name,
+    version: cfg.version,
+    date: cfg.date,
+    files: list.concat(['release/files.json'])
+  };
+  const manifestText = JSON.stringify(manifest, null, 2);
+  await h.saveFile('release/files.json', manifestText);
+  const T = new Uint32Array(256);
+  for (let i = 0; i < 256; i++) {
+    let c = i;
+    for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ c >>> 1 : c >>> 1;
+    T[i] = c >>> 0;
+  }
+  const crc = u => {
+    let c = 0xFFFFFFFF;
+    for (let i = 0; i < u.length; i++) c = T[(c ^ u[i]) & 255] ^ c >>> 8;
+    return (c ^ 0xFFFFFFFF) >>> 0;
+  };
+  const enc = new TextEncoder(),
+    parts = [],
+    central = [];
+  let off = 0,
+    total = 0;
+  const d = new Date(cfg.date + 'T12:00:00');
+  const dt = d.getFullYear() - 1980 << 9 | d.getMonth() + 1 << 5 | d.getDate(),
+    tm = 12 << 11;
+  const add = (name, data) => {
+    const nb = enc.encode(cfg.zipRoot + '/' + name),
+      c = crc(data);
+    const lh = new DataView(new ArrayBuffer(30));
+    lh.setUint32(0, 0x04034b50, true);
+    lh.setUint16(4, 20, true);
+    lh.setUint16(6, 0x0800, true);
+    lh.setUint16(8, 0, true);
+    lh.setUint16(10, tm, true);
+    lh.setUint16(12, dt, true);
+    lh.setUint32(14, c, true);
+    lh.setUint32(18, data.length, true);
+    lh.setUint32(22, data.length, true);
+    lh.setUint16(26, nb.length, true);
+    lh.setUint16(28, 0, true);
+    parts.push(new Uint8Array(lh.buffer), nb, data);
+    const ch = new DataView(new ArrayBuffer(46));
+    ch.setUint32(0, 0x02014b50, true);
+    ch.setUint16(4, 20, true);
+    ch.setUint16(6, 20, true);
+    ch.setUint16(8, 0x0800, true);
+    ch.setUint16(10, 0, true);
+    ch.setUint16(12, tm, true);
+    ch.setUint16(14, dt, true);
+    ch.setUint32(16, c, true);
+    ch.setUint32(20, data.length, true);
+    ch.setUint32(24, data.length, true);
+    ch.setUint16(28, nb.length, true);
+    ch.setUint32(42, off, true);
+    central.push(new Uint8Array(ch.buffer), nb);
+    off += 30 + nb.length + data.length;
+    total += data.length;
+  };
+  const missing = [],
+    datas = new Array(list.length);
+  for (let i = 0; i < list.length; i += 25) await Promise.all(list.slice(i, i + 25).map(async (f, j) => {
+    try {
+      const b = await h.readFileBinary(f);
+      datas[i + j] = new Uint8Array(await b.arrayBuffer());
+    } catch (e) {
+      missing.push(f);
+    }
+  }));
+  list.forEach((f, i) => {
+    if (datas[i]) add(f, datas[i]);
+  });
+  add('release/files.json', enc.encode(manifestText));
+  const cdSize = central.reduce((s, u) => s + u.length, 0);
+  const end = new DataView(new ArrayBuffer(22));
+  end.setUint32(0, 0x06054b50, true);
+  end.setUint16(8, list.length + 1 - missing.length, true);
+  end.setUint16(10, list.length + 1 - missing.length, true);
+  end.setUint32(12, cdSize, true);
+  end.setUint32(16, off, true);
+  const zip = new Blob([...parts, ...central, new Uint8Array(end.buffer)], {
+    type: 'application/zip'
+  });
+  const out = `release/${cfg.name}-v${cfg.version}.zip`;
+  await h.saveFile(out, zip);
+  h.log(`${out}: ${list.length + 1 - missing.length} files, ${(total / 1048576).toFixed(1)} MB` + (missing.length ? `; MISSING ${missing.join(', ')}` : ''));
+  return {
+    out,
+    count: list.length + 1,
+    missing
+  };
+}
+})(); } catch (e) { __ds_ns.__errors.push({ path: "tools/build-release.js", error: String((e && e.message) || e) }); }
 
 // ui_kits/app-shell/NavConfig.jsx
 try { (() => {

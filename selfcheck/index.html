@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Self-check · Bish's RV design system</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="./selfcheck.js"></script>
+<style>
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-body)}
+a{color:var(--accent-gold-hi);text-decoration:underline}a:hover{color:var(--text-body)}
+.sc{container-type:inline-size;max-width:1440px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;gap:24px}
+.sc-ov{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--accent-gold-hi)}
+.sc h1{margin:4px 0 0;font-size:clamp(32px,5cqi,48px)}
+.sc p{margin:8px 0 0;max-width:68ch;color:var(--text-body)}
+.sc-card{background:var(--surface-card);border:1px solid var(--border-mid);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:16px}
+.sc-row{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.sc-field{display:flex;flex-direction:column;gap:4px;flex:1 1 280px;min-width:0}
+.sc-field label{font-family:var(--font-ui);font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-body)}
+.sc input[type=text]{min-height:44px;padding:8px 12px;background:var(--surface-inset);color:var(--text-primary);border:1px solid var(--border-input);border-radius:8px;font:16px var(--font-body);width:100%}
+.sc-check{display:flex;align-items:center;gap:8px;min-height:44px;color:var(--text-body)}
+.sc-check input{width:20px;height:20px}
+.sc-btn{min-height:44px;padding:0 20px;border-radius:8px;font:600 16px var(--font-ui);letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+.sc-commit{background:var(--accent-gold);color:var(--text-light-primary);border:0}
+.sc-commit:hover{background:var(--accent-gold-hi)}
+.sc-action{background:transparent;color:var(--text-primary);border:1px solid var(--accent-gold-hi)}
+.sc-action:hover{background:rgba(255,255,255,.08)}
+.sc-action:disabled,.sc-commit:disabled{opacity:.38;cursor:not-allowed}
+.sc-stage{border:1px solid var(--border-mid);border-radius:12px;overflow:auto;background:var(--surface-deep);max-height:70vh}
+.sc-stage iframe{display:block;border:0;height:820px;background:#fff;margin:0 auto}
+.sc-status{color:var(--text-muted);min-height:24px}
+.sc-score{font-family:var(--font-display);font-size:clamp(40px,7cqi,64px);line-height:1}
+.sc-table{width:100%;border-collapse:collapse;font-size:14px}
+.sc-wrap{overflow-x:auto}
+.sc-table th{font-family:var(--font-ui);font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:8px;border-bottom:1px solid var(--border-mid)}
+.sc-table td{padding:8px;border-bottom:1px solid var(--border-ghost);vertical-align:top;color:var(--text-body)}
+.sc-pass{color:var(--semantic-success)}.sc-warn{color:var(--semantic-warning)}.sc-fail{color:var(--semantic-danger)}.sc-manual{color:var(--semantic-info)}
+.sc ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:4px;color:var(--text-body)}
+.sc code{font-family:var(--font-mono);font-size:13px;color:var(--text-muted);word-break:break-all}
+@container (min-width:1024px){.sc-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}}
+.sc-split{display:flex;flex-direction:column;gap:24px}
+</style>
+</head>
+<body>
+<div class="sc" data-bos-selfcheck="harness" data-spec-id="frame-selfcheck" data-bos-level="frame">
+<header data-spec-id="sec-selfcheck-intro" data-bos-level="section" data-bos-section="S01" data-bos-type="header">
+<div class="sc-ov">Bish's RV design system · <span id="ver"></span></div>
+<h1>Self-check</h1>
+<p>Proves a build used this release and follows its rules. Loads the page you name, measures it at six widths, and scores it on the same categories as a design review. Machine checks cover tokens, contrast, gold, type, spacing, icons, AppShell, fit and targets, and stamping. Gates that need a person are listed at the end.</p>
+</header>
+<section class="sc-card" data-spec-id="sec-selfcheck-package" data-bos-level="section" data-bos-section="S02" data-bos-type="status" aria-labelledby="pkg-h">
+<div class="sc-row" style="justify-content:space-between"><div><div class="sc-ov" id="pkg-h">Step 1 · Package</div><div class="sc-status" id="pkg-status">Checks that every file in the release is present and that VERSION, the token stylesheet and this checker agree.</div></div>
+<button type="button" class="sc-btn sc-action" id="pkg-run" data-spec-id="btn-action-check-package" data-bos-class="action">Check package</button></div>
+<div id="pkg-out"></div>
+</section>
+<section class="sc-card" data-spec-id="sec-selfcheck-target" data-bos-level="section" data-bos-section="S03" data-bos-type="content" aria-labelledby="tgt-h">
+<div class="sc-ov" id="tgt-h">Step 2 · Screen</div>
+<div class="sc-row">
+<div class="sc-field"><label for="url">Page to check (path from this folder)</label><input type="text" id="url" data-spec-id="input-page-to-check" value="../conversions/floor-workspace/index.html"></div>
+<label class="sc-check"><input type="checkbox" id="single" data-spec-id="input-single-surface"> Single-surface asset (no AppShell needed)</label>
+<button type="button" class="sc-btn sc-commit" id="run" data-spec-id="btn-commit-run-self-check" data-bos-class="commit">Run self-check</button>
+</div>
+<div class="sc-status" id="status" role="status" aria-live="polite">Widths: 1440 · 1024 · 834 · 640 · 390 · 360, then an approximate 200% text test.</div>
+<div class="sc-stage"><iframe id="frame" title="Page under check" style="width:1440px"></iframe></div>
+</section>
+<section class="sc-card" id="results" hidden data-spec-id="sec-selfcheck-results" data-bos-level="section" data-bos-section="S04" data-bos-type="detail" aria-labelledby="res-h">
+<div class="sc-row" style="justify-content:space-between"><div><div class="sc-ov" id="res-h">Step 3 · Result</div><div class="sc-score" id="score"></div><div class="sc-status" id="summary"></div></div>
+<div class="sc-row"><button type="button" class="sc-btn sc-action" id="dl-json" data-spec-id="btn-action-download-json" data-bos-class="action">Download JSON</button><button type="button" class="sc-btn sc-action" id="dl-md" data-spec-id="btn-action-download-qa-gates" data-bos-class="action">Download qa-gates.md</button></div></div>
+<div class="sc-wrap"><table class="sc-table"><thead><tr><th scope="col">Gate</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col">Score</th><th scope="col">Worst width</th></tr></thead><tbody id="cats"></tbody></table></div>
+<div class="sc-split"><div><div class="sc-ov">Blockers</div><ul id="blockers"></ul></div><div><div class="sc-ov">Still to prove by hand</div><ul id="manual"></ul></div></div>
+</section>
+</div>
+<script>
+(function(){
+var SC=window.BishSelfCheck,$=function(i){return document.getElementById(i)};
+$('ver').textContent='release v'+SC.VERSION;
+var WIDTHS=[1440,1024,834,640,390,360],last=null;
+var esc=function(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})};
+var wait=function(ms){return new Promise(function(r){setTimeout(r,ms)})};
+function load(src){return new Promise(function(res){var f=$('frame');f.onload=function(){res()};f.src=src})}
+async function ready(win){for(var i=0;i<40;i++){try{if(win.document.querySelector('[data-spec-id]')&&win.document.readyState==='complete')break}catch(e){throw new Error('The page is on another origin. Serve the package folder (for example: npx serve) and use a relative path.')}await wait(250)}await wait(800)}
+async function inject(win){if(win.BishSelfCheck)return;await new Promise(function(res,rej){var s=win.document.createElement('script');s.src=new URL('./selfcheck.js',location.href).href;s.onload=res;s.onerror=function(){rej(new Error('Could not load selfcheck.js into the page'))};win.document.head.appendChild(s)})}
+function merge(reports){
+  var base=JSON.parse(JSON.stringify(reports[0].r,function(k,v){return k==='el'?undefined:v}));
+  base.widths=reports.map(function(x){return x.w});
+  base.categories.forEach(function(c,i){
+    var worst=null;reports.forEach(function(x){var rc=x.r.categories[i];if(rc.score!=null&&(worst==null||rc.score<worst.score))worst={score:rc.score,w:x.w,status:rc.status};
+      rc.findings.forEach(function(f){var g=c.findings.filter(function(h){return h.rule.replace(/ at \d+px.*/,'')===f.rule.replace(/ at \d+px.*/,'')&&h.sev===f.sev})[0];if(!g)c.findings.push(JSON.parse(JSON.stringify(f)));else if(x!==reports[0]&&g.rule!==f.rule&&g.where.length<6)g.where=g.where.concat(f.where).slice(0,6)})});
+    if(worst){c.score=worst.score;c.worst=worst.w;c.status=c.findings.some(function(f){return f.sev==='error'})?'fail':c.findings.length?'warn':'pass'}
+  });
+  base.blockers=[];base.categories.forEach(function(c){c.findings.forEach(function(f){if(f.sev==='error')base.blockers.push('['+c.name+'] '+f.rule+(f.count>1?' ×'+f.count:''))})});
+  var sc=base.categories.filter(function(c){return c.score!=null&&c.key!=='material'});
+  base.materialOk=base.categories[0].status!=='fail';
+  base.score=Math.round(sc.reduce(function(s,c){return s+c.score},0)/sc.length);if(!base.materialOk)base.score=Math.min(base.score,40);
+  base.pass=base.materialOk&&!base.blockers.length;base.coverage=Math.min.apply(null,reports.map(function(x){return x.r.coverage==null?100:x.r.coverage}));
+  return base;
+}
+function render(r){
+  $('results').hidden=false;
+  $('score').textContent=(r.pass?'PASS':'FAIL')+' · '+r.score+'/100';$('score').className='sc-score '+(r.pass?'sc-pass':'sc-fail');
+  $('summary').textContent=r.blockers.length+' blocker(s) · SpecLint coverage '+r.coverage+'% · '+r.widths.join(' / ')+'px'+(r.materialOk?'':' · WRONG MATERIAL — score capped at 40');
+  $('cats').innerHTML=r.categories.map(function(c){return '<tr><td>'+c.gate+'</td><td>'+esc(c.name)+'</td><td class="sc-'+c.status+'">'+c.status.toUpperCase()+'</td><td>'+(c.score==null?'—':c.score)+'</td><td>'+(c.worst?c.worst+'px':'—')+'</td></tr>'}).join('');
+  var items=[];r.categories.forEach(function(c){c.findings.forEach(function(f){items.push('<li><span class="sc-'+(f.sev==='error'?'fail':'warn')+'">'+(f.sev==='error'?'Error':'Warning')+'</span> · '+esc(c.name)+' · '+esc(f.rule)+(f.count>1?' ×'+f.count:'')+(f.where.length?'<br><code>'+esc(f.where.join(' · '))+'</code>':'')+'</li>')})});
+  $('blockers').innerHTML=items.join('')||'<li>None.</li>';
+  $('manual').innerHTML=r.manual.map(function(m){return '<li>'+esc(m.gate)+' — '+esc(m.check)+'</li>'}).join('');
+}
+$('run').onclick=async function(){
+  var btn=this,src=$('url').value.trim();if(!src)return;btn.disabled=true;var out=[];
+  try{
+    for(var i=0;i<WIDTHS.length;i++){var w=WIDTHS[i];$('status').textContent='Measuring at '+w+'px ('+(i+1)+' of '+WIDTHS.length+')…';$('frame').style.width=w+'px';
+      if(i===0){await load(src);await ready($('frame').contentWindow);}var win=$('frame').contentWindow;await inject(win);await wait(i===0?200:700);
+      var t0=performance.now();out.push({w:w,r:win.BishSelfCheck.run({width:w,singleSurface:$('single').checked})});console.log('[selfcheck] '+w+'px in '+Math.round(performance.now()-t0)+'ms')}
+    $('status').textContent='Approximate 200% text test at 1440px…';$('frame').style.width='1440px';var win2=$('frame').contentWindow;await wait(600);
+    win2.document.documentElement.style.fontSize='200%';await wait(600);var z=win2.BishSelfCheck.run({width:1440,singleSurface:$('single').checked});win2.document.documentElement.style.fontSize='';
+    z.categories.forEach(function(c){if(c.key!=='responsive'){c.findings=[];c.score=100;c.status='pass'}else c.findings.forEach(function(f){f.rule+=' (200% text, approximate)';f.sev='warn'})});out.push({w:1440,r:z});
+    last=merge(out);last.url=new URL(src,location.href).href;render(last);$('status').textContent='Done. Machine gates '+(last.pass?'pass':'fail')+'. Finish the manual gates before shipping.';
+  }catch(e){console.error('[selfcheck]',e);$('status').textContent='Could not run: '+e.message}
+  btn.disabled=false;
+};
+function dl(name,text,type){var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type:type}));a.download=name;document.body.appendChild(a);a.click();a.remove()}
+$('dl-json').onclick=function(){if(last)dl('selfcheck-report.json',JSON.stringify(last,null,2),'application/json')};
+$('dl-md').onclick=function(){if(last)dl('qa-gates.selfcheck.md',SC.markdown(last),'text/markdown')};
+$('pkg-run').onclick=async function(){
+  var out=$('pkg-out'),st=$('pkg-status');st.textContent='Checking…';
+  try{
+    var files=await fetch('../release/files.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('release/files.json not found — this is not a release package');return r.json()});
+    var ver=(await fetch('../VERSION',{cache:'no-store'}).then(function(r){return r.text()})).trim();
+    var css=await fetch('../colors_and_type.css',{cache:'no-store'}).then(function(r){return r.text()});var m=css.match(/--ds-version:\s*["']([^"']+)/);
+    var missing=[];for(var i=0;i<files.files.length;i++){var p=files.files[i];var ok=await fetch('../'+p,{method:'HEAD',cache:'no-store'}).then(function(r){return r.ok}).catch(function(){return false});if(!ok)missing.push(p)}
+    var errs=[];if(ver!==SC.VERSION)errs.push('VERSION says '+ver+', checker is '+SC.VERSION);if(!m||m[1]!==SC.VERSION)errs.push('colors_and_type.css --ds-version is '+(m?m[1]:'missing'));if(files.version!==SC.VERSION)errs.push('release/files.json is for '+files.version);
+    missing.forEach(function(p){errs.push('Missing: '+p)});
+    st.innerHTML=errs.length?'<span class="sc-fail">FAIL</span> · '+files.files.length+' files listed, '+missing.length+' missing':'<span class="sc-pass">PASS</span> · release v'+ver+' · all '+files.files.length+' files present · versions agree';
+    out.innerHTML=errs.length?'<ul>'+errs.slice(0,40).map(function(e){return '<li>'+esc(e)+'</li>'}).join('')+'</ul>':'';
+  }catch(e){st.innerHTML='<span class="sc-fail">FAIL</span> · '+esc(e.message)}
+};
+})();
+</script>
+</body>
+</html>

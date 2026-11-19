@@ -1,11 +1,14 @@
 /* ═══════════════════════════════════════════════════════════════
    BISH'S RV · NEXUS DESIGN SYSTEM
-   Colors + Type Tokens · v1.0 · April 2026
+   Colors + Type Tokens · release v2.2.0 · 2026-11-12 (see VERSION)
    ═══════════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
+  /* Release canary — selfcheck/ reads this to prove the right material is linked. Bump with VERSION. */
+  --ds-version: "2.2.0"; /* @kind other */
+
   /* ── BRAND PALETTE (raw; don't use directly in components) ── */
   --brand-black:      #020000;
   --brand-dark-green: #203232;

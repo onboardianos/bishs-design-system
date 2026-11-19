@@ -1,6 +1,6 @@
 # Bish's RV — Nexus Design System
 
-> **@nexus/design-system · v1.0 · April 2026**
+> **Release 2.2.0 · 2026-11-12** (see `VERSION`, `CHANGELOG.md`). Start at `START-HERE.md`. The rulebook is `SKILL.md`; where this README and `SKILL.md` disagree, `SKILL.md` wins.
 > The single source of truth for Bish's RV digital products. This system combines the 2022 Bish's RV Brand Guidelines (identity layer) with the Nexus product design system (product layer) — a shadcn/Radix/Tailwind/CVA stack with a Material 3 behavioral overlay.
 
 ---
@@ -248,8 +248,28 @@ These exports are deliberate Nexus additions with no counterpart in the original
 | **UnitRow** | `ui_kits/portal-dark/Card.jsx` | Inventory list row with status badge, `theme` dark/light |
 | **Header** | `ui_kits/portal-dark/Header.jsx` | Branded portal page header, `theme` dark/light |
 | **TabBar** | `ui_kits/portal-dark/TabBar.jsx` | Underline tab navigation, `theme` dark/light |
+| **Badge** | `ui_kits/portal-dark/Badge.jsx` | Six semantic status pills, `theme` dark/light |
+| **Avatar** | `ui_kits/portal-dark/Avatar.jsx` | Initials / photo avatar that contrasts with its surface |
 
-`Card`, `StatTile`, `UnitRow`, `Header`, `TabBar`, `Input` and `Avatar` are the kit's own vocabulary, rebuilt to Nexus tokens. The kit's RV unit art (`img/travel_trailer.png`) is not built yet; see Caveats.
+#### MCP v3 Figma file (`DEV TICKET CREATIONS BY ZACH`, node 311:50990): its `MM/*` families map to existing components
+
+That file is a **design being converted** (MCP v3), not a new kit, so its local `MM/*` families aren't added to the design system under those names. Each one maps to a component that already does the job. Building duplicates would break the "never build local copies" rule.
+
+| MCP file family | Use instead | Notes |
+|---|---|---|
+| `MM/Header` | **AppShell** | A hand-built header is never allowed; the snapshot line moves into the page |
+| `MM/Tile` (Payment · Down · Credit · Adults · Kid/Guest · Pets) | **StatTile** `theme="light"` | Needs a compact size for the 3-up row. Add it to StatTile during the MCP v3 rebuild, not as a new component |
+| `MM/Chip` (result tabs, score chip) | **TabBar** for the tabs; **Badge** for the score | Not ChoiceChip: these aren't answers. Badge needs a neutral tone; add it during the rebuild |
+| `MM/Photo Tile` (3+1 slots) | **ChoiceTile** | Needs a slot state (empty "Drag and drop" / filled unit). Add it during the rebuild |
+| `Button`, `Input` | **Button**, **Input** `theme="light"` | Already the kit's own names |
+| `BishFit/Segment` (criteria bar: Bunks · Slides · Bedroom · Build · Length · Tow limit · Sleeps) | **ChoiceGroup** of single-pick options | Built inline in `conversions/mcp-comparison-desk/` as `input-criteria-*` segments with live counts. Promote to a shared component only if a second screen needs a counted segment |
+| `img/travel_trailer.png` | `conversions/floor-workspace/photos/rv-travel-trailer.png` | The bitmap is missing from the Figma file (source defect); the existing unit photo stands in |
+
+The same mapping applies to the later revision of that file (Figma `S7AipqKGxQOXNmmIvfQT35`, "A · Comparison desk" node 360:11680), built as the separate design `conversions/mcp-comparison-desk/`.
+
+If a later file promotes any `MM/*` family into a real shared need, it goes through the component-selection guide first.
+
+`Card`, `StatTile`, `UnitRow`, `Header`, `TabBar`, `Input`, `Badge`, `Button` and `Avatar` are the original brand kit's vocabulary, rebuilt to Nexus tokens. Because the design-system check now reads the MCP v3 file as the kit, it also flags these. They're kept, for the same reason: their IDs are published. The kit's RV unit art (`img/travel_trailer.png`) is not built yet; see Caveats.
 
 ## UI Kits
 
@@ -272,7 +292,7 @@ These are the only libraries production code uses for styling, icons, boards and
 
 ## Converting a design & dev handoff
 
-- **Process:** `documents/design-conversion-process.md`: six passes, gates G1–G10, deliverables.
+- **Process:** `documents/design-conversion-process.md`: six passes, gates G1–G12, deliverables. Prove a build with `selfcheck/` (`selfcheck/README.md`). Show its flow with `templates/flow-board/`.
 - **Package:** `documents/handoff-package-standard.md`: the ten files every build ships to dev.
 - **Business intake:** `documents/business-intake.md`. Rules come from sources, never from the design.
 - **Precedent library:** `documents/precedents/`. Proven rules from earlier builds are suggested on matching patterns, for you to confirm.

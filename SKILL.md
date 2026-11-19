@@ -4,6 +4,8 @@ description: Bish's RV / Nexus design system. Use it for ANY Bish's design work:
 user-invocable: true
 ---
 
+> **Release 2.2.0.** This file is the rulebook: when any other file disagrees with it, this file wins (precedence: `SKILL.md` → `documents/` → `COMPONENTS.md` / `.d.ts` → `README.md` → examples). New to the package? Read `START-HERE.md` first.
+
 > **Using this from another project?** This design system is linked in, usually at `_ds/<folder>/`. Every path in this file is relative to that folder. Read `documents/bishify-reading-order.md` from there before building. Copy `starter-kit/CLAUDE.md` to the project root so the rules load in every chat. Never work from a copied v1.x folder; it predates AppShell, tagging and the floor components.
 
 ## START HERE — what to do for each kind of request
@@ -12,19 +14,22 @@ Find the request type, then run **every** step listed for it, in order. Steps ar
 
 | Request | Run | Ship when |
 |---|---|---|
-| **New design / prototype / screen** ("design X", "build a screen for…") | Business intake (pass 0) → Step 0 (Canvas ⇄ Prototype harness) → 0A (AppShell) → 0B (fluid) → 0C (stamp as you build) → 0D roles + handoff | Gates G1–G12 pass; handoff package in `<build>/handoff/` |
-| **Convert an existing design** (upload, screenshot, Figma, HTML app, "make this Bish's") | Business intake → 0D six passes (inventory → map → restructure → re-skin → fluid → stamp) using 0, 0A, 0B, 0C | Same, plus `conversion-report.md` |
-| **Review / audit a design** ("does this meet the system?", "check this") | 0C review mode (SpecLint) + gates G1–G12 as a checklist → report gaps; don't silently fix | A gap report with stamp IDs |
-| **Dev handoff** ("hand this to dev", "make tickets", "zip for dev") | 0D handoff package + engineering set + **Export handoff** (manifest · requirements · Jira CSV) + dev zip | All files listed in `documents/handoff-package-standard.md` |
+| **New design / prototype / screen** ("design X", "build a screen for…") | Business intake (pass 0) → Step 0 (Canvas ⇄ Prototype harness) → 0A (AppShell) → 0B (fluid) → 0C (stamp as you build) → 0D roles + handoff → 0E self-check | Self-check passes; gates G1–G12 pass; handoff package in `<build>/handoff/` |
+| **Convert an existing design** (upload, screenshot, Figma, HTML app, "make this Bish's") | Business intake → 0D six passes (inventory → map → restructure → re-skin → fluid → stamp) using 0, 0A, 0B, 0C → 0E self-check | Same, plus `conversion-report.md` |
+| **Review / audit a design** ("does this meet the system?", "check this") | 0E self-check + 0C review mode (SpecLint) + gates G1–G12 as a checklist → report gaps; don't silently fix | A gap report with stamp IDs and the self-check report |
+| **Dev handoff** ("hand this to dev", "make tickets", "zip for dev") | 0D handoff package + engineering set + **Export handoff** (manifest · requirements · Jira CSV · `flow.json`) + flow board + dev zip | All files listed in `documents/handoff-package-standard.md` |
 | **One-off asset** (slide, mock, logo use, single card) | Visual canon only: tokens, type, gold rule, Lucide, voice | — |
 
 **Never:**
 - Invent a business rule. Put it in the intake as an open question, and label the ticket `needs-rule`.
 - Hand-build a header or nav.
+- Build local light copies of DS components. Pass `theme="light"` (Button, Badge, Card, StatTile, UnitRow, Header, Input, TabBar, Avatar, AppShell, RolesNavAdmin).
+- Hand-build an alert card, a customer/kanban card, a question card or answer chips. Use `PhaseAlert`, `CustomerCard`, `QuestionCard`, `ChoiceChip` / `ChoiceGroup` / `ChoiceTile` from `ui_kits/floor/`.
 - Put gold outside its three jobs.
 - Ship unstamped elements.
 - Fork a screen per device.
-- Rename a published ID.
+- Rename a published ID or a published component name.
+- Build from an unversioned or v1.x copy of this system, or ship without a passing self-check.
 
 **Copy the reference.** `conversions/floor-workspace/` shows every step done once: prototype, canvas, roles, the handoff package and the dev zip. When unsure, do what it does.
 
@@ -167,7 +172,16 @@ Start with **pass 0: business intake** (`documents/business-intake.md`). Every b
 
 **Generate, don't hand-write, the manifest.** Use `SpecLint.snapshot()` → `SpecLint.manifest()` → `SpecLint.requirements()` across every state × width. A build's prototype exposes this as **Export handoff**.
 
+**Show the flow visually.** Every handoff includes a Requirements & Flow Board (`templates/flow-board/`, copied to `<build>/handoff/flow-board/`). Export handoff writes its `flow.json` with `BishFlowBoard.fromManifest()`. The board is a view of the manifest and requirement text, so never draw a flow by hand. See `templates/flow-board/README.md`.
+
 **Reference example:** `conversions/floor-workspace/` (Floor Workspace). Match its structure: a Canvas ⇄ Prototype harness, one artboard per state, the AppShell mount, the overlay-per-frame rule, and the full handoff package.
+
+## ⚠️ STEP 0E — REQUIRED BEFORE YOU CALL ANYTHING DONE: self-check
+
+Run the self-check on every state of every screen before you call it done: serve the package, open `selfcheck/index.html`, enter the page, press **Run self-check**.
+- **Pass** = right material and zero errors. Wrong material fails the build and caps the score at 40.
+- **Ship** its `qa-gates` output in `<build>/handoff/qa-gates.md`, with every manual gate it lists proved.
+- Rules, thresholds, scoring, exemptions and limits: **`selfcheck/README.md`**. Don't restate them elsewhere.
 
 ## Required libraries (production code) — REQUIRED
 
