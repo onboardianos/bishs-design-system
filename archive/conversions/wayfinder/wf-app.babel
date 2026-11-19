@@ -1,0 +1,542 @@
+// Wayfinder Discovery — converted screens. ONE questionnaire, two audiences:
+//   customer  · the welcome-link questionnaire on the customer's own device (no Dealer OS chrome, plain language, no engine internals)
+//   outfitter · the mirror inside AppShell (Customers › Discovery): same answers + step rail, effect detail, case record, scores, decision record
+// Both read and write the same case answers (prototype: localStorage stands in for POST /cases/{id}/discovery).
+(function () {
+const NS = window.BishSRVDesignSystem_26feec;
+const P = (d) => ['path', { d }];
+const C = (cx, cy, r) => ['circle', { cx, cy, r }];
+const ICONS = {
+  check: [P('M20 6 9 17l-5-5')], x: [P('M18 6 6 18'), P('m6 6 12 12')], 'chevron-down': [P('m6 9 6 6 6-6')],
+  circle: [C(12, 12, 10)], minus: [P('M5 12h14')], plus: [P('M5 12h14'), P('M12 5v14')],
+  truck: [P('M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2'), P('M15 18H9'), P('M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14'), C(17, 18, 2), C(7, 18, 2)],
+  bus: [P('M8 6v6'), P('M15 6v6'), P('M2 12h19.6'), P('M18 18h3s.5-1.7.8-2.8c.1-.4.2-.8.2-1.2 0-.4-.1-.8-.2-1.2l-1.4-5C20.1 6.8 19.1 6 18 6H4a2 2 0 0 0-2 2v10h3'), C(7, 18, 2), P('M9 18h5'), C(16, 18, 2)],
+  caravan: [P('M18 19V9a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v8a2 2 0 0 0 2 2h2'), P('M2 9h3a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2'), P('M22 17v1a1 1 0 0 1-1 1H10v-9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v9'), C(8, 19, 2)],
+  'dollar-sign': [P('M12 2v20'), P('M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6')],
+  calendar: [['rect', { x: 3, y: 4, width: 18, height: 18, rx: 2 }], P('M16 2v4'), P('M8 2v4'), P('M3 10h18')],
+  'arrow-left-right': [P('M8 3 4 7l4 4'), P('M4 7h16'), P('m16 21 4-4-4-4'), P('M20 17H4')],
+  warehouse: [P('M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z'), P('M6 18h12'), P('M6 14h12'), ['rect', { x: 6, y: 10, width: 12, height: 12 }]],
+  'washing-machine': [P('M3 6h3'), P('M17 6h.01'), ['rect', { x: 3, y: 2, width: 18, height: 20, rx: 2 }], C(12, 13, 5), P('M12 18a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 1 0-5')],
+  flame: [P('M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z')],
+  tent: [P('M3.5 21 14 3'), P('M20.5 21 10 3'), P('M15.5 21 12 15l-3.5 6'), P('M2 21h20')],
+  scale: [P('m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'), P('m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z'), P('M7 21h10'), P('M12 3v18'), P('M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2')],
+  feather: [P('M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z'), P('M16 8 2 22'), P('M17.5 15H9')],
+  layers: [P('M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z'), P('m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65'), P('m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65')],
+  info: [C(12, 12, 10), P('M12 16v-4'), P('M12 8h.01')],
+  'triangle-alert': [P('m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3'), P('M12 9v4'), P('M12 17h.01')],
+  'map-pin': [P('M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0'), C(12, 10, 3)],
+  mountain: [P('m8 3 4 8 5-5 5 15H2L8 3z')],
+  plug: [P('M12 22v-5'), P('M9 8V2'), P('M15 8V2'), P('M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z')],
+  award: [P('m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526'), C(12, 8, 6)],
+  mic: [P('M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z'), P('M19 10v2a7 7 0 0 1-14 0v-2'), P('M12 19v3')],
+  square: [['rect', { x: 5, y: 5, width: 14, height: 14, rx: 2 }]],
+  'trash-2': [P('M3 6h18'), P('M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'), P('M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2')],
+  send: [P('M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z'), P('m21.854 2.147-10.94 10.939')],
+  download: [P('M12 15V3'), P('M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'), P('m7 10 5 5 5-5')],
+  repeat: [P('m17 2 4 4-4 4'), P('M3 11v-1a4 4 0 0 1 4-4h14'), P('m7 22-4-4 4-4'), P('M21 13v1a4 4 0 0 1-4 4H3')],
+  lock: [['rect', { x: 3, y: 11, width: 18, height: 11, rx: 2 }], P('M7 11V7a5 5 0 0 1 10 0v4')],
+};
+function Icon({ name, size = 20, stroke = 2 }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{(ICONS[name] || ICONS.circle).map(([t, a], i) => React.createElement(t, { key: i, ...a }))}</svg>;
+}
+const ROLES = { customer: 'Customer', outfitter: 'Outfitter', manager: 'Sales manager', receptionist: 'Receptionist' };
+// Q-OD-1 (confirmed 2026-10-27): outfitters and managers run Discovery; reception has no access. Customers answer from the welcome link.
+const canRun = (role) => role === 'outfitter' || role === 'manager' || role === 'customer';
+const slug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40);
+const digits = (v) => String(v).replace(/[^\d.]/g, '');
+const SAVE_KEY = 'wf-case-discovery';
+const emptyTrade = () => ({ year: '', mfr: '', make: '', model: '', other: '', changes: [], text: '', voice: 0 });
+const tradeEmpty = (t) => !t || !(t.year || t.mfr || t.make || t.model || t.other || t.text || t.voice || (t.changes || []).length);
+
+// ── Custom blocks (component-map.md lists why no DS component fits) ──
+function Notice({ tone = 'warning', title, children, specId }) {
+  const t = { warning: ['var(--semantic-warning-light)', '#7A4C00', 'triangle-alert'], info: ['var(--semantic-info-light)', 'var(--semantic-info-dark)', 'info'], danger: ['var(--semantic-danger-light)', 'var(--semantic-danger-dark)', 'triangle-alert'], neutral: ['var(--surface-light-inset)', 'var(--text-light-secondary)', 'info'], success: ['var(--semantic-success-light)', 'var(--semantic-success-dark)', 'check'] }[tone];
+  return <div role={tone === 'danger' ? 'alert' : 'note'} data-spec-id={specId} className="od-notice" style={{ background: t[0], color: t[1] }}><Icon name={t[2]} size={18} /><p style={{ margin: 0 }}>{title && <b>{title} </b>}{children}</p></div>;
+}
+function Stepper({ label, value, min = 0, max = 8, onChange, id }) {
+  return (
+    <div className="od-field"><span className="od-lbl" id={`lbl-${id}`}>{label}</span>
+      <div className="od-stepper" role="group" aria-labelledby={`lbl-${id}`}>
+        <button type="button" data-spec-id={`btn-action-decrease#${id}`} data-bos-class="action" aria-label={`Fewer ${label.toLowerCase()}`} disabled={value <= min} onClick={() => onChange(value - 1)}><Icon name="minus" /></button>
+        <output aria-live="polite">{value}</output>
+        <button type="button" data-spec-id={`btn-action-increase#${id}`} data-bos-class="action" aria-label={`More ${label.toLowerCase()}`} disabled={value >= max} onClick={() => onChange(value + 1)}><Icon name="plus" /></button>
+      </div>
+    </div>
+  );
+}
+function Check({ label, checked, onChange, specId }) {
+  return <label className="od-check" data-spec-id={specId}><input type="checkbox" checked={checked} onChange={(e) => onChange(e.target.checked)} /><span>{label}</span></label>;
+}
+function Select({ label, value, options, onChange, specId, disabled, other, placeholder }) {
+  return (
+    <label className="od-field"><span className="od-lbl">{label}</span>
+      <select data-spec-id={specId} className="od-select" value={value} disabled={disabled} onChange={(e) => onChange(e.target.value)}>
+        <option value="">{placeholder || `Pick ${label.toLowerCase()}`}</option>
+        {options.map((o) => (Array.isArray(o) ? <option key={o[0]} value={o[0]}>{o[1]}</option> : <option key={o} value={o}>{o}</option>))}
+        {other && <option value="__other">Other / not listed</option>}
+      </select>
+    </label>
+  );
+}
+
+// Customer progress: one dot per visible step, ink fill to the current step, the RV riding the track (Figma "Progress").
+function Progress({ M, S, vis, pos, onGo }) {
+  const total = vis.length, frac = total > 1 ? (pos - 1) / (total - 1) : 0;
+  return (
+    <nav className="wf-prog" aria-label={`Step ${pos} of ${total}`} data-spec-id="nav-progress" data-bos-level="section" data-bos-section="S02" data-bos-type="nav">
+      <div className="wf-track" style={{ left: `calc(50% / ${total})`, right: `calc(50% / ${total})` }}><span style={{ width: `${(frac * 100).toFixed(2)}%` }} /></div>
+      <ol className="wf-dots" style={{ gridTemplateColumns: `repeat(${total}, minmax(0, 1fr))` }}>{vis.map((v, i) => (
+        <li key={v.id}><button type="button" data-spec-id={`nav-step#${v.id}`} data-bos-class="nav" className={`wf-dot${i + 1 < pos ? ' done' : ''}${i + 1 === pos ? ' on' : ''}`} aria-current={i + 1 === pos ? 'step' : undefined} disabled={i + 1 >= pos} aria-label={`Step ${i + 1}: ${M.txt(v.nav, S)}`} onClick={() => onGo(v.id)} /></li>
+      ))}</ol>
+      <img className="wf-rv" alt="" src={window.WF_RES(S.path === 'MOTOR' ? 'images/rv-motorhome-art.png' : 'images/rv-travel-trailer-art.png')} style={{ left: `clamp(0px, calc(50% / ${total} - 32px + (100% - 100% / ${total}) * ${frac.toFixed(4)}), calc(100% - 64px))` }} />
+    </nav>
+  );
+}
+
+function StepRail({ M, S, c, cur, onGo }) {
+  const vis = M.visible(S, c), at = vis.indexOf(cur);
+  return (
+    <nav aria-label="Discovery steps" data-spec-id="nav-discovery-steps" data-bos-level="section" data-bos-section="S03" data-bos-type="nav" className="od-rail">
+      <ol>{M.SCREENS.map((s) => {
+        const sk = s.skip && s.skip(S, c), i = vis.indexOf(s), on = s === cur, done = !sk && i >= 0 && i < at;
+        return (
+          <li key={s.id}>
+            <button type="button" data-spec-id={`nav-step#${s.id}`} data-bos-class="nav" aria-current={on ? 'step' : undefined} disabled={!!sk} onClick={() => onGo(s.id)} className={`od-step${on ? ' on' : ''}${done ? ' done' : ''}${sk ? ' skip' : ''}${s.rapport ? ' rap' : ''}`} aria-label={sk ? `${M.txt(s.nav, S)}, skipped: ${sk}` : undefined} >
+              {done && <Icon name="check" size={14} stroke={3} />}<span className="od-step-t">{M.txt(s.nav, S)}</span>{sk && <span className="od-step-r">· {sk}</span>}
+            </button>
+          </li>);
+      })}</ol>
+    </nav>
+  );
+}
+
+// Customer-facing hint: the same live count, in plain words.
+const custHint = (lt, tone, n) => {
+  const num = (lt.match(/[\d,]+/) || [''])[0];
+  if (tone === 'gate') return [`${num} campers fit`, 'gate'];
+  if (tone === 'rank') return ['moves matching campers up', 'rank'];
+  if (tone === 'avoid') return ['moves them down the list', 'avoid'];
+  if (/no effect/.test(lt)) return ['shared with your outfitter', 'neutral'];
+  return ['keeps every camper in the running', 'neutral'];
+};
+function Tiles({ M, S, c, aud, screen, opts, selectedOf, onPick, onDetail, footerOf, instance }) {
+  const two = screen.wide || opts.length <= 2;
+  return (
+    <div className={`od-tiles${two ? ' two' : ''}`} role={screen.multi ? 'group' : 'radiogroup'} aria-label={M.copyOf(screen, S, aud)[0]}>
+      {opts.map((o) => { let [lt, tone] = c.live(o); if (aud === 'customer') [lt, tone] = custHint(lt, tone); return (
+        <NS.ChoiceTile key={o.id} theme="light" density="compact" specId={`input-choice-${o.id.toLowerCase()}#${instance || screen.id}`} label={o.title} hint={lt} hintTone={tone} image={o.img} imageFit={o.img && /rv-.*-art\.png/.test(o.img) ? 'contain' : 'cover'} icon={o.img ? null : <Icon name={o.icon} size={44} stroke={1.5} />}
+          wide={screen.wide} multi={!!screen.multi} selected={selectedOf(o)} onClick={() => { onPick(o); onDetail(o); }} footer={footerOf ? footerOf(o) : null} />
+      ); })}
+    </div>
+  );
+}
+function Chips({ label, items, selected, onToggle, specPrefix }) {
+  return (
+    <NS.ChoiceGroup theme="light" density="compact" label={label}>
+      {items.map(([id, l]) => <NS.ChoiceChip key={id} theme="light" size="md" specId={`input-choice-${specPrefix}-${id}`} label={l} selected={selected.includes(id)} onClick={() => onToggle(id)} />)}
+    </NS.ChoiceGroup>
+  );
+}
+
+// Voice note: audio stays in memory for this page load; the case only stores the length + a flag (source rule).
+const VOICE = { url: null };
+function VoiceNote({ seconds, onChange, ctx }) {
+  const [st, setSt] = React.useState(VOICE.url && seconds ? 'saved' : 'idle');
+  const [sec, setSec] = React.useState(seconds || 0);
+  const rec = React.useRef(null), timer = React.useRef(null);
+  const ok = !!(window.MediaRecorder && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  React.useEffect(() => () => clearInterval(timer.current), []);
+  const start = () => navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+    const chunks = []; const r = new MediaRecorder(stream); rec.current = r; setSec(0); setSt('rec');
+    r.ondataavailable = (e) => e.data && e.data.size && chunks.push(e.data);
+    r.onstop = () => { stream.getTracks().forEach((t) => t.stop()); if (VOICE.url) URL.revokeObjectURL(VOICE.url); VOICE.url = URL.createObjectURL(new Blob(chunks, { type: r.mimeType || 'audio/webm' })); setSt('saved'); };
+    r.start(); const t0 = Date.now(); timer.current = setInterval(() => { const s = Math.round((Date.now() - t0) / 1000); setSec(s); if (s >= 120) stop(); }, 250);
+  }, () => setSt('denied'));
+  const stop = () => { clearInterval(timer.current); if (rec.current && rec.current.state !== 'inactive') rec.current.stop(); onChange(Math.max(1, sec)); };
+  const del = () => { if (VOICE.url) URL.revokeObjectURL(VOICE.url); VOICE.url = null; setSt('idle'); setSec(0); onChange(0); };
+  const mmss = (n) => `${Math.floor(n / 60)}:${String(n % 60).padStart(2, '0')}`;
+  return (
+    <div className="wf-voice" data-spec-id={`sec-voice-note#${ctx}`} aria-label="Voice note">
+      {!ok && <Notice tone="neutral" specId={`info-voice-unavailable#${ctx}`}>Voice notes aren’t available in this browser. The text box works the same way.</Notice>}
+      {ok && st === 'idle' && <NS.Button theme="light" variant="secondary" specId={`btn-action-record-voice#${ctx}`} onClick={start}>Record a voice note</NS.Button>}
+      {ok && st === 'rec' && <><NS.Button theme="light" variant="secondary" specId={`btn-action-stop-voice#${ctx}`} onClick={stop}>Stop recording</NS.Button><span className="wf-time" role="timer" aria-live="off">Recording {mmss(sec)}</span></>}
+      {ok && st === 'saved' && <>{VOICE.url ? <audio controls src={VOICE.url} data-spec-id={`input-voice-playback#${ctx}`} /> : <span className="wf-time">Voice note saved · {mmss(seconds)}</span>}<NS.Button theme="light" variant="ghost" specId={`btn-action-delete-voice#${ctx}`} onClick={del}>Delete voice note</NS.Button></>}
+      {ok && st === 'denied' && <><Notice tone="warning" specId={`info-voice-denied#${ctx}`}>Microphone access is off. Allow it in the browser settings, or use the text box.</Notice><NS.Button theme="light" variant="secondary" specId={`btn-action-retry-voice#${ctx}`} onClick={start}>Try again</NS.Button></>}
+    </div>
+  );
+}
+function TradeFields({ M, t, setT, part, aud, ctx }) {
+  const you = aud === 'customer';
+  const makes = M.rvMakes(t.mfr), models = M.rvModels(t.mfr, t.make), other = t.mfr === '__other';
+  if (part === 'now') return (
+    <div className="od-panel" data-spec-id={`sec-trade-camper#${ctx}`} aria-label="Current camper">
+      <h3 className="od-lbl">{you ? 'Your current camper' : 'Their current camper'}</h3>
+      <div className="wf-grid4">
+        <Select label="Year" specId={`input-trade-year#${ctx}`} value={t.year} options={M.YEARS} onChange={(v) => setT({ year: v })} />
+        <Select label="Manufacturer" specId={`input-trade-manufacturer#${ctx}`} value={t.mfr} options={M.rvMfrs} other onChange={(v) => setT({ mfr: v, make: '', model: '', other: v === '__other' ? t.other : '' })} />
+        <Select label="Brand" specId={`input-trade-brand#${ctx}`} value={t.make} options={makes} disabled={other || !makes.length} onChange={(v) => setT({ make: v, model: '' })} />
+        <Select label="Model / floorplan" specId={`input-trade-model#${ctx}`} value={t.model} options={models} disabled={other || !models.length} onChange={(v) => setT({ model: v })} />
+      </div>
+      {other && <NS.Input theme="light" specId={`input-trade-other#${ctx}`} label="Type it in" value={t.other} placeholder="2016 Forest River Wildwood 27RKSS" onChange={(v) => setT({ other: v.slice(0, 80) })} />}
+      <p className="od-hint">Lists come from the makes and models in today’s inventory. Pick “Other / not listed” if {you ? 'yours' : 'theirs'} isn’t there.</p>
+    </div>);
+  return (
+    <div className="od-panel" data-spec-id={`sec-trade-changes#${ctx}`} aria-label="What to change">
+      <Chips label={you ? 'What would you change?' : 'What would they change?'} specPrefix={`trade-change#${ctx}`} items={M.TRADE_CHANGES} selected={t.changes} onToggle={(id) => setT({ changes: t.changes.includes(id) ? t.changes.filter((x) => x !== id) : t.changes.concat([id]) })} />
+      <label className="od-field"><span className="od-lbl">In {you ? 'your' : 'their'} own words (optional)</span>
+        <textarea data-spec-id={`input-trade-note#${ctx}`} className="od-select wf-area" maxLength={600} value={t.text} placeholder="What’s working, what isn’t, what you’d want next time" onChange={(e) => setT({ text: e.target.value })} /></label>
+      <VoiceNote ctx={ctx} seconds={t.voice} onChange={(v) => setT({ voice: v })} />
+    </div>);
+}
+
+function Panel({ kind, M, S, set, c, aud }) {
+  const E = M.E, n = M.n, sess = c.session, you = aud === 'customer';
+  const trade = S.trade || emptyTrade();
+  const setTrade = (p) => { const nt = Object.assign({}, trade, p); set({ trade: tradeEmpty(nt) ? null : nt }); };
+  if (kind === 'tradeNow') return <TradeFields M={M} t={trade} setT={setTrade} part="now" aud={aud} ctx="inline" />;
+  if (kind === 'tradeWhy') return <TradeFields M={M} t={trade} setT={setTrade} part="why" aud={aud} ctx="inline" />;
+  if (kind === 'activitiesOther') return <div className="od-row"><NS.Input theme="light" specId="input-activities-other" label="Other" value={S.activitiesOther} placeholder="Anything we missed" onChange={(v) => set({ activitiesOther: v.slice(0, 80) })} /></div>;
+  if (kind === 'buildMust') return <Check specId="input-sidewall-required" label={you ? 'Only show me this construction' : 'Make it required. Removes the other construction.'} checked={S.buildMust} onChange={(v) => set({ buildMust: v })} />;
+  if (kind === 'cash') return (
+    <div className="od-panel" data-spec-id="sec-budget-cash" aria-label="Cash ceiling"><h3 className="od-lbl">{you ? 'Your ceiling' : 'Their ceiling'}</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-max-spend" label={you ? 'The most you’d spend ($)' : 'Maximum they would spend ($)'} value={S.maxSpend} placeholder="45000" onChange={(v) => set({ maxSpend: digits(v) })} helper="Rounded to the nearest $500." />
+        {sess.gates.priceMax ? <p className="od-result" role="status">Up to {E.money(sess.gates.priceMax)}</p> : null}</div>
+    </div>);
+  if (kind === 'finance') { const solved = sess.budget.solved; return (
+    <div className="od-panel" data-spec-id="sec-budget-finance" aria-label="Payment details"><h3 className="od-lbl">Payment details</h3>
+      <div className="od-row">
+        <NS.Input theme="light" specId="input-monthly-payment" label="Monthly payment ($)" value={S.payment} placeholder="420" onChange={(v) => set({ payment: digits(v) })} />
+        <NS.Input theme="light" specId="input-down-payment" label="Down payment ($)" value={S.down} placeholder="0" onChange={(v) => set({ down: digits(v) })} />
+        <Select label="Closest Bish’s store" specId="input-closest-store" value={S.store} placeholder="Not sure yet · 6% tax estimate" options={M.stores.map((r) => [r.location, r.storeName])} onChange={(v) => set({ store: v })} />
+      </div>
+      <NS.ChoiceGroup theme="light" density="compact" label="Credit tier">
+        {[['veryGood', 'Very good (6.99%)'], ['good', 'Good (9%)'], ['fair', 'Fair (12%)']].map(([k, l]) => <NS.ChoiceChip key={k} theme="light" size="md" specId={`input-choice-credit-${k.toLowerCase()}`} label={l} selected={S.tier === k} onClick={() => set({ tier: k })} />)}
+      </NS.ChoiceGroup>
+      {solved && <p className="od-result" role="status">{solved.valid ? `Buying range up to ${E.money(sess.budget.priceCeiling)}` : solved.message}{solved.valid && solved.taxIsFallback ? <small> Estimated with 6% tax until a store is picked.</small> : null}</p>}
+    </div>); }
+  if (kind === 'tow') { const TV = M.TV, models = M.towModels(S.towMk), engines = M.towEngines(S.towMk, S.towMd), m = M.towMatches(S.towMk, S.towMd, S.towEn);
+    const pickVeh = (p) => { const nx = Object.assign({ towMk: S.towMk, towMd: S.towMd, towEn: S.towEn }, p); const mm = M.towMatches(nx.towMk, nx.towMd, nx.towEn); set(Object.assign(nx, mm.length === 1 ? { towRating: String(mm[0][3]), towIdx: 0 } : { towIdx: null })); };
+    return (
+    <div className="od-panel" data-spec-id="sec-tow-rating" aria-label="Tow vehicle">
+      <h3 className="od-lbl">{you ? 'What are you going to tow with?' : 'Their tow vehicle'}</h3>
+      <div className="wf-grid3">
+        <Select label="Make" specId="input-tow-make" value={S.towMk} options={M.towMakes} onChange={(v) => pickVeh({ towMk: v, towMd: '', towEn: '' })} />
+        <Select label="Model" specId="input-tow-model" value={S.towMd} options={models} disabled={!models.length} onChange={(v) => pickVeh({ towMd: v, towEn: '' })} />
+        <Select label="Engine" specId="input-tow-engine" value={S.towEn} options={engines} disabled={!engines.length} onChange={(v) => pickVeh({ towEn: v })} />
+      </div>
+      {m.length > 1 && <NS.ChoiceGroup theme="light" density="compact" label="More than one published rating. Pick the one that matches the truck">
+        {m.map((r, i) => <NS.ChoiceChip key={i} theme="light" size="md" specId={`input-choice-tow-config#${i + 1}`} label={`${n(r[3])} lbs${r[4] ? ' · ' + r[4] : ''}`} selected={S.towIdx === i} onClick={() => set({ towIdx: i, towRating: String(r[3]) })} />)}
+      </NS.ChoiceGroup>}
+      {m.length === 1 && <p className="od-result" role="status">Rated to tow {n(m[0][3])} lbs{m[0][4] ? ` · ${m[0][4]}` : ''}</p>}
+      <div className="od-row"><NS.Input theme="light" specId="input-tow-rating" label="Or enter the tow rating (lbs)" value={S.towRating} placeholder="7500" onChange={(v) => set({ towRating: digits(v), towIdx: null })} helper={`Lookup source: ${TV.source} · ${TV.modelYear} model year.`} /></div>
+      <NS.ChoiceGroup theme="light" density="compact" label="Safety margin">
+        {[['derived', 'Leave 10% headroom'], ['raw', 'Use the exact number']].map(([k, l]) => <NS.ChoiceChip key={k} theme="light" size="md" specId={`input-choice-tow-${k}`} label={l} selected={S.towMode === k} onClick={() => set({ towMode: k })} />)}
+      </NS.ChoiceGroup>
+      {sess.gates.gvwrMax ? <p className="od-result" role="status">{you ? `Campers up to ${n(sess.gates.gvwrMax)} lbs` : `GVWR ceiling ${n(sess.gates.gvwrMax)} lbs`}</p> : null}
+    </div>); }
+  if (kind === 'crew') return (
+    <div className="od-panel" data-spec-id="sec-crew" aria-label="Who's camping"><h3 className="od-lbl">{you ? 'Who’s coming' : 'Their crew'}</h3>
+      <div className="od-row">
+        <Stepper id="adults" label="Adults" value={S.adults} onChange={(v) => set({ adults: v, childSetup: null })} />
+        <Stepper id="children" label="Children or guests" value={S.children} onChange={(v) => set({ children: v, childSetup: null })} />
+        <Stepper id="pets" label="Pets" value={S.pets} onChange={(v) => set({ pets: v })} />
+      </div>
+      <p className="od-result" role="status">Sleeps {S.adults + S.children}<small> {you ? `${n(c.cand.verified.length)} campers fit, ${n(c.cand.probable.length)} need a quick check` : `${n(c.cand.verified.length)} verified, ${n(c.cand.probable.length)} need verification`}</small></p>
+    </div>);
+  if (kind === 'length') return (
+    <div className="od-panel" data-spec-id="sec-length-limit" aria-label="Length limit"><h3 className="od-lbl">{you ? 'Your limit' : 'Their limit'}</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-max-length" label="Maximum length (feet)" value={S.lengthFt} placeholder="30" onChange={(v) => set({ lengthFt: digits(v) })} helper="Whole feet." /></div>
+    </div>);
+  if (kind === 'garage') return (
+    <div className="od-panel" data-spec-id="sec-garage-length" aria-label="Garage length"><h3 className="od-lbl">Longest toy</h3>
+      <div className="od-row"><NS.Input theme="light" specId="input-garage-length" label="Garage length needed (feet)" value={S.garageFt === '0' ? '' : S.garageFt} placeholder="12" onChange={(v) => set({ garageFt: digits(v) || '0' })} />
+        <p className="od-result" role="status">{n(c.pool.length)} {you ? 'campers fit' : 'units in play'}</p></div>
+    </div>);
+  return null;
+}
+
+function Question({ M, S, setS, c, aud, screen, pos, total, setDetail }) {
+  const set = (patch) => setS((s) => Object.assign({}, s, patch));
+  const [title, sub] = M.copyOf(screen, S, aud);
+  const opts = screen.multi ? (screen.options ? screen.options(S) : c.multiOpts(screen.multi)) : screen.single(S, c);
+  const sel = screen.multi ? S[screen.multi] : null, must = screen.multi ? S[screen.multi + 'Must'] : null;
+  const warn = aud === 'outfitter' && screen.warn ? screen.warn(S, c) : null;
+  const panel = screen.panel ? screen.panel(S) : null;
+  const subhead = screen.subhead ? screen.subhead(S) : null;
+  const chips = screen.id === 'activities';
+  return (
+    <NS.QuestionCard theme="light" density="compact" specId={`card-question#${screen.id}`} overline={`Step ${pos} of ${total} · ${M.txt(screen.nav, S)}`} title={title} hint={sub}>
+      {screen.pre && <Panel kind={screen.pre} M={M} S={S} set={set} c={c} aud={aud} />}
+      {subhead && <h3 className="od-lbl">{aud === 'customer' ? subhead.replace('the kids', 'the kids') : subhead}</h3>}
+      {chips && <Chips label="Activities" specPrefix="activity" items={opts.map((o) => [o.id, o.title])} selected={sel} onToggle={(id) => setS((s) => M.toggle(s, screen.multi, id))} />}
+      {!chips && opts.length > 0 && <Tiles M={M} S={S} c={c} aud={aud} screen={screen} opts={opts}
+        selectedOf={(o) => (screen.multi ? (o.id === 'open' ? sel.length === 0 : sel.includes(o.id)) : screen.get(S) === o.id)}
+        onPick={(o) => setS((s) => (screen.multi ? M.toggle(s, screen.multi, o.id) : screen.set(s, o.id)))} onDetail={setDetail}
+        footerOf={screen.multi ? (o) => (o.must && sel.includes(o.id) ? <Check specId={`input-required#${o.id}`} label={aud === 'customer' ? 'Must have' : 'Required'} checked={must.includes(o.id)} onChange={(v) => setS((s) => M.toggleMust(s, screen.multi, o.id, v))} /> : null) : null} />}
+      {panel && <Panel kind={panel} M={M} S={S} set={set} c={c} aud={aud} />}
+      {screen.rapport && aud === 'customer' && <p className="od-hint">Shared with your outfitter. It doesn’t change your matches.</p>}
+      {warn && <Notice tone={warn.tone} title={warn.title} specId={`info-notice#${screen.id}`}>{warn.text}</Notice>}
+      {aud === 'outfitter' && <p className="od-summary" data-spec-id={`info-selection-summary#${screen.id}`}>Current selection: <b>{M.summary(screen, S, c)}</b></p>}
+    </NS.QuestionCard>
+  );
+}
+
+function Detail({ M, screen, detail, opts, S }) {
+  const first = opts[0];
+  const d = detail || { title: first ? first.title : M.txt(screen.title, S), ben: first ? first.ben : ['Recorded on the case'], kind: first ? first.kind : (screen.rapport ? 'info' : null) };
+  return (
+    <NS.Card theme="light" specId="card-step-detail" title={d.title} subtitle={d.kind ? M.KIND[d.kind] : 'Pick a card to see what it does to the matches.'}
+      footer={<div className="od-effects"><span className="od-lbl">What this step writes</span><div className="od-badges">{screen.effect.split(' · ').map((x) => <NS.Badge key={x} theme="light" type="neutral" specId={`info-effect#${screen.id}-${slug(x).slice(0, 32)}`}>{x}</NS.Badge>)}</div></div>}>
+      <ul className="od-bens">{d.ben.map((b) => <li key={b}><Icon name="check" size={16} stroke={2.5} />{b}</li>)}</ul>
+    </NS.Card>
+  );
+}
+// Outfitter-only: the rapport answers that never reach the engine, on one card.
+function CaseRecord({ M, S }) {
+  const pick = (scr, v) => { const s = M.SCREENS.find((x) => x.id === scr); const o = v && s.single(S, {}).find((x) => x.id === v); return o ? o.title : null; };
+  const multi = (scr, key) => { const s = M.SCREENS.find((x) => x.id === scr); const nm = Object.fromEntries(s.options(S).map((o) => [o.id, o.title])); return S[key].map((id) => nm[id]).join(' · '); };
+  const tr = S.trade;
+  const rows = [
+    ['Camping today', pick('camping', S.camping)],
+    ['Trade-in', tr ? [M.tradeLabel(tr) || 'Details saved', tr.changes.length ? `${tr.changes.length} things to change` : '', tr.voice ? 'voice note' : ''].filter(Boolean).join(' · ') : null],
+    ['Camping style', multi('campstyle', 'campStyle') || null],
+    ['Activities', [multi('activities', 'activities'), S.activitiesOther].filter(Boolean).join(' · ') || null],
+    ['Pets', S.pets ? String(S.pets) : null],
+    ['Brand tier', pick('brand', S.brand)],
+  ];
+  return (
+    <NS.Card theme="light" specId="card-case-record" title="Case record" subtitle="Recorded for the outfitter. None of this changes the matches.">
+      <dl className="wf-dl">{rows.map(([k, v]) => <div key={k} data-spec-id={`info-case-record#${slug(k)}`}><dt>{k}</dt><dd className={v ? '' : 'empty'}>{v || 'Not answered'}</dd></div>)}</dl>
+    </NS.Card>
+  );
+}
+
+const COMP = [['base', 'Base fit'], ['explicit', 'Preferences'], ['lifestyle', 'Lifestyle'], ['construction', 'Construction'], ['numeric', 'Size priority'], ['miss', 'Misses'], ['qa', 'Data quality']];
+function Results({ M, S, c, aud, onGo, sent, onSend, saved }) {
+  const E = M.E, snap = M.snap, n = M.n, you = aud === 'customer';
+  const r = E.rankResults(c.units, c.session);
+  const zero = !c.pool.length;
+  const recovery = zero ? E.zeroResultRecovery(c.units, c.session, snap) : [];
+  const groups = [
+    ['VERIFIED_AVAILABLE', you ? 'Best matches' : 'Verified · top 6', 6, 'success', you ? 'On the lot' : 'Verified', 'L01'],
+    ['VERIFIED_L_STOCK_EXAMPLE', you ? 'Floorplans we can order' : 'Floorplan examples (L-stock) · top 3', 3, 'info', you ? 'Can be ordered' : 'L-stock example', 'L02'],
+    ['PROBABLE_NEEDS_VERIFICATION', you ? 'Worth a quick check' : 'Needs verification · top 6', 6, 'warning', you ? 'Your outfitter will confirm' : 'Needs verification', 'L03'],
+  ];
+  const card = (x, g) => { const u = x.unit; const cls = (snap.lookups.classes[u.class] || {}).description || u.class; const store = (snap.lookups.rooftops[u.location] || {}).storeName || u.location; return (
+    <li key={u.stocknumber}><NS.Card theme="light" specId={`card-match#${u.stocknumber}`} title={`${u.year} ${u.manufacturer} ${u.make} ${u.model}`}
+      subtitle={`${cls} · ${u.price ? E.money(u.price) : 'Price on request'} · Sleeps ${u.sleeps ?? '?'} · ${u.lengthIn ? Math.round(u.lengthIn / 12) + ' ft' : 'Length ?'} · ${u.slides ?? '?'} slides · ${store}`}
+      footer={<div className="od-badges">{!you && <NS.Badge theme="light" type="neutral" specId={`info-match-score#${u.stocknumber}`}>Score {x.score.display}</NS.Badge>}<NS.Badge theme="light" type={g[3]} specId={`info-match-status#${u.stocknumber}`}>{g[4]}</NS.Badge><span className="od-stock">Stock #{u.stocknumber}</span></div>}>
+      {you ? <p className="od-hint" style={{ margin: 0 }}>{x.score.hits.length ? `Has ${x.score.hits.slice(0, 3).join(', ').toLowerCase()}` : 'Fits everything you told us'}</p> : (
+        <details className="wf-why" data-spec-id={`info-why-ranks#${u.stocknumber}`}>
+          <summary data-spec-id={`btn-action-why-ranks#${u.stocknumber}`} data-bos-class="action">Why it ranks <Icon name="chevron-down" size={16} /></summary>
+          <dl className="wf-dl tight">{COMP.map(([k, l]) => <div key={k}><dt>{l}</dt><dd>{(Number(x.score.components[k]) || 0).toFixed(1).replace(/\.0$/, '')}</dd></div>)}</dl>
+          {x.score.hits.length > 0 && <p className="od-hint"><b>Matched:</b> {x.score.hits.join(' · ')}</p>}
+          {x.score.misses.length > 0 && <p className="od-hint"><b>Missed:</b> {x.score.misses.join(' · ')}</p>}
+          {(x.score.gateResult.unknown || []).length > 0 && <p className="od-hint"><b>To verify:</b> {x.score.gateResult.unknown.join(' · ')}</p>}
+        </details>)}
+    </NS.Card></li>); };
+  const exportRecord = () => {
+    const row = (x) => ({ stocknumber: x.unit.stocknumber, rankGroup: x.score.rankGroup, score: x.score.display, components: x.score.components, matched: x.score.hits, missed: x.score.misses, needsVerification: x.score.gateResult.unknown || [] });
+    const rec = { schemaVersion: 1, appVersion: 'wayfinder-v2.1-bishs-os', engine: { questionnaireVersion: E.QUESTIONNAIRE_VERSION, scoringVersion: E.SCORING_VERSION }, inventorySnapshotId: snap.meta.inventorySnapshotId, generatedAt: new Date().toISOString(), answers: S, top: [...r.groups.VERIFIED_AVAILABLE, ...r.groups.VERIFIED_L_STOCK_EXAMPLE, ...r.groups.PROBABLE_NEEDS_VERIFICATION].slice(0, 20).map(row) };
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(rec, null, 2)], { type: 'application/json' })); a.download = `decision-record-${snap.meta.inventorySnapshotId}.json`; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  return (
+    <section className="od-results" data-spec-id="sec-matches" data-bos-level="section" data-bos-section="S04" data-bos-type="list" aria-label="Matches">
+      <div><div className="od-over">{you ? 'Your matches' : `Step ${M.visible(S, c).length} of ${M.visible(S, c).length} · Matches`}</div>
+        <h2 className="od-h">{you ? 'Here’s what fits' : 'Their matches'}</h2>
+        <p className="od-sub-p">{you ? `${n(r.groups.VERIFIED_AVAILABLE.length)} on the lot, ${n(r.groups.VERIFIED_L_STOCK_EXAMPLE.length)} floorplans we can order, ${n(r.groups.PROBABLE_NEEDS_VERIFICATION.length)} worth a quick check.` : `${n(r.groups.VERIFIED_AVAILABLE.length)} verified units, ${n(r.groups.VERIFIED_L_STOCK_EXAMPLE.length)} floorplan examples, ${n(r.groups.PROBABLE_NEEDS_VERIFICATION.length)} that need verification. Engine ${E.SCORING_VERSION} on snapshot ${snap.meta.inventorySnapshotId}.`}</p></div>
+      {sent && <Notice tone="success" title={you ? 'Sent to your outfitter.' : 'Saved to the case.'} specId="info-matches-sent">{you ? 'They’ll have these ready when you walk the lot. You can still change an answer.' : `Answers and the top 20 matches are on the case${saved ? ` (${saved})` : ''}.`}</Notice>}
+      {zero && (
+        <div className="od-recovery" data-spec-id="sec-zero-result-recovery" aria-label="No matches">
+          <Notice tone="warning" title={you ? 'Nothing fits every answer yet.' : 'No units match every answer.'} specId="info-zero-results">{you ? 'Change one of these and campers come back:' : `The limiting combination is ${E.limitingCombination(c.session, snap) || 'the current answers'}. Changes that bring units back:`}</Notice>
+          <ul className="od-rec-list">{recovery.map((a) => { const k = a.key.split('+')[0]; const step = M.GATE_STEP[k] || 'type'; const sc = M.SCREENS.find((s) => s.id === step); return (
+            <li key={a.key} data-spec-id={`info-recovery#${k.toLowerCase()}`}><div><b>{a.label}</b><small>Brings back {n(a.unlocked)} {you ? 'campers' : `units (${n(a.verified)} verified)`}{!you && a.qualifier ? `. ${a.qualifier}` : ''}</small></div>
+              <NS.Button theme="light" variant="secondary" specId={`btn-action-change-step#${k.toLowerCase()}`} onClick={() => onGo(step)}>Change {M.txt(sc.nav, S)}</NS.Button></li>); })}</ul>
+        </div>
+      )}
+      {!zero && groups.map((g) => { const list = r.groups[g[0]].slice(0, g[2]); if (!list.length && g[0] === 'VERIFIED_L_STOCK_EXAMPLE') return null; return (
+        <React.Fragment key={g[0]}>
+          <h3 className="od-lbl">{g[1]}</h3>
+          {list.length ? <ul className="od-matches" data-spec-id={`list-matches#${slug(g[0])}`} data-bos-level="layer" data-bos-layer={g[5]}>{list.map((x) => card(x, g))}</ul> : <Notice tone="neutral" specId={`info-no-matches#${slug(g[0])}`}>{you ? 'None in this group. Loosen a must-have or the budget.' : 'None. Loosen a required card or the budget.'}</Notice>}
+        </React.Fragment>); })}
+      {!you && !zero && <div><NS.Button theme="light" variant="secondary" specId="btn-action-export-decision-record" onClick={exportRecord}>Export decision record (JSON)</NS.Button></div>}
+    </section>
+  );
+}
+
+// Trade-in overlay: one focused task (HIG modal job: complete a sub-task without losing your place). Opened from the action bar on any step.
+function TradeOverlay({ M, S, aud, onSave, onRemove, onClose }) {
+  const [t, setT0] = React.useState(() => Object.assign(emptyTrade(), S.trade || {}));
+  const setT = (p) => setT0((x) => Object.assign({}, x, p));
+  React.useEffect(() => { const k = (e) => { if (e.key === 'Escape') onClose(); }; window.addEventListener('keydown', k); return () => window.removeEventListener('keydown', k); }, []);
+  const you = aud === 'customer';
+  return (
+    <div className="od-app wf-ovl"><div className="wf-scrim" data-spec-id="frame-trade-in" data-bos-level="frame" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="wf-modal" role="dialog" aria-modal="true" aria-labelledby="wf-trade-h">
+        <div className="wf-modal-h"><div><div className="od-over">Trade-in</div><h2 id="wf-trade-h" className="wf-modal-t">{you ? 'Tell us about your camper' : 'Their trade-in'}</h2></div>
+          <button type="button" className="wf-x" data-spec-id="btn-action-close#trade-in" data-bos-class="action" aria-label="Close" onClick={onClose}><Icon name="x" /></button></div>
+        <div className="wf-modal-b">
+          <TradeFields M={M} t={t} setT={setT} part="now" aud={aud} ctx="overlay" />
+          <TradeFields M={M} t={t} setT={setT} part="why" aud={aud} ctx="overlay" />
+          <p className="od-hint">Recorded on the case for the outfitter. It doesn’t change the matches.</p>
+        </div>
+        <div className="wf-modal-f">
+          {S.trade ? <NS.Button theme="light" variant="ghost" specId="btn-action-remove-trade-in" onClick={onRemove}>Remove trade-in</NS.Button> : <NS.Button theme="light" variant="ghost" specId="btn-action-cancel#trade-in" onClick={onClose}>Cancel</NS.Button>}
+          <NS.Button theme="light" variant="primary" specId="btn-commit-save-trade-in" disabled={tradeEmpty(t)} onClick={() => onSave(t)}>Save trade-in</NS.Button>
+        </div>
+      </div>
+    </div></div>
+  );
+}
+
+function Skeleton({ aud }) {
+  return (
+    <div className="od-skel" role="status" aria-label="Loading the inventory snapshot" data-spec-id="info-loading-snapshot">
+      <div className="b" style={{ height: 20, width: 220 }} /><div className="b" style={{ height: 52, width: '70%' }} /><div className="b" style={{ height: 18, width: '50%' }} />
+      <div className="od-tiles two">{[0, 1].map((i) => <div key={i} className="b" style={{ aspectRatio: '1.6 / 1' }} />)}</div>
+      <p style={{ margin: 0, fontSize: 15, color: 'var(--text-light-secondary)' }}>{aud === 'customer' ? 'Loading today’s inventory…' : 'Loading 7,809 units from the 2026-10-27 inventory snapshot…'}</p>
+    </div>
+  );
+}
+
+function WayfinderApp({ initial = {}, role = 'outfitter' }) {
+  const aud = role === 'customer' ? 'customer' : 'outfitter';
+  const [snap, setSnap] = React.useState(initial.loading || initial.error ? null : window.BISH_SNAPSHOT || null);
+  const [err, setErr] = React.useState(initial.error ? 'Network error' : null);
+  const saved = initial.persist ? (() => { try { return JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); } catch (e) { return null; } })() : null;
+  const [S, setS] = React.useState(() => Object.assign({}, window.WF.INITIAL, (saved && saved.answers) || initial.answers || {}));
+  const [curId, setCurId] = React.useState((saved && saved[aud + 'Step']) || initial.step || 'path');
+  const [sent, setSent] = React.useState(!!initial.sent);
+  const [trade, setTrade] = React.useState(!!initial.tradeOpen);
+  const [savedAt, setSavedAt] = React.useState('');
+  React.useEffect(() => { if (initial.persist) try { const prev = JSON.parse(localStorage.getItem(SAVE_KEY) || '{}'); localStorage.setItem(SAVE_KEY, JSON.stringify(Object.assign(prev, { answers: S, [aud + 'Step']: curId }))); } catch (e) {} }, [S, curId]);
+  const [detail, setDetail] = React.useState(null);
+  const load = React.useCallback(() => { setErr(null); window.WF.loadSnapshot().then(setSnap, (e) => setErr(String(e.message || e))); }, []);
+  React.useEffect(() => { if (!snap && !initial.loading && !initial.error) load(); }, []);
+  const scroller = React.useRef(null);
+  const goTo = (id) => { setCurId(id); setDetail(null); const el = scroller.current && (scroller.current.closest('[data-shell-scroll]') || scroller.current); if (el) el.scrollTop = 0; };
+  const logo = (k) => window.WF_RES(`../../assets/${k}`);
+
+  const shell = (body, actions, meta, slim) => aud === 'customer' ? (
+    <div className="od-app wf-cust" data-bos-role="customer">
+      <main className="wf-cmain" data-spec-id="frame-wayfinder-customer" data-bos-level="frame" aria-label="Find your RV">
+        <div ref={scroller} className="wf-cscroll" data-bos-level="section" data-bos-section="S01" data-bos-type="content">
+          {slim ? <div className="wf-brand" data-spec-id="sec-wayfinder-brand" data-bos-level="section" data-bos-type="header"><img src={logo('logo-tag-black-gold.png')} alt="Bish’s RV" /><span>Wayfinder</span></div>
+            : <NS.Header theme="light" specId="sec-wayfinder-header" logoSrc={logo('logo-tag-black-gold.png')} eyebrow="Bish’s RV · Wayfinder" title="Find your" titleAccent="RV" meta={meta || []} />}
+          {body}
+        </div>
+        {actions}
+      </main>
+    </div>
+  ) : (
+    <div className="od-app" data-bos-role={role} style={{ height: '100%', width: '100%', position: 'relative' }}>
+      <NS.AppShell role={role} activeId="customers" currentPhase="discovery" theme="light" height="100%" logoSrc={logo('logo-bishs-os.png')} logoSrcDark={logo('logo-bishs-os-white.png')}>
+        <main ref={scroller} className="od" data-spec-id="frame-wayfinder-outfitter" data-bos-level="frame" aria-label="Wayfinder Discovery">
+          {body}{actions}
+        </main>
+      </NS.AppShell>
+    </div>
+  );
+  const snapMeta = snap ? (aud === 'customer' ? [] : [['Snapshot', snap.meta.inventorySnapshotId], ['Inventory date', snap.meta.sourceDate]]) : [];
+  if (!canRun(role)) return shell(<div className="od-pad"><Notice tone="neutral" title="Discovery is run by the outfitter." specId="info-no-permission">Your role can’t open the configurator. Ask the outfitter on this case, or a sales manager, to run it with the customer.</Notice></div>, null, [['Access', 'None']]);
+  if (err) return shell(<div className="od-pad"><Notice tone="danger" title={aud === 'customer' ? 'Today’s inventory didn’t load.' : 'The inventory snapshot didn’t load.'} specId="info-snapshot-error">Check the connection, then try again. Answers so far are kept.</Notice><div><NS.Button theme="light" variant="secondary" specId="btn-action-retry-snapshot" onClick={load}>Try again</NS.Button></div></div>);
+  if (!snap) return shell(<div className="od-pad"><Skeleton aud={aud} /></div>);
+  const M = window.WF.getModel(snap);
+  const c = M.compute(S);
+  const vis = M.visible(S, c);
+  const screen = vis.find((s) => s.id === curId) || M.SCREENS.find((s) => s.id === curId && !(s.skip && s.skip(S, c))) || vis[0];
+  const pos = Math.max(1, vis.indexOf(screen) + 1);
+  const idx = vis.indexOf(screen), next = vis[idx + 1], prev = vis[idx - 1];
+  const isLastQ = next && next.results;
+  const opts = screen.results ? [] : (screen.multi ? (screen.options ? screen.options(S) : c.multiOpts(screen.multi)) : screen.single(S, c));
+  const ok = !screen.ok || screen.ok(S);
+  const tradeBtn = !screen.results && <NS.Button theme="light" variant="secondary" specId="btn-action-open-trade-in" onClick={() => setTrade(true)}>{S.trade ? 'Trade-in added' : 'Add trade-in'}</NS.Button>;
+  const commit = screen.results
+    ? (aud === 'customer'
+      ? <NS.Button theme="light" variant="primary" specId="btn-commit-send-to-outfitter" disabled={sent || !c.pool.length} onClick={() => setSent(true)}>{sent ? 'Sent' : 'Send to my outfitter'}</NS.Button>
+      : <NS.Button theme="light" variant="primary" specId="btn-commit-save-to-case" onClick={() => { setSent(true); setSavedAt(new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })); }}>{sent ? 'Save again' : 'Save matches to case'}</NS.Button>)
+    : <NS.Button theme="light" variant="primary" specId="btn-commit-continue" disabled={!ok} onClick={() => next && goTo(next.id)}>{isLastQ ? 'See matches' : 'Next'}</NS.Button>;
+  const why = !screen.results && !ok ? <span className="wf-why-dis" id="wf-why-dis" data-spec-id="info-commit-disabled-reason">{screen.multi ? 'Pick at least one' : S.children > 0 && screen.id === 'sleep' ? 'Pick a sleeping setup' : 'Pick one to continue'}</span> : null;
+  const back = prev ? <NS.Button theme="light" variant="ghost" specId="btn-action-back" onClick={() => goTo(prev.id)}>Previous</NS.Button> : <span />;
+  const actions = (
+    <div className={aud === 'customer' ? 'wf-cactions' : 'od-actions'} data-spec-id="sec-action-bar" data-bos-level="section" data-bos-section="S99" data-bos-type="action">
+      {back}<div className="wf-act-r">{screen.results && <NS.Button theme="light" variant="ghost" specId="btn-action-start-over" onClick={() => { setS(Object.assign({}, window.WF.INITIAL)); setSent(false); goTo('path'); }}>Start over</NS.Button>}{why}{tradeBtn}{commit}</div>
+    </div>
+  );
+  const overlay = trade && <TradeOverlay M={M} S={S} aud={aud} onClose={() => setTrade(false)} onRemove={() => { setS((s) => Object.assign({}, s, { trade: null })); setTrade(false); }} onSave={(t) => { setS((s) => Object.assign({}, s, { trade: t, camping: s.camping || 'current' })); setTrade(false); }} />;
+  const q = <Question M={M} S={S} setS={setS} c={c} aud={aud} screen={screen} pos={pos} total={vis.length} setDetail={setDetail} />;
+  const res = <Results M={M} S={S} c={c} aud={aud} onGo={goTo} sent={sent} saved={savedAt} />;
+  if (aud === 'customer') return (<>{shell(
+    <div className="wf-cbody" data-spec-id={`sec-step#${screen.id}`} data-bos-level="section" data-bos-section="S04" data-bos-type="content">
+      {!screen.results && <Progress M={M} S={S} vis={vis} pos={pos} onGo={goTo} />}
+      {!screen.results && <p className="wf-count" role="status" aria-live="polite" data-spec-id="metric-campers-fit">{M.n(c.pool.length)} campers fit so far</p>}
+      {screen.results ? res : q}
+    </div>, actions, snapMeta, !screen.results)}{overlay}</>);
+  return (<>{shell(
+    <>
+      <section className="wf-status" data-spec-id="sec-units-in-play" data-bos-level="section" data-bos-section="S02" data-bos-type="status" aria-label="Units in play" aria-live="polite">
+        <div className="wf-status-t"><span className="od-lbl">Customers · Discovery</span><h1>Wayfinder</h1></div>
+        <dl>
+          <div data-spec-id="metric-units-in-play"><dt>Units in play</dt><dd>{M.n(c.pool.length)}</dd></div>
+          <div data-spec-id="metric-units-verified"><dt>Verified</dt><dd>{M.n(c.cand.verified.length)}</dd></div>
+          <div data-spec-id="metric-units-need-verification"><dt>Need verification</dt><dd>{M.n(c.cand.probable.length)}</dd></div>
+        </dl>
+        <span className="wf-snap" data-spec-id="info-snapshot-id">Snapshot {snap.meta.inventorySnapshotId} · {snap.meta.sourceDate}</span>
+      </section>
+      <StepRail M={M} S={S} c={c} cur={screen} onGo={goTo} />
+      <div className="od-body" data-bos-level="section" data-bos-section="S04" data-bos-type="content" data-spec-id={`sec-step#${screen.id}`}>
+        {screen.results ? res : q}
+        <aside className="od-aside" data-bos-level="section" data-bos-section="S05" data-bos-type="detail" aria-label="Step detail and case record">
+          {!screen.results && <Detail M={M} screen={screen} detail={detail} opts={opts} S={S} />}
+          <CaseRecord M={M} S={S} />
+        </aside>
+      </div>
+    </>, actions, snapMeta)}{overlay}</>);
+}
+
+// Prototype states. Seeds are answer sets, not invented data.
+const FAM = { path: 'TOW', type: 'TT', camping: 'current', trade: { year: '2016', mfr: 'FOREST RIVER', make: '', model: '', other: '', changes: ['space', 'bath'], text: 'Kids outgrew the bunks.', voice: 0 }, campStyle: ['pad'], activities: ['beaches', 'fishing'], adults: 2, children: 2, pets: 1, childSetup: 'must', bedroom: 'prefer', tow: 'yes', towRating: '8500', budget: 'finance', payment: '520', down: '5000', tier: 'good', store: 'AUT' };
+const SEED = (step, a) => ({ step, answers: Object.assign({}, FAM, a || {}) });
+const QUESTIONS = [
+  ['type', 'Type · towable', SEED('type', { type: null })],
+  ['type-motor', 'Class · motorhome', { step: 'type', answers: { path: 'MOTOR' } }],
+  ['camping', 'Camping today', SEED('camping', { camping: null })],
+  ['trade-now', 'Trade-in · current camper', SEED('tradeNow')],
+  ['trade-why', 'Trade-in · what to change', SEED('tradeWhy')],
+  ['campstyle', 'Camping style', SEED('campstyle')],
+  ['activities', 'Activities', SEED('activities')],
+  ['sleep', 'Sleeping · family', SEED('sleep', { bedroom: null }), true],
+  ['bedroom', 'Bedroom privacy', SEED('bedroom')],
+  ['tow', 'Towing · vehicle lookup', SEED('tow', { towMk: 'Ford', towMd: 'F-150', towEn: '' }), true],
+  ['length', 'Length · hard limit', SEED('length', { lengthMode: 'hard', lengthFt: '32' })],
+  ['garage', 'Garage · toy hauler', { step: 'garage', answers: { path: 'TOW', type: 'TTTH', camping: 'first', tow: 'no', garageFt: '12' } }],
+  ['bath', 'Bathroom · must-have', SEED('bath', { bath: ['bigger', 'two'], bathMust: ['two'] }), true],
+  ['inside', 'Inside', SEED('inside', { inside: ['cook', 'bedslide'] })],
+  ['outside', 'Outside', SEED('outside', { outside: ['cookout'] })],
+  ['size', 'Slide-outs', SEED('size', { size: 'space' })],
+  ['build', 'Build · sidewall', SEED('build', { size: 'space', build: 'laminate', buildMust: true })],
+  ['brand', 'Brand tier', SEED('brand', { size: 'space', build: 'either' })],
+  ['budget', 'Budget · monthly payment', SEED('budget', { size: 'space', build: 'either', brand: 'quality' }), true],
+];
+const mk = (aud) => {
+  const p = aud === 'customer' ? 'c' : 'o';
+  const role = aud === 'customer' ? 'customer' : 'outfitter';
+  const L = [
+    { id: `${p}-loading`, label: 'Loading inventory', initial: { loading: true } },
+    { id: `${p}-path`, label: 'Path · live walkthrough (saves to case)', key: true, initial: { persist: true } },
+    ...QUESTIONS.map(([id, label, init, key]) => ({ id: `${p}-${id}`, label, key, initial: init })),
+    { id: `${p}-trade-overlay`, label: 'Trade-in overlay', key: aud === 'customer', initial: Object.assign(SEED('sleep'), { tradeOpen: true }) },
+    { id: `${p}-results`, label: 'Matches', key: true, initial: SEED('results', { inside: ['cook'], size: 'space', build: 'either', brand: 'quality' }) },
+    { id: `${p}-results-sent`, label: aud === 'customer' ? 'Matches · sent to outfitter' : 'Matches · saved to case', initial: Object.assign(SEED('results', { inside: ['cook'], size: 'space', build: 'either', brand: 'quality' }), { sent: true }) },
+    { id: `${p}-zero`, label: 'Matches · zero results', initial: { step: 'results', answers: { path: 'TOW', type: 'TC', camping: 'first', budget: 'cash', maxSpend: '9000', tow: 'yes', towRating: '1500', adults: 4, children: 2, childSetup: 'must' } } },
+    { id: `${p}-error`, label: 'Inventory failed to load', initial: { error: true } },
+  ];
+  if (aud === 'outfitter') L.push({ id: 'o-no-access', label: 'No access · receptionist', role: 'receptionist', initial: {} });
+  return L.map((s) => Object.assign({ role }, s));
+};
+const LAYERS = [
+  { id: 'customer', label: 'Customer · welcome link', states: mk('customer') },
+  { id: 'outfitter', label: 'Outfitter · case mirror', states: mk('outfitter') },
+];
+window.WFApp = WayfinderApp; window.WF_LAYERS = LAYERS; window.WF_ROLES = ROLES;
+})();

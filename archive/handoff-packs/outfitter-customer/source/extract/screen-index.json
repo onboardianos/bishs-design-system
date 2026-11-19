@@ -1,0 +1,189 @@
+{
+  "source": "design-extract (9).zip",
+  "limitBytes": 20000000,
+  "screenRouteCount": 12,
+  "snapshotCount": 149,
+  "screens": [
+    {
+      "route": "/customer/discovery/7f4cb988514f9d9956865090e8ab28d9058f3ab96d9e3cd723ac51c91d8e3295",
+      "snapshots": 10,
+      "files": [
+        {
+          "file": "01-customer-discovery.json",
+          "bytes": 18644068,
+          "snapshots": 10,
+          "sha256": "0234cf6d6d41ab486071685b8e139ff52d07ceec2d597f0433a2849a2bb436e3"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/alerts",
+      "snapshots": 5,
+      "files": [
+        {
+          "file": "06-employee-outfitter-alerts.json",
+          "bytes": 4938332,
+          "snapshots": 5,
+          "sha256": "5a07a3cb35ddabea105e564d8b9576b0b94329813b8424b5e3b920949b8e982d"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/cases/66",
+      "snapshots": 3,
+      "files": [
+        {
+          "file": "07-employee-outfitter-cases-66.json",
+          "bytes": 2028831,
+          "snapshots": 3,
+          "sha256": "aab78ef7fc90fe0ef00e7c4adf9f247cfd7c3f1f5bee7d97f34b05eb99446a29"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/cases",
+      "snapshots": 6,
+      "files": [
+        {
+          "file": "08-employee-outfitter-cases.json",
+          "bytes": 5015202,
+          "snapshots": 6,
+          "sha256": "e03d64e564bb79f74cad70f7954754b4632ee9bd74eb67341ca03e96e4b476e2"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/discovery/66",
+      "snapshots": 11,
+      "files": [
+        {
+          "file": "09-employee-outfitter-discovery-66-part-01.json",
+          "bytes": 19263375,
+          "snapshots": 6,
+          "sha256": "570b06b77aec901c4b0f8741a92c8838409c3d0b11f9cf233e64baef36f25852"
+        },
+        {
+          "file": "09-employee-outfitter-discovery-66-part-02.json",
+          "bytes": 12347825,
+          "snapshots": 5,
+          "sha256": "1b7b99c50c7269ee1b823e94363f726e7dd3a078075ecbe5d6a9f9c3930ce7b1"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/discovery/69",
+      "snapshots": 14,
+      "files": [
+        {
+          "file": "10-employee-outfitter-discovery-69-part-01.json",
+          "bytes": 16645723,
+          "snapshots": 7,
+          "sha256": "845fdade9d7224742f086dd7472c500d9e27beed0e327523270b02c372904ebb"
+        },
+        {
+          "file": "10-employee-outfitter-discovery-69-part-02.json",
+          "bytes": 18614490,
+          "snapshots": 6,
+          "sha256": "771238a7039da20f0810427c95a82bdf83e3a099c3c7788d6d59058aefd141e6"
+        },
+        {
+          "file": "10-employee-outfitter-discovery-69-part-03.json",
+          "bytes": 3772893,
+          "snapshots": 1,
+          "sha256": "1382aed98aaeb101e53e1dc85de392e82b1bfafa13b9600fcf1bc7b042d82f4a"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/messenger",
+      "snapshots": 5,
+      "files": [
+        {
+          "file": "11-employee-outfitter-messenger.json",
+          "bytes": 3382887,
+          "snapshots": 5,
+          "sha256": "56587fb2a1a6de0de72d31c6ca7a86c41d024f2d7ddd8ebf1fab94c4d8aabfd2"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/my-turn",
+      "snapshots": 9,
+      "files": [
+        {
+          "file": "12-employee-outfitter-my-turn.json",
+          "bytes": 8792077,
+          "snapshots": 9,
+          "sha256": "cb79036a17251f44021a1999c8124f600a176611b7c6fdaa4e170e6827a171f4"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/stats",
+      "snapshots": 5,
+      "files": [
+        {
+          "file": "13-employee-outfitter-stats.json",
+          "bytes": 3544528,
+          "snapshots": 5,
+          "sha256": "0711b1b297e42693ed225ff57ca7ed8b6aa89adaf0267f1ec236b42f31d3028b"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/walkthrough/30",
+      "snapshots": 28,
+      "files": [
+        {
+          "file": "14-employee-outfitter-walkthrough-30-part-01.json",
+          "bytes": 19885641,
+          "snapshots": 20,
+          "sha256": "73a57cd39fd32fa9983024a9672519bef14101bd346f6555a96b0a7c641a5adb"
+        },
+        {
+          "file": "14-employee-outfitter-walkthrough-30-part-02.json",
+          "bytes": 5751958,
+          "snapshots": 8,
+          "sha256": "95cd22f8d3021817a69d224d6a17e25f830c869a8f6ca5dcdd4cb8300f15fa3b"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter/walkthrough/33",
+      "snapshots": 16,
+      "files": [
+        {
+          "file": "15-employee-outfitter-walkthrough-33-part-01.json",
+          "bytes": 19636003,
+          "snapshots": 14,
+          "sha256": "5ad41057a34e0aa068a2685518aa431e71c4f2c14aa3f103b4c1c9beb54e35c8"
+        },
+        {
+          "file": "15-employee-outfitter-walkthrough-33-part-02.json",
+          "bytes": 1160260,
+          "snapshots": 2,
+          "sha256": "9482e15775d8e4b91fd51b30ceb929a65c61c6cd02a83abd9030517334f4f745"
+        }
+      ]
+    },
+    {
+      "route": "/employee/outfitter",
+      "snapshots": 37,
+      "files": [
+        {
+          "file": "16-employee-outfitter-part-01.json",
+          "bytes": 19787119,
+          "snapshots": 27,
+          "sha256": "90845eb2fd26df37c52fe2867e1a24f84ca7ba256db5b1d903591bc433333d22"
+        },
+        {
+          "file": "16-employee-outfitter-part-02.json",
+          "bytes": 11880656,
+          "snapshots": 10,
+          "sha256": "84ba211e87ef7851a24ca0e618a73471adae84b99021d4336b01267c86ac7834"
+        }
+      ]
+    }
+  ],
+  "jsonFileCount": 25
+}

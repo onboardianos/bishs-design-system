@@ -1,0 +1,89 @@
+// MCP (Manager's pick · "Your 3 + 1") — converted data. Source: Figma "MVP – BISHS OS DESIGNS" page 1, 12 frames (MCP v2).
+(function () {
+const PH = (f) => `../floor-workspace/photos/${f}`;
+// [id, year, make, model, stock, cond, ageDays, lengthFt, dsrp, groupCount, extra]
+const RAW = [
+  ['jf175', 2027, 'Jayco', 'Jay Flight SLX 175BHW', '1048691', 'New', 406, 24, 18995, 6, { dry: 3815 }],
+  ['cfx252', 2025, 'Coachmen', 'Freedom Express 252RBS', 'C990314', 'Used', 212, 29, 31900, 1, {}],
+  ['jf261', 2026, 'Jayco', 'Jay Flight SLX 261BHS', '101488', 'New', 152, 30, 27995, 1, {}],
+  ['tx24', 2026, 'Grand Design', 'Transcend Xplor 24BHX', '1047730', 'New', 133, 29, 38995, 1, { vin: '573TX2425T1047730', dry: 5915, sleeps: 8, slides: 1, tow: 'half-ton', cost: 32116, features: ['Rear Bunks', 'Outside Kitchen', 'U-Shaped Dinette', 'Walk-in Pantry', 'Power Tongue Jack', 'Solar Prep', 'Queen Bed'] }],
+  ['hd186', 2026, 'Keystone', 'Hideout 186SS', '1046612', 'New', 98, 22, 24450, 1, {}],
+  ['ps199', 2026, 'Keystone', 'Passport SL 199ML', '1048841', 'New', 71, 23, 26995, 2, {}],
+  ['rw2205', 2026, 'Forest River', 'Rockwood Mini Lite 2205S', '1049318', 'New', 61, 26, 36850, 1, {}],
+  ['jfm171', 2023, 'Jayco', 'Jay Feather Micro 171BH', 'U990877', 'Used', 54, 22, 24900, 1, {}],
+  ['cg22', 2026, 'Keystone', 'Cougar Half-Ton 22MLS', '1050087', 'New', 47, 27, 41995, 1, {}],
+  ['ch16', 2026, 'Forest River', 'Cherokee 16BHS', '1050530', 'New', 17, 21, 19450, 1, {}],
+  ['wh25', 2026, 'Jayco', 'White Hawk 25MBH', '101902', 'New', 120, 29, 44500, 1, {}],
+  ['im26', 2026, 'Grand Design', 'Imagine 2600RB', '1046190', 'New', 88, 30, 47995, 1, {}],
+];
+const UNITS = RAW.map(([id, year, make, model, stock, cond, age, len, dsrp, group, x]) => ({ id, year, make, model, stock, cond, age, len, dsrp, group, store: 'Meridian', type: 'TT', img: PH('rv-travel-trailer.png'), ...x }));
+const UNIT_BY_ID = Object.fromEntries(UNITS.map((u) => [u.id, u]));
+const SHORTLIST = [
+  ['tx24', ['Closest to the brief', 'Bunkhouse · sleeps 8', '5,915 lbs dry']],
+  ['cfx252', ['Aged 212 d · room to deal', 'Rear bath']],
+  ['jf175', ['Oldest Jay Flight · 406 d', 'Lightest tow · 3,815 lbs']],
+  ['rw2205', ['Under 5,000 lbs', 'Rear bed + dinette']],
+  ['im26', ['$61 over ceiling', 'Grand Design build quality']],
+];
+const SLOTS = [{ id: 'slot-1', n: 1, label: 'Slot 1' }, { id: 'slot-2', n: 2, label: 'Slot 2' }, { id: 'target-unit', n: 3, label: 'Target unit' }, { id: 'great-idea', n: 4, label: 'Great idea' }];
+const CUSTOMER = {
+  name: 'Justin Walls', store: 'Meridian', initials: 'JW',
+  tow: { label: '2026 Ford', payload: '—', tow: '9,000', gcwr: '—' },
+  fin: { label: 'Finance', payment: '$325–$425', down: '$3,000', credit: 'Good' },
+  household: '2 adults · 1 kid',
+  camp: ['Pad camping (hookups)', 'Weekends & getaways', 'Tailgating', 'Powersports'],
+  matters: ['Price / Value', 'Floorplan', 'Brand reputation'],
+  discovery: 13,
+};
+const DEAL = { ceiling: 425, rate: 9, down: 3000, tax: 6, term: 180, termCap: 240, tradeAmt: 0, tradePayoff: 0, tradeAcv: 0, taxCredit: false };
+const CRITERIA = [['Type', 'Travel Trailer'], ['Tow', '10,000 lbs'], ['Length', '16–30 ft'], ['Sleeps', '3+']];
+const FILTER_OPTS = {
+  type: ['Travel Trailer', 'Fifth Wheel', 'Toy Hauler', 'Truck Camper', 'Destination', 'Tear Drop', 'Pop-up', 'Class A / B / C'],
+  condition: ['New', 'Used', 'Consignment'], build: ['Laminate', 'S&T'],
+  chars: ['Bunks', 'Outside kitchen', 'Rear bath', 'Dinette'],
+};
+const AGED_DAYS = 180; // needs-rule (Q-MCP-4): the source highlights 212d and 406d; the threshold is not stated.
+const RESPONSE_LIMIT = 300; // source: "RESPONSE 0:43 / 5:00"
+
+// Deal math (verified against every payment in the source: $38,995 → $38,335 financed → $389/mo at 9% · 180 mo · 6% tax · $3,000 down).
+function financed(dsrp, d) { const equity = (d.tradeAmt || 0) - (d.tradePayoff || 0); const taxable = d.taxCredit ? Math.max(0, dsrp - (d.tradeAmt || 0)) : dsrp; return dsrp + taxable * (d.tax / 100) - (d.down || 0) - equity; }
+function payment(dsrp, d) { const a = financed(dsrp, d), n = Math.min(d.term || 1, d.termCap || 240), r = d.rate / 100 / 12; return r ? (a * r) / (1 - Math.pow(1 + r, -n)) : a / n; }
+const money = (v) => `$${Math.round(v).toLocaleString('en-US')}`;
+
+const P = (d) => ['path', { d }], C = (cx, cy, r) => ['circle', { cx, cy, r }], R = (x, y, w, h, rx) => ['rect', { x, y, width: w, height: h, rx }];
+const ICONS = {
+  'grip-vertical': [C(9, 12, 1), C(9, 5, 1), C(9, 19, 1), C(15, 12, 1), C(15, 5, 1), C(15, 19, 1)],
+  'chevron-right': [P('m9 18 6-6-6-6')], 'chevron-down': [P('m6 9 6 6 6-6')], 'chevrons-left': [P('m11 17-5-5 5-5'), P('m18 17-5-5 5-5')], 'chevrons-up-down': [P('m7 15 5 5 5-5'), P('m7 9 5-5 5 5')],
+  check: [P('M20 6 9 17l-5-5')], plus: [P('M5 12h14'), P('M12 5v14')], x: [P('M18 6 6 18'), P('m6 6 12 12')],
+  'arrow-right': [P('M5 12h14'), P('m12 5 7 7-7 7')], 'arrow-up-right': [P('M7 7h10v10'), P('M7 17 17 7')],
+  sparkles: [P('M9.94 14.06 12 21l2.06-6.94L21 12l-6.94-2.06L12 3 9.94 9.94 3 12z')], search: [C(11, 11, 8), P('m21 21-4.3-4.3')],
+  truck: [P('M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2'), P('M15 18H9'), P('M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14'), C(17, 18, 2), C(7, 18, 2)],
+  wallet: [P('M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1'), P('M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4')],
+  users: [P('M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2'), C(9, 7, 4), P('M22 21v-2a4 4 0 0 0-3-3.87'), P('M16 3.13a4 4 0 0 1 0 7.75')],
+  tent: [P('M3.5 21 14 3'), P('M20.5 21 10 3'), P('M15.5 21 12 15l-3.5 6'), P('M2 21h20')],
+  star: [P('M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z')],
+  'sliders-horizontal': [P('M21 4h-7'), P('M10 4H3'), P('M21 12h-9'), P('M8 12H3'), P('M21 20h-5'), P('M12 20H3'), P('M14 2v4'), P('M8 10v4'), P('M16 18v4')],
+  'ellipsis-vertical': [C(12, 12, 1), C(12, 5, 1), C(12, 19, 1)], send: [P('M14.54 21.69a.5.5 0 0 0 .94-.03L22 2.5a.5.5 0 0 0-.64-.64L2.34 8.52a.5.5 0 0 0-.03.94l7.93 3.18a2 2 0 0 1 1.11 1.11z'), P('m21.85 2.15-10.94 10.94')],
+  'arrow-up': [P('m5 12 7-7 7 7'), P('M12 19V5')], 'arrow-down': [P('M12 5v14'), P('m19 12-7 7-7-7')], 'trash-2': [P('M3 6h18'), P('M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6'), P('M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2')],
+  lock: [R(3, 11, 18, 11, 2), P('M7 11V7a5 5 0 0 1 10 0v4')], 'clipboard-list': [R(8, 2, 8, 4, 1), P('M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2'), P('M12 11h4'), P('M12 16h4'), P('M8 11h.01'), P('M8 16h.01')],
+};
+function Icon({ name, size = 18, stroke = 1.75 }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: `0 0 ${size}px` }}>{(ICONS[name] || ICONS.x).map(([t, a], i) => React.createElement(t, { key: i, ...a }))}</svg>;
+}
+
+// Roles & permissions (documents/roles-and-permissions.md). Who reaches MCP is an open question for outfitters (Q-MCP-1).
+const ROLES = { manager: 'Sales manager', outfitter: 'Outfitter (read-only)' };
+const PERMS = {
+  'mcp.edit_deal':   { manager: 'act', outfitter: 'read' },
+  'mcp.select':      { manager: 'act', outfitter: 'hidden' },
+  'mcp.place':       { manager: 'act', outfitter: 'hidden' },
+  'mcp.send':        { manager: 'act', outfitter: 'hidden' },
+  'mcp.view_margin': { manager: 'act', outfitter: 'hidden' },
+  'mcp.filters':     { manager: 'act', outfitter: 'act' },
+};
+const can = (role, p) => (PERMS[p] && PERMS[p][role]) || 'hidden';
+const shows = (role, p) => can(role, p) !== 'hidden';
+const acts = (role, p) => can(role, p) === 'act';
+const slug = (s) => String(s).toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+window.MCP = { UNITS, UNIT_BY_ID, SHORTLIST, SLOTS, CUSTOMER, DEAL, CRITERIA, FILTER_OPTS, AGED_DAYS, RESPONSE_LIMIT, financed, payment, money, Icon, ROLES, PERMS, can, shows, acts, slug };
+})();
